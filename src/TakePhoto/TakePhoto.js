@@ -31,6 +31,22 @@ const check = () => {
     }
 }
 
+let useFrontCamera = true;
+let videoStream;
+const video = document.querySelector("#video");
+
+async function initializeCamera() {
+    // stopVideoStream();
+    constraints.video.facingMode = useFrontCamera ? "user" : "environment";
+
+    try {
+      videoStream = await navigator.mediaDevices.getUserMedia(constraints);
+      video.srcObject = videoStream;
+    } catch (err) {
+      alert("Could not access the camera");
+    }
+}
+
 const photo = () => {
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
@@ -42,12 +58,19 @@ const photo = () => {
     });
 }
 
+const changeCamera = () => {
+    useFrontCamera = !useFrontCamera
+    initializeCamera()
+}
+
 const TakePhoto = () => {
     return(
         <div>
-        <button onClick={check}>Start Stream</button>
+        {/* <button onClick={check}>Start Stream</button> */}
+        <button onClick={initializeCamera}>Start Stream</button>
         <button onClick={photo} id="snap">Take photo</button>
-        <video id="video" width="640" height="480" autoPlay></video>
+        <button onClick={changeCamera}>Change Camera</button>
+        <video id="video" autoPlay></video>
         <canvas id="canvas" width="640" height="480"></canvas>
         </div>
     )
