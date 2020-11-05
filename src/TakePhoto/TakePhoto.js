@@ -13,7 +13,7 @@ const constraints = {
         ideal: 1080,
         max: 1440,
       },
-      facingMode: '',
+      facingMode: 'environment',
     },
 };
 
@@ -38,7 +38,7 @@ const video = document.querySelector("#video");
 
 async function initializeCamera() {
     // stopVideoStream();
-    constraints.video.facingMode = useFrontCamera ? "user" : "environment";
+    // constraints.video.facingMode = useFrontCamera ? "user" : "environment";
 
     try {
       videoStream = await navigator.mediaDevices.getUserMedia(constraints);
