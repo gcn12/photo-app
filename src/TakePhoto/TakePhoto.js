@@ -33,20 +33,16 @@ const check = () => {
 }
 
 let useFrontCamera = true;
-let videoStream;
 const video = document.querySelector("#video");
 
 async function initializeCamera() {
     // stopVideoStream();
     constraints.video.facingMode = useFrontCamera ? "user" : "environment";
 
-    try {
-      videoStream = await navigator.mediaDevices.getUserMedia(constraints);
-      video.srcObject = videoStream;
-    //   video.play();
-    } catch (err) {
-      alert("Could not access the camera");
-    }
+    navigator.mediaDevices.getUserMedia(constraints).then(function(stream){
+
+        video.srcObject = stream;
+    })
 }
 
 const photo = () => {
