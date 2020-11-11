@@ -39,8 +39,8 @@ const TakePhoto = () => {
     return(
         <div>
             <button id="button" onClick={photo}>Get camera</button>
-            <video id="video" autoplay playsinline></video>
-        {/* <input type="file" accept="image/*" capture="camera"></input> */}
+            {/* <video id="video" autoplay playsinline></video> */}
+            {/* <input type="file" accept="image/*" capture="camera"></input> */}
         </div>
     )
 }
