@@ -64,6 +64,7 @@ const changeCamera = () => {
 const TakePhoto = () => {
     return(
         <div>
+            <input type="file" accept="image/*" capture="camera"></input>
         {/* <button onClick={check}>Start Stream</button> */}
         <button onClick={initializeCamera}>Start Stream</button>
         <button onClick={photo} id="snap">Take photo</button>
