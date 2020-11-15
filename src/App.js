@@ -1,12 +1,14 @@
 import React from 'react'
 import UploadPhoto from './UploadPhoto/UploadPhoto'
 import AddContent from './AddContent/AddContent'
+import GetPhotos from './GetPhotosHomepage/GetPhotosHomepage'
 
 const App = () => {
   return (
     <div>
       <UploadPhoto />
       <AddContent />
+      <GetPhotos />
     </div>
   );
 }
