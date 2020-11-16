@@ -1,14 +1,31 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import UploadPhoto from './UploadPhoto/UploadPhoto'
-import AddContent from './AddContent/AddContent'
-import GetPhotos from './GetPhotosHomepage/GetPhotosHomepage'
+// import AddContent from './AddContent/AddContent'
+// import GetPhotos from './GetPhotosHomepage/GetPhotosHomepage'
+import Login from './Login/Login'
+import Signup from './SignUp/SignUp'
+import firebase from 'firebase'
 
 const App = () => {
+
+  const [user, setUser] = useState()
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user)=> {
+      if(user) {
+        setUser(user.id)
+        console.log('signed in')
+      }
+    })
+  })
+
   return (
     <div>
       <UploadPhoto />
-      <AddContent />
-      <GetPhotos />
+      <Login setUser={setUser} user={user} />
+      <Signup />
+      {/* <AddContent /> */}
+      {/* <GetPhotos /> */}
     </div>
   );
 }
