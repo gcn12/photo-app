@@ -19,9 +19,11 @@ const Signup = () => {
             firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(user=> {
                 console.log(user.user.uid)
-                db.collection('users').set({
+                db.collection('users').doc(user.user.uid).set({
                     username: user.user.uid
-                })
+                }, {merge: true})
+                .then(console.log('sign up complete'))
+                .catch(err=>console.log(err))
             })
             .catch(err=>console.log(err))
         }

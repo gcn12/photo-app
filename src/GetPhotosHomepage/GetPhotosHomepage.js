@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { db } from '../Firebase'
 import '../App.css'
 import Masonry from 'masonry-layout'
-import Spinner from '../Spinner/Spinner'
+import { Image } from './GetPhotosHomepage.styles'
+// import Spinner from '../Spinner/Spinner'
 
 const DisplayPhoto = (props) => {
-    useEffect(()=> {
+    useEffect(()=> { 
         props.grid()
     })
     return(
         <div>
-            <a href={props.url}><img className='grid-item' alt='' src={props.image}></img></a>
+            <a href={props.url}><Image onClick={()=>props.setPhotoInformation(props.photoInfo)} className='grid-item' alt='' src={props.photoInfo.image}></Image></a>
         </div>
     )
 }
@@ -19,7 +20,7 @@ const GetPhotos = (props) => {
 
     useEffect(()=>{
         loadPhotos()
-    })
+    }, [])
 
     const [photos, setPhotos] = useState(null)
 
@@ -38,7 +39,7 @@ const GetPhotos = (props) => {
             })
             setPhotos(photosArray)
         })
-        props.setIsLoading(false)
+        // props.setIsLoading(false)
     }
     
 
@@ -47,15 +48,14 @@ const GetPhotos = (props) => {
         new Masonry( elem, {
             itemSelector: '.grid-item',
             columnWidth: 120,
-            // gutter: 20
         });
     }
     return(
         <div>
             <div id="grid">
-                {photos ? photos.map(photo=> {
+                {photos ? photos.map((photo, index)=> {
                     return(
-                        <DisplayPhoto grid={grid} url={photo.image} image={photo.image}/>
+                        <DisplayPhoto setPhotoInformation={props.setPhotoInformation} key={index} grid={grid} photoInfo={photo} />
                     )
                 })
                 :
@@ -65,16 +65,16 @@ const GetPhotos = (props) => {
     )
 }
 
-const GetPhotosSpinner = Spinner(GetPhotos)
+// const GetPhotosSpinner = Spinner(GetPhotos)
 
 
-const GetPhotosContainer = () => {
+// const GetPhotosContainer = () => {
 
-    const [isLoading, setIsLoading] = useState(false)
+//     const [isLoading, setIsLoading] = useState(false)
 
-    return(
-        <GetPhotosSpinner setIsLoading={setIsLoading} isLoading={isLoading}/>
-    )
-}
+//     return(
+//         <GetPhotosSpinner setIsLoading={setIsLoading} isLoading={isLoading}/>
+//     )
+// }
 
-export default GetPhotosContainer
+export default GetPhotos

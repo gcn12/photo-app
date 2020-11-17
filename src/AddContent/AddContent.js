@@ -17,6 +17,7 @@ const AddContent = () => {
     const [description, setDescription] = useState(null)
     const [country, setCountry] = useState(null)
     const [city, setCity] = useState(null)
+    const [author, setAuthor] = useState(null)
     const [isImage, setIsImage] = useState(false)
 
     const submit = (image) => {
@@ -33,12 +34,13 @@ const AddContent = () => {
                 description,
                 country,
                 continent,
+                author,
             }).then(docRef => {
                 submitRef.doc(continent).set({
                     [docRef.id]: docRef.id,
-                })
+                }, {merge: true})
+                .then(console.log('uploaded'))
             })
-            .then(console.log('uploaded'))
         // }
     }
 
@@ -82,7 +84,9 @@ const AddContent = () => {
                 }
                 <FormContainer>
                     <label>Title</label>
-                    <TextInput name='title' onChange={e=>setTitle(e.target.value)}></TextInput>
+                    <TextInput onChange={e=>setTitle(e.target.value)}></TextInput>
+                    <label>Your name</label>
+                    <TextInput onChange={e=>setAuthor(e.target.value)}></TextInput>
                     <label htmlFor='category'>Category</label>
                     <SelectInput name='category' id='category'>
                         <option value='' defaultValue>Select category</option>
@@ -94,9 +98,9 @@ const AddContent = () => {
                         <option value='museum'>Museum</option>
                     </SelectInput>
                     <label>City</label>
-                    <TextInput name='city' onChange={e=>setCity(e.target.value)}></TextInput>
+                    <TextInput onChange={e=>setCity(e.target.value)}></TextInput>
                     <label>Country</label>
-                    <TextInput name='country' onChange={e=>setCountry(e.target.value)}></TextInput>
+                    <TextInput onChange={e=>setCountry(e.target.value)}></TextInput>
                     <label htmlFor='continent'>Continent</label>
                     <SelectInput name='continent' id='continent'>
                         <option value='' defaultValue>Select continent</option>
@@ -108,7 +112,7 @@ const AddContent = () => {
                         <option value='Asia'>Asia</option>
                     </SelectInput>
                     <label>Description</label>
-                    <DescriptionInput name='description' onChange={e=>setDescription(e.target.value)}></DescriptionInput>
+                    <DescriptionInput onChange={e=>setDescription(e.target.value)}></DescriptionInput>
                 </FormContainer>
                 <SubmitButton onClick={fileUpload}>Submit</SubmitButton>
             </div>
