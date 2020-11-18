@@ -1,5 +1,6 @@
 import React from 'react'
-import './UploadPhoto.css'
+import './Header.css'
+import { SubmitButton } from '../Login/Login.styles'
 // import { db } from '../Firebase'
 // import firebase from 'firebase'
 
@@ -33,7 +34,7 @@ import './UploadPhoto.css'
 //     }).then(console.log('deleted'))
 // }
 
-const TakePhoto = () => {
+const Header = (props) => {
     return(
         <div className='test'>
             <ul>
@@ -44,6 +45,11 @@ const TakePhoto = () => {
                 <li>ASIA</li>
                 <li>AFRICA</li>
             </ul>
+            {props.user ? 
+            <SubmitButton onClick={()=>props.setPageRoute('Profile')}>Profile</SubmitButton>
+            :
+            null
+            }
             {/* <button onClick={test}>Query</button>
             <button onClick={update}>Update</button>
             <button onClick={deleteItem}>Delete</button> */}
@@ -51,4 +57,4 @@ const TakePhoto = () => {
     )
 }
 
-export default TakePhoto
+export default Header

@@ -6,6 +6,7 @@ export const SubmitButton = styled.button`
     border: none;
     width: 120px;
     height: 50px;
+    cursor: pointer;
 `
 
 export const Container = styled.div`
@@ -28,7 +29,7 @@ export const TextInput = styled.input`
 
 export const DescriptionInput = styled.textarea`
     width: 60vw;
-    height: 70px;
+    height: 150px;
     font-size: 20px;
 `
 

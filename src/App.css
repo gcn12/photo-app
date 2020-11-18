@@ -1,3 +1,19 @@
 .grid-item { 
     width: 30vw; 
 }
+
+.pac-item {
+    height: 40px;
+    font-size: 20px;
+}
+
+.pac-item-query {
+    font-size: 20px;
+
+}
+
+#autocomplete {
+    width: 60vw;
+    height: 40px;
+    font-size: 20px;
+}

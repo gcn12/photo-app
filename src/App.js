@@ -1,89 +1,57 @@
-import React, { useState, useEffect } from 'react'
-import UploadPhoto from './UploadPhoto/UploadPhoto'
+import React, { 
+  useState, 
+  useEffect,
+} from 'react'
+import Header from './Header/Header'
 import PhotoFeatured from './PhotoFeatured/PhotoFeatured'
 // import AddContent from './AddContent/AddContent'
 import GetPhotos from './GetPhotosHomepage/GetPhotosHomepage2'
+import Profile from './Profile/Profile'
 // import Login from './Login/Login'
 // import Signup from './SignUp/SignUp'
+// import Autocomplete from './Autocomplete/Autocomplete'
 import firebase from 'firebase'
 // import { firebaseApp } from './Firebase'
 
 const App = () => {
   // eslint-disable-next-line     
   const [user, setUser] = useState()
-  // eslint-disable-next-line 
   const [photoInformation, setPhotoInformation] = useState(null)
-  const [pageRoute, setPageRoute] = useState(false)
+  const [pageRoute, setPageRoute] = useState('GetPhotos')
   
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user)=> {
       if(user) {
-        setUser(user.id)
-        // console.log(user)
-        console.log('signed in')
+        setUser(user.uid)
       }
     })
   }, [])
 
   return (
     <div>
-      <button onClick={()=>console.log(photoInformation)}>PhotoInfo</button>
-      <UploadPhoto />
+      <Header setPageRoute={setPageRoute} user={user}/>
+      {/* <Autocomplete /> */}
       {/* <Login setUser={setUser} user={user} /> */}
       {/* <Signup /> */}
       {/* <AddContent /> */}
-      {pageRoute ? 
-      <PhotoFeatured photoInformation={photoInformation} />
-      :
-      <GetPhotos setPageRoute={setPageRoute} setPhotoInformation={setPhotoInformation} />
-      }
+
+      {(() => {
+        switch (pageRoute) {
+          case 'GetPhotos':
+            return <GetPhotos setPageRoute={setPageRoute} setPhotoInformation={setPhotoInformation} />
+          case 'PhotoFeatured':
+            return <PhotoFeatured setPageRoute={setPageRoute} setPhotoInformation={setPhotoInformation} photoInformation={photoInformation} />
+          case 'Profile':
+            return <Profile setPageRoute={setPageRoute} />;
+          default:
+            return null;
+        }
+      })()}
+      
     </div>
   );
 }
 
+
+
 export default App;
-
-
-
-// const dataTest = {
-//   continents: {
-//     Asia: {
-//       cities: {
-
-//       }
-//     },
-//     Africa: {
-
-//     },
-//     NorthAmerica: {
-
-//     },
-//     SouthAmerica: {
-
-//     },
-//     Oceania: {
-
-//     },
-//     Europe: {
-
-//     }
-//   },
-//   Posts: {
-//     1: {
-//       country: 'country',
-//       city: 'city',
-//       category: 'category',
-//       timestamp: 'timestamp',
-//       author: 'author',
-//       photo: 'url'
-//     }
-//   },
-//   Users : {
-//     username: {
-//       postsCreated: ['listID', 'listID2'],
-//       lists: {
-//         listName: ['listID', 'listID2']
-//       }
-//     }
-//   }
-// }

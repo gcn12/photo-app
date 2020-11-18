@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { db } from '../Firebase'
 import firebase from 'firebase'
+import Autocomplete from '../Autocomplete/Autocomplete'
 import {
     SubmitButton,
     Container,
@@ -11,20 +12,29 @@ import {
     DescriptionInput,
 } from './AddContent.styles'
 
+// API KEY GOOGLE PLACES: AIzaSyAnzlxU1r9vYq3I-tV-j9XSRr3j9uaxLow
+
 const AddContent = () => {
 
     const [title, setTitle] = useState(null)
     const [description, setDescription] = useState(null)
-    const [country, setCountry] = useState(null)
-    const [city, setCity] = useState(null)
     const [author, setAuthor] = useState(null)
     const [isImage, setIsImage] = useState(false)
 
     const submit = (image) => {
+        const location = document.getElementById('autocomplete').value
+        const splitLocation = location.split(',')
+        const country = splitLocation[splitLocation.length-1]
+        const city = splitLocation[0]
         const category = document.getElementById('category').value
-        const continent = document.getElementById('continent').value
         const submitRef = db.collection('continents')
         // if(category && title && city && country && description) {
+        db.collection('continents-map')
+        .get()
+        .then(data=>{
+            // data.docs.forEach(doc=>console.log(doc.data()))
+            const continentsList = data.docs[0].data()
+            const continent = continentsList[country.trim()]
             db.collection('posts').add({
                 title,
                 timestamp: Date.now(),
@@ -36,11 +46,13 @@ const AddContent = () => {
                 continent,
                 author,
             }).then(docRef => {
-                submitRef.doc(continent).set({
+                // submitRef.doc(continent).set({
+                submitRef.doc(continent).collection(country).doc(city).set({
                     [docRef.id]: docRef.id,
                 }, {merge: true})
                 .then(console.log('uploaded'))
             })
+        })
         // }
     }
 
@@ -97,20 +109,8 @@ const AddContent = () => {
                         <option value='shopping'>Shopping</option>
                         <option value='museum'>Museum</option>
                     </SelectInput>
-                    <label>City</label>
-                    <TextInput onChange={e=>setCity(e.target.value)}></TextInput>
-                    <label>Country</label>
-                    <TextInput onChange={e=>setCountry(e.target.value)}></TextInput>
-                    <label htmlFor='continent'>Continent</label>
-                    <SelectInput name='continent' id='continent'>
-                        <option value='' defaultValue>Select continent</option>
-                        <option value='Europe'>Europe</option>
-                        <option value='North America'>North America</option>
-                        <option value='South America'>South America</option>
-                        <option value='Africa'>Africa</option>
-                        <option value='Oceania'>Oceania</option>
-                        <option value='Asia'>Asia</option>
-                    </SelectInput>
+                    <label>Select City</label>
+                    <Autocomplete />
                     <label>Description</label>
                     <DescriptionInput onChange={e=>setDescription(e.target.value)}></DescriptionInput>
                 </FormContainer>

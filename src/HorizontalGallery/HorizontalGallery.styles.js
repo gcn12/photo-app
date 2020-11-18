@@ -22,5 +22,7 @@ export const OverflowX = styled.div`
 
 export const Image = styled.img`
     height: 300px;
+    width: auto;
     padding-right: 10px;
+    cursor: pointer;
 `

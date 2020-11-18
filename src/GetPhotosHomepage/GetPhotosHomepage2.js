@@ -11,10 +11,11 @@ import macy from 'macy'
 const DisplayPhoto = (props) => {
     useEffect(()=> { 
         props.grid()
+        // eslint-disable-next-line  
     }, [])
 
     const click = () => {
-        props.setPageRoute(true)
+        props.setPageRoute('PhotoFeatured')
         props.setPhotoInformation(props.photoInfo)
     }
 
