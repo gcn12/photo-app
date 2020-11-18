@@ -12,8 +12,6 @@ import {
     DescriptionInput,
 } from './AddContent.styles'
 
-// API KEY GOOGLE PLACES: AIzaSyAnzlxU1r9vYq3I-tV-j9XSRr3j9uaxLow
-
 const AddContent = () => {
 
     const [title, setTitle] = useState(null)
