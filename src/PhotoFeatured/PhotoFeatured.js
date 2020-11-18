@@ -17,6 +17,7 @@ const PhotoFeatured = (props) => {
     const [cityPhotos, setCityPhotos] = useState()
 
     useEffect(()=> {
+        window.scrollTo({top: 0})
         const countries = db.collection('posts')
         .where('continent', '==', props.photoInformation.continent)
         .where('country', '==', props.photoInformation.country)
