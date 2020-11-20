@@ -2,11 +2,17 @@ import styled from 'styled-components'
 
 export const SubmitButton = styled.button`
     color: white;
-    background-color: black;
+    background-color: #141414;
     border: none;
     width: 120px;
     height: 50px;
     cursor: pointer;
+    transition: background-color 400ms;
+
+    &:hover {
+        background-color: #212121;
+        /* color: grey; */
+    }
 `
 
 export const Container = styled.div`

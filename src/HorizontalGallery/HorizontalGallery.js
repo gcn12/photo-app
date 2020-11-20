@@ -1,4 +1,5 @@
 import React from 'react'
+import { db } from '../Firebase'
 import { 
     Title,
     OverflowX, 
@@ -6,7 +7,7 @@ import {
     SeeMore,
     TextContainer,
 } from './HorizontalGallery.styles'
-
+ 
 const DisplayPhoto = (props) => {
     return(
         <div>
@@ -15,39 +16,38 @@ const DisplayPhoto = (props) => {
     )
 }
 
-// const HorizontalGallery = (props) => {
-//     return(
-//         <div>
-//             <TextContainer>
-//                 <Title>City, Country</Title>
-//                 <SeeMore>See more</SeeMore>
-//             </TextContainer>
-//             <OverflowX>
-//                 {images.map(image => {
-//                     return(
-//                         <DisplayPhoto image={image.image}/>
-//                     )
-//                 })
-//                 }
-//             </OverflowX>
-//         </div>
-//     )
-// }
-
 const HorizontalGallery = (props) => {
+
+    const seeMore = () => {
+        const photosArray = []
+        db.collection('posts').where(props.place, '==', props.placeName)
+        .get()
+        .then(photos => {
+            photos.docs.forEach(photo=> {
+                photosArray.push(photo.data())
+            })
+            props.setHomePhotoInformation(photosArray)
+            props.setPageRoute('GetPhotos')
+        })
+    }
+
     return(
         <div>
             {props.photos ? 
             <div>
             <TextContainer>
                 <Title>{props.title}</Title>
-                <SeeMore>See more</SeeMore>
+                <SeeMore onClick={seeMore}>See more</SeeMore>
             </TextContainer>
             <OverflowX>
                 {
                 props.photos.map((info, index) => {
+                    const duplicateCheck = info.image !== props.photoInformation.image
                     return(
-                        <DisplayPhoto setPhotoInformation={props.setPhotoInformation} key={index} info={info} url={info.image}/>
+                        duplicateCheck ? 
+                        <DisplayPhoto getCountries={props.getCountries} setPhotoInformation={props.setPhotoInformation} setHomePhotoInformation={props.setHomePhotoInformation} key={index} info={info} url={info.image}/>
+                        :
+                        null
                     )
                 })
                 }

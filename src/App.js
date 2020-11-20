@@ -3,21 +3,21 @@ import React, {
   useEffect,
 } from 'react'
 import Header from './Header/Header'
+import VerticalScroll from './VerticalScroll'
 import PhotoFeatured from './PhotoFeatured/PhotoFeatured'
 // import AddContent from './AddContent/AddContent'
-import GetPhotos from './GetPhotosHomepage/GetPhotosHomepage2'
+import GetPhotos from './GetPhotosHomepage/GetPhotosHomepage'
 import Profile from './Profile/Profile'
 // import Login from './Login/Login'
 // import Signup from './SignUp/SignUp'
-// import Autocomplete from './Autocomplete/Autocomplete'
 import firebase from 'firebase'
 // import { firebaseApp } from './Firebase'
 
 const App = () => {
-  // eslint-disable-next-line     
   const [user, setUser] = useState()
+  const [homePhotoInformation, setHomePhotoInformation] = useState(null)
   const [photoInformation, setPhotoInformation] = useState(null)
-  const [pageRoute, setPageRoute] = useState('GetPhotos')
+  const [pageRoute, setPageRoute] = useState('Profile')
   
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user)=> {
@@ -29,20 +29,30 @@ const App = () => {
 
   return (
     <div>
-      <Header setPageRoute={setPageRoute} user={user}/>
+      {pageRoute==='GetPhotos' ? 
+      <Header setHomePhotoInformation={setHomePhotoInformation} setPageRoute={setPageRoute} user={user}/>
+      :
+      null
+      }
+
       {/* <Autocomplete /> */}
       {/* <Login setUser={setUser} user={user} /> */}
       {/* <Signup /> */}
-      {/* <AddContent /> */}
+      {/* <AddContent user={user} /> */}
 
       {(() => {
         switch (pageRoute) {
           case 'GetPhotos':
-            return <GetPhotos setPageRoute={setPageRoute} setPhotoInformation={setPhotoInformation} />
+            // return null
+            return (
+              <VerticalScroll>
+                <GetPhotos homePhotoInformation={homePhotoInformation} setHomePhotoInformation={setHomePhotoInformation} setPageRoute={setPageRoute} setPhotoInformation={setPhotoInformation} />
+              </VerticalScroll>
+            )
           case 'PhotoFeatured':
-            return <PhotoFeatured setPageRoute={setPageRoute} setPhotoInformation={setPhotoInformation} photoInformation={photoInformation} />
+            return <PhotoFeatured setHomePhotoInformation={setHomePhotoInformation} setPageRoute={setPageRoute} setPhotoInformation={setPhotoInformation} photoInformation={photoInformation} />
           case 'Profile':
-            return <Profile setPageRoute={setPageRoute} />;
+            return <Profile setPhotoInformation={setPhotoInformation} user={user} setPageRoute={setPageRoute} />;
           default:
             return null;
         }

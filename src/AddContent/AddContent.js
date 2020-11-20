@@ -12,7 +12,7 @@ import {
     DescriptionInput,
 } from './AddContent.styles'
 
-const AddContent = () => {
+const AddContent = (props) => {
 
     const [title, setTitle] = useState(null)
     const [description, setDescription] = useState(null)
@@ -22,20 +22,21 @@ const AddContent = () => {
     const submit = (image) => {
         const location = document.getElementById('autocomplete').value
         const splitLocation = location.split(',')
-        const country = splitLocation[splitLocation.length-1]
+        const country = splitLocation[splitLocation.length-1].trim()
         const city = splitLocation[0]
         const category = document.getElementById('category').value
         const submitRef = db.collection('continents')
+        const timestamp = Date.now()
         // if(category && title && city && country && description) {
-        db.collection('continents-map')
+
+        db.collection('continents-countries').doc('map').collection(country)
+        .where(country, 'in', ['North America', 'South America', 'Asia', 'Europe', 'Oceania', 'Africa'])
         .get()
-        .then(data=>{
-            // data.docs.forEach(doc=>console.log(doc.data()))
-            const continentsList = data.docs[0].data()
-            const continent = continentsList[country.trim()]
+        .then(data => {
+            const continent = data.docs[0].data()[country]
             db.collection('posts').add({
                 title,
-                timestamp: Date.now(),
+                timestamp,
                 image,
                 category,
                 city,
@@ -44,13 +45,29 @@ const AddContent = () => {
                 continent,
                 author,
             }).then(docRef => {
-                // submitRef.doc(continent).set({
                 submitRef.doc(continent).collection(country).doc(city).set({
                     [docRef.id]: docRef.id,
                 }, {merge: true})
+                .then(
+                    db.collection('users').doc(props.user)
+                    .collection('posts').doc(docRef.id).set({
+                        timestamp,
+                        id: docRef.id,
+                        title,
+                        image,
+                        category,
+                        city,
+                        description,
+                        country,
+                        continent,
+                        author,
+                    }, {merge: true})               
+                )
                 .then(console.log('uploaded'))
             })
         })
+
+        
         // }
     }
 
@@ -119,3 +136,29 @@ const AddContent = () => {
 }
 
 export default AddContent
+
+
+// db.collection('continents-map')
+//         .get()
+//         .then(data=>{
+//             // data.docs.forEach(doc=>console.log(doc.data()))
+//             const continentsList = data.docs[0].data()
+//             const continent = continentsList[country.trim()]
+//             db.collection('posts').add({
+//                 title,
+//                 timestamp: Date.now(),
+//                 image,
+//                 category,
+//                 city,
+//                 description,
+//                 country,
+//                 continent,
+//                 author,
+//             }).then(docRef => {
+//                 // submitRef.doc(continent).set({
+//                 submitRef.doc(continent).collection(country).doc(city).set({
+//                     [docRef.id]: docRef.id,
+//                 }, {merge: true})
+//                 .then(console.log('uploaded'))
+//             })
+//         })

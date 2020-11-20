@@ -1,6 +1,54 @@
 import React from 'react'
-import './Header.css'
 import { SubmitButton } from '../Login/Login.styles'
+import { db } from '../Firebase'
+import {
+    Container,
+    UL,
+    LI,
+} from './Header.styles'
+
+const Header = (props) => {
+
+    const getPhotoInfo = (continent) => {
+        const photosArray = []
+        db.collection('posts').where('continent', '==', continent)
+        .get()
+        .then(photos => {
+            photos.docs.forEach(photo=> {
+                photosArray.push(photo.data())
+            })
+            console.log(photosArray)
+            props.setHomePhotoInformation(photosArray)
+        })
+    }
+
+    return(
+        <Container className='test'>
+            <UL>
+                <LI onClick={()=> getPhotoInfo('North America')}>NORTH AMERICA</LI>
+                <LI onClick={()=> getPhotoInfo('South America')}>SOUTH AMERICA</LI>
+                <LI onClick={()=> getPhotoInfo('Europe')}>EUROPE</LI>
+                <LI onClick={()=> getPhotoInfo('Oceania')}>OCEANIA</LI>
+                <LI onClick={()=> getPhotoInfo('Asia')}>ASIA</LI>
+                <LI onClick={()=> getPhotoInfo('Africa')}>AFRICA</LI>
+            </UL>
+            {props.user ? 
+            <SubmitButton onClick={()=>props.setPageRoute('Profile')}>Profile</SubmitButton>
+            :
+            null
+            }
+        </Container>
+    )
+}
+
+export default Header
+
+
+
+
+
+
+
 // import { db } from '../Firebase'
 // import firebase from 'firebase'
 
@@ -33,28 +81,3 @@ import { SubmitButton } from '../Login/Login.styles'
 //         'lists.Fav': firebase.firestore.FieldValue.delete()
 //     }).then(console.log('deleted'))
 // }
-
-const Header = (props) => {
-    return(
-        <div className='test'>
-            <ul>
-                <li>NORTH AMERICA</li>
-                <li>SOUTH AMERICA</li>
-                <li>EUROPE</li>
-                <li>OCEANIA</li>
-                <li>ASIA</li>
-                <li>AFRICA</li>
-            </ul>
-            {props.user ? 
-            <SubmitButton onClick={()=>props.setPageRoute('Profile')}>Profile</SubmitButton>
-            :
-            null
-            }
-            {/* <button onClick={test}>Query</button>
-            <button onClick={update}>Update</button>
-            <button onClick={deleteItem}>Delete</button> */}
-        </div>
-    )
-}
-
-export default Header

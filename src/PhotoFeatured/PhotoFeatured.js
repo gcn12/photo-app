@@ -14,27 +14,18 @@ import {
 const PhotoFeatured = (props) => {
 
     const [countryPhotos, setCountryPhotos] = useState([])
-    const [cityPhotos, setCityPhotos] = useState()
+    const [cityPhotos, setCityPhotos] = useState([])
 
-    useEffect(()=> {
-        window.scrollTo({top: 0})
-        const countries = db.collection('posts')
-        .where('continent', '==', props.photoInformation.continent)
-        .where('country', '==', props.photoInformation.country)
-        countries.get().then(snapshot=>{
-            const countriesArray = []
-            snapshot.docs.forEach(doc=> {
-                countriesArray.push(doc.data())
-                // console.log(doc.data())
-            }) 
-            setCountryPhotos(countriesArray)
-        })
+    const { city, continent, country } = props.photoInformation
 
-        const cities = db.collection('posts')
-        .where('continent', '==', props.photoInformation.continent)
-        .where('country', '==', props.photoInformation.country)
-        .where('city', '==', props.photoInformation.city)
-        cities.get().then(snapshot=>{
+    const getCities = () => {
+
+        const ref = db.collection('posts')
+        .where('continent', '==', continent)
+        .where('country', '==', country)
+
+        ref.where('city', '==', city)
+        .get().then(snapshot=>{
             const cityArray = []
             snapshot.forEach(city=>{
                 cityArray.push(city.data())
@@ -43,8 +34,19 @@ const PhotoFeatured = (props) => {
             setCityPhotos(cityArray)
         })
 
-        // eslint-disable-next-line  
-    }, [])
+        ref.get().then(snapshot=>{
+            const countriesArray = []
+            snapshot.docs.forEach(doc=> {
+                countriesArray.push(doc.data())
+            }) 
+            setCountryPhotos(countriesArray)
+        })
+        window.scrollTo({top: 0})
+    }
+
+    
+
+    useEffect(getCities,[city, continent, country])
 
     return(
         <div>
@@ -59,11 +61,40 @@ const PhotoFeatured = (props) => {
                     <Description>{props.photoInformation.description}</Description>
                 </Container>
             </Container2>
-            {/* <HorizontalGallery photoInformation={countryPhotos} /> */}
-            <HorizontalGallery title={props.photoInformation.city} photoInformation={props.photoInformation} photos={cityPhotos} setPhotoInformation={props.setPhotoInformation}  />
-            <HorizontalGallery title={props.photoInformation.country} setPhotoInformation={props.setPhotoInformation} photos={countryPhotos} photoInformation={props.photoInformation} />
+            <HorizontalGallery getCountries={getCities} setHomePhotoInformation={props.setHomePhotoInformation} setPageRoute={props.setPageRoute}  placeName={props.photoInformation.city} place={'city'} title={props.photoInformation.city} photoInformation={props.photoInformation} photos={cityPhotos} setPhotoInformation={props.setPhotoInformation}  />
+            <HorizontalGallery setHomePhotoInformation={props.setHomePhotoInformation} setPageRoute={props.setPageRoute} placeName={props.photoInformation.country} place={'country'} title={props.photoInformation.country} setPhotoInformation={props.setPhotoInformation} photos={countryPhotos} photoInformation={props.photoInformation} />
         </div>
     )
 }
 
 export default PhotoFeatured
+
+
+// useEffect(()=> {
+//     window.scrollTo({top: 0})
+//     const countries = db.collection('posts')
+//     .where('continent', '==', props.photoInformation.continent)
+//     .where('country', '==', props.photoInformation.country)
+//     countries.get().then(snapshot=>{
+//         const countriesArray = []
+//         snapshot.docs.forEach(doc=> {
+//             countriesArray.push(doc.data())
+//         }) 
+//         setCountryPhotos(countriesArray)
+//     })
+
+//     const cities = db.collection('posts')
+//     .where('continent', '==', props.photoInformation.continent)
+//     .where('country', '==', props.photoInformation.country)
+//     .where('city', '==', props.photoInformation.city)
+//     cities.get().then(snapshot=>{
+//         const cityArray = []
+//         snapshot.forEach(city=>{
+//             cityArray.push(city.data())
+//             // console.log(city.data())
+//         })
+//         setCityPhotos(cityArray)
+//     })
+
+//     // eslint-disable-next-line  
+// }, [])

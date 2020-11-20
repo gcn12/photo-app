@@ -13,6 +13,7 @@ export const TextContainer = styled.div`
 
 export const SeeMore = styled.div`
     color: white;
+    cursor: pointer;
 `
 
 export const OverflowX = styled.div`
