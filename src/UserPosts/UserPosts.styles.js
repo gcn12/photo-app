@@ -7,8 +7,9 @@ export const Title = styled.div`
 
 export const Photo = styled.img`
     object-fit: cover;
-    height: 300px;
-    width: 200px;
+    height: 180px;
+    width: 180px;
+    border-radius: 50%;
 `
 
 export const PostsContainer = styled.div`

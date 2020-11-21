@@ -19,6 +19,7 @@ export const SeeMore = styled.div`
 export const OverflowX = styled.div`
     overflow-x: scroll;
     display: flex;
+    -webkit-overflow-scrolling: touch;
 `
 
 export const Image = styled.img`

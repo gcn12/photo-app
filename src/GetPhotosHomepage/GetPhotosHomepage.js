@@ -21,9 +21,11 @@ const DisplayPhoto = (props) => {
         props.setPhotoInformation(props.photoInfo)
     }
 
+    let width = '30vw'
+
     return(
         <div>
-            <a href={props.url}><Image onClick={click} className='grid-item' alt='' src={props.photoInfo.image}></Image></a>
+            <a href={props.url}><Image width={width} onClick={click} className='grid-item' alt='' src={props.photoInfo.image}></Image></a>
         </div>
     )
 }
@@ -61,7 +63,6 @@ const GetPhotos = (props) => {
             trueOrder: false,
             breakAt: {
                 1500: 3,
-                940: 3,
                 520: 2,
                 400: 1
             },

@@ -14,8 +14,8 @@ const Autocomplete = (props) => {
                 // fields: ['place_id', 'geometry', 'name']
             }
         )
-
         autocomplete.addListener('place_changed', onPlaceChanged)
+        console.log('autocomplete')
     }
 
     const onPlaceChanged = () => {
@@ -23,6 +23,7 @@ const Autocomplete = (props) => {
         if (!place?.name) {
             document.getElementById('autocomplete').placeholder = 'Enter a place'
         } else {
+            console.log('autocomplete')
         }
     }
 

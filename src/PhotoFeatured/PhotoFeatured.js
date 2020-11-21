@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import HorizontalGallery from '../HorizontalGallery/HorizontalGallery'
+import Dropdown from '../Dropdown/Dropdown'
 import { db } from '../Firebase'
 import { SubmitButton } from '../AddContent/AddContent.styles'
 import {
@@ -9,10 +10,13 @@ import {
     Author,
     Container,
     Container2,
+    Container3,
 } from './PhotoFeatured.styles'
 
 const PhotoFeatured = (props) => {
 
+    const [collectionsList, setCollectionsList] = useState([])
+    const [showDropdown, setShowDropdown] = useState(null)
     const [countryPhotos, setCountryPhotos] = useState([])
     const [cityPhotos, setCityPhotos] = useState([])
 
@@ -43,10 +47,31 @@ const PhotoFeatured = (props) => {
         })
         window.scrollTo({top: 0})
     }
+    
+    useEffect(getCities,[city, continent, country])
 
+    const getCollectionsList = () => {
+        db.collection('users')
+        .doc(props.user)
+        .get()
+        .then(collections => {
+            setCollectionsList(Object.keys(collections.data()))
+        })
+    }
+
+    const showDropdownAndGetList = () => {
+        setShowDropdown(!showDropdown)
+        if(collectionsList?.length === 0) {
+            getCollectionsList()
+        }
+    }
     
 
-    useEffect(getCities,[city, continent, country])
+    window.onclick = (e) => {
+        if (!e.target.matches('.dropdown')) {
+            setShowDropdown(false)
+        }
+    }
 
     return(
         <div>
@@ -55,7 +80,18 @@ const PhotoFeatured = (props) => {
                 <Container>
                     <Title>{props.photoInformation.title}</Title>
                     <Container2>
-                        <Image alt='display' src={props.photoInformation.image}></Image>
+                        <Container3>
+                                <Image alt='display' src={props.photoInformation.image}></Image>
+                                <div>
+                                    <SubmitButton className='dropdown' onClick={showDropdownAndGetList}>
+                                        <div className='dropdown'>Add to collection</div>
+                                    </SubmitButton>
+                                    {showDropdown ? 
+                                    <Dropdown className='dropdown' photoInformation={props.photoInformation} user={props.user} collectionsList={collectionsList}/> 
+                                    : 
+                                    null}  
+                                </div>
+                        </Container3>
                     </Container2>
                     <Author>{props.photoInformation.author}</Author>
                     <Description>{props.photoInformation.description}</Description>
@@ -68,33 +104,3 @@ const PhotoFeatured = (props) => {
 }
 
 export default PhotoFeatured
-
-
-// useEffect(()=> {
-//     window.scrollTo({top: 0})
-//     const countries = db.collection('posts')
-//     .where('continent', '==', props.photoInformation.continent)
-//     .where('country', '==', props.photoInformation.country)
-//     countries.get().then(snapshot=>{
-//         const countriesArray = []
-//         snapshot.docs.forEach(doc=> {
-//             countriesArray.push(doc.data())
-//         }) 
-//         setCountryPhotos(countriesArray)
-//     })
-
-//     const cities = db.collection('posts')
-//     .where('continent', '==', props.photoInformation.continent)
-//     .where('country', '==', props.photoInformation.country)
-//     .where('city', '==', props.photoInformation.city)
-//     cities.get().then(snapshot=>{
-//         const cityArray = []
-//         snapshot.forEach(city=>{
-//             cityArray.push(city.data())
-//             // console.log(city.data())
-//         })
-//         setCityPhotos(cityArray)
-//     })
-
-//     // eslint-disable-next-line  
-// }, [])

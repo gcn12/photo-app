@@ -1,10 +1,11 @@
 import React from 'react'
+import { Scroll } from './VeritcalScroll.styles'
 
 const VerticalScroll = (props) => {
     return(
-        <div style={{overflowY: 'scroll', height: '90vh'}}>
+        <Scroll>
             {props.children}
-        </div>
+        </Scroll>
     )
 }
 

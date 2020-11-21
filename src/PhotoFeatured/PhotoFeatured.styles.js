@@ -5,8 +5,15 @@ export const Container = styled.div`
     flex-direction: column;
 `
 
+export const Container3 = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+`
+
 export const Container2 = styled.div`
     display: flex;
+    /* flex-direction: column; */
     justify-content: center;
 `
 

@@ -20,7 +20,7 @@ export const UL = styled.ul`
 export const LI = styled.li`
     cursor: pointer;
     -webkit-touch-callout: none; 
-    -webkit-user-select: none; /* Safari */
+    -webkit-user-select: none; 
     -khtml-user-select: none; 
     -moz-user-select: none; 
     -ms-user-select: none; 

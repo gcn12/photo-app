@@ -3,7 +3,7 @@ import React, {
   useEffect,
 } from 'react'
 import Header from './Header/Header'
-import VerticalScroll from './VerticalScroll'
+import VerticalScroll from './VeritcalScroll/VerticalScroll'
 import PhotoFeatured from './PhotoFeatured/PhotoFeatured'
 // import AddContent from './AddContent/AddContent'
 import GetPhotos from './GetPhotosHomepage/GetPhotosHomepage'
@@ -17,7 +17,7 @@ const App = () => {
   const [user, setUser] = useState()
   const [homePhotoInformation, setHomePhotoInformation] = useState(null)
   const [photoInformation, setPhotoInformation] = useState(null)
-  const [pageRoute, setPageRoute] = useState('Profile')
+  const [pageRoute, setPageRoute] = useState('GetPhotos')
   
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user)=> {
@@ -46,18 +46,33 @@ const App = () => {
             // return null
             return (
               <VerticalScroll>
-                <GetPhotos homePhotoInformation={homePhotoInformation} setHomePhotoInformation={setHomePhotoInformation} setPageRoute={setPageRoute} setPhotoInformation={setPhotoInformation} />
+                <GetPhotos 
+                  homePhotoInformation={homePhotoInformation} 
+                  setHomePhotoInformation={setHomePhotoInformation} 
+                  setPageRoute={setPageRoute} 
+                  setPhotoInformation={setPhotoInformation} 
+                />
               </VerticalScroll>
             )
           case 'PhotoFeatured':
-            return <PhotoFeatured setHomePhotoInformation={setHomePhotoInformation} setPageRoute={setPageRoute} setPhotoInformation={setPhotoInformation} photoInformation={photoInformation} />
+            return <PhotoFeatured 
+              user={user} 
+              setHomePhotoInformation={setHomePhotoInformation} 
+              setPageRoute={setPageRoute} 
+              setPhotoInformation={setPhotoInformation} 
+              photoInformation={photoInformation} 
+            />
           case 'Profile':
-            return <Profile setPhotoInformation={setPhotoInformation} user={user} setPageRoute={setPageRoute} />;
+            return <Profile 
+              setHomePhotoInformation={setHomePhotoInformation} 
+              setPhotoInformation={setPhotoInformation} 
+              user={user} 
+              setPageRoute={setPageRoute} 
+            />;
           default:
             return null;
         }
       })()}
-      
     </div>
   );
 }

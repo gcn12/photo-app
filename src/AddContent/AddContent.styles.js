@@ -48,4 +48,5 @@ export const SelectInput = styled.select`
 export const PreviewImage = styled.img`
     height: 500px;
     width: auto;
+    position: relative;
 `

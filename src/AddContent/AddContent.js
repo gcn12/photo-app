@@ -61,7 +61,10 @@ const AddContent = (props) => {
                         country,
                         continent,
                         author,
-                    }, {merge: true})               
+                    }, {merge: true})
+                    .then(db.collection('posts').doc(docRef.id).set({
+                        id: docRef.id,
+                    }, {merge: true}))               
                 )
                 .then(console.log('uploaded'))
             })

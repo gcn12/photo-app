@@ -57,7 +57,12 @@ const UserPosts = (props) => {
             <PostsContainer>
                 {posts?.map((post, index)=> {
                     return(
-                        <DisplayPosts setPhotoInformation={props.setPhotoInformation} setPageRoute={props.setPageRoute} key={index} post={post}/>
+                        <DisplayPosts 
+                            setPhotoInformation={props.setPhotoInformation} 
+                            setPageRoute={props.setPageRoute} 
+                            key={index} 
+                            post={post}
+                        />
                         )
                     })}
             </PostsContainer>
