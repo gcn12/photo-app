@@ -36,7 +36,6 @@ const App = () => {
       }
 
       {/* <Autocomplete /> */}
-      {/* <Login setUser={setUser} user={user} /> */}
       {/* <Signup /> */}
       {/* <AddContent user={user} /> */}
 
@@ -69,6 +68,8 @@ const App = () => {
               user={user} 
               setPageRoute={setPageRoute} 
             />;
+          case 'Login':
+            return <Login setUser={setUser} user={user} />
           default:
             return null;
         }

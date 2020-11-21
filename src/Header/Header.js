@@ -35,7 +35,7 @@ const Header = (props) => {
             {props.user ? 
             <SubmitButton onClick={()=>props.setPageRoute('Profile')}>Profile</SubmitButton>
             :
-            null
+            <SubmitButton onClick={()=>props.setPageRoute('Login')}>Log in</SubmitButton>
             }
         </Container>
     )

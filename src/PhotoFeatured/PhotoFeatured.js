@@ -82,6 +82,7 @@ const PhotoFeatured = (props) => {
                     <Container2>
                         <Container3>
                                 <Image alt='display' src={props.photoInformation.image}></Image>
+                                {props?.user ? 
                                 <div>
                                     <SubmitButton className='dropdown' onClick={showDropdownAndGetList}>
                                         <div className='dropdown'>Add to collection</div>
@@ -91,6 +92,8 @@ const PhotoFeatured = (props) => {
                                     : 
                                     null}  
                                 </div>
+                                :
+                                null}
                         </Container3>
                     </Container2>
                     <Author>{props.photoInformation.author}</Author>
