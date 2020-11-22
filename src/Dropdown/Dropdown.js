@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { 
     Container,
     Collection, 
+    Warning,
 } from './Dropdown.styles'
 import { db } from '../Firebase'
 
@@ -21,7 +22,7 @@ const DropdownItem = (props) => {
                         ...props.photoInformation,
                         collection: props.collection,
                         timestamp: Date.now()
-                    }).then(console.log('added to collection:', props.collection))
+                    }).then(console.log('added to collection'))
                 }
             })
 
@@ -40,7 +41,6 @@ const DropdownItem = (props) => {
                 item.ref.delete()
             })
         })
-        // .delete()
     }
 
     const add = () => {
@@ -78,6 +78,7 @@ const DropdownItem = (props) => {
 const Dropdown = (props) => {
 
     const [isCreateCollection, setIsCreateCollection] = useState(false)
+    const [isCollectionExists, setIsCollectionExists] = useState(false)
 
     const addToCollection = (name) => {
         const addRef = db.collection('users').doc(props.user).collection('collections')
@@ -97,16 +98,21 @@ const Dropdown = (props) => {
 
     const createCollection = () => {
         const collectionName = document.getElementById('collection-name').value
-        db.collection('users')
-        .doc(props.user)
-        .collection('collection-names')
-        .add({
-            name: collectionName,
-            timestamp: Date.now()
-        }).then(addToCollection(collectionName))
-
-        props.setCollectionsBoolArray([...props.collectionsBoolArray, true])
-        props.setCollectionsList([...props.collectionsList, collectionName])
+        if(!props.collectionsList.includes(collectionName)){
+            db.collection('users')
+            .doc(props.user)
+            .collection('collection-names')
+            .add({
+                name: collectionName,
+                timestamp: Date.now()
+            }).then(addToCollection(collectionName))
+    
+            props.setCollectionsBoolArray([...props.collectionsBoolArray, true])
+            props.setCollectionsList([...props.collectionsList, collectionName])
+            setIsCollectionExists(false)
+        }else{
+            setIsCollectionExists(true)
+        }
     }
 
     return(
@@ -132,7 +138,8 @@ const Dropdown = (props) => {
             </div>
             :
             <button onClick={()=>setIsCreateCollection(true)} className='dropdown'>Add to new collection</button>
-            }
+        }
+        {isCollectionExists ? <Warning>Collection already exists</Warning> : null}
         </Container>
     )
 }

@@ -17,3 +17,7 @@ export const Collection = styled.div`
         background-color: gray;
     }
 `
+
+export const Warning = styled.div`
+    color: red;
+`

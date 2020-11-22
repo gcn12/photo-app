@@ -1,5 +1,15 @@
 import styled from 'styled-components'
 
+export const Header = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+`
+
+export const Ellipsis = styled.div`
+    cursor: pointer;
+`
+
 export const Image = styled.img`
     height: ${props => props.height};
     width: ${props => props.width};

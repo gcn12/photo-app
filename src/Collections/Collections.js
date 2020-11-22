@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { db } from '../Firebase'
+import DropdownDelete from './DropdownDelete'
 import { 
     Title
 } from '../UserPosts/UserPosts.styles'
@@ -8,6 +9,8 @@ import {
     ImagesContainer,
     Container,
     NoImage,
+    Header,
+    Ellipsis,
 } from './Collections.styles'
 
 const Collection = (props) => {
@@ -27,19 +30,31 @@ const Collection = (props) => {
             props.setPageRoute('GetPhotos')
         })
     }
-    console.log(props.collection)
+
+    const [isDeleteMenu, setIsDeleteMenu] = useState(false)
+
     let items = props.collection[1].length
     if(props.collection[1][0] !== null) {
         items = props.collection[1].length
     }else{
         items = 0
     }
-    const { collection } = props
     
+    const { collection } = props
     
     return(
         <div>
-            <Title>{props.collection[0]}</Title>
+            <Header>
+                <Title>{props.collection[0]}</Title>
+                <Ellipsis onClick={()=>setIsDeleteMenu(!isDeleteMenu)}>
+                    <div>&#8942;</div>
+                    {isDeleteMenu ? 
+                    <DropdownDelete user={props.user} collectionName={props.collection[0]}></DropdownDelete>
+                    :
+                    null
+                    }
+                </Ellipsis>
+            </Header>
             <ImagesContainer onClick={getPhotos}>
                 {items > 0 ? 
                 <div>
@@ -155,34 +170,3 @@ const dimensionsMap = {
 }
 
 export default Collections
-
-
-// const getCollections = () => {
-//     if(props.user) {    
-//         db.collection('users')
-//         .doc(props.user)
-//         .get()
-//         .then(collections=> {
-//             setCollectionInfo(Object.entries(collections.data()))
-//         })
-//     }
-// }
-
-// const getPhotos = () => {
-//     db.collection('users')
-//     .doc(props.user)
-//     .collection('collections')
-//     .doc(props.collection[0])
-//     .collection(props.collection[0])
-//     .get()
-//     .then(data=> {
-//         const array = []
-//         data.docs.forEach(doc=> {
-//             array.push(doc.data())
-//         })
-//         props.setHomePhotoInformation(array)
-//         props.setPageRoute('GetPhotos')
-//     })
-// }
-// const items = props.collection[1].length
-// const { collection } = props
