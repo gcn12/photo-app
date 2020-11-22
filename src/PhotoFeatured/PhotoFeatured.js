@@ -16,11 +16,12 @@ import {
 const PhotoFeatured = (props) => {
 
     const [collectionsList, setCollectionsList] = useState([])
+    const [collectionsBoolArray, setCollectionsBoolArray] = useState(null)
     const [showDropdown, setShowDropdown] = useState(null)
     const [countryPhotos, setCountryPhotos] = useState([])
     const [cityPhotos, setCityPhotos] = useState([])
 
-    const { city, continent, country } = props.photoInformation
+    const { city, continent, country, id } = props.photoInformation
 
     const getCities = () => {
 
@@ -33,7 +34,6 @@ const PhotoFeatured = (props) => {
             const cityArray = []
             snapshot.forEach(city=>{
                 cityArray.push(city.data())
-                // console.log(city.data())
             })
             setCityPhotos(cityArray)
         })
@@ -51,21 +51,44 @@ const PhotoFeatured = (props) => {
     useEffect(getCities,[city, continent, country])
 
     const getCollectionsList = () => {
+        const boolArray = []
+        const collectionsArray = []
         db.collection('users')
         .doc(props.user)
+        .collection('collection-names')
         .get()
         .then(collections => {
-            setCollectionsList(Object.keys(collections.data()))
-        })
+            collections.docs.forEach(collection=> {
+                collectionsArray.push(collection.data().name)
+                db.collection('users')
+                .doc(props.user)
+                .collection('collections')
+                .where('collection', '==', collection.data().name)
+                .where('id', '==', id)
+                .get()
+                .then(data=> {
+                    if(data) {
+                        if(data.docs.length > 0){
+                            boolArray.push(true)
+                        }else{
+                            boolArray.push(false)
+                        }
+                        
+                    }
+                    setCollectionsBoolArray(boolArray)
+                    setCollectionsList(collectionsArray)
+                })
+            })
+        }).then(setShowDropdown(!showDropdown))
     }
 
     const showDropdownAndGetList = () => {
-        setShowDropdown(!showDropdown)
         if(collectionsList?.length === 0) {
             getCollectionsList()
+        }else{
+            setShowDropdown(!showDropdown)
         }
     }
-    
 
     window.onclick = (e) => {
         if (!e.target.matches('.dropdown')) {
@@ -88,7 +111,15 @@ const PhotoFeatured = (props) => {
                                         <div className='dropdown'>Add to collection</div>
                                     </SubmitButton>
                                     {showDropdown ? 
-                                    <Dropdown className='dropdown' photoInformation={props.photoInformation} user={props.user} collectionsList={collectionsList}/> 
+                                        <Dropdown 
+                                            setCollectionsBoolArray={setCollectionsBoolArray}
+                                            collectionsBoolArray={collectionsBoolArray} 
+                                            className='dropdown' 
+                                            photoInformation={props.photoInformation} 
+                                            user={props.user} 
+                                            collectionsList={collectionsList}
+                                            setCollectionsList={setCollectionsList}
+                                        /> 
                                     : 
                                     null}  
                                 </div>
@@ -100,10 +131,103 @@ const PhotoFeatured = (props) => {
                     <Description>{props.photoInformation.description}</Description>
                 </Container>
             </Container2>
-            <HorizontalGallery getCountries={getCities} setHomePhotoInformation={props.setHomePhotoInformation} setPageRoute={props.setPageRoute}  placeName={props.photoInformation.city} place={'city'} title={props.photoInformation.city} photoInformation={props.photoInformation} photos={cityPhotos} setPhotoInformation={props.setPhotoInformation}  />
-            <HorizontalGallery setHomePhotoInformation={props.setHomePhotoInformation} setPageRoute={props.setPageRoute} placeName={props.photoInformation.country} place={'country'} title={props.photoInformation.country} setPhotoInformation={props.setPhotoInformation} photos={countryPhotos} photoInformation={props.photoInformation} />
+            <HorizontalGallery 
+                getCountries={getCities} 
+                setHomePhotoInformation={props.setHomePhotoInformation} 
+                setPageRoute={props.setPageRoute}  
+                placeName={props.photoInformation.city} 
+                place={'city'} 
+                title={props.photoInformation.city} 
+                photoInformation={props.photoInformation} 
+                photos={cityPhotos} 
+                setPhotoInformation={props.setPhotoInformation}  
+            />
+            <HorizontalGallery 
+                setHomePhotoInformation={props.setHomePhotoInformation} 
+                setPageRoute={props.setPageRoute} 
+                placeName={props.photoInformation.country} 
+                place={'country'} 
+                title={props.photoInformation.country} 
+                setPhotoInformation={props.setPhotoInformation} 
+                photos={countryPhotos} 
+                photoInformation={props.photoInformation} 
+            />
         </div>
     )
 }
 
 export default PhotoFeatured
+
+
+// const getCollectionsList = () => {
+//     const boolArray = []
+//     const collectionsArray = []
+//     db.collection('users')
+//     .doc(props.user)
+//     .collection('collection-names')
+//     .get()
+//     .then(collections => {
+
+//         collections.docs.forEach(collection=> {
+//             collectionsArray.push(collection.data().name)
+//         })
+
+        
+//         collectionsArray.forEach(collection=> {
+//             db.collection('users')
+//             .doc(props.user)
+//             .collection('collections')
+//             .where('collection', '==', collection)
+//             .where('id', '==', id)
+//             .get()
+//             .then(data=> {
+//                 if(data) {
+//                     if(data.docs.length > 0){
+//                         boolArray.push(true)
+//                     }else{
+//                         boolArray.push(false)
+//                     }
+                    
+//                 }
+//             })
+//         // })
+//         }, setCollectionsBoolArray(boolArray), setCollectionsList(collectionsArray), setShowDropdown(!showDropdown))
+//     })
+//     .then(
+//         setCollectionsBoolArray(boolArray)
+//     )
+//     .then(
+//         setCollectionsList(collectionsArray)
+//     )
+//     .then(setShowDropdown(!showDropdown))
+// }
+
+
+// const getCollectionsList = () => {
+//     db.collection('users')
+//     .doc(props.user)
+//     .get()
+//     .then(collections => {
+//         const collectionsArray = Object.keys(collections.data())
+//         const boolArray = []
+        
+//         collectionsArray.forEach(collection=> {
+//             db.collection('users')
+//             .doc(props.user)
+//             .collection('collections')
+//             .where('collection', '==', collection)
+//             .where('id', '==', id)
+//             .get()
+//             .then(data=> {
+//                 if(data) {
+//                     if(data.docs.length > 0){
+//                         boolArray.push(true)
+//                     }else{
+//                         boolArray.push(false)
+//                     }
+//                 }
+                
+//             })
+//         }, setCollectionsBoolArray(boolArray), setCollectionsList(collectionsArray))
+//     })
+// }

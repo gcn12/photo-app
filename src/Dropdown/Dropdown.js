@@ -7,60 +7,146 @@ import { db } from '../Firebase'
 
 const DropdownItem = (props) => {
 
+    const [isAdded, setIsAdded] = useState(props.collectionsBoolArray[props.index])
+
     const addToCollection = () => {
+        const addRef = db.collection('users').doc(props.user).collection('collections')
+        if(!isAdded) {
+            addRef.where('image', '==', props.photoInformation.image)
+            .where('collection', '==', props.collection)
+            .get()
+            .then(data=> {
+                if(data.docs.length === 0) {
+                    addRef.add({
+                        ...props.photoInformation,
+                        collection: props.collection,
+                        timestamp: Date.now()
+                    }).then(console.log('added to collection:', props.collection))
+                }
+            })
+
+        }
+    }
+
+    const removeFromCollection = () => {
         db.collection('users')
         .doc(props.user)
         .collection('collections')
-        .doc(props.collection)
-        .collection(props.collection)
-        .doc(props.photoInformation.id)
-        .set({
-            ...props.photoInformation,
-        }).then(null)
+        .where('image', '==', props.photoInformation.image)
+        .where('collection', '==', props.collection)
+        .get()
+        .then(data => {
+            data.docs.forEach(item => {
+                item.ref.delete()
+            })
+        })
+        // .delete()
     }
 
     const add = () => {
-        const isAddedArray = props.isAdded
-        isAddedArray[props.index] = true
-        props.setIsAdded([true, true])
+        const arrayCopy = props.collectionsBoolArray
+        const reverseBool = !isAdded
+        arrayCopy[props.index] = reverseBool
+        props.setCollectionsBoolArray(arrayCopy)
+        setIsAdded(reverseBool)
     }
 
     const remove = () => {
-        const isAddedArray = props.isAdded
-        isAddedArray[isAddedArray[props.index]] = false
-        props.setIsAdded(isAddedArray)
+        const arrayCopy = props.collectionsBoolArray
+        const reverseBool = !isAdded
+        arrayCopy[props.index] = reverseBool
+        props.setCollectionsBoolArray(arrayCopy)
+        setIsAdded(reverseBool)
+        removeFromCollection()
     }
 
     return(
         <Collection className='dropdown' onClick={addToCollection}>
             <div className='dropdown'>{props.collection}</div>
-            {
-                props.isAdded[props.index] ?
+            {props.collectionsBoolArray.length > 0 ?
+                (isAdded ?
                 <div className='dropdown' onClick={remove}>Remove</div>
                 :
-                <div className='dropdown' onClick={add}>Add</div> 
-            }
+                <div className='dropdown' onClick={add}>Add</div> )
+            :
+            null
+        }
         </Collection>
     )
 }
 
 const Dropdown = (props) => {
 
-    const [isAdded, setIsAdded] = useState([false, false])
+    const [isCreateCollection, setIsCreateCollection] = useState(false)
 
-    const boolArray = Array(2).fill(false)
+    const addToCollection = (name) => {
+        const addRef = db.collection('users').doc(props.user).collection('collections')
+        addRef.where('image', '==', props.photoInformation.image)
+        .where('collection', '==', name)
+        .get()
+        .then(data=> {
+            if(data.docs.length === 0) {
+                addRef.add({
+                    ...props.photoInformation,
+                    collection: name,
+                    timestamp: Date.now()
+                }).then(console.log('added to collection:', props.collection))
+            }
+        })
+    }
 
-    // setIsAdded(boolArray)
+    const createCollection = () => {
+        const collectionName = document.getElementById('collection-name').value
+        db.collection('users')
+        .doc(props.user)
+        .collection('collection-names')
+        .add({
+            name: collectionName,
+            timestamp: Date.now()
+        }).then(addToCollection(collectionName))
+
+        props.setCollectionsBoolArray([...props.collectionsBoolArray, true])
+        props.setCollectionsList([...props.collectionsList, collectionName])
+    }
 
     return(
         <Container>
             {props.collectionsList?.map((collection, index) => {
                 return(
-                    <DropdownItem setIsAdded={setIsAdded} isAdded={isAdded} index={index} className='dropdown' user={props.user} photoInformation={props.photoInformation} collection={collection} key={index}/>
+                    <DropdownItem 
+                        setCollectionsBoolArray={props.setCollectionsBoolArray} 
+                        collectionsBoolArray={props.collectionsBoolArray} 
+                        index={index} 
+                        className='dropdown' 
+                        user={props.user} 
+                        photoInformation={props.photoInformation} 
+                        collection={collection} 
+                        key={index}
+                    />
                 )
             })}
+            {isCreateCollection ? 
+            <div>
+                <input placeholder='collection name' id='collection-name' className='dropdown'></input>
+                <button onClick={createCollection} className='dropdown'>Enter</button>
+            </div>
+            :
+            <button onClick={()=>setIsCreateCollection(true)} className='dropdown'>Add to new collection</button>
+            }
         </Container>
     )
 }
 
 export default Dropdown
+
+// const addToCollection = () => {
+//     db.collection('users')
+//     .doc(props.user)
+//     .collection('collections')
+//     .doc(props.collection)
+//     .collection(props.collection)
+//     .doc(props.photoInformation.id)
+//     .set({
+//         ...props.photoInformation,
+//     }).then(null)
+// }

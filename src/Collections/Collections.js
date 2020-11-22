@@ -7,16 +7,16 @@ import {
     Image,
     ImagesContainer,
     Container,
+    NoImage,
 } from './Collections.styles'
 
-
 const Collection = (props) => {
+
     const getPhotos = () => {
         db.collection('users')
         .doc(props.user)
         .collection('collections')
-        .doc(props.collection[0])
-        .collection(props.collection[0])
+        .where('collection', '==', props.collection[0])
         .get()
         .then(data=> {
             const array = []
@@ -27,7 +27,13 @@ const Collection = (props) => {
             props.setPageRoute('GetPhotos')
         })
     }
-    const items = props.collection[1].length
+    console.log(props.collection)
+    let items = props.collection[1].length
+    if(props.collection[1][0] !== null) {
+        items = props.collection[1].length
+    }else{
+        items = 0
+    }
     const { collection } = props
     
     
@@ -35,10 +41,16 @@ const Collection = (props) => {
         <div>
             <Title>{props.collection[0]}</Title>
             <ImagesContainer onClick={getPhotos}>
-                <Image height={dimensionsMap[items].height[1]} width={dimensionsMap[items].width[1]} src={collection[1][0]} key='1' alt='placeholder' />
-                <Image height={dimensionsMap[items].height[2]} width={dimensionsMap[items].width[2]} src={collection[1][1]} key='2' alt='placeholder' />
-                <Image height={dimensionsMap[items].height[3]} width={dimensionsMap[items].width[3]} src={collection[1][2]} key='3' alt='placeholder' />
-                <Image height={dimensionsMap[items].height[4]} width={dimensionsMap[items].width[4]} src={collection[1][3]} key='4' alt='placeholder' />
+                {items > 0 ? 
+                <div>
+                    <Image height={dimensionsMap[items].height[1]} width={dimensionsMap[items].width[1]} src={collection[1][0]} key='1' alt='placeholder' />
+                    <Image height={dimensionsMap[items].height[2]} width={dimensionsMap[items].width[2]} src={collection[1][1]} key='2' alt='placeholder' />
+                    <Image height={dimensionsMap[items].height[3]} width={dimensionsMap[items].width[3]} src={collection[1][2]} key='3' alt='placeholder' />
+                    <Image height={dimensionsMap[items].height[4]} width={dimensionsMap[items].width[4]} src={collection[1][3]} key='4' alt='placeholder' />
+                </div>
+                :
+                <NoImage>Collection is empty</NoImage>
+                }
             </ImagesContainer>
         </div>
     )
@@ -49,12 +61,26 @@ const Collections = (props) => {
     const [collectionInfo, setCollectionInfo] = useState(null)
 
     const getCollections = () => {
+        
         if(props.user) {    
+            const collectionsArray = []
             db.collection('users')
             .doc(props.user)
+            .collection('collection-names')
             .get()
             .then(collections=> {
-                setCollectionInfo(Object.entries(collections.data()))
+                collections.docs.forEach(collection => {
+                    const valueArray = []
+                    const collectionObject = collection.data()
+                    valueArray.push(collectionObject.name)
+                    if(collectionObject?.preview?.length>0) {
+                        valueArray.push(collectionObject.preview)
+                    }else{
+                        valueArray.push([null])
+                    }
+                    collectionsArray.push(valueArray)
+                })
+                setCollectionInfo(collectionsArray)
             })
         }
     }
@@ -65,7 +91,13 @@ const Collections = (props) => {
         <Container>
             {collectionInfo?.map((collection, index)=> {
                 return(
-                    <Collection user={props.user} setHomePhotoInformation={props.setHomePhotoInformation} setPageRoute={props.setPageRoute} collection={collection} key={index}/>
+                    <Collection 
+                        user={props.user} 
+                        setHomePhotoInformation={props.setHomePhotoInformation} 
+                        setPageRoute={props.setPageRoute} 
+                        collection={collection} 
+                        key={index}
+                    />
                 )
             })}
         </Container>
@@ -123,3 +155,34 @@ const dimensionsMap = {
 }
 
 export default Collections
+
+
+// const getCollections = () => {
+//     if(props.user) {    
+//         db.collection('users')
+//         .doc(props.user)
+//         .get()
+//         .then(collections=> {
+//             setCollectionInfo(Object.entries(collections.data()))
+//         })
+//     }
+// }
+
+// const getPhotos = () => {
+//     db.collection('users')
+//     .doc(props.user)
+//     .collection('collections')
+//     .doc(props.collection[0])
+//     .collection(props.collection[0])
+//     .get()
+//     .then(data=> {
+//         const array = []
+//         data.docs.forEach(doc=> {
+//             array.push(doc.data())
+//         })
+//         props.setHomePhotoInformation(array)
+//         props.setPageRoute('GetPhotos')
+//     })
+// }
+// const items = props.collection[1].length
+// const { collection } = props

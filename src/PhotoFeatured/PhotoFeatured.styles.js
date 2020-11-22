@@ -37,7 +37,7 @@ export const Author = styled.div`
 
 export const Description = styled.div`
     color: white;
-    padding: 0 350px;
+    padding: 0 20%;
     display: flex;
     justify-content: center;
     font-size: 20px;
