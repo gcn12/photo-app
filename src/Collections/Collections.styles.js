@@ -29,8 +29,8 @@ export const NoImage = styled.div`
 export const ImagesContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
-    max-height: 270px;
-    max-width: 270px;
+    height: 270px;
+    width: 270px;
     overflow: hidden;
     cursor: pointer;
 `

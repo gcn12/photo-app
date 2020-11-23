@@ -76,12 +76,12 @@ const Collections = (props) => {
     const [collectionInfo, setCollectionInfo] = useState(null)
 
     const getCollections = () => {
-        
         if(props.user) {    
             const collectionsArray = []
             db.collection('users')
             .doc(props.user)
             .collection('collection-names')
+            .orderBy('timestamp', 'desc')
             .get()
             .then(collections=> {
                 collections.docs.forEach(collection => {

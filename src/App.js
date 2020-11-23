@@ -44,7 +44,7 @@ const App = () => {
           case 'GetPhotos':
             // return null
             return (
-              <VerticalScroll>
+              <VerticalScroll scrollHeight='90vh'>
                 <GetPhotos 
                   homePhotoInformation={homePhotoInformation} 
                   setHomePhotoInformation={setHomePhotoInformation} 
