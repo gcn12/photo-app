@@ -18,6 +18,9 @@ const DropdownDelete = (props) => {
             })
             console.log('collection deleted')
         })
+        const collectionInfo = props.collectionInfo
+        collectionInfo.splice(props.index, 1)
+        props.setCollectionInfo([...collectionInfo])
     }
 
     return(

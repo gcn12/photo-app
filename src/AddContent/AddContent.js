@@ -10,24 +10,31 @@ import {
     SelectInput,
     PreviewImage,
     DescriptionInput,
+    NewItemButton,
+    RemoveLastElement,
 } from './AddContent.styles'
 
 const AddContent = (props) => {
 
     const [title, setTitle] = useState(null)
-    const [description, setDescription] = useState(null)
+    // const [description, setDescription] = useState(null)
     const [author, setAuthor] = useState(null)
+    // eslint-disable-next-line
     const [isImage, setIsImage] = useState(false)
+    const [isAddImage, setIsAddImage] = useState(false)
 
-    const submit = (image) => {
+    const submit = (images, mainImage) => {
         const location = document.getElementById('autocomplete').value
         const splitLocation = location.split(',')
         const country = splitLocation[splitLocation.length-1].trim()
         const city = splitLocation[0]
         const category = document.getElementById('category').value
-        const submitRef = db.collection('continents')
         const timestamp = Date.now()
-        // if(category && title && city && country && description) {
+        const descriptionArray = []
+        const content = document.getElementsByClassName('content-paragraph')
+        for (let i=0; i<content.length; i++) {
+            descriptionArray.push(String(content[i].value))
+        }
 
         db.collection('continents-countries').doc('map').collection(country)
         .where(country, 'in', ['North America', 'South America', 'Asia', 'Europe', 'Oceania', 'Africa'])
@@ -35,84 +42,149 @@ const AddContent = (props) => {
         .then(data => {
             const continent = data.docs[0].data()[country]
             db.collection('posts').add({
+                content: descriptionArray,
+                images,
                 title,
                 timestamp,
-                image,
+                image: mainImage,
                 category,
                 city,
-                description,
+                // description,
                 country,
                 continent,
                 author,
+                views: 0,
             }).then(docRef => {
-                submitRef.doc(continent).collection(country).doc(city).set({
-                    [docRef.id]: docRef.id,
+                db.collection('users').doc(props.user)
+                .collection('posts').doc(docRef.id).set({
+                    reference: `posts/${docRef.id}`,
+                    timestamp,
+                    id: docRef.id,
+                    title,
+                    image: mainImage,
+                    views: 0,
+                    city,
+                    country,
+                    continent,
                 }, {merge: true})
-                .then(
-                    db.collection('users').doc(props.user)
-                    .collection('posts').doc(docRef.id).set({
+                .then(()=>{
+                    db.collection('posts').doc(docRef.id).set({
+                        id: docRef.id,
+                    }, {merge: true}) 
+                })
+                .then(()=> {
+                    db.collection('preview-posts').add({
+                        reference: `/posts/${docRef.id}`,
                         timestamp,
                         id: docRef.id,
                         title,
-                        image,
+                        image: mainImage,
+                        views: 0,
                         category,
                         city,
-                        description,
                         country,
                         continent,
-                        author,
-                    }, {merge: true})
-                    .then(db.collection('posts').doc(docRef.id).set({
-                        id: docRef.id,
-                    }, {merge: true}))               
-                )
-                .then(console.log('uploaded'))
+                    })
+                    .then(console.log('uploaded'))
+                })              
             })
         })
-
-        
-        // }
     }
 
-    const displayImage = () => {
-        const file = document.getElementById('input').files[0]
-        setIsImage(true)
-        const viewFile = new FileReader()
-        viewFile.onload = (e) => {
-            const image = document.getElementById('previewImage')
-            image.src = e.target.result
-            document.body.appendChild(image)
-        }
-        viewFile.readAsDataURL(file)
-    }
+    // const displayImage = () => {
+    //     const file = document.getElementById('input').files[0]
+    //     setIsImage(true)
+    //     const viewFile = new FileReader()
+    //     viewFile.onload = (e) => {
+    //         const image = document.getElementById('previewImage')
+    //         image.src = e.target.result
+    //         document.body.appendChild(image)
+    //     }
+    //     viewFile.readAsDataURL(file)
+    // }
+
+    // const fileUpload = () => {
+    //     const file = document.getElementById('input').files[0]
+    //     if(file) {
+    //         const ref1 = firebase.storage().ref().child(file.name);
+    //         const metadata = {
+    //             contentType: file.type
+    //         }
+    //         ref1.put(file, metadata).then(function(snapshot) {
+    //             snapshot.ref.getDownloadURL()
+    //             .then(downloadURL => {
+    //                 submit(downloadURL)
+    //             })
+    //             .catch(error => console.log(error))
+    //         });
+    //     }
+    // }
 
     const fileUpload = () => {
-        const file = document.getElementById('input').files[0]
-        if(file) {
-            const ref1 = firebase.storage().ref().child(file.name);
-            const metadata = {
-                contentType: file.type
+        const photoUrlArray = []
+        let mainPhoto = []
+        const photoFiles = document.getElementsByClassName('photo-input')
+        if(photoFiles.length>0) {
+            for (let i = 0; i<photoFiles.length; i++) {
+                const file = photoFiles[i].files[0]
+                const metadata = {
+                    contentType: file.type
+                }
+                firebase.storage().ref()
+                .child(file.name)
+                .put(file, metadata)
+                .then(function(snapshot) {
+                    snapshot.ref.getDownloadURL()
+                    .then(downloadURL => {
+                        if(i===0) {
+                            mainPhoto.push(downloadURL)
+                        }else{
+                            photoUrlArray.push(downloadURL)
+                        }
+                        if(i === photoFiles.length -1) {
+                            submit(photoUrlArray, mainPhoto)
+                        }
+                    })
+                    .catch(error => console.log(error))
+                });
             }
-            ref1.put(file, metadata).then(function(snapshot) {
-                snapshot.ref.getDownloadURL()
-                .then(downloadURL => {
-                    submit(downloadURL)
-                })
-                .catch(error => console.log(error))
-            });
         }
+    }
+
+    const newParagraph = () => {
+        const input = document.createElement('textarea')
+        input.className='add-content-description-input content-paragraph'
+        const parent = document.getElementById('content-form')
+        parent.appendChild(input)
+        setIsAddImage(!isAddImage)
+    }
+
+    const newImage = () => {
+        const image = document.createElement('input')
+        image.type='file'
+        image.className='photo-input'
+        const parent = document.getElementById('content-form')
+        parent.appendChild(image)
+        setIsAddImage(!isAddImage)
+    }
+    
+    const removeLastElement = () => {
+        const parent = document.getElementById('content-form')
+        parent.removeChild(parent.lastChild)
     }
 
     return(
         <Container>
             <div>
-                <input onChange={displayImage} type='file' id='input'></input>
                 {isImage ? 
                 <PreviewImage alt='preview' id='previewImage'></PreviewImage>
                 :
                 null
                 }
-                <FormContainer>
+                <FormContainer id='content-form'>
+                    <label>Main photo</label>
+                    {/* <input onChange={displayImage} type='file' className='photo-input'></input> */}
+                    <input type='file' className='photo-input'></input>
                     <label>Title</label>
                     <TextInput onChange={e=>setTitle(e.target.value)}></TextInput>
                     <label>Your name</label>
@@ -129,9 +201,17 @@ const AddContent = (props) => {
                     </SelectInput>
                     <label>Select City</label>
                     <Autocomplete />
-                    <label>Description</label>
-                    <DescriptionInput onChange={e=>setDescription(e.target.value)}></DescriptionInput>
+                    <label>First paragraph</label>
+                    <DescriptionInput className='content-paragraph'></DescriptionInput>
                 </FormContainer>
+                {/* {isAddImage ?  */}
+                {/* : */}
+                {/* } */}
+                <NewItemButton onClick={newImage}>Add image</NewItemButton>
+                <RemoveLastElement onClick={removeLastElement}>Remove last element</RemoveLastElement>
+                <NewItemButton onClick={newParagraph}>Add paragraph</NewItemButton>
+                <br></br>
+                {/* <SubmitButton onClick={fileUploadTest}>Test</SubmitButton> */}
                 <SubmitButton onClick={fileUpload}>Submit</SubmitButton>
             </div>
         </Container>
@@ -139,29 +219,3 @@ const AddContent = (props) => {
 }
 
 export default AddContent
-
-
-// db.collection('continents-map')
-//         .get()
-//         .then(data=>{
-//             // data.docs.forEach(doc=>console.log(doc.data()))
-//             const continentsList = data.docs[0].data()
-//             const continent = continentsList[country.trim()]
-//             db.collection('posts').add({
-//                 title,
-//                 timestamp: Date.now(),
-//                 image,
-//                 category,
-//                 city,
-//                 description,
-//                 country,
-//                 continent,
-//                 author,
-//             }).then(docRef => {
-//                 // submitRef.doc(continent).set({
-//                 submitRef.doc(continent).collection(country).doc(city).set({
-//                     [docRef.id]: docRef.id,
-//                 }, {merge: true})
-//                 .then(console.log('uploaded'))
-//             })
-//         })

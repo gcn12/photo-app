@@ -11,7 +11,34 @@ export const SubmitButton = styled.button`
 
     &:hover {
         background-color: #212121;
-        /* color: grey; */
+    }
+`
+
+export const NewItemButton = styled.button`
+    color: white;
+    background-color: #141414;
+    border: none;
+    width: 60vw;
+    height: 50px;
+    cursor: pointer;
+    transition: background-color 400ms;
+
+    &:hover {
+        background-color: #212121;
+    }
+`
+
+export const RemoveLastElement = styled.button`
+    color: white;
+    background-color: #ff6257;
+    border: none;
+    width: 60vw;
+    height: 50px;
+    cursor: pointer;
+    transition: background-color 400ms;
+
+    &:hover {
+        /* background-color: #212121; */
     }
 `
 

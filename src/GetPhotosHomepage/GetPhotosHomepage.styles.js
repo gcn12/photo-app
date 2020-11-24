@@ -1,11 +1,42 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
-    margin: 0 15px;
-    margin-left: 35px;
+export const PhotoTextContainer = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
+
+export const PhotoTextContainerCenter = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+`
+
+export const PhotoTitle = styled.div`
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 500ms;
+    transition-delay: 350ms;
+    font-size: 30px;
+`
+
+export const PhotoLocation = styled.div`
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 500ms;
+    transition-delay: 350ms;
+    font-size: 20px;
 `
 
 export const Image = styled.img`
+
+    filter: brightness(1);
+    transition: 800ms ease;
+    transition-delay: 350ms;
+
     width: ${props => props.width};
 
     @media(max-width: 520px) {
@@ -16,7 +47,6 @@ export const Image = styled.img`
         width: 90vw;
     }
 
-    cursor: pointer;
     animation: fadeIn ease 3s;
     -webkit-animation: fadeIn ease 3s;
     -moz-animation: fadeIn ease 3s;
@@ -49,3 +79,24 @@ export const Image = styled.img`
     }
 `
 
+export const PhotoContainer = styled.div`
+    display: flex;
+    cursor: pointer;
+
+    &:hover ${PhotoTitle}{
+        opacity: 1;
+    }
+
+    &:hover ${PhotoLocation}{
+        opacity: 1;
+    }
+
+    &:hover ${Image} {
+        filter: brightness(.3)
+    }
+`
+
+export const Container = styled.div`
+    margin: 0 15px;
+    margin-left: 35px;
+`

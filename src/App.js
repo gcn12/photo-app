@@ -11,6 +11,7 @@ import Profile from './Profile/Profile'
 import Login from './Login/Login'
 // import Signup from './SignUp/SignUp'
 import firebase from 'firebase'
+import { db } from './Firebase'
 // import { firebaseApp } from './Firebase'
 
 const App = () => {
@@ -18,6 +19,16 @@ const App = () => {
   const [homePhotoInformation, setHomePhotoInformation] = useState(null)
   const [photoInformation, setPhotoInformation] = useState(null)
   const [pageRoute, setPageRoute] = useState('GetPhotos')
+
+  const getFeaturedPhotoInfo = (docID) => {
+    db.collection('posts').doc(docID)
+    .get()
+    .then(data=> {
+      setPhotoInformation(data.data())
+      setPageRoute('PhotoFeatured')
+      window.scrollTo({top: 0})
+    })
+  }
   
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user)=> {
@@ -35,7 +46,6 @@ const App = () => {
       null
       }
 
-      {/* <Autocomplete /> */}
       {/* <Signup /> */}
       {/* <AddContent user={user} /> */}
 
@@ -44,8 +54,9 @@ const App = () => {
           case 'GetPhotos':
             // return null
             return (
-              <VerticalScroll scrollHeight='90vh'>
+              <VerticalScroll scrollHeight='93vh'>
                 <GetPhotos 
+                  getFeaturedPhotoInfo={getFeaturedPhotoInfo}
                   homePhotoInformation={homePhotoInformation} 
                   setHomePhotoInformation={setHomePhotoInformation} 
                   setPageRoute={setPageRoute} 
@@ -55,6 +66,7 @@ const App = () => {
             )
           case 'PhotoFeatured':
             return <PhotoFeatured 
+              getFeaturedPhotoInfo={getFeaturedPhotoInfo}
               user={user} 
               setHomePhotoInformation={setHomePhotoInformation} 
               setPageRoute={setPageRoute} 
@@ -63,6 +75,7 @@ const App = () => {
             />
           case 'Profile':
             return <Profile 
+              getFeaturedPhotoInfo={getFeaturedPhotoInfo}
               setHomePhotoInformation={setHomePhotoInformation} 
               setPhotoInformation={setPhotoInformation} 
               user={user} 

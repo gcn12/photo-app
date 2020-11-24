@@ -1,5 +1,5 @@
 import React from 'react'
-// import UserPosts from '../UserPosts/UserPosts'
+import UserPosts from '../UserPosts/UserPosts'
 import { SubmitButton } from '../AddContent/AddContent.styles'
 import Collections from '../Collections/Collections'
 import { LI } from '../Header/Header.styles'
@@ -18,7 +18,7 @@ const Profile = (props) => {
             </div>
             {/* <SubmitButton onClick={()=>props.setPageRoute('GetPhotos')}>Back</SubmitButton> */}
             <Collections setHomePhotoInformation={props.setHomePhotoInformation} setPageRoute={props.setPageRoute} user={props.user}/>
-            {/* <UserPosts setPhotoInformation={props.setPhotoInformation} setPageRoute={props.setPageRoute} user={props.user} /> */}
+            <UserPosts getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} setPhotoInformation={props.setPhotoInformation} setPageRoute={props.setPageRoute} user={props.user} />
         </div>
     )
 }

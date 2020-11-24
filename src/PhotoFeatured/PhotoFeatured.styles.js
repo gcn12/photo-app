@@ -29,6 +29,12 @@ export const Image = styled.img`
     justify-content: center; */
 `
 
+export const BodyImage = styled.img`
+    width: 650px;
+    /* display: flex;
+    justify-content: center; */
+`
+
 export const Author = styled.div`
     color: white;
     display: flex;

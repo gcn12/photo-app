@@ -14,8 +14,7 @@ import {
 const DisplayPosts = (props) => {
 
     const selectPhoto = () => {
-        props.setPhotoInformation(props.post)
-        props.setPageRoute('PhotoFeatured')
+        props.getFeaturedPhotoInfo(props.post.id)
     }
 
     return(
@@ -29,7 +28,6 @@ const DisplayPosts = (props) => {
 const UserPosts = (props) => {
 
     const [posts, setPosts] = useState([])
-    
     
     useEffect(()=>  {
         const getPosts = (user) => {
@@ -58,6 +56,7 @@ const UserPosts = (props) => {
                 {posts?.map((post, index)=> {
                     return(
                         <DisplayPosts 
+                            getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
                             setPhotoInformation={props.setPhotoInformation} 
                             setPageRoute={props.setPageRoute} 
                             key={index} 

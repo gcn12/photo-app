@@ -22,16 +22,22 @@ const Collection = (props) => {
         .where('collection', '==', props.collection[0])
         .get()
         .then(data=> {
-            const array = []
+            const imageArray = []
             data.docs.forEach(doc=> {
-                array.push(doc.data())
+                imageArray.push(doc.data())
             })
-            props.setHomePhotoInformation(array)
+            props.setHomePhotoInformation(imageArray)
             props.setPageRoute('GetPhotos')
         })
     }
 
     const [isDeleteMenu, setIsDeleteMenu] = useState(false)
+
+    window.onclick = (e) => {
+        if (!e.target.matches('.delete-collection')) {
+            setIsDeleteMenu(false)
+        }
+    } 
 
     let items = props.collection[1].length
     if(props.collection[1][0] !== null) {
@@ -47,9 +53,9 @@ const Collection = (props) => {
             <Header>
                 <Title>{props.collection[0]}</Title>
                 <Ellipsis onClick={()=>setIsDeleteMenu(!isDeleteMenu)}>
-                    <div>&#8942;</div>
+                    <div className='delete-collection'>&#8942;</div>
                     {isDeleteMenu ? 
-                    <DropdownDelete user={props.user} collectionName={props.collection[0]}></DropdownDelete>
+                    <DropdownDelete collectionInfo={props.collectionInfo} index={props.index} setCollectionInfo={props.setCollectionInfo} user={props.user} collectionName={props.collection[0]}></DropdownDelete>
                     :
                     null
                     }
@@ -107,6 +113,9 @@ const Collections = (props) => {
             {collectionInfo?.map((collection, index)=> {
                 return(
                     <Collection 
+                        collectionInfo={collectionInfo}
+                        setCollectionInfo={setCollectionInfo}
+                        index={index}
                         user={props.user} 
                         setHomePhotoInformation={props.setHomePhotoInformation} 
                         setPageRoute={props.setPageRoute} 
