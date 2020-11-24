@@ -1,5 +1,6 @@
 import React from 'react'
 import { db } from '../Firebase'
+import { incrementViewCount } from '../Functions'
 import { 
     Title,
     OverflowX, 
@@ -12,9 +13,13 @@ const DisplayPhoto = (props) => {
 
     const selectPhoto = () => {
         // props.getPost(props.info.id)
-        console.log('j')
         props.setCollectionsList([])
         props.getFeaturedPhotoInfo(props.info.id)
+        db.collection('preview-posts').where('image', '==', props.url)
+        .get()
+        .then(reference=> {
+            incrementViewCount(reference.docs[0].ref.id)
+        })
     }
 
     return(

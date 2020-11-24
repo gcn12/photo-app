@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { db } from '../Firebase'
+import { incrementViewCount } from '../Functions'
 import '../App.css'
 import { 
     Image, 
@@ -16,12 +17,17 @@ const DisplayPhoto = (props) => {
     useEffect(()=> { 
         props.grid()
         // eslint-disable-next-line  
-    }, [])
+    }, [props.homePhotoInformation])
 
     const click = () => {
         // props.setPageRoute('PhotoFeatured')
         props.setPhotoInformation(props.photoInfo)
         props.getFeaturedPhotoInfo(props.photoInfo.id)
+        db.collection('preview-posts').where('image', '==', props.photoInfo.image)
+        .get()
+        .then(reference=> {
+            incrementViewCount(reference.docs[0].ref.id)
+        })
     }
 
     let width = '30vw'
@@ -42,6 +48,22 @@ const DisplayPhoto = (props) => {
 const GetPhotos = (props) => {
 
     const { setHomePhotoInformation, homePhotoInformation} = props
+
+    const sort = () => {
+        const e = document.getElementById('sort-photos')
+        const value = e.options[e.selectedIndex].value
+        if(value !== 'Sort by:') {
+            db.collection('preview-posts').orderBy(value, 'desc')
+            .get()
+            .then(data=> {
+                const photoArray = []
+                data.docs.forEach(item=> {
+                    photoArray.push(item.data())
+                })
+                setHomePhotoInformation([...photoArray])
+            })
+        }
+    }
 
     useEffect(()=>{
         window.scrollTo({top: 0})
@@ -64,7 +86,7 @@ const GetPhotos = (props) => {
         macy ({
             container: elem,
             columns: 2,
-            trueOrder: false,
+            trueOrder: true,
             breakAt: {
                 1500: 3,
                 520: 2,
@@ -74,6 +96,11 @@ const GetPhotos = (props) => {
     }
     return(
         <Container>
+            <select id='sort-photos' onChange={()=>sort()}>
+                <option defaultValue>Sort by:</option>
+                <option value='timestamp'>Newest</option>
+                <option value='views'>Most popular</option>
+            </select>
             <div id="grid">
                 {props.homePhotoInformation ? props.homePhotoInformation.map((photo, index)=> {
                     return(
@@ -84,6 +111,7 @@ const GetPhotos = (props) => {
                             key={index} 
                             grid={grid} 
                             photoInfo={photo} 
+                            homePhotoInformation={props.homePhotoInformation}
                         />
                     )
                 })
