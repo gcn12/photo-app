@@ -43,5 +43,5 @@ export const Description = styled.div`
 `
 
 export const BodyImage = styled.img`
-    width: 650px;
+    width: 70vw;
 `

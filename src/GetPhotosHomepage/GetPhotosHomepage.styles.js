@@ -1,21 +1,14 @@
 import styled from 'styled-components'
 
 export const PhotoTextContainer = styled.div`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-`
-
-export const PhotoTextContainerCenter = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    position: relative;
 `
 
 export const PhotoTitle = styled.div`
-    display: flex;
-    justify-content: center;
+    position: absolute;
+    top: 43%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 500ms;
     transition-delay: 350ms;
@@ -23,16 +16,20 @@ export const PhotoTitle = styled.div`
 `
 
 export const PhotoLocation = styled.div`
-    display: flex;
-    justify-content: center;
+    position: absolute;
+    top: 57%;
+    left: 50%;
+    margin-left: -5px;
+    transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 500ms;
     transition-delay: 350ms;
     font-size: 20px;
+    white-space: nowrap;
 `
 
 export const Image = styled.img`
-
+    margin-bottom: 15px;
     filter: brightness(1);
     transition: 800ms ease;
     transition-delay: 350ms;
@@ -80,7 +77,7 @@ export const Image = styled.img`
 `
 
 export const PhotoContainer = styled.div`
-    display: flex;
+
     cursor: pointer;
 
     &:hover ${PhotoTitle}{

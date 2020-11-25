@@ -6,7 +6,7 @@ import { db } from '../Firebase'
 import {
     Photo,
     PostsContainer,
-    PostContainer,
+    PostContainer, 
     PostTitle,
 } from './UserPosts.styles'
 

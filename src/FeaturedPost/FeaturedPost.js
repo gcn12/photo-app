@@ -15,9 +15,9 @@ import {
     // Container2,
     // Container3,
     BodyImage,
-} from './PhotoFeatured.styles'
+} from './FeaturedPost.styles'
 
-const PhotoFeatured = (props) => {
+const FeaturedPost = (props) => {
 
     const [collectionsList, setCollectionsList] = useState([])
     const [collectionsBoolArray, setCollectionsBoolArray] = useState(null)
@@ -192,7 +192,7 @@ const PhotoFeatured = (props) => {
     )
 }
 
-export default PhotoFeatured
+export default FeaturedPost
 
 
 // return(

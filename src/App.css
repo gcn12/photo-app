@@ -23,3 +23,15 @@
     height: 150px;
     font-size: 20px;
 }
+
+.my-masonry-grid {
+    display: -webkit-box; /* Not needed if autoprefixing */
+    display: -ms-flexbox; /* Not needed if autoprefixing */
+    display: flex;
+    margin-left: -5px; /* gutter size offset */
+    width: auto;
+}
+.my-masonry-grid_column {
+margin-left: 5px; /* gutter size */
+background-clip: padding-box;
+}

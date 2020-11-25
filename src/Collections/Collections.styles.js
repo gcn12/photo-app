@@ -41,7 +41,8 @@ export const ImagesContainer = styled.div`
 export const Container = styled.div`
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
+    margin: 0 5%;
 `
 
 export const ImageTitleContainer = styled.div`

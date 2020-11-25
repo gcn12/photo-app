@@ -4,11 +4,12 @@ import React, {
 } from 'react'
 import Header from './Header/Header'
 import VerticalScroll from './VeritcalScroll/VerticalScroll'
-import PhotoFeatured from './PhotoFeatured/PhotoFeatured'
+import FeaturedPost from './FeaturedPost/FeaturedPost'
 import AddContent from './AddContent/AddContent'
 import GetPhotos from './GetPhotosHomepage/GetPhotosHomepage'
 import Profile from './Profile/Profile'
 import Login from './Login/Login'
+// import QueryTest from './QueryTest'
 // import Signup from './SignUp/SignUp'
 import firebase from 'firebase'
 import { db } from './Firebase'
@@ -25,7 +26,7 @@ const App = () => {
     .get()
     .then(data=> {
       setPhotoInformation(data.data())
-      setPageRoute('PhotoFeatured')
+      setPageRoute('FeaturedPost')
       window.scrollTo({top: 0})
     })
   }
@@ -40,6 +41,13 @@ const App = () => {
 
   return (
     <div>
+      {/* <QueryTest 
+        getFeaturedPhotoInfo={getFeaturedPhotoInfo}
+        homePhotoInformation={homePhotoInformation} 
+        setHomePhotoInformation={setHomePhotoInformation} 
+        setPageRoute={setPageRoute} 
+        setPhotoInformation={setPhotoInformation} 
+      /> */}
       {pageRoute==='GetPhotos' ? 
       <Header setHomePhotoInformation={setHomePhotoInformation} setPageRoute={setPageRoute} user={user}/>
       :
@@ -58,7 +66,6 @@ const App = () => {
               /> 
             )
           case 'GetPhotos':
-            // return null
             return (
               <VerticalScroll scrollHeight='93vh'>
                 <GetPhotos 
@@ -70,8 +77,8 @@ const App = () => {
                 />
               </VerticalScroll>
             )
-          case 'PhotoFeatured':
-            return <PhotoFeatured 
+          case 'FeaturedPost':
+            return <FeaturedPost 
               getFeaturedPhotoInfo={getFeaturedPhotoInfo}
               user={user} 
               setHomePhotoInformation={setHomePhotoInformation} 

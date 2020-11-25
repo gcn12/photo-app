@@ -15,7 +15,7 @@ export const Photo = styled.img`
 export const PostsContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
 `
 
 export const PostContainer = styled.div`

@@ -134,6 +134,8 @@ const AddContent = (props) => {
         const image = document.createElement('input')
         image.type='file'
         image.className='photo-input additional-item'
+        image.setAttribute('multiple', '')
+        image.setAttribute('accept', 'image/jpeg, image/png, image/jpg, image/tif')
         const parent = document.getElementById('content-form')
         parent.appendChild(image)
         setIsAddImage(!isAddImage)
