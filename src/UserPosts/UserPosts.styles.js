@@ -21,9 +21,14 @@ export const PostsContainer = styled.div`
 export const PostContainer = styled.div`
     margin: 20px;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `
 
 export const PostTitle = styled.div`
     color: white;
     font-size: 20px;
+    justify-self: center;
 `

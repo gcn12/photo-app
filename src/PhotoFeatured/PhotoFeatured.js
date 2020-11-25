@@ -3,14 +3,17 @@ import HorizontalGallery from '../HorizontalGallery/HorizontalGallery'
 import Dropdown from '../Dropdown/Dropdown'
 import { db } from '../Firebase'
 import { SubmitButton } from '../AddContent/AddContent.styles'
+import moment from 'moment'
 import {
     Title,
     Description,
     Image,
     Author,
     Container,
-    Container2,
-    Container3,
+    InfoContainer,
+    BodyContainer,
+    // Container2,
+    // Container3,
     BodyImage,
 } from './PhotoFeatured.styles'
 
@@ -97,7 +100,7 @@ const PhotoFeatured = (props) => {
             }else{
                 setShowDropdown(!showDropdown)
             }
-        })
+        }) 
     }
 
     const showDropdownAndGetList = () => {
@@ -117,45 +120,47 @@ const PhotoFeatured = (props) => {
     return(
         <div>
             <SubmitButton onClick={()=>props.setPageRoute('GetPhotos')}>Back</SubmitButton>
-            <Container2>
-                <Container>
-                    <Title>{props.photoInformation?.title}</Title>
-                    <Container2>
-                        <Container3>
-                                <Image alt='display' src={props?.photoInformation?.image}></Image>
-                                {props?.user ? 
-                                <div>
-                                    <SubmitButton className='dropdown' onClick={showDropdownAndGetList}>
-                                        <div className='dropdown'>Add to collection</div>
-                                    </SubmitButton>
-                                    {showDropdown ? 
-                                    <Dropdown
-                                        photoInformation={props.photoInformation}
-                                        setCollectionsBoolArray={setCollectionsBoolArray}
-                                        collectionsBoolArray={collectionsBoolArray} 
-                                        className='dropdown' 
-                                        user={props.user} 
-                                        collectionsList={collectionsList}
-                                        setCollectionsList={setCollectionsList}
-                                    /> 
-                                    : 
-                                    null}  
-                                </div>
-                                :
-                                null}
-                        </Container3>
-                    </Container2>
+            <Container>
+                <Title>{props.photoInformation?.title}</Title>
+                <Image alt='display' src={props?.photoInformation?.image}></Image>
+                <InfoContainer>
+                    {props?.user ? 
+                    <div>
+                        <SubmitButton className='dropdown' onClick={showDropdownAndGetList}>
+                            <div className='dropdown'>Add to collection</div>
+                        </SubmitButton>
+                        {showDropdown ? 
+                        <Dropdown
+                            photoInformation={props.photoInformation}
+                            setCollectionsBoolArray={setCollectionsBoolArray}
+                            collectionsBoolArray={collectionsBoolArray} 
+                            className='dropdown' 
+                            user={props.user} 
+                            collectionsList={collectionsList}
+                            setCollectionsList={setCollectionsList}
+                        /> 
+                        : 
+                        null}  
+                    </div>
+                    :
+                    null}
                     <Author>{props.photoInformation?.author}</Author>
-                    {props.photoInformation?.content.map((item, index) => {
-                        return(
-                            <Container3 key={index}>
-                                <Description>{item}</Description>
-                                <BodyImage src={props.photoInformation.images[index]}></BodyImage>
-                            </Container3>
-                        )
-                    })}
-                </Container>
-            </Container2>
+                    <Author>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</Author>
+                </InfoContainer>
+            </Container>
+                {props.photoInformation?.content.map((item, index) => {
+                    return(
+                        <BodyContainer key={index}>
+                            <Description>{item}</Description>
+                            <BodyImage src={props.photoInformation.images[index]}></BodyImage>
+                        </BodyContainer>
+                    )
+                })}
+            
+
+
+
+
             <HorizontalGallery 
                 setCollectionsList={setCollectionsList}
                 getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
@@ -188,3 +193,77 @@ const PhotoFeatured = (props) => {
 }
 
 export default PhotoFeatured
+
+
+// return(
+//     <div>
+//         <SubmitButton onClick={()=>props.setPageRoute('GetPhotos')}>Back</SubmitButton>
+//         <Container2>
+//             <Container>
+//                 <Title>{props.photoInformation?.title}</Title>
+//                 <Container2>
+//                     <Container3>
+//                             <Image alt='display' src={props?.photoInformation?.image}></Image>
+//                             {props?.user ? 
+//                             <div>
+//                                 <SubmitButton className='dropdown' onClick={showDropdownAndGetList}>
+//                                     <div className='dropdown'>Add to collection</div>
+//                                 </SubmitButton>
+//                                 {showDropdown ? 
+//                                 <Dropdown
+//                                     photoInformation={props.photoInformation}
+//                                     setCollectionsBoolArray={setCollectionsBoolArray}
+//                                     collectionsBoolArray={collectionsBoolArray} 
+//                                     className='dropdown' 
+//                                     user={props.user} 
+//                                     collectionsList={collectionsList}
+//                                     setCollectionsList={setCollectionsList}
+//                                 /> 
+//                                 : 
+//                                 null}  
+//                             </div>
+//                             :
+//                             null}
+//                     </Container3>
+//                 </Container2>
+//                 <Author>{props.photoInformation?.author}</Author>
+//                 <Author>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</Author>
+//                 {props.photoInformation?.content.map((item, index) => {
+//                     return(
+//                         <Container3 key={index}>
+//                             <Description>{item}</Description>
+//                             <BodyImage src={props.photoInformation.images[index]}></BodyImage>
+//                         </Container3>
+//                     )
+//                 })}
+//             </Container>
+//         </Container2>
+//         <HorizontalGallery 
+//             setCollectionsList={setCollectionsList}
+//             getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
+//             getPost={getPost}
+//             getCountries={getCities} 
+//             setHomePhotoInformation={props.setHomePhotoInformation} 
+//             setPageRoute={props.setPageRoute}  
+//             placeName={props?.city} 
+//             place={'city'} 
+//             title={props.photoInformation?.city} 
+//             photoInformation={props.photoInformation} 
+//             photos={cityPhotos} 
+//             setPhotoInformation={props.setPhotoInformation}  
+//         />
+//         <HorizontalGallery 
+//             setCollectionsList={setCollectionsList}
+//             getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
+//             getPost={getPost}
+//             setHomePhotoInformation={props.setHomePhotoInformation} 
+//             setPageRoute={props.setPageRoute} 
+//             placeName={props.photoInformation?.country} 
+//             place={'country'} 
+//             title={props.photoInformation?.country} 
+//             setPhotoInformation={props.setPhotoInformation} 
+//             photos={countryPhotos} 
+//             photoInformation={props.photoInformation} 
+//         />
+//     </div>
+// )

@@ -4,7 +4,6 @@ import React, {
 } from 'react'
 import { db } from '../Firebase'
 import {
-    Title,
     Photo,
     PostsContainer,
     PostContainer,
@@ -50,7 +49,6 @@ const UserPosts = (props) => {
 
     return(
         <div>
-            <Title>Posts</Title>
             <div>
             <PostsContainer>
                 {posts?.map((post, index)=> {

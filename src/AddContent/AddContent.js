@@ -8,7 +8,7 @@ import {
     FormContainer,
     TextInput,
     SelectInput,
-    PreviewImage,
+    // PreviewImage,
     DescriptionInput,
     NewItemButton,
     RemoveLastElement,
@@ -16,12 +16,12 @@ import {
 
 const AddContent = (props) => {
 
-    const [title, setTitle] = useState(null)
+    // const [isImage, setIsImage] = useState(false)
     // const [description, setDescription] = useState(null)
+    const [title, setTitle] = useState(null)
     const [author, setAuthor] = useState(null)
-    // eslint-disable-next-line
-    const [isImage, setIsImage] = useState(false)
     const [isAddImage, setIsAddImage] = useState(false)
+    const [isAdditionalElements, setIsAdditionalElements] = useState(false)
 
     const submit = (images, mainImage) => {
         const location = document.getElementById('autocomplete').value
@@ -49,7 +49,6 @@ const AddContent = (props) => {
                 image: mainImage,
                 category,
                 city,
-                // description,
                 country,
                 continent,
                 author,
@@ -85,40 +84,11 @@ const AddContent = (props) => {
                         country,
                         continent,
                     })
-                    .then(console.log('uploaded'))
+                    .then(()=>console.log('uploaded'))
                 })              
             })
         })
     }
-
-    // const displayImage = () => {
-    //     const file = document.getElementById('input').files[0]
-    //     setIsImage(true)
-    //     const viewFile = new FileReader()
-    //     viewFile.onload = (e) => {
-    //         const image = document.getElementById('previewImage')
-    //         image.src = e.target.result
-    //         document.body.appendChild(image)
-    //     }
-    //     viewFile.readAsDataURL(file)
-    // }
-
-    // const fileUpload = () => {
-    //     const file = document.getElementById('input').files[0]
-    //     if(file) {
-    //         const ref1 = firebase.storage().ref().child(file.name);
-    //         const metadata = {
-    //             contentType: file.type
-    //         }
-    //         ref1.put(file, metadata).then(function(snapshot) {
-    //             snapshot.ref.getDownloadURL()
-    //             .then(downloadURL => {
-    //                 submit(downloadURL)
-    //             })
-    //             .catch(error => console.log(error))
-    //         });
-    //     }
-    // }
 
     const fileUpload = () => {
         const photoUrlArray = []
@@ -153,69 +123,195 @@ const AddContent = (props) => {
 
     const newParagraph = () => {
         const input = document.createElement('textarea')
-        input.className='add-content-description-input content-paragraph'
+        input.className='add-content-description-input content-paragraph additional-item'
         const parent = document.getElementById('content-form')
         parent.appendChild(input)
         setIsAddImage(!isAddImage)
+        checkAdditionalElement()
     }
 
     const newImage = () => {
         const image = document.createElement('input')
         image.type='file'
-        image.className='photo-input'
+        image.className='photo-input additional-item'
         const parent = document.getElementById('content-form')
         parent.appendChild(image)
         setIsAddImage(!isAddImage)
+        checkAdditionalElement()
     }
     
     const removeLastElement = () => {
         const parent = document.getElementById('content-form')
         parent.removeChild(parent.lastChild)
+        setIsAddImage(!isAddImage)
+        checkAdditionalElement()
+    }
+
+    const checkAdditionalElement = () => {
+        const additionalElements = document.getElementsByClassName('additional-item')
+        if(additionalElements.length > 0) {
+            setIsAdditionalElements(true)
+        }else{
+            setIsAdditionalElements(false)
+        }
     }
 
     return(
+        <div>
+        <SubmitButton onClick={()=>props.setPageRoute('GetPhotos')}>Back</SubmitButton>
         <Container>
-            <div>
-                {isImage ? 
-                <PreviewImage alt='preview' id='previewImage'></PreviewImage>
+            <FormContainer >
+                <div id='content-form'>
+                <label>Main photo</label>
+                <br></br>
+                <input type='file' className='photo-input'></input>
+                <br></br>
+                <label>Title</label>
+                <TextInput onChange={e=>setTitle(e.target.value)}></TextInput>
+                <label>Your name</label>
+                <TextInput onChange={e=>setAuthor(e.target.value)}></TextInput>
+                <label htmlFor='category'>Category</label>
+                <SelectInput name='category' id='category'>
+                    <option value='' defaultValue>Select category</option>
+                    <option value='restaurant'>Restaurant</option>
+                    <option value='entertainment'>Entertainment</option>
+                    <option value='adventure'>Adventure</option>
+                    <option value='sightseeing'>Sightseeing</option>
+                    <option value='shopping'>Shopping</option>
+                    <option value='museum'>Museum</option>
+                </SelectInput>
+                <label>Select City</label>
+                <Autocomplete />
+                <label>First paragraph</label>
+                <DescriptionInput className='content-paragraph'></DescriptionInput>
+                </div>
+                {isAdditionalElements ? 
+                <RemoveLastElement type="button" onClick={removeLastElement}>Remove last element</RemoveLastElement>
                 :
                 null
                 }
-                <FormContainer id='content-form'>
-                    <label>Main photo</label>
-                    {/* <input onChange={displayImage} type='file' className='photo-input'></input> */}
-                    <input type='file' className='photo-input'></input>
-                    <label>Title</label>
-                    <TextInput onChange={e=>setTitle(e.target.value)}></TextInput>
-                    <label>Your name</label>
-                    <TextInput onChange={e=>setAuthor(e.target.value)}></TextInput>
-                    <label htmlFor='category'>Category</label>
-                    <SelectInput name='category' id='category'>
-                        <option value='' defaultValue>Select category</option>
-                        <option value='restaurant'>Restaurant</option>
-                        <option value='entertainment'>Entertainment</option>
-                        <option value='adventure'>Adventure</option>
-                        <option value='sightseeing'>Sightseeing</option>
-                        <option value='shopping'>Shopping</option>
-                        <option value='museum'>Museum</option>
-                    </SelectInput>
-                    <label>Select City</label>
-                    <Autocomplete />
-                    <label>First paragraph</label>
-                    <DescriptionInput className='content-paragraph'></DescriptionInput>
-                </FormContainer>
-                {/* {isAddImage ?  */}
-                {/* : */}
-                {/* } */}
-                <NewItemButton onClick={newImage}>Add image</NewItemButton>
-                <RemoveLastElement onClick={removeLastElement}>Remove last element</RemoveLastElement>
-                <NewItemButton onClick={newParagraph}>Add paragraph</NewItemButton>
+                {isAddImage ? 
+                <NewItemButton type="button" onClick={newParagraph}>Add paragraph</NewItemButton>
+                : 
+                <NewItemButton type="button" onClick={newImage}>Add image</NewItemButton>
+                }
                 <br></br>
-                {/* <SubmitButton onClick={fileUploadTest}>Test</SubmitButton> */}
-                <SubmitButton onClick={fileUpload}>Submit</SubmitButton>
-            </div>
+                <SubmitButton type="button" onClick={fileUpload}>Submit</SubmitButton>
+            </FormContainer> 
         </Container>
+        </div>
     )
+
+    // return(
+    //     <div>
+    //         <SubmitButton onClick={()=>props.setPageRoute('GetPhotos')}>Back</SubmitButton>
+    //         <Container>
+    //             <div>
+    //                 <FormContainer id='content-form'>
+    //                     <label>Main photo</label>
+    //                     <input type='file' className='photo-input'></input>
+    //                     <label>Title</label>
+    //                     <TextInput onChange={e=>setTitle(e.target.value)}></TextInput>
+    //                     <label>Your name</label>
+    //                     <TextInput onChange={e=>setAuthor(e.target.value)}></TextInput>
+    //                     <label htmlFor='category'>Category</label>
+    //                     <SelectInput name='category' id='category'>
+    //                         <option value='' defaultValue>Select category</option>
+    //                         <option value='restaurant'>Restaurant</option>
+    //                         <option value='entertainment'>Entertainment</option>
+    //                         <option value='adventure'>Adventure</option>
+    //                         <option value='sightseeing'>Sightseeing</option>
+    //                         <option value='shopping'>Shopping</option>
+    //                         <option value='museum'>Museum</option>
+    //                     </SelectInput>
+    //                     <label>Select City</label>
+    //                     <Autocomplete />
+    //                     <label>First paragraph</label>
+    //                     <DescriptionInput className='content-paragraph'></DescriptionInput>
+    //                     {isAdditionalElements ? 
+    //                     <RemoveLastElement type="button" onClick={removeLastElement}>Remove last element</RemoveLastElement>
+    //                     :
+    //                     null
+    //                     }
+    //                     {isAddImage ? 
+    //                     <NewItemButton type="button" onClick={newParagraph}>Add paragraph</NewItemButton>
+    //                     : 
+    //                     <NewItemButton type="button" onClick={newImage}>Add image</NewItemButton>
+    //                     }
+    //                     <br></br>
+    //                     <br></br>
+    //                 </FormContainer>
+    //                 <SubmitButton type="button" onClick={fileUpload}>Submit</SubmitButton>
+    //             </div>
+    //         </Container>
+    //     </div>
+    // )
 }
 
 export default AddContent
+
+// return(
+//     <div>
+//         <SubmitButton onClick={()=>props.setPageRoute('GetPhotos')}>Back</SubmitButton>
+//         <Container>
+//             <div>
+//                 <FormContainer id='content-form'>
+//                     <label>Main photo</label>
+//                     <input type='file' className='photo-input'></input>
+//                     <label>Title</label>
+//                     <TextInput onChange={e=>setTitle(e.target.value)}></TextInput>
+//                     <label>Your name</label>
+//                     <TextInput onChange={e=>setAuthor(e.target.value)}></TextInput>
+//                     <label htmlFor='category'>Category</label>
+//                     <SelectInput name='category' id='category'>
+//                         <option value='' defaultValue>Select category</option>
+//                         <option value='restaurant'>Restaurant</option>
+//                         <option value='entertainment'>Entertainment</option>
+//                         <option value='adventure'>Adventure</option>
+//                         <option value='sightseeing'>Sightseeing</option>
+//                         <option value='shopping'>Shopping</option>
+//                         <option value='museum'>Museum</option>
+//                     </SelectInput>
+//                     <label>Select City</label>
+//                     <Autocomplete />
+//                     <label>First paragraph</label>
+//                     <DescriptionInput className='content-paragraph'></DescriptionInput>
+//                     {isAdditionalElements ? 
+//                     <RemoveLastElement type="button" onClick={removeLastElement}>Remove last element</RemoveLastElement>
+//                     :
+//                     null
+//                     }
+//                     {isAddImage ? 
+//                     <NewItemButton type="button" onClick={newParagraph}>Add paragraph</NewItemButton>
+//                     : 
+//                     <NewItemButton type="button" onClick={newImage}>Add image</NewItemButton>
+//                     }
+//                     <br></br>
+//                     <br></br>
+//                 </FormContainer>
+//                 <SubmitButton type="button" onClick={fileUpload}>Submit</SubmitButton>
+//             </div>
+//         </Container>
+//     </div>
+// )
+
+// <input onChange={displayImage} type='file' className='photo-input'></input>
+
+// {isImage ? 
+//     <PreviewImage alt='preview' id='previewImage'></PreviewImage>
+//     :
+//     null
+// }
+
+
+// const displayImage = () => {
+    //     const file = document.getElementById('input').files[0]
+    //     setIsImage(true)
+    //     const viewFile = new FileReader()
+    //     viewFile.onload = (e) => {
+    //         const image = document.getElementById('previewImage')
+    //         image.src = e.target.result
+    //         document.body.appendChild(image)
+    //     }
+    //     viewFile.readAsDataURL(file)
+    // }

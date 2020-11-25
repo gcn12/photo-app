@@ -3,49 +3,45 @@ import styled from 'styled-components'
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
 `
 
-export const Container3 = styled.div`
+export const InfoContainer = styled.div`
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`
+
+export const BodyContainer = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center;
-`
-
-export const Container2 = styled.div`
-    display: flex;
-    /* flex-direction: column; */
-    justify-content: center;
+    align-items: center;
 `
 
 export const Title = styled.div`
     color: white;
-    display: flex;
-    justify-content: center;
+    font-size: 40px;
 `
 
 export const Image = styled.img`
-    width: 800px;
-    /* display: flex;
-    justify-content: center; */
-`
-
-export const BodyImage = styled.img`
-    width: 650px;
-    /* display: flex;
-    justify-content: center; */
+    width: 90vw;
 `
 
 export const Author = styled.div`
     color: white;
-    display: flex;
-    justify-content: center;
 `
 
 export const Description = styled.div`
     color: white;
     padding: 0 20%;
-    display: flex;
-    justify-content: center;
     font-size: 20px;
     white-space: pre-wrap;
+    text-align: justify;
+    text-justify: inter-word;
+`
+
+export const BodyImage = styled.img`
+    width: 650px;
 `

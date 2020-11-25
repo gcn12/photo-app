@@ -11,6 +11,7 @@ import {
     NoImage,
     Header,
     Ellipsis,
+    ImageTitleContainer,
 } from './Collections.styles'
 
 const Collection = (props) => {
@@ -49,7 +50,7 @@ const Collection = (props) => {
     const { collection } = props
     
     return(
-        <div>
+        <ImageTitleContainer>
             <Header>
                 <Title>{props.collection[0]}</Title>
                 <Ellipsis onClick={()=>setIsDeleteMenu(!isDeleteMenu)}>
@@ -73,7 +74,7 @@ const Collection = (props) => {
                 <NoImage>Collection is empty</NoImage>
                 }
             </ImagesContainer>
-        </div>
+        </ImageTitleContainer>
     )
 }
 

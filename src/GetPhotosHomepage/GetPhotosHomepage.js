@@ -10,13 +10,15 @@ import {
     PhotoTextContainer,
     PhotoTextContainerCenter,
     PhotoLocation,
+    SortSelect,
 } from './GetPhotosHomepage.styles'
 import macy from 'macy'
 
 const DisplayPhoto = (props) => {
+
     useEffect(()=> { 
         props.grid()
-        // eslint-disable-next-line  
+        // eslint-disable-next-line
     }, [props.homePhotoInformation])
 
     const click = () => {
@@ -96,11 +98,10 @@ const GetPhotos = (props) => {
     }
     return(
         <Container>
-            <select id='sort-photos' onChange={()=>sort()}>
-                <option defaultValue>Sort by:</option>
-                <option value='timestamp'>Newest</option>
+            <SortSelect id='sort-photos' onChange={()=>sort()}>
+                <option defaultValue value='timestamp'>Newest</option>
                 <option value='views'>Most popular</option>
-            </select>
+            </SortSelect>
             <div id="grid">
                 {props.homePhotoInformation ? props.homePhotoInformation.map((photo, index)=> {
                     return(

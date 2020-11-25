@@ -43,15 +43,20 @@ export const RemoveLastElement = styled.button`
 `
 
 export const Container = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column; 
+    align-items: center;
 `
 
-export const FormContainer = styled.form`
+export const FormContainer = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
 `
 
 export const TextInput = styled.input`

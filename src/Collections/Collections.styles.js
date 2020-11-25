@@ -14,6 +14,7 @@ export const Image = styled.img`
     height: ${props => props.height};
     width: ${props => props.width};
     object-fit: cover;
+    float: left;
 `
 
 export const NoImage = styled.div`
@@ -27,15 +28,22 @@ export const NoImage = styled.div`
 `
 
 export const ImagesContainer = styled.div`
-    display: flex;
-    flex-wrap: wrap;
     height: 270px;
     width: 270px;
     overflow: hidden;
     cursor: pointer;
+    
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+    /* border-radius: 50%; */
 `
 
 export const Container = styled.div`
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+`
+
+export const ImageTitleContainer = styled.div`
+    margin: 0 20px 20px 20px;
 `

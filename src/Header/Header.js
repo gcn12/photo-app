@@ -33,10 +33,15 @@ const Header = (props) => {
                 <LI onClick={()=> getPhotoInfo('Africa')}>AFRICA</LI>
             </UL>
             {props.user ? 
+            <SubmitButton onClick={()=>props.setPageRoute('Upload')}>Upload</SubmitButton>
+            :
+            null
+            }
+            {props.user ? 
             <SubmitButton onClick={()=>props.setPageRoute('Profile')}>Profile</SubmitButton>
             :
             <SubmitButton onClick={()=>props.setPageRoute('Login')}>Log in</SubmitButton>
-            }
+            } 
         </Container>
     )
 }

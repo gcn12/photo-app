@@ -5,7 +5,7 @@ import React, {
 import Header from './Header/Header'
 import VerticalScroll from './VeritcalScroll/VerticalScroll'
 import PhotoFeatured from './PhotoFeatured/PhotoFeatured'
-// import AddContent from './AddContent/AddContent'
+import AddContent from './AddContent/AddContent'
 import GetPhotos from './GetPhotosHomepage/GetPhotosHomepage'
 import Profile from './Profile/Profile'
 import Login from './Login/Login'
@@ -47,10 +47,16 @@ const App = () => {
       }
 
       {/* <Signup /> */}
-      {/* <AddContent user={user} /> */}
 
       {(() => {
         switch (pageRoute) {
+          case 'Upload':
+            return(
+              <AddContent 
+              user={user} 
+              setPageRoute={setPageRoute} 
+              /> 
+            )
           case 'GetPhotos':
             // return null
             return (
@@ -90,7 +96,5 @@ const App = () => {
     </div>
   );
 }
-
-
 
 export default App;
