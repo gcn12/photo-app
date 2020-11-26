@@ -19,7 +19,7 @@ export const Image = styled.img`
 
 export const NoImage = styled.div`
     height: 268px;
-    width: 270px;
+    width: 268px;
     object-fit: cover;
     display: flex;
     justify-content: center;

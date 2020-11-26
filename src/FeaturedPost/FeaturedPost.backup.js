@@ -12,7 +12,6 @@ import {
     Container,
     InfoContainer,
     BodyContainer,
-    BodyImageContainer,
     // Container2,
     // Container3,
     BodyImage,
@@ -150,23 +149,17 @@ const FeaturedPost = (props) => {
                 </InfoContainer>
             </Container>
                 {props.photoInformation?.content.map((item, index) => {
-                    // console.log(props.photoInformation.images[index])
                     return(
                         <BodyContainer key={index}>
                             <Description>{item}</Description>
-                            <BodyImageContainer>
-                            {props.photoInformation.images[index].map((image, i)=> {
-                                // console.log(props.photoInformation.images[index].length)
-                                console.log(props?.photoInformation.images[index])
-                                return(
-                                    <BodyImage width={80 / (props.photoInformation.images[index] ? props.photoInformation.images[index].length : 1)} src={image} key={i}></BodyImage>
-                                )
-                            })}
-                            </BodyImageContainer>
+                            <BodyImage src={props.photoInformation.images[index]}></BodyImage>
                         </BodyContainer>
                     )
                 })}
             
+
+
+
 
             <HorizontalGallery 
                 setCollectionsList={setCollectionsList}

@@ -114,16 +114,6 @@ const GetPhotos = (props) => {
     //         },
     //     })
     // }
-
-    var intersectionObserver = new IntersectionObserver(function(entries) {
-        if (entries[0].intersectionRatio <= 0) return;
-        console.log('Loaded new items');
-        lazy()
-    });
-
-    const startObserve = () => {
-    intersectionObserver.observe(document.getElementById('lazy'));
-    }
     
     return(
         // <Container onLoad={startObserve}>
@@ -142,7 +132,6 @@ const GetPhotos = (props) => {
                 {props.homePhotoInformation ? props.homePhotoInformation.map((photo, index)=> {
                     return(
                         <DisplayPhoto 
-                            startObserve={startObserve}
                             index={index}
                             length={props.homePhotoInformation.length}
                             getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}

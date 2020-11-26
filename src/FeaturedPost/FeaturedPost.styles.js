@@ -43,5 +43,10 @@ export const Description = styled.div`
 `
 
 export const BodyImage = styled.img`
-    width: 70vw;
+    /* width: 70vw; */
+    width: ${props=> `${props.width}vw`};
+`
+
+export const BodyImageContainer = styled.div`
+    display: flex;
 `
