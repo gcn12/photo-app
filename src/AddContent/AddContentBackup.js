@@ -23,7 +23,8 @@ const AddContent = (props) => {
     const [isAddImage, setIsAddImage] = useState(false)
     const [isAdditionalElements, setIsAdditionalElements] = useState(false)
 
-    const submit = (images, mainImage) => {
+    const submit = (images, mainImage, test) => {
+        console.log(test)
         const location = document.getElementById('autocomplete').value
         const splitLocation = location.split(',')
         const country = splitLocation[splitLocation.length-1].trim()
@@ -35,6 +36,15 @@ const AddContent = (props) => {
         for (let i=0; i<content.length; i++) {
             descriptionArray.push(String(content[i].value))
         }
+        const urlObject = {}
+        console.log(images)
+        
+        for (let i=0; i<images.length; i++) {
+            console.log(images[i])
+            urlObject[i] = images[i]
+        }
+
+        console.log(urlObject)
 
         db.collection('continents-countries').doc('map').collection(country)
         .where(country, 'in', ['North America', 'South America', 'Asia', 'Europe', 'Oceania', 'Africa'])
@@ -43,7 +53,7 @@ const AddContent = (props) => {
             const continent = data.docs[0].data()[country]
             db.collection('posts').add({
                 content: descriptionArray,
-                images,
+                images: urlObject,
                 title,
                 timestamp,
                 image: mainImage,
@@ -91,33 +101,68 @@ const AddContent = (props) => {
     }
 
     const fileUpload = () => {
-        const photoUrlArray = []
         let mainPhoto = []
+        let photoIndexes = []
+        let fileArray = []
+        const photoUrlArraySorted = []
+        const testArray = []
         const photoFiles = document.getElementsByClassName('photo-input')
-        if(photoFiles.length>0) {
-            for (let i = 0; i<photoFiles.length; i++) {
-                const file = photoFiles[i].files[0]
-                const metadata = {
-                    contentType: file.type
+        for (let i = 0; i < photoFiles.length; i++) {
+            fileArray = [...fileArray, ...photoFiles[i].files]
+            if(photoFiles[i].files.length > 1) {
+                photoUrlArraySorted.push([])
+                for(let j = 0; j<photoFiles[i].files.length; j++) {
+                    photoIndexes.push(i-1)
                 }
-                firebase.storage().ref()
-                .child(file.name)
-                .put(file, metadata)
-                .then(snapshot => {
-                    snapshot.ref.getDownloadURL()
-                    .then(downloadURL => {
-                        if(i===0) {
-                            mainPhoto.push(downloadURL)
-                        }else{
-                            photoUrlArray.push(downloadURL)
-                        }
-                        if(i === photoFiles.length -1) {
-                            submit(photoUrlArray, ...mainPhoto)
-                        }
-                    })
-                    .catch(error => console.log(error))
-                });
+            }else{
+                if(i!==0) {
+                    photoUrlArraySorted.push([])
+                    photoIndexes.push(i-1)
+                }
             }
+        }
+        for (let i = 0; i<fileArray.length; i++) {
+            const file = fileArray[i]
+            const metadata = {
+                contentType: file.type
+            }
+            firebase.storage().ref()
+            .child(file.name)
+            .put(file, metadata)
+            .then(snapshot => {
+                snapshot.ref.getDownloadURL()
+                .then(downloadURL => {
+                    testArray.push(downloadURL)
+                    if(i===0) {
+                        mainPhoto.push(downloadURL)
+                        if(fileArray.length===1){
+                            submit([], downloadURL)
+                        }
+                    }else{
+                        photoUrlArraySorted[photoIndexes[i-1]] = [...photoUrlArraySorted[photoIndexes[i-1]], downloadURL]
+                        if(i===fileArray.length-1) {
+                            submit(photoUrlArraySorted, mainPhoto[0], testArray)
+                            console.log(photoUrlArraySorted)
+                            return
+                        }
+                    }
+                    //keep for now
+                    // if(i===0) {
+                    //     mainPhoto.push(downloadURL)
+                    // }else if(photoUrlArraySorted[photoIndexes[i-1]] === null){
+                    //     photoUrlArraySorted[photoIndexes[i-1]] = downloadURL
+                    // }else{
+                    //     photoUrlArraySorted[photoIndexes[i-1]] = [...photoUrlArraySorted[photoIndexes[i-1]], downloadURL]
+                    // }
+                    // if(i===fileArray.length-1) {
+                    //     submit(photoUrlArraySorted, mainPhoto[0])
+                    //     console.log(photoUrlArraySorted)
+                    //     return
+                    // }
+                }).then(()=>{
+                })
+                .catch(error => console.log(error))
+            });
         }
     }
 

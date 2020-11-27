@@ -26,7 +26,7 @@ export const Title = styled.div`
 `
 
 export const Image = styled.img`
-    width: 90vw;
+    height: 90vh;
 `
 
 export const Author = styled.div`

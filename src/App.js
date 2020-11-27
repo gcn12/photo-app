@@ -5,11 +5,12 @@ import React, {
 import Header from './Header/Header'
 import VerticalScroll from './VeritcalScroll/VerticalScroll'
 import FeaturedPost from './FeaturedPost/FeaturedPost'
-import AddContent from './AddContent/AddContent'
+// import AddContent from './AddContent/AddContent'
 import GetPhotos from './GetPhotosHomepage/GetPhotosHomepage'
 import Profile from './Profile/Profile'
 import Login from './Login/Login'
-// import QueryTest from './QueryTest'
+// import TestFile from './TestFile'
+import AddContent from './AddContent/AddContentAnimationTest'
 // import Signup from './SignUp/SignUp'
 import firebase from 'firebase'
 import { db } from './Firebase'
@@ -19,7 +20,7 @@ const App = () => {
   const [user, setUser] = useState()
   const [homePhotoInformation, setHomePhotoInformation] = useState(null)
   const [photoInformation, setPhotoInformation] = useState(null)
-  const [pageRoute, setPageRoute] = useState('GetPhotos')
+  const [pageRoute, setPageRoute] = useState('Upload')
 
   const getFeaturedPhotoInfo = (docID) => {
     db.collection('posts').doc(docID)
@@ -41,13 +42,6 @@ const App = () => {
 
   return (
     <div>
-      {/* <QueryTest 
-        getFeaturedPhotoInfo={getFeaturedPhotoInfo}
-        homePhotoInformation={homePhotoInformation} 
-        setHomePhotoInformation={setHomePhotoInformation} 
-        setPageRoute={setPageRoute} 
-        setPhotoInformation={setPhotoInformation} 
-      /> */}
       {pageRoute==='GetPhotos' ? 
       <Header setHomePhotoInformation={setHomePhotoInformation} setPageRoute={setPageRoute} user={user}/>
       :
@@ -55,6 +49,7 @@ const App = () => {
       }
 
       {/* <Signup /> */}
+      {/* <TestFile /> */}
 
       {(() => {
         switch (pageRoute) {

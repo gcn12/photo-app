@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import HorizontalGallery from '../HorizontalGallery/HorizontalGallery'
 import Dropdown from '../Dropdown/Dropdown'
 import { db } from '../Firebase'
+// import FeaturedPostGallery from '../FeaturedPostGallery/FeaturedPostGallery'
 import { SubmitButton } from '../AddContent/AddContent.styles'
 import moment from 'moment'
 import {
@@ -123,7 +124,7 @@ const FeaturedPost = (props) => {
             <SubmitButton onClick={()=>props.setPageRoute('GetPhotos')}>Back</SubmitButton>
             <Container>
                 <Title>{props.photoInformation?.title}</Title>
-                <Image alt='display' src={props?.photoInformation?.image}></Image>
+                <Image id='test' alt='display' src={props?.photoInformation?.image}></Image>
                 <InfoContainer>
                     {props?.user ? 
                     <div>
@@ -153,13 +154,13 @@ const FeaturedPost = (props) => {
                     // console.log(props.photoInformation.images[index])
                     return(
                         <BodyContainer key={index}>
+                            {/* <FeaturedPostGallery images={props.photoInformation.images[index]}></FeaturedPostGallery> */}
                             <Description>{item}</Description>
                             <BodyImageContainer>
                             {props.photoInformation.images[index].map((image, i)=> {
                                 // console.log(props.photoInformation.images[index].length)
-                                console.log(props?.photoInformation.images[index])
                                 return(
-                                    <BodyImage width={80 / (props.photoInformation.images[index] ? props.photoInformation.images[index].length : 1)} src={image} key={i}></BodyImage>
+                                    <BodyImage width={65 / (props.photoInformation.images[index] ? props.photoInformation.images[index].length : 1)} src={image} key={i}></BodyImage>
                                 )
                             })}
                             </BodyImageContainer>

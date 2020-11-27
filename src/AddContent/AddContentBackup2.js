@@ -23,8 +23,7 @@ const AddContent = (props) => {
     const [isAddImage, setIsAddImage] = useState(false)
     const [isAdditionalElements, setIsAdditionalElements] = useState(false)
 
-    const submit = (images, mainImage, test) => {
-        console.log(test)
+    const submit = (imagesEmptyArrays, unsortedImages, imageMap) => {
         const location = document.getElementById('autocomplete').value
         const splitLocation = location.split(',')
         const country = splitLocation[splitLocation.length-1].trim()
@@ -33,18 +32,31 @@ const AddContent = (props) => {
         const timestamp = Date.now()
         const descriptionArray = []
         const content = document.getElementsByClassName('content-paragraph')
+
         for (let i=0; i<content.length; i++) {
             descriptionArray.push(String(content[i].value))
         }
-        const urlObject = {}
-        console.log(images)
-        
-        for (let i=0; i<images.length; i++) {
-            console.log(images[i])
-            urlObject[i] = images[i]
+
+        let mainImage = ''
+
+        let imagesEmptyArraysCopy = imagesEmptyArrays
+        let imageMapCopy = imageMap
+
+        for(let i=0; i<unsortedImages.length; i++) {
+            if(i === 0) {
+                mainImage = unsortedImages[i]
+            }else{
+                if(i<imageMapCopy.length+1) {
+                    imagesEmptyArraysCopy[imageMapCopy[i-1]].push(unsortedImages[i])
+                }
+            }
         }
 
-        console.log(urlObject)
+        const urlObject = {}
+        
+        for (let i=0; i<imagesEmptyArraysCopy.length; i++) {
+            urlObject[i] = imagesEmptyArraysCopy[i]
+        }
 
         db.collection('continents-countries').doc('map').collection(country)
         .where(country, 'in', ['North America', 'South America', 'Asia', 'Europe', 'Oceania', 'Africa'])
@@ -101,11 +113,10 @@ const AddContent = (props) => {
     }
 
     const fileUpload = () => {
-        let mainPhoto = []
         let photoIndexes = []
         let fileArray = []
         const photoUrlArraySorted = []
-        const testArray = []
+        const urlArray = []
         const photoFiles = document.getElementsByClassName('photo-input')
         for (let i = 0; i < photoFiles.length; i++) {
             fileArray = [...fileArray, ...photoFiles[i].files]
@@ -116,8 +127,8 @@ const AddContent = (props) => {
                 }
             }else{
                 if(i!==0) {
-                    photoUrlArraySorted.push([])
                     photoIndexes.push(i-1)
+                    photoUrlArraySorted.push([])
                 }
             }
         }
@@ -132,20 +143,7 @@ const AddContent = (props) => {
             .then(snapshot => {
                 snapshot.ref.getDownloadURL()
                 .then(downloadURL => {
-                    testArray.push(downloadURL)
-                    if(i===0) {
-                        mainPhoto.push(downloadURL)
-                        if(fileArray.length===1){
-                            submit([], downloadURL)
-                        }
-                    }else{
-                        photoUrlArraySorted[photoIndexes[i-1]] = [...photoUrlArraySorted[photoIndexes[i-1]], downloadURL]
-                        if(i===fileArray.length-1) {
-                            submit(photoUrlArraySorted, mainPhoto[0], testArray)
-                            console.log(photoUrlArraySorted)
-                            return
-                        }
-                    }
+                    urlArray.push(downloadURL)    
                     //keep for now
                     // if(i===0) {
                     //     mainPhoto.push(downloadURL)
@@ -159,7 +157,11 @@ const AddContent = (props) => {
                     //     console.log(photoUrlArraySorted)
                     //     return
                     // }
-                }).then(()=>{
+                    
+                }).then((downloadURL)=> {
+                    if(urlArray.length===fileArray.length) {
+                        submit(photoUrlArraySorted, [...urlArray, downloadURL], photoIndexes)
+                    }
                 })
                 .catch(error => console.log(error))
             });
