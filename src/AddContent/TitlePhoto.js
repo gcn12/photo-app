@@ -5,7 +5,8 @@ import {
     Container,
     PreviewContainer,
     Label,
-    SubmitButton,
+    // NextButton,
+    // ButtonContainer,
     // FormContainer,
     // SelectInput,
     // DescriptionInput,
@@ -13,34 +14,30 @@ import {
     // RemoveLastElement,
 } from './AddContentAnimationTest.styles'
 
-const AddContent = () => {
+const TitlePhoto = (props) => {
 
     const [isImage, setIsImage] = useState(false)
-    const [shiftUp, setShiftUp] = useState({y: 'calc(50vh - 80%)'})
 
     const displayImage = () => {
+        props.setTitlePhotoProps('transitionStart')
         const file = document.getElementById('photo-input').files[0]
-        console.log(file)
-        setIsImage(true)
-        setShiftUp({y: 10})
         const viewFile = new FileReader()
         viewFile.onload = (e) => {
             const image = document.getElementById('previewImage')
-            // const image = document.createElement('img')
             image.src = e.target.result
-            // document.body.appendChild(image)
         }
         viewFile.readAsDataURL(file)
+        setIsImage(true)
     }
 
-    const next = () => {
-        setShiftUp({x: -1200})
-    }
+    // const next = () => {
+    //     setShiftUp({x: -1200})
+    // }
 
     return(
         <div>
-            <SubmitButton onClick={next}>Next</SubmitButton>
-            <Container animate={shiftUp}>
+           
+            <Container initial={'initial'} transition='transition' variants={props.animationMap.titlePhoto} animate={props.transition}>
                 <Label>Create a title:</Label>
                 <TextInput></TextInput>
                 <Label>Upload header photo:</Label>
@@ -59,4 +56,4 @@ const AddContent = () => {
     )
 }
 
-export default AddContent
+export default TitlePhoto

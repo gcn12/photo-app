@@ -1,276 +1,184 @@
-import React, { useState } from 'react'
-import { db } from '../Firebase'
-import firebase from 'firebase'
-import Autocomplete from '../Autocomplete/Autocomplete'
+import TitlePhoto from './TitlePhoto'
+import CategoryLocation from './CategoryLocation'
+import Preview from './Preview'
+import Body from './Body'
+import VerticalScroll from '../VeritcalScroll/VerticalScroll'
+import React, { 
+    useState 
+} from 'react'
 import {
+    NextButton,
+    ButtonContainer,
     SubmitButton,
-    Container,
-    FormContainer,
-    TextInput,
-    SelectInput,
-    // PreviewImage,
-    DescriptionInput,
-    NewItemButton,
-    RemoveLastElement,
-} from './AddContent.styles'
+} from './AddContentAnimationTest.styles'
 
-const AddContent = (props) => {
 
-    // const [isImage, setIsImage] = useState(false)
-    // const [description, setDescription] = useState(null)
-    const [title, setTitle] = useState(null)
-    const [author, setAuthor] = useState(null)
-    const [isAddImage, setIsAddImage] = useState(false)
-    const [isAdditionalElements, setIsAdditionalElements] = useState(false)
 
-    const submit = (imagesEmptyArrays, unsortedImages, imageMap) => {
-        const location = document.getElementById('autocomplete').value
-        const splitLocation = location.split(',')
-        const country = splitLocation[splitLocation.length-1].trim()
-        const city = splitLocation[0]
-        const category = document.getElementById('category').value
-        const timestamp = Date.now()
-        const descriptionArray = []
-        const content = document.getElementsByClassName('content-paragraph')
-
-        for (let i=0; i<content.length; i++) {
-            descriptionArray.push(String(content[i].value))
-        }
-
-        let mainImage = ''
-
-        let imagesEmptyArraysCopy = imagesEmptyArrays
-        let imageMapCopy = imageMap
-
-        for(let i=0; i<unsortedImages.length; i++) {
-            if(i === 0) {
-                mainImage = unsortedImages[i]
-            }else{
-                if(i<imageMapCopy.length+1) {
-                    imagesEmptyArraysCopy[imageMapCopy[i-1]].push(unsortedImages[i])
-                }
+const animationMap = {
+    titlePhoto: {
+        initial: {
+            y: '30vh'
+        },
+        transitionStart: {
+            y: 10,
+        }, 
+        transitionEnd: {
+            x: -200,
+            opacity: 0,
+        },
+        transitionBack: {
+            y: 10,
+            x: 0,
+            opacity: 1,
+        }, 
+        transition: {
+            x: {
+                duration: 10
             }
         }
-
-        const urlObject = {}
-        
-        for (let i=0; i<imagesEmptyArraysCopy.length; i++) {
-            urlObject[i] = imagesEmptyArraysCopy[i]
-        }
-
-        db.collection('continents-countries').doc('map').collection(country)
-        .where(country, 'in', ['North America', 'South America', 'Asia', 'Europe', 'Oceania', 'Africa'])
-        .get()
-        .then(data => {
-            const continent = data.docs[0].data()[country]
-            db.collection('posts').add({
-                content: descriptionArray,
-                images: urlObject,
-                title,
-                timestamp,
-                image: mainImage,
-                category,
-                city,
-                country,
-                continent,
-                author,
-                views: 0,
-            }).then(docRef => {
-                db.collection('users').doc(props.user)
-                .collection('posts').doc(docRef.id).set({
-                    reference: `posts/${docRef.id}`,
-                    timestamp,
-                    id: docRef.id,
-                    title,
-                    image: mainImage,
-                    views: 0,
-                    city,
-                    country,
-                    continent,
-                }, {merge: true})
-                .then(()=>{
-                    db.collection('posts').doc(docRef.id).set({
-                        id: docRef.id,
-                    }, {merge: true}) 
-                })
-                .then(()=> {
-                    db.collection('preview-posts').add({
-                        reference: `/posts/${docRef.id}`,
-                        timestamp,
-                        id: docRef.id,
-                        title,
-                        image: mainImage,
-                        views: 0,
-                        category,
-                        city,
-                        country,
-                        continent,
-                    })
-                    .then(()=>console.log('uploaded'))
-                })              
-            })
-        })
-    }
-
-    const fileUpload = () => {
-        let photoIndexes = []
-        let fileArray = []
-        const photoUrlArraySorted = []
-        const urlArray = []
-        const photoFiles = document.getElementsByClassName('photo-input')
-        for (let i = 0; i < photoFiles.length; i++) {
-            fileArray = [...fileArray, ...photoFiles[i].files]
-            if(photoFiles[i].files.length > 1) {
-                photoUrlArraySorted.push([])
-                for(let j = 0; j<photoFiles[i].files.length; j++) {
-                    photoIndexes.push(i-1)
-                }
-            }else{
-                if(i!==0) {
-                    photoIndexes.push(i-1)
-                    photoUrlArraySorted.push([])
-                }
+    },
+    categoryLocation: {
+        initial: {
+            x: 100,
+            opacity: 0,
+            y: '30vh',
+        },
+        transitionStart: {
+            x: 0,
+            opacity: 1,
+            y: '10',
+        },
+        transitionBack: {
+            x: 400,
+            opacity: 0,
+        },
+        transitionEnd: {
+            x: -1000,
+            opacity: 0
+        },
+        transition: {
+            x: {
+                type: 'spring',
+                stiffness: 1000,
             }
         }
-        for (let i = 0; i<fileArray.length; i++) {
-            const file = fileArray[i]
-            const metadata = {
-                contentType: file.type
+    },
+    body: {
+        initial: {
+            x: 100,
+            opacity: 0,
+            y: '20vh',
+        },
+        transitionStart: {
+            x: 0,
+            opacity: 1,
+            // y: '10',
+        },
+        transitionBack: {
+            x: 2000,
+            opacity: 0,
+        },
+        // transitionEnd: {
+        //     x: -1000,
+        //     opacity: 0
+        // },
+        transition: {
+            x: {
+                type: 'spring',
+                stiffness: 1000,
             }
-            firebase.storage().ref()
-            .child(file.name)
-            .put(file, metadata)
-            .then(snapshot => {
-                snapshot.ref.getDownloadURL()
-                .then(downloadURL => {
-                    urlArray.push(downloadURL)    
-                    //keep for now
-                    // if(i===0) {
-                    //     mainPhoto.push(downloadURL)
-                    // }else if(photoUrlArraySorted[photoIndexes[i-1]] === null){
-                    //     photoUrlArraySorted[photoIndexes[i-1]] = downloadURL
-                    // }else{
-                    //     photoUrlArraySorted[photoIndexes[i-1]] = [...photoUrlArraySorted[photoIndexes[i-1]], downloadURL]
-                    // }
-                    // if(i===fileArray.length-1) {
-                    //     submit(photoUrlArraySorted, mainPhoto[0])
-                    //     console.log(photoUrlArraySorted)
-                    //     return
-                    // }
-                    
-                }).then((downloadURL)=> {
-                    if(urlArray.length===fileArray.length) {
-                        submit(photoUrlArraySorted, [...urlArray, downloadURL], photoIndexes)
-                    }
-                })
-                .catch(error => console.log(error))
-            });
+        }
+    },
+    preview: {
+        initial: {
+            y: '-100vh',
+            opacity: 0,
+        },
+        transitionStart: {
+            opacity: 1,
+            y: 0,
+        },
+        transitionBack: {
+            x: 2000,
+            opacity: 0,
+        },
+        // transitionEnd: {
+        //     x: -1000,
+        //     opacity: 0
+        // },
+        transition: {
+            x: {
+                type: 'spring',
+                stiffness: 1000,
+            }
+        }
+    }
+}
+
+
+const AddContent = () => {
+    const [titlePhotoProps, setTitlePhotoProps] = useState('initial')
+    const [categoryLocationProps, setCategoryLocationProps] = useState('initial')
+    const [bodyProps, setBody] = useState('initial')
+    const [previewProps, setPreviewProps] = useState('initial')
+    const [switchValue, setSwitchValue] = useState(1)
+
+    const transitionSwitchNext = () => {
+        switch(switchValue) {
+            case 1:
+                setTitlePhotoProps('transitionEnd')
+                setCategoryLocationProps('transitionStart')
+                setSwitchValue(2)
+                break
+            case 2:
+                setBody('transitionStart')
+                setCategoryLocationProps('transitionEnd')
+                setSwitchValue(3)
+                break
+            default: 
+                return null
         }
     }
 
-    const newParagraph = () => {
-        const input = document.createElement('textarea')
-        input.className='add-content-description-input content-paragraph additional-item'
-        const parent = document.getElementById('content-form')
-        parent.appendChild(input)
-        setIsAddImage(!isAddImage)
-        checkAdditionalElement()
-    }
-
-    const newImage = () => {
-        const image = document.createElement('input')
-        image.type='file'
-        image.className='photo-input additional-item'
-        image.setAttribute('multiple', '')
-        image.setAttribute('accept', 'image/jpeg, image/png, image/jpg, image/tif')
-        const parent = document.getElementById('content-form')
-        parent.appendChild(image)
-        setIsAddImage(!isAddImage)
-        checkAdditionalElement()
-    }
-    
-    const removeLastElement = () => {
-        const parent = document.getElementById('content-form')
-        parent.removeChild(parent.lastChild)
-        setIsAddImage(!isAddImage)
-        checkAdditionalElement()
-    }
-
-    const checkAdditionalElement = () => {
-        const additionalElements = document.getElementsByClassName('additional-item')
-        if(additionalElements.length > 0) {
-            setIsAdditionalElements(true)
-        }else{
-            setIsAdditionalElements(false)
+    const transitionSwitchBack = () => {
+        switch(switchValue) {
+            case 2:
+                setCategoryLocationProps('transitionBack')
+                setTitlePhotoProps('transitionBack')
+                setSwitchValue(1)
+                break
+            case 3: 
+                setBody('transitionBack')
+                setCategoryLocationProps('transitionStart')
+                setSwitchValue(2)
+                break
+            default: 
+                return null
         }
+    }
+
+    const preview = () => {
+        setPreviewProps('transitionStart')
     }
 
     return(
         <div>
-        <SubmitButton onClick={()=>props.setPageRoute('GetPhotos')}>Back</SubmitButton>
-        <Container>
-            <FormContainer >
-                <div id='content-form'>
-                <label>Main photo</label>
-                <br></br>
-                <input type='file' className='photo-input'></input>
-                <br></br>
-                <label>Title</label>
-                <TextInput onChange={e=>setTitle(e.target.value)}></TextInput>
-                <label>Your name</label>
-                <TextInput onChange={e=>setAuthor(e.target.value)}></TextInput>
-                <label htmlFor='category'>Category</label>
-                <SelectInput name='category' id='category'>
-                    <option value='' defaultValue>Select category</option>
-                    <option value='restaurant'>Restaurant</option>
-                    <option value='entertainment'>Entertainment</option>
-                    <option value='adventure'>Adventure</option>
-                    <option value='sightseeing'>Sightseeing</option>
-                    <option value='shopping'>Shopping</option>
-                    <option value='museum'>Museum</option>
-                </SelectInput>
-                <label>Select City</label>
-                <Autocomplete />
-                <label>First paragraph</label>
-                <DescriptionInput className='content-paragraph'></DescriptionInput>
-                </div>
-                {isAdditionalElements ? 
-                <RemoveLastElement type="button" onClick={removeLastElement}>Remove last element</RemoveLastElement>
-                :
-                null
-                }
-                {isAddImage ? 
-                <NewItemButton type="button" onClick={newParagraph}>Add paragraph</NewItemButton>
-                : 
-                <NewItemButton type="button" onClick={newImage}>Add image</NewItemButton>
-                }
-                <br></br>
-                <SubmitButton type="button" onClick={fileUpload}>Submit</SubmitButton>
-            </FormContainer> 
-        </Container>
+            <Preview previewProps={previewProps} animationMap={animationMap}></Preview>
+            <SubmitButton onClick={preview}>Preview</SubmitButton>
+            <TitlePhoto animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} transition={titlePhotoProps}/>
+            <CategoryLocation animationMap={animationMap} categoryLocation={categoryLocationProps}/>
+            {/* <VerticalScroll scrollHeight='60vh' maxHeight='65vh'> */}
+                <Body animationMap={animationMap} bodyProps={bodyProps}></Body>
+            {/* </VerticalScroll> */}
+            <ButtonContainer>
+                <NextButton onClick={transitionSwitchBack}>Back</NextButton>
+                <NextButton onClick={transitionSwitchNext}>Next</NextButton>
+            </ButtonContainer>
         </div>
     )
 }
 
+
+
+
 export default AddContent
-
-// <input onChange={displayImage} type='file' className='photo-input'></input>
-
-// {isImage ? 
-//     <PreviewImage alt='preview' id='previewImage'></PreviewImage>
-//     :
-//     null
-// }
-
-
-// const displayImage = () => {
-    //     const file = document.getElementById('input').files[0]
-    //     setIsImage(true)
-    //     const viewFile = new FileReader()
-    //     viewFile.onload = (e) => {
-    //         const image = document.getElementById('previewImage')
-    //         image.src = e.target.result
-    //         document.body.appendChild(image)
-    //     }
-    //     viewFile.readAsDataURL(file)
-    // }
