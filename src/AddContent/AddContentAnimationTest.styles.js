@@ -2,10 +2,11 @@ import styled from 'styled-components'
 import { motion } from 'framer-motion'
 
 export const ButtonContainer = styled.div`
+    background-color: yellow;
     border-top: 1px solid black;
     position: fixed;
-    padding-top: 15px;
-    bottom: 15px;
+    padding: 15px;
+    /* bottom: 15px; */
     width: 100%;
     /* position:absolute;
     bottom:30px;
@@ -22,7 +23,8 @@ export const NextButton = styled.button`
     color: white;
     background-color: #141414;
     border: none;
-    width: 120px;
+    width: ${props => props.width};
+    /* width: 120px; */
     height: 50px;
     cursor: pointer;
     transition: background-color 400ms;
@@ -62,7 +64,7 @@ export const CategoryLocationContainer = styled(motion.div)`
 `
 
 export const FileUpload = styled.input`
-    /* height: 20px; */
+    margin: 20px 0;
 `
 
 export const PreviewContainer = styled.div`
@@ -70,7 +72,8 @@ export const PreviewContainer = styled.div`
 `
 
 export const PreviewImage = styled.img`
-    height: 480px;
+    /* height: 450px; */
+    height: 55vh;
     width: auto;
 `
 
@@ -93,7 +96,8 @@ export const NewItemButton = styled.button`
     color: white;
     background-color: #141414;
     border: none;
-    width: 40vw;
+    width: ${props=> props.long ? '60vw ': '40vw'};
+    /* width: 40vw; */
     height: 50px;
     cursor: pointer;
     transition: background-color 400ms;

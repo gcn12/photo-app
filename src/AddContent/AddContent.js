@@ -197,7 +197,7 @@ const AddContent = () => {
 
     return(
         <div>
-            <Scroll scrollHeight='90vh' visibility={animationMap.preview[previewProps].opacity}>
+            <Scroll animate={previewProps} variants={animationMap.preview} scrollHeight='90vh' visibility={animationMap.preview[previewProps].opacity}>
                 <Preview bodyImages={bodyImages} bodyContent={bodyContent} mainImage={mainImage} previewProps={previewProps} animationMap={animationMap}></Preview>
             </Scroll>
             <Scroll scrollHeight='90vh' visibility={animationMap.titlePhoto[titlePhotoProps].opacity}>
@@ -210,8 +210,16 @@ const AddContent = () => {
                 <Body animationMap={animationMap} bodyProps={bodyProps}></Body>
             </Scroll>
             <ButtonContainer>
-                <NextButton onClick={transitionSwitchBack}>Back</NextButton>
-                <NextButton onClick={transitionSwitchNext}>Next</NextButton>
+                {switchValue === 1 ? 
+                null
+                :
+                <NextButton width='150px' onClick={transitionSwitchBack}>Back</NextButton>
+                }
+                {switchValue === 4 ? 
+                <NextButton width={switchValue === 1 ? '300px' :'150px'} onClick={transitionSwitchNext}>Submit</NextButton>
+                :
+                <NextButton width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
+                }
             </ButtonContainer>
         </div>
     )

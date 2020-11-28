@@ -35,3 +35,7 @@
 margin-left: 5px; /* gutter size */
 background-clip: padding-box;
 }
+
+.body-photos {
+    margin: 20px 0;
+}

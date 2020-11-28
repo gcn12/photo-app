@@ -59,16 +59,16 @@ const Body = (props) => {
                 <DescriptionInput className='content-paragraph'></DescriptionInput>
             </Container>
             <BodyButtonContainer>
-            {isAdditionalElements ? 
-            <RemoveLastElement type="button" onClick={removeLastElement}>{`Remove last ${isAddImage ? 'image' : 'text block'}`}</RemoveLastElement>
-            :
-            null
-            }
-            {isAddImage ? 
-            <NewItemButton type="button" onClick={newParagraph}>Add paragraph</NewItemButton>
-            : 
-            <NewItemButton type="button" onClick={newImage}>Add image</NewItemButton>
-            }
+                {isAdditionalElements ? 
+                <RemoveLastElement type="button" onClick={removeLastElement}>{`Remove last ${isAddImage ? 'image' : 'text block'}`}</RemoveLastElement>
+                :
+                null
+                }
+                {isAddImage ? 
+                <NewItemButton type="button" onClick={newParagraph}>Add paragraph</NewItemButton>
+                : 
+                <NewItemButton long={!isAdditionalElements} type="button" onClick={newImage}>Add image</NewItemButton>
+                }
             </BodyButtonContainer>
         </CategoryLocationContainer>
     )
