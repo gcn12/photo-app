@@ -8,23 +8,6 @@ export const ButtonContainer = styled.div`
     bottom: 10px;
 `
 
-export const PreviewButton = styled.button`
-    position: absolute;
-    /* right: 150px; */
-    cursor: pointer;
-    color: white;
-    background-color: #141414;
-    border: none;
-    width: 120px;
-    height: 50px;
-    cursor: pointer;
-    transition: background-color 400ms;
-
-    &:hover {
-        background-color: #212121;
-    }
-`
-
 export const NextButton = styled.button`
     /* position: absolute; */
     /* right: 150px; */

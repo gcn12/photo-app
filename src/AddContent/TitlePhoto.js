@@ -26,6 +26,7 @@ const TitlePhoto = (props) => {
         viewFile.onload = (e) => {
             const image = document.getElementById('previewImage')
             image.src = e.target.result
+            props.setMainImage(e.target.result)
         }
         viewFile.readAsDataURL(file)
         setIsImage(true)
@@ -40,7 +41,7 @@ const TitlePhoto = (props) => {
            
             <Container visibility={props.animationMap.titlePhoto[props.transition].opacity} initial='initial'  transition='transition' variants={props.animationMap.titlePhoto} animate={props.transition}>
                 <Label>Create a title:</Label>
-                <TextInput></TextInput>
+                <TextInput id='add-content-title'></TextInput>
                 <Label>Upload header photo:</Label>
                 <FileUpload style={{paddingBottom: '20px'}} onChange={displayImage} id='photo-input' type='file' className='photo-input'></FileUpload>
                 <br></br>

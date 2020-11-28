@@ -9,7 +9,6 @@ import React, {
 import {
     NextButton,
     ButtonContainer,
-    PreviewButton,
 } from './AddContentAnimationTest.styles'
 
 
@@ -77,13 +76,13 @@ const animationMap = {
             // y: '10',
         },
         transitionBack: {
-            x: 2000,
-            opacity: 0,
+            x: 0,
+            opacity: 1,
         },
-        // transitionEnd: {
-        //     x: -1000,
-        //     opacity: 0
-        // },
+        transitionEnd: {
+            x: -1000,
+            opacity: 0
+        },
         transition: {
             x: {
                 type: 'spring',
@@ -93,7 +92,7 @@ const animationMap = {
     },
     preview: {
         initial: {
-            y: '-200vh',
+            y: '10',
             opacity: 0,
         },
         transitionStart: {
@@ -101,7 +100,7 @@ const animationMap = {
             y: 0,
         },
         transitionBack: {
-            x: 2000,
+            x: 100,
             opacity: 0,
         },
         // transitionEnd: {
@@ -119,11 +118,40 @@ const animationMap = {
 
 
 const AddContent = () => {
+    const [mainImage, setMainImage] = useState(null)
     const [titlePhotoProps, setTitlePhotoProps] = useState('initial')
     const [categoryLocationProps, setCategoryLocationProps] = useState('initial')
     const [bodyProps, setBody] = useState('initial')
-    const [previewProps, setPreviewProps] = useState(false)
+    const [previewProps, setPreviewProps] = useState('initial')
     const [switchValue, setSwitchValue] = useState(1)
+    const [bodyContent, setBodyContent] = useState([])
+    const [bodyImages, setBodyImages] = useState([])
+
+    const getBodyContent = () => {
+        const paragraphs = document.getElementsByClassName('content-paragraph')
+        const content = []
+        for (let paragraph of paragraphs) {
+            content.push(paragraph.value)
+        }
+        setBodyContent(content)
+    }
+
+    const getBodyImages = () => {
+        const images = document.getElementsByClassName('body-photos')
+        let imagesArray = []
+        for (let i = 0; i < images.length; i++) {
+            let subArray = []
+            console.log(images)
+            // imagesArray = [...imagesArray, ...images[i].files]
+            // if(images[i].files.length > 1) {
+                for(let j = 0; j<images[i].files.length; j++) {
+                    subArray.push(images[i].files[j])
+                }
+                imagesArray.push(subArray)
+            // }e
+        }
+        setBodyImages(imagesArray)
+    }
 
     const transitionSwitchNext = () => {
         switch(switchValue) {
@@ -136,6 +164,13 @@ const AddContent = () => {
                 setBody('transitionStart')
                 setCategoryLocationProps('transitionEnd')
                 setSwitchValue(3)
+                break
+            case 3:
+                setPreviewProps('transitionStart')
+                setBody('transitionEnd')
+                setSwitchValue(4)
+                getBodyContent()
+                getBodyImages()
                 break
             default: 
                 return null
@@ -150,43 +185,34 @@ const AddContent = () => {
                 setSwitchValue(1)
                 break
             case 3: 
-                setBody('transitionBack')
+                setBody('initial')
                 setCategoryLocationProps('transitionStart')
                 setSwitchValue(2)
+                break
+            case 4: 
+                setBody('transitionBack')
+                setPreviewProps('transitionBack')
+                setSwitchValue(3)
                 break
             default: 
                 return null
         }
     }
 
-    const preview = () => {
-        setPreviewProps(!previewProps)
-    }
-
     return(
         <div>
-            <Preview previewProps={previewProps} animationMap={animationMap}></Preview>
-            <PreviewButton onClick={preview}>Preview</PreviewButton>
-            {previewProps ? 
-            null
-            :
             <div>
-                <TitlePhoto animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} transition={titlePhotoProps}/>
+                <TitlePhoto setMainImage={setMainImage} animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} transition={titlePhotoProps}/>
+                <Preview bodyImages={bodyImages} bodyContent={bodyContent} mainImage={mainImage} previewProps={previewProps} animationMap={animationMap}></Preview>
                 <CategoryLocation animationMap={animationMap} categoryLocation={categoryLocationProps}/>
-                {/* <VerticalScroll scrollHeight='60vh' maxHeight='65vh'> */}
-                    <Body animationMap={animationMap} bodyProps={bodyProps}></Body>
-                {/* </VerticalScroll> */}
+                <Body animationMap={animationMap} bodyProps={bodyProps}></Body>
             <ButtonContainer>
                 <NextButton onClick={transitionSwitchBack}>Back</NextButton>
                 <NextButton onClick={transitionSwitchNext}>Next</NextButton>
             </ButtonContainer>
             </div>
-            }
         </div>
     )
 }
-
-
-
 
 export default AddContent
