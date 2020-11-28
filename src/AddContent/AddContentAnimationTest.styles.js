@@ -6,7 +6,24 @@ export const ButtonContainer = styled.div`
     position: absolute;
     justify-content: space-between;
     bottom: 10px;
-    `
+`
+
+export const PreviewButton = styled.button`
+    position: absolute;
+    /* right: 150px; */
+    cursor: pointer;
+    color: white;
+    background-color: #141414;
+    border: none;
+    width: 120px;
+    height: 50px;
+    cursor: pointer;
+    transition: background-color 400ms;
+
+    &:hover {
+        background-color: #212121;
+    }
+`
 
 export const NextButton = styled.button`
     /* position: absolute; */
@@ -28,7 +45,10 @@ export const NextButton = styled.button`
 
 export const Container = styled(motion.div)`
     /* height: 110vh; */
-    /* position: relative;  */
+    visibility: ${props=> props.visibility ? 'null' : 'hidden'};
+    /* left: 20%;
+    top: 40%;
+    position: absolute;  */
     display: flex;
     flex-wrap: wrap;
     flex-direction: column; 
@@ -39,6 +59,7 @@ export const Container = styled(motion.div)`
 export const CategoryLocationContainer = styled(motion.div)`
     /* height: 110vh; */
     /* position: relative;  */
+    visibility: ${props=> props.visibility ? 'null' : 'hidden'};
     top: 3%;
     left: 20%;
     position: absolute;
@@ -49,10 +70,12 @@ export const CategoryLocationContainer = styled(motion.div)`
     justify-content: center;
 `
 
+export const FileUpload = styled.input`
+    height: 20px;
+`
+
 export const PreviewContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
 `
 
 export const PreviewImage = styled.img`

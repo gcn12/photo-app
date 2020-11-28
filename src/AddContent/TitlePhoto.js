@@ -5,6 +5,7 @@ import {
     Container,
     PreviewContainer,
     Label,
+    FileUpload,
     // NextButton,
     // ButtonContainer,
     // FormContainer,
@@ -37,19 +38,17 @@ const TitlePhoto = (props) => {
     return(
         <div>
            
-            <Container initial={'initial'} transition='transition' variants={props.animationMap.titlePhoto} animate={props.transition}>
+            <Container visibility={props.animationMap.titlePhoto[props.transition].opacity} initial='initial'  transition='transition' variants={props.animationMap.titlePhoto} animate={props.transition}>
                 <Label>Create a title:</Label>
                 <TextInput></TextInput>
                 <Label>Upload header photo:</Label>
+                <FileUpload style={{paddingBottom: '20px'}} onChange={displayImage} id='photo-input' type='file' className='photo-input'></FileUpload>
                 <br></br>
-                <PreviewContainer>
-                    <input style={{paddingBottom: '20px'}} onChange={displayImage} id='photo-input' type='file' className='photo-input'></input>
-                    {isImage ? 
-                    <PreviewImage alt='preview' id='previewImage'></PreviewImage>
-                    :
-                    null
-                    }
-                </PreviewContainer>
+                {isImage ? 
+                <PreviewImage alt='preview' id='previewImage'></PreviewImage>
+                :
+                null
+                }
                 <br></br>
             </Container>
         </div>

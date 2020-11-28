@@ -2,14 +2,14 @@ import TitlePhoto from './TitlePhoto'
 import CategoryLocation from './CategoryLocation'
 import Preview from './Preview'
 import Body from './Body'
-import VerticalScroll from '../VeritcalScroll/VerticalScroll'
+// import VerticalScroll from '../VeritcalScroll/VerticalScroll'
 import React, { 
     useState 
 } from 'react'
 import {
     NextButton,
     ButtonContainer,
-    SubmitButton,
+    PreviewButton,
 } from './AddContentAnimationTest.styles'
 
 
@@ -17,10 +17,12 @@ import {
 const animationMap = {
     titlePhoto: {
         initial: {
-            y: '30vh'
+            y: '30vh',
+            opacity: 1,
         },
         transitionStart: {
             y: 10,
+            opacity: 1,
         }, 
         transitionEnd: {
             x: -200,
@@ -91,7 +93,7 @@ const animationMap = {
     },
     preview: {
         initial: {
-            y: '-100vh',
+            y: '-200vh',
             opacity: 0,
         },
         transitionStart: {
@@ -120,7 +122,7 @@ const AddContent = () => {
     const [titlePhotoProps, setTitlePhotoProps] = useState('initial')
     const [categoryLocationProps, setCategoryLocationProps] = useState('initial')
     const [bodyProps, setBody] = useState('initial')
-    const [previewProps, setPreviewProps] = useState('initial')
+    const [previewProps, setPreviewProps] = useState(false)
     const [switchValue, setSwitchValue] = useState(1)
 
     const transitionSwitchNext = () => {
@@ -158,22 +160,28 @@ const AddContent = () => {
     }
 
     const preview = () => {
-        setPreviewProps('transitionStart')
+        setPreviewProps(!previewProps)
     }
 
     return(
         <div>
             <Preview previewProps={previewProps} animationMap={animationMap}></Preview>
-            <SubmitButton onClick={preview}>Preview</SubmitButton>
-            <TitlePhoto animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} transition={titlePhotoProps}/>
-            <CategoryLocation animationMap={animationMap} categoryLocation={categoryLocationProps}/>
-            {/* <VerticalScroll scrollHeight='60vh' maxHeight='65vh'> */}
-                <Body animationMap={animationMap} bodyProps={bodyProps}></Body>
-            {/* </VerticalScroll> */}
+            <PreviewButton onClick={preview}>Preview</PreviewButton>
+            {previewProps ? 
+            null
+            :
+            <div>
+                <TitlePhoto animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} transition={titlePhotoProps}/>
+                <CategoryLocation animationMap={animationMap} categoryLocation={categoryLocationProps}/>
+                {/* <VerticalScroll scrollHeight='60vh' maxHeight='65vh'> */}
+                    <Body animationMap={animationMap} bodyProps={bodyProps}></Body>
+                {/* </VerticalScroll> */}
             <ButtonContainer>
                 <NextButton onClick={transitionSwitchBack}>Back</NextButton>
                 <NextButton onClick={transitionSwitchNext}>Next</NextButton>
             </ButtonContainer>
+            </div>
+            }
         </div>
     )
 }

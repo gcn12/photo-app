@@ -5,7 +5,7 @@ import {
 
 const Preview = (props) => {
     return(
-        <Container transition='transition' initial='initial' animate={props.previewProps} variants={props.animationMap.preview}>
+        <Container visibility={props.previewProps} transition='transition' initial='initial' animate={props.previewProps ? 'transitionStart' : 'initial'} variants={props.animationMap.preview}>
             <div>Hello</div>
         </Container>
     )

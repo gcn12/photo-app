@@ -53,8 +53,8 @@ const Body = (props) => {
     }
 
     return(
-        <CategoryLocationContainer variants={props.animationMap.body} animate={props.bodyProps} transition='transition' initial={'initial'}>
-            <Container id='content-form'>
+        <CategoryLocationContainer visibility={props.animationMap.body[props.bodyProps].opacity} variants={props.animationMap.body} animate={props.bodyProps} transition='transition' initial={'initial'}>
+            <Container visibility={props.animationMap.body[props.bodyProps].opacity} id='content-form'>
                 <Label>Body content</Label>
                 <DescriptionInput className='content-paragraph'></DescriptionInput>
             </Container>
