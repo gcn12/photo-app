@@ -24,19 +24,19 @@ const BodyImage = (props) => {
         const viewFile = new FileReader()
         const file = props.image
         viewFile.onload = (e) => {
-            const image = document.getElementById(`body-photo-${props.index}`)
+            const image = document.getElementById(`body-photo-${props.i}`)
             image.src = e.target.result
             // props.setMainImage(e.target.result)
         }
         viewFile.readAsDataURL(file)
-        console.log(65 / (props.bodyImages[props.index] ? props.bodyImages[props.index].length : 1))
+        console.log(props.image)
     }
 
     image()
 
     return(
         <BodyImagePreview id={`body-photo-${props.i}`} width={65 / (props.bodyImages[props.index] ? props.bodyImages[props.index].length : 1)} ></BodyImagePreview>
-        // <BodyImagePreview id={`body-photo-${props.index}`} width={30} ></BodyImagePreview>
+        // <BodyImagePreview id={`body-photo-${props.index}`} ></BodyImagePreview>
     )
 }
 
@@ -65,7 +65,7 @@ const Preview = (props) => {
                     <BodyContainer key={index}>
                         <Description>{item}</Description>
                         <BodyImageContainer>
-                        {props?.bodyImages[index].map((image, i)=> {
+                        {props?.bodyImages[index]?.map((image, i)=> {
                             return(
                                 <BodyImage bodyImages={props.bodyImages} i={i} image={image} index={index} key={i}></BodyImage>
                             )

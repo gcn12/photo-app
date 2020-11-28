@@ -2,7 +2,7 @@ import TitlePhoto from './TitlePhoto'
 import CategoryLocation from './CategoryLocation'
 import Preview from './Preview'
 import Body from './Body'
-// import VerticalScroll from '../VeritcalScroll/VerticalScroll'
+import VerticalScroll from '../VeritcalScroll/VerticalScroll'
 import React, { 
     useState 
 } from 'react'
@@ -201,16 +201,16 @@ const AddContent = () => {
 
     return(
         <div>
-            <div>
-                <TitlePhoto setMainImage={setMainImage} animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} transition={titlePhotoProps}/>
-                <Preview bodyImages={bodyImages} bodyContent={bodyContent} mainImage={mainImage} previewProps={previewProps} animationMap={animationMap}></Preview>
-                <CategoryLocation animationMap={animationMap} categoryLocation={categoryLocationProps}/>
-                <Body animationMap={animationMap} bodyProps={bodyProps}></Body>
+            {/* <VerticalScroll scrollHeight='60vh'> */}
+            <TitlePhoto setMainImage={setMainImage} animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} transition={titlePhotoProps}/>
+            <Preview bodyImages={bodyImages} bodyContent={bodyContent} mainImage={mainImage} previewProps={previewProps} animationMap={animationMap}></Preview>
+            <CategoryLocation animationMap={animationMap} categoryLocation={categoryLocationProps}/>
+            <Body animationMap={animationMap} bodyProps={bodyProps}></Body>
+            {/* </VerticalScroll> */}
             <ButtonContainer>
                 <NextButton onClick={transitionSwitchBack}>Back</NextButton>
                 <NextButton onClick={transitionSwitchNext}>Next</NextButton>
             </ButtonContainer>
-            </div>
         </div>
     )
 }
