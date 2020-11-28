@@ -6,7 +6,7 @@ export const ButtonContainer = styled.div`
     border-top: 1px solid black;
     position: fixed;
     padding: 15px;
-    /* bottom: 15px; */
+    bottom: 0px;
     width: 100%;
     /* position:absolute;
     bottom:30px;
