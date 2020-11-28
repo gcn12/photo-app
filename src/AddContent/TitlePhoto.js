@@ -3,7 +3,7 @@ import {
     PreviewImage,
     TextInput,
     Container,
-    PreviewContainer,
+    // PreviewContainer,
     Label,
     FileUpload,
     // NextButton,
@@ -41,7 +41,7 @@ const TitlePhoto = (props) => {
            
             <Container visibility={props.animationMap.titlePhoto[props.transition].opacity} initial='initial'  transition='transition' variants={props.animationMap.titlePhoto} animate={props.transition}>
                 <Label>Create a title:</Label>
-                <TextInput id='add-content-title'></TextInput>
+                <TextInput autoComplete='off' id='add-content-title'></TextInput>
                 <Label>Upload header photo:</Label>
                 <FileUpload style={{paddingBottom: '20px'}} onChange={displayImage} id='photo-input' type='file' className='photo-input'></FileUpload>
                 <br></br>

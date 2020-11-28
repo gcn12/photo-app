@@ -2,10 +2,16 @@ import styled from 'styled-components'
 import { motion } from 'framer-motion'
 
 export const ButtonContainer = styled.div`
+    border-top: 1px solid black;
+    position: fixed;
+    padding-top: 15px;
+    bottom: 15px;
+    width: 100%;
+    /* position:absolute;
+    bottom:30px;
+    width:100%; */
     display: flex;
-    position: absolute;
-    justify-content: space-between;
-    bottom: 10px;
+    justify-content: space-evenly;
 `
 
 export const NextButton = styled.button`
@@ -29,10 +35,11 @@ export const NextButton = styled.button`
 export const Container = styled(motion.div)`
     /* height: 110vh; */
     visibility: ${props=> props.visibility ? 'null' : 'hidden'};
+    display: ${props=> props.visibility ? 'flex' : 'none'};
     /* left: 20%;
     top: 40%;
     position: absolute;  */
-    display: flex;
+    /* display: flex; */
     flex-wrap: wrap;
     flex-direction: column; 
     align-items: center;
@@ -43,10 +50,11 @@ export const CategoryLocationContainer = styled(motion.div)`
     /* height: 110vh; */
     /* position: relative;  */
     visibility: ${props=> props.visibility ? 'null' : 'hidden'};
-    top: 3%;
+    display: ${props=> props.visibility ? 'flex' : 'none'};
+    /* top: 3%;
     left: 20%;
-    position: absolute;
-    display: flex;
+    position: absolute; */
+    /* display: flex; */
     flex-wrap: wrap;
     flex-direction: column; 
     align-items: center;
@@ -54,7 +62,7 @@ export const CategoryLocationContainer = styled(motion.div)`
 `
 
 export const FileUpload = styled.input`
-    height: 20px;
+    /* height: 20px; */
 `
 
 export const PreviewContainer = styled.div`
@@ -62,7 +70,7 @@ export const PreviewContainer = styled.div`
 `
 
 export const PreviewImage = styled.img`
-    height: 500px;
+    height: 480px;
     width: auto;
 `
 

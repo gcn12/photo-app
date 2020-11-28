@@ -2,7 +2,7 @@ import TitlePhoto from './TitlePhoto'
 import CategoryLocation from './CategoryLocation'
 import Preview from './Preview'
 import Body from './Body'
-import VerticalScroll from '../VeritcalScroll/VerticalScroll'
+import Scroll from './Scroll'
 import React, { 
     useState 
 } from 'react'
@@ -47,7 +47,7 @@ const animationMap = {
         transitionStart: {
             x: 0,
             opacity: 1,
-            y: '10',
+            y: '30vh',
         },
         transitionBack: {
             x: 400,
@@ -68,12 +68,12 @@ const animationMap = {
         initial: {
             x: 100,
             opacity: 0,
-            y: '20vh',
+            y: '30vh',
         },
         transitionStart: {
             x: 0,
             opacity: 1,
-            // y: '10',
+            y: '30vh',
         },
         transitionBack: {
             x: 0,
@@ -141,14 +141,10 @@ const AddContent = () => {
         let imagesArray = []
         for (let i = 0; i < images.length; i++) {
             let subArray = []
-            console.log(images)
-            // imagesArray = [...imagesArray, ...images[i].files]
-            // if(images[i].files.length > 1) {
-                for(let j = 0; j<images[i].files.length; j++) {
-                    subArray.push(images[i].files[j])
-                }
-                imagesArray.push(subArray)
-            // }e
+            for(let j = 0; j<images[i].files.length; j++) {
+                subArray.push(images[i].files[j])
+            }
+            imagesArray.push(subArray)
         }
         setBodyImages(imagesArray)
     }
@@ -190,8 +186,8 @@ const AddContent = () => {
                 setSwitchValue(2)
                 break
             case 4: 
-                setBody('transitionBack')
                 setPreviewProps('transitionBack')
+                setBody('transitionBack')
                 setSwitchValue(3)
                 break
             default: 
@@ -201,12 +197,18 @@ const AddContent = () => {
 
     return(
         <div>
-            {/* <VerticalScroll scrollHeight='60vh'> */}
-            <TitlePhoto setMainImage={setMainImage} animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} transition={titlePhotoProps}/>
-            <Preview bodyImages={bodyImages} bodyContent={bodyContent} mainImage={mainImage} previewProps={previewProps} animationMap={animationMap}></Preview>
-            <CategoryLocation animationMap={animationMap} categoryLocation={categoryLocationProps}/>
-            <Body animationMap={animationMap} bodyProps={bodyProps}></Body>
-            {/* </VerticalScroll> */}
+            <Scroll scrollHeight='90vh' visibility={animationMap.preview[previewProps].opacity}>
+                <Preview bodyImages={bodyImages} bodyContent={bodyContent} mainImage={mainImage} previewProps={previewProps} animationMap={animationMap}></Preview>
+            </Scroll>
+            <Scroll scrollHeight='90vh' visibility={animationMap.titlePhoto[titlePhotoProps].opacity}>
+                <TitlePhoto setMainImage={setMainImage} animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} transition={titlePhotoProps}/>
+            </Scroll>
+            <Scroll scrollHeight='90vh' visibility={animationMap.categoryLocation[categoryLocationProps].opacity}>
+                <CategoryLocation animationMap={animationMap} categoryLocation={categoryLocationProps}/>
+            </Scroll>
+            <Scroll scrollHeight='90vh' visibility={animationMap.body[bodyProps].opacity}>
+                <Body animationMap={animationMap} bodyProps={bodyProps}></Body>
+            </Scroll>
             <ButtonContainer>
                 <NextButton onClick={transitionSwitchBack}>Back</NextButton>
                 <NextButton onClick={transitionSwitchNext}>Next</NextButton>

@@ -3,6 +3,7 @@ import moment from 'moment'
 import {
     PreviewContainer,
     BodyImagePreview,
+    PreviewContainer2,
 } from './Preview.styles'
 import { SubmitButton } from '../AddContent/AddContentAnimationTest.styles'
 import {
@@ -43,38 +44,41 @@ const BodyImage = (props) => {
 const Preview = (props) => {
 
     return(
-        <PreviewContainer initial='initial' visibility={props.animationMap.preview[props.previewProps].opacity} transition='transition' animate={props.previewProps} variants={props.animationMap.preview}>
-            <Container>
-                {document.getElementById('add-content-title') ? 
-                <Title>{document.getElementById('add-content-title').value}</Title>
-                :
-                null
-                }
-                <Image id='test' alt='display' src={props?.mainImage}></Image>
-                <InfoContainer>
- 
-                <SubmitButton className='dropdown'>
-                    <div className='dropdown'>Add to collection</div>
-                </SubmitButton>
-                <Author>{'Dan Richards'}</Author>
-                <Author>{moment(Date.now()).format('MMMM Do YYYY')}</Author>
-                </InfoContainer>
-            </Container>
-            {props.bodyContent.map((item, index) => {
-                return(
-                    <BodyContainer key={index}>
-                        <Description>{item}</Description>
-                        <BodyImageContainer>
-                        {props?.bodyImages[index]?.map((image, i)=> {
-                            return(
-                                <BodyImage bodyImages={props.bodyImages} i={i} image={image} index={index} key={i}></BodyImage>
-                            )
-                        })}
-                        </BodyImageContainer>
-                    </BodyContainer>
-                )
-            })}
-        </PreviewContainer>
+        <PreviewContainer2>
+
+            <PreviewContainer initial='initial' visibility={props.animationMap.preview[props.previewProps].opacity} transition='transition' animate={props.previewProps} variants={props.animationMap.preview}>
+                <Container>
+                    {document.getElementById('add-content-title') ? 
+                    <Title>{document.getElementById('add-content-title').value}</Title>
+                    :
+                    null
+                    }
+                    <Image id='test' alt='display' src={props?.mainImage}></Image>
+                    <InfoContainer>
+    
+                    <SubmitButton className='dropdown'>
+                        <div className='dropdown'>Add to collection</div>
+                    </SubmitButton>
+                    <Author>{'Dan Richards'}</Author>
+                    <Author>{moment(Date.now()).format('MMMM Do YYYY')}</Author>
+                    </InfoContainer>
+                </Container>
+                {props.bodyContent.map((item, index) => {
+                    return(
+                        <BodyContainer key={index}>
+                            <Description>{item}</Description>
+                            <BodyImageContainer>
+                            {props?.bodyImages[index]?.map((image, i)=> {
+                                return(
+                                    <BodyImage bodyImages={props.bodyImages} i={i} image={image} index={index} key={i}></BodyImage>
+                                )
+                            })}
+                            </BodyImageContainer>
+                        </BodyContainer>
+                    )
+                })}
+            </PreviewContainer>
+        </PreviewContainer2>
     )
 }
  
