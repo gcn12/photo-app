@@ -5,7 +5,6 @@ import React, {
 import Header from './Header/Header'
 import VerticalScroll from './VeritcalScroll/VerticalScroll'
 import FeaturedPost from './FeaturedPost/FeaturedPost'
-// import AddContent from './AddContent/AddContent'
 import GetPhotos from './GetPhotosHomepage/GetPhotosHomepage'
 import Profile from './Profile/Profile'
 import Login from './Login/Login'
@@ -20,7 +19,7 @@ const App = () => {
   const [user, setUser] = useState()
   const [homePhotoInformation, setHomePhotoInformation] = useState(null)
   const [photoInformation, setPhotoInformation] = useState(null)
-  const [pageRoute, setPageRoute] = useState('Upload')
+  const [pageRoute, setPageRoute] = useState('GetPhotos')
 
   const getFeaturedPhotoInfo = (docID) => {
     db.collection('posts').doc(docID)

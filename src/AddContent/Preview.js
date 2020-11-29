@@ -35,8 +35,8 @@ const BodyImage = (props) => {
 
     image()
 
-    // console.log(70 * props.imageSizeRatio)
-    console.log(props.image)
+    // console.log(65 * props.imageSizeRatio)
+    // console.log(props.image)
     return(
         // <BodyImagePreview id={`body-photo-${props.index}-${props.i}`} width={65 / (props.bodyImages[props.index] ? props.bodyImages[props.index].length : 1)} ></BodyImagePreview>
         // <BodyImagePreview id={`body-photo-${props.index}-${props.index}`} ></BodyImagePreview>
@@ -68,7 +68,7 @@ const Preview = (props) => {
                     </InfoContainer>
                 </Container>
                 {props.bodyContent.map((item, index) => {
-                    console.log(item)
+                    // console.log(item)
                     return(
                         <BodyContainer key={index}>
                             <Description>{item}</Description>

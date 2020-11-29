@@ -3,6 +3,7 @@ import CategoryLocation from './CategoryLocation'
 import Preview from './Preview'
 import Body from './Body'
 import Scroll from './Scroll'
+import { fileUpload } from './Submit'
 import React, { 
     useState 
 } from 'react'
@@ -10,8 +11,6 @@ import {
     NextButton,
     ButtonContainer,
 } from './AddContentAnimationTest.styles'
-
-
 
 const animationMap = {
     titlePhoto: {
@@ -122,7 +121,7 @@ const animationMap = {
 }
 
 
-const AddContent = () => {
+const AddContent = (props) => {
     const [mainImage, setMainImage] = useState(null)
     const [titlePhotoProps, setTitlePhotoProps] = useState('initial')
     const [categoryLocationProps, setCategoryLocationProps] = useState('initial')
@@ -131,7 +130,7 @@ const AddContent = () => {
     const [switchValue, setSwitchValue] = useState(1)
     const [bodyContent, setBodyContent] = useState([])
     const [bodyImages, setBodyImages] = useState([])
-    const [imageSizeRatio, setImageSizeRatio] = useState([])
+    const [imageSizeRatio, setImageSizeRatio] = useState({})
 
     const getBodyContent = () => {
         const paragraphs = document.getElementsByClassName('content-paragraph')
@@ -152,7 +151,7 @@ const AddContent = () => {
             }
             imagesArray.push(subArray)
         }
-        console.log(imagesArray)
+        // console.log(imagesArray)
         setBodyImages(imagesArray)
     }
 
@@ -204,7 +203,8 @@ const AddContent = () => {
 
     return(
         <div>
-            <button onClick={()=>console.log(imageSizeRatio)}>Click</button>
+            <NextButton width='130px' onClick={()=>props.setPageRoute('GetPhotos')}>Back</NextButton>
+            {/* <button onClick={()=>console.log(imageSizeRatio)}>Submit</button> */}
             <Scroll animate={previewProps} variants={animationMap.preview} scrollHeight='90vh' visibility={animationMap.preview[previewProps].opacity}>
                 <Preview imageSizeRatio={imageSizeRatio} bodyImages={bodyImages} bodyContent={bodyContent} mainImage={mainImage} previewProps={previewProps} animationMap={animationMap}></Preview>
             </Scroll>
@@ -224,7 +224,7 @@ const AddContent = () => {
                 <NextButton width='150px' onClick={transitionSwitchBack}>Back</NextButton>
                 }
                 {switchValue === 4 ? 
-                <NextButton width={switchValue === 1 ? '300px' :'150px'} onClick={transitionSwitchNext}>Submit</NextButton>
+                <NextButton width={switchValue === 1 ? '300px' :'150px'} onClick={()=>fileUpload(props.user, imageSizeRatio)}>Submit</NextButton>
                 :
                 <NextButton width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
                 }

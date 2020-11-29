@@ -159,8 +159,10 @@ const FeaturedPost = (props) => {
                             <BodyImageContainer>
                             {props.photoInformation.images[index].map((image, i)=> {
                                 // console.log(props.photoInformation.images[index].length)
+                                console.log(props.photoInformation.photoBodyMap[index][i])
                                 return(
-                                    <BodyImage width={65 / (props.photoInformation.images[index] ? props.photoInformation.images[index].length : 1)} src={image} key={i}></BodyImage>
+                                    // <BodyImage width={65 / (props.photoInformation.images[index] ? props.photoInformation.images[index].length : 1)} src={image} key={i}></BodyImage>
+                                    <BodyImage width={65 * props.photoInformation.photoBodyMap[index][i]} src={image} key={i}></BodyImage>
                                 )
                             })}
                             </BodyImageContainer>

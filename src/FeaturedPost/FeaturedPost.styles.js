@@ -45,6 +45,7 @@ export const Description = styled.div`
 export const BodyImage = styled.img`
     /* width: 70vw; */
     width: ${props=> `${props.width}vw`};
+    height: auto;
 `
 
 export const BodyImageContainer = styled.div`

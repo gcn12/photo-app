@@ -17,12 +17,12 @@ const Body = (props) => {
 
     const getImageMap = (inputID) => {
         const images = document.getElementById(inputID)
-        let sizeArray = []
-        let sizeMapArray = []
+        // let sizeArray = []
         
-        for (let i = 0; i < images.files.length; i++) {
-            let percentageArray = []
-            if(images.files.length>1) {
+        let sizeMapArray = new Array(images.files.length).fill('')
+        if(images.files.length>1) {
+            for (let i = 0; i < images.files.length; i++) {
+                let percentageArray = []
                 const reader = new FileReader()
                 reader.readAsDataURL(images.files[i]);
                 reader.onload = (e) => {
@@ -31,14 +31,16 @@ const Body = (props) => {
                     image.onload = function () {
                         const height = this.height;
                         const width = this.width;
-                        sizeMapArray.push(width/height)
+                        // sizeMapArray.push(width/height)
+                        sizeMapArray[i] = width/height
+
                         if(sizeMapArray.length === images.files.length) {
                             const reducer = (sum, val) => sum + val;
                             let ratioTotal = sizeMapArray.reduce(reducer, 0);
                             for (let image of sizeMapArray) {
+                                // console.log('image', image)
                                 percentageArray.push(image/ratioTotal)
                             }
-                            // console.log(percentageArray)
                             const index = inputID[inputID.length-1]
                             const imageSizeRatioCopy = props.imageSizeRatio 
                             imageSizeRatioCopy[index] = percentageArray
@@ -46,9 +48,12 @@ const Body = (props) => {
                         }
                     };
                 }
-            }else{
-                sizeArray.push(null)
             }
+        }else{
+            const index = inputID[inputID.length-1]
+            const imageSizeRatioCopy = props.imageSizeRatio 
+            imageSizeRatioCopy[index] = [1]
+            props.setImageSizeRatio(imageSizeRatioCopy)
         }
     }
 
@@ -66,18 +71,18 @@ const Body = (props) => {
         parent.appendChild(image)
         setIsAddImage(!isAddImage)
         checkAdditionalElement()
-        let imageSizeRatioCopy = props.imageSizeRatio
-        imageSizeRatioCopy.push([])
-        props.setImageSizeRatio(imageSizeRatioCopy)
+        // let imageSizeRatioCopy = props.imageSizeRatio
+        // imageSizeRatioCopy.push([])
+        // props.setImageSizeRatio(imageSizeRatioCopy)
     }
     
     const removeLastElement = () => {
         const parent = document.getElementById('content-form')
         parent.removeChild(parent.lastChild)
         if(isAddImage) {
-            const imageSizeRatioCopy = props.imageSizeRatio
-            imageSizeRatioCopy.pop()
-            props.setImageSizeRatio(imageSizeRatioCopy)
+            // const imageSizeRatioCopy = props.imageSizeRatio
+            // imageSizeRatioCopy.pop()
+            // props.setImageSizeRatio(imageSizeRatioCopy)
         }
         setIsAddImage(!isAddImage)
         checkAdditionalElement()
