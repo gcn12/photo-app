@@ -68,12 +68,17 @@ const animationMap = {
         initial: {
             x: 100,
             opacity: 0,
-            y: '30vh',
+            y: '25vh',
         },
         transitionStart: {
             x: 0,
             opacity: 1,
-            y: '30vh',
+            y: '25vh',
+        },
+        shiftUp: {
+            x: 0,
+            opacity: 1,
+            y: '10vh',
         },
         transitionBack: {
             x: 0,
@@ -100,7 +105,7 @@ const animationMap = {
             y: 0,
         },
         transitionBack: {
-            x: 100,
+            x: 0,
             opacity: 0,
         },
         // transitionEnd: {
@@ -126,6 +131,7 @@ const AddContent = () => {
     const [switchValue, setSwitchValue] = useState(1)
     const [bodyContent, setBodyContent] = useState([])
     const [bodyImages, setBodyImages] = useState([])
+    const [imageSizeRatio, setImageSizeRatio] = useState([])
 
     const getBodyContent = () => {
         const paragraphs = document.getElementsByClassName('content-paragraph')
@@ -146,6 +152,7 @@ const AddContent = () => {
             }
             imagesArray.push(subArray)
         }
+        console.log(imagesArray)
         setBodyImages(imagesArray)
     }
 
@@ -197,8 +204,9 @@ const AddContent = () => {
 
     return(
         <div>
+            <button onClick={()=>console.log(imageSizeRatio)}>Click</button>
             <Scroll animate={previewProps} variants={animationMap.preview} scrollHeight='90vh' visibility={animationMap.preview[previewProps].opacity}>
-                <Preview bodyImages={bodyImages} bodyContent={bodyContent} mainImage={mainImage} previewProps={previewProps} animationMap={animationMap}></Preview>
+                <Preview imageSizeRatio={imageSizeRatio} bodyImages={bodyImages} bodyContent={bodyContent} mainImage={mainImage} previewProps={previewProps} animationMap={animationMap}></Preview>
             </Scroll>
             <Scroll scrollHeight='90vh' visibility={animationMap.titlePhoto[titlePhotoProps].opacity}>
                 <TitlePhoto setMainImage={setMainImage} animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} transition={titlePhotoProps}/>
@@ -207,7 +215,7 @@ const AddContent = () => {
                 <CategoryLocation animationMap={animationMap} categoryLocation={categoryLocationProps}/>
             </Scroll>
             <Scroll scrollHeight='90vh' visibility={animationMap.body[bodyProps].opacity}>
-                <Body animationMap={animationMap} bodyProps={bodyProps}></Body>
+                <Body imageSizeRatio={imageSizeRatio} setImageSizeRatio={setImageSizeRatio} setBody={setBody} animationMap={animationMap} bodyProps={bodyProps}></Body>
             </Scroll>
             <ButtonContainer>
                 {switchValue === 1 ? 

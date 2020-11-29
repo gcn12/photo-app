@@ -2,15 +2,15 @@ import styled from 'styled-components'
 import { motion } from 'framer-motion'
 
 export const ButtonContainer = styled.div`
-    background-color: yellow;
+    background-color: #1f1f1f;
     border-top: 1px solid black;
     position: fixed;
     padding: 15px;
     bottom: 0px;
     width: 100%;
-    /* position:absolute;
-    bottom:30px;
-    width:100%; */
+    /* position:absolute; */
+    /* bottom:30px; */
+    /* width:100%; */
     display: flex;
     justify-content: space-evenly;
 `

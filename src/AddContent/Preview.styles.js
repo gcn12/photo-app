@@ -13,9 +13,13 @@ export const PreviewContainer = styled(motion.div)`
 export const PreviewContainer2 = styled.div`
     display: flex;
     justify-content: center;
+    margin-bottom: 40px;
 `
 
 export const BodyImagePreview = styled.img`
     /* width: 70vw; */
     width: ${props=> `${props.width}vw`};
+    height: auto;
+    /* height: 400px; */
+    /* width: auto; */
 `
