@@ -31,7 +31,7 @@ const TitlePhoto = (props) => {
                 <Label>Create a title:</Label>
                 <TextInput autoComplete='off' id='add-content-title'></TextInput>
                 <Label>Upload header photo:</Label>
-                <FileUpload style={{paddingBottom: '20px'}} onChange={displayImage} id='photo-input' type='file' className='photo-input'></FileUpload>
+                <FileUpload onChange={displayImage} id='photo-input' type='file' className='photo-input'></FileUpload>
                 <br></br>
                 {isImage ? 
                 <PreviewImage alt='preview' id='previewImage'></PreviewImage>

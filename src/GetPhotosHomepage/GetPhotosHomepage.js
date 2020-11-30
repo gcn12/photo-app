@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { db } from '../Firebase'
 import { incrementViewCount } from '../Functions'
+import { useInView } from 'react-intersection-observer'
 import '../App.css'
 import { 
     Image, 
@@ -12,14 +13,9 @@ import {
     SortSelect,
 } from './GetPhotosHomepage.styles'
 import Masonry from 'react-masonry-css'
-// import macy from 'macy'
+import { SubmitButton } from '../AddContent/AddContent.styles'
 
 const DisplayPhoto = (props) => {
-
-    useEffect(()=> { 
-        // props.grid()
-        // eslint-disable-next-line
-    }, [props.homePhotoInformation])
 
     const click = () => {
         // props.setPageRoute('PhotoFeatured')
@@ -31,6 +27,12 @@ const DisplayPhoto = (props) => {
             incrementViewCount(reference.docs[0].ref.id)
         })
     }
+
+    // const { ref, inView, entry } = useInView({
+    //     /* Optional options */
+    //     threshold: 0,
+    //     triggerOnce: true,
+    // });
 
     let width = '30vw'
  
@@ -70,7 +72,7 @@ const GetPhotos = (props) => {
     const lazy = () => {
         db.collection('preview-posts')
         .startAt(startAfter)
-        .limit(2)
+        .limit(15)
         .get()
         .then(snapshot => {
             setStartAfter(snapshot.docs[snapshot.docs.length-1])
@@ -87,7 +89,7 @@ const GetPhotos = (props) => {
         window.scrollTo({top: 0})
         if(!homePhotoInformation){
             db.collection('preview-posts')
-            .limit(4)
+            .limit(17)
             .get()
             .then(snapshot => {
                 setStartAfter(snapshot.docs[snapshot.docs.length-1])
@@ -100,25 +102,10 @@ const GetPhotos = (props) => {
             })
         }
     }, [setHomePhotoInformation, homePhotoInformation])
-
-    // const grid = () => {
-    //     var elem = document.getElementById('grid');
-    //     macy ({
-    //         container: elem,
-    //         columns: 2,
-    //         trueOrder: true,
-    //         breakAt: {
-    //             1500: 3,
-    //             520: 2,
-    //             400: 1
-    //         },
-    //     })
-    // }
     
     return(
         // <Container onLoad={startObserve}>
         <Container>
-            <button onClick={lazy}>Lazy</button>
             <SortSelect id='sort-photos' onChange={()=>sort()}>
                 <option defaultValue value='timestamp'>Newest</option>
                 <option value='views'>Most popular</option>
@@ -132,6 +119,7 @@ const GetPhotos = (props) => {
                 {props.homePhotoInformation ? props.homePhotoInformation.map((photo, index)=> {
                     return(
                         <DisplayPhoto 
+                            lazy={lazy}
                             index={index}
                             length={props.homePhotoInformation.length}
                             getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
@@ -147,6 +135,7 @@ const GetPhotos = (props) => {
                 :
                 null}
             </Masonry>
+            <SubmitButton onClick={lazy}>Load more</SubmitButton>
             </div>
         </Container>
     )

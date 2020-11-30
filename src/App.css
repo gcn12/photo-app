@@ -37,5 +37,24 @@ background-clip: padding-box;
 }
 
 .body-photos {
-    margin: 20px 0;
+    margin: 20px 0 0px 0;
+}
+
+.image-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.upload-gallery-image {
+    max-width: 20%;
+    height: auto;
+    margin: 20px 5px 0 5px;
+}
+
+.progress-ring__circle {
+    transition: .8s;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
 }

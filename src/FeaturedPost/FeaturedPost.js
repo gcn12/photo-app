@@ -165,7 +165,7 @@ const FeaturedPost = (props) => {
                             <Description>{item}</Description>
                             <BodyImageContainer>
                             {props.photoInformation.images[index].map((image, i)=> {
-                                console.log(props.photoInformation.photoBodyMap[index][i])
+                                // console.log(props.photoInformation.photoBodyMap[index][i])
                                 return(
                                     <BodyImage width={65 * props.photoInformation.photoBodyMap[index][i]} src={image} key={i}></BodyImage>
                                 )

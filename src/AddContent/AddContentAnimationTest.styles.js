@@ -64,7 +64,7 @@ export const CategoryLocationContainer = styled(motion.div)`
 `
 
 export const FileUpload = styled.input`
-    margin: 20px 0;
+    margin: 10px 0 0 0;
 `
 
 export const PreviewContainer = styled.div`
@@ -154,4 +154,5 @@ export const Label = styled.label`
 export const BodyButtonContainer = styled.div`
     display: flex;
     align-items: center;
+    margin-bottom: 60px;
 `

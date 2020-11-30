@@ -17,6 +17,7 @@ export const BodyContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: ${props=> props.margin}
 `
 
 export const Title = styled.div`
@@ -43,11 +44,12 @@ export const Description = styled.div`
 `
 
 export const BodyImage = styled.img`
-    width: ${props=> `${props.width}vw`};
-    width: calc(var(--vh, 1vh) * ${props=> `${props.width}`});
+    width: ${props=> `${props.width}%`};
+    /* width: calc(var(--vh, 1vh) * ${props=> `${props.width}`}); */
     height: auto;
 `
 
 export const BodyImageContainer = styled.div`
     display: flex;
+    justify-content: center;
 `

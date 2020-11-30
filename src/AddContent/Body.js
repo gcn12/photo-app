@@ -15,22 +15,32 @@ const Body = (props) => {
     const [isAddImage, setIsAddImage] = useState(false)
     const [isAdditionalElements, setIsAdditionalElements] = useState(false)
 
-    const getImageMap = (inputID) => {
+    const getImageMap = (inputID, inputDiv) => {
         const images = document.getElementById(inputID)
         let sizeMapArray = new Array(images.files.length).fill('')
         if(images.files.length>1) {
             for (let i = 0; i < images.files.length; i++) {
+                const file = images.files[i];
+                const fileReader  = new FileReader();
+                fileReader.onload = function(e)  {
+                    const displayImage = document.createElement("img");
+                    displayImage.src = e.target.result;
+                    displayImage.className = 'upload-gallery-image'
+                    // document.body.appendChild(displayImage);
+                    document.getElementById(inputDiv).appendChild(displayImage);
+                }
+                fileReader.readAsDataURL(file);
+
                 let percentageArray = []
                 const reader = new FileReader()
                 reader.readAsDataURL(images.files[i]);
                 reader.onload = (e) => {
-                    const image = new Image();
+                    const image = document.createElement('img')
                     image.src = e.target.result;
                     image.onload = function () {
                         const height = this.height;
                         const width = this.width;
                         sizeMapArray[i] = width/height
-
                         if(sizeMapArray.length === images.files.length) {
                             const reducer = (sum, val) => sum + val;
                             let ratioTotal = sizeMapArray.reduce(reducer, 0);
@@ -50,6 +60,15 @@ const Body = (props) => {
             const imageSizeRatioCopy = props.imageSizeRatio 
             imageSizeRatioCopy[index] = [1]
             props.setImageSizeRatio(imageSizeRatioCopy)
+            const file = images.files[0];
+            const fileReader  = new FileReader();
+            fileReader.onload = function(e)  {
+                const displayImage = document.createElement("img");
+                displayImage.src = e.target.result;
+                displayImage.className = 'upload-gallery-image'
+                document.getElementById(inputDiv).appendChild(displayImage);
+            }
+            fileReader.readAsDataURL(file);
         }
     }
 
@@ -62,23 +81,30 @@ const Body = (props) => {
         image.setAttribute('accept', 'image/jpeg, image/png, image/jpg, image/tif')
         image.id = `image-input-${numberInputs}`
 
-        image.onchange = ()=> getImageMap(`image-input-${numberInputs}`)
+        const imageDiv = document.createElement('div')
+        imageDiv.id = `image-div-${numberInputs}`
+        imageDiv.className = 'image-div'
+
         const parent = document.getElementById('content-form')
         parent.appendChild(image)
+        parent.appendChild(imageDiv)
         setIsAddImage(!isAddImage)
         checkAdditionalElement()
-        // let imageSizeRatioCopy = props.imageSizeRatio
-        // imageSizeRatioCopy.push([])
-        // props.setImageSizeRatio(imageSizeRatioCopy)
+        image.onchange = ()=> {
+            getImageMap(`image-input-${numberInputs}`, `image-div-${numberInputs}`)
+            props.setBody('shiftUp')
+        }
     }
     
     const removeLastElement = () => {
+        const numberInputs = document.getElementsByClassName('body-photos').length
         const parent = document.getElementById('content-form')
         parent.removeChild(parent.lastChild)
         if(isAddImage) {
-            // const imageSizeRatioCopy = props.imageSizeRatio
-            // imageSizeRatioCopy.pop()
-            // props.setImageSizeRatio(imageSizeRatioCopy)
+            parent.removeChild(parent.lastChild)
+            const imageSizeRatioCopy = props.imageSizeRatio
+            delete imageSizeRatioCopy[numberInputs-1]
+            props.setImageSizeRatio(imageSizeRatioCopy)
         }
         setIsAddImage(!isAddImage)
         checkAdditionalElement()
@@ -91,9 +117,9 @@ const Body = (props) => {
         parent.appendChild(input)
         setIsAddImage(!isAddImage)
         checkAdditionalElement()
-        if(document.getElementsByClassName('add-content-description-input').length > 0){
-            props.setBody('shiftUp')
-        }
+        // if(document.getElementsByClassName('add-content-description-input').length > 0){
+        //     props.setBody('shiftUp')
+        // }
      }
 
     const checkAdditionalElement = () => {
@@ -111,7 +137,7 @@ const Body = (props) => {
                 <Label>Body content</Label>
                 <DescriptionInput className='content-paragraph'></DescriptionInput>
             </Container>
-            <BodyButtonContainer>
+            <BodyButtonContainer id='add-content-body-buttons'>
                 {isAdditionalElements ? 
                 <RemoveLastElement type="button" onClick={removeLastElement}>{`Remove last ${isAddImage ? 'image' : 'text block'}`}</RemoveLastElement>
                 :

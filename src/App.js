@@ -55,6 +55,8 @@ const App = () => {
           case 'Upload':
             return(
               <AddContent 
+              getFeaturedPhotoInfo={getFeaturedPhotoInfo}
+              setPhotoInformation={setPhotoInformation}
               user={user} 
               setPageRoute={setPageRoute} 
               /> 

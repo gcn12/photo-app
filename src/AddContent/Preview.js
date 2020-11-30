@@ -27,8 +27,6 @@ const BodyImage = (props) => {
         viewFile.onload = (e) => {
             const image = document.getElementById(`body-photo-${props.index}-${props.i}`)
             image.src = e.target.result
-            // console.log(image.clientHeight)
-            // props.setMainImage(e.target.result)
         }
         viewFile.readAsDataURL(file)
     }
@@ -70,7 +68,7 @@ const Preview = (props) => {
                 {props.bodyContent.map((item, index) => {
                     // console.log(item)
                     return(
-                        <BodyContainer key={index}>
+                        <BodyContainer margin='35px' key={index}>
                             <Description>{item}</Description>
                             <BodyImageContainer>
                             {props?.bodyImages[index]?.map((image, i)=> {
