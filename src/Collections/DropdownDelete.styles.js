@@ -6,11 +6,16 @@ export const Container = styled.div`
     position: absolute;
     background-color: white;
     font-size: 20px;
-    transform: translate(-94%, 0%);
+    transform: translate(-93%, 0%);
     color: black;
     display: flex;
     justify-content: center;
     align-items: center;
     border-color: black;
     border: 1px black solid;
+
+    &:hover {
+        background-color: #525252;
+        color: white;
+    }
 `

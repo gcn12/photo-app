@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
 `
 
@@ -35,7 +34,8 @@ export const Author = styled.div`
 
 export const Description = styled.div`
     color: white;
-    padding: 0 20%;
+    width: 65vw;
+    margin: 20px 0;
     font-size: 20px;
     white-space: pre-wrap;
     text-align: justify;
@@ -43,8 +43,8 @@ export const Description = styled.div`
 `
 
 export const BodyImage = styled.img`
-    /* width: 70vw; */
     width: ${props=> `${props.width}vw`};
+    width: calc(var(--vh, 1vh) * ${props=> `${props.width}`});
     height: auto;
 `
 

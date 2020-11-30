@@ -64,7 +64,14 @@ const FeaturedPost = (props) => {
     
     // eslint-disable-next-line
     useEffect(()=>getCities(props.photoInformation.id), [])
+    // eslint-disable-next-line
+    useEffect(()=>getVH(), [])
+    
 
+    const getVH = () => {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
 
     const getCollectionsList = () => {
         const collectionsArray = []
@@ -158,10 +165,8 @@ const FeaturedPost = (props) => {
                             <Description>{item}</Description>
                             <BodyImageContainer>
                             {props.photoInformation.images[index].map((image, i)=> {
-                                // console.log(props.photoInformation.images[index].length)
                                 console.log(props.photoInformation.photoBodyMap[index][i])
                                 return(
-                                    // <BodyImage width={65 / (props.photoInformation.images[index] ? props.photoInformation.images[index].length : 1)} src={image} key={i}></BodyImage>
                                     <BodyImage width={65 * props.photoInformation.photoBodyMap[index][i]} src={image} key={i}></BodyImage>
                                 )
                             })}

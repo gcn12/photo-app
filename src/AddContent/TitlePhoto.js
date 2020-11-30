@@ -3,16 +3,8 @@ import {
     PreviewImage,
     TextInput,
     Container,
-    // PreviewContainer,
     Label,
     FileUpload,
-    // NextButton,
-    // ButtonContainer,
-    // FormContainer,
-    // SelectInput,
-    // DescriptionInput,
-    // NewItemButton,
-    // RemoveLastElement,
 } from './AddContentAnimationTest.styles'
 
 const TitlePhoto = (props) => {
@@ -31,10 +23,6 @@ const TitlePhoto = (props) => {
         viewFile.readAsDataURL(file)
         setIsImage(true)
     }
-
-    // const next = () => {
-    //     setShiftUp({x: -1200})
-    // }
 
     return(
         <div>

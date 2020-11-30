@@ -17,8 +17,6 @@ const Body = (props) => {
 
     const getImageMap = (inputID) => {
         const images = document.getElementById(inputID)
-        // let sizeArray = []
-        
         let sizeMapArray = new Array(images.files.length).fill('')
         if(images.files.length>1) {
             for (let i = 0; i < images.files.length; i++) {
@@ -31,14 +29,12 @@ const Body = (props) => {
                     image.onload = function () {
                         const height = this.height;
                         const width = this.width;
-                        // sizeMapArray.push(width/height)
                         sizeMapArray[i] = width/height
 
                         if(sizeMapArray.length === images.files.length) {
                             const reducer = (sum, val) => sum + val;
                             let ratioTotal = sizeMapArray.reduce(reducer, 0);
                             for (let image of sizeMapArray) {
-                                // console.log('image', image)
                                 percentageArray.push(image/ratioTotal)
                             }
                             const index = inputID[inputID.length-1]
