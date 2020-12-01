@@ -93,6 +93,7 @@ const Body = (props) => {
         image.onchange = ()=> {
             getImageMap(`image-input-${numberInputs}`, `image-div-${numberInputs}`)
             props.setBody('shiftUp')
+            window.scrollTo({top: 0})
         }
     }
     
