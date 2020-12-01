@@ -41,9 +41,9 @@ export const Image = styled.img`
         width: 40vw;
     }
 
-    @media(max-width: 400px) {
-        width: 90vw;
-    }
+    /* @media(max-width: 400px) {
+        width: 50vw;
+    } */
 
     animation: fadeIn ease 3s;
     -webkit-animation: fadeIn ease 3s;
