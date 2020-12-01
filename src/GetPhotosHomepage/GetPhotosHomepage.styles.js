@@ -11,7 +11,7 @@ export const PhotoTitle = styled.div`
     transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 500ms;
-    transition-delay: 350ms;
+    transition-delay: 250ms;
     font-size: 30px;
 `
 
@@ -23,7 +23,7 @@ export const PhotoLocation = styled.div`
     transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 500ms;
-    transition-delay: 350ms;
+    transition-delay: 250ms;
     font-size: 20px;
     white-space: nowrap;
 `
@@ -32,7 +32,7 @@ export const Image = styled.img`
     margin-bottom: 15px;
     filter: brightness(1);
     transition: 800ms ease;
-    transition-delay: 350ms;
+    transition-delay: 250ms;
 
     width: ${props => props.width};
 
