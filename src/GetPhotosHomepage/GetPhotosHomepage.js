@@ -107,12 +107,13 @@ const GetPhotos = (props) => {
         // <Container onLoad={startObserve}>
         <Container>
             <SortSelect id='sort-photos' onChange={()=>sort()}>
-                <option defaultValue value='timestamp'>Newest</option>
+                <option defaultValue value=''>Sort by:</option>
+                <option value='timestamp'>Newest</option>
                 <option value='views'>Most popular</option>
             </SortSelect>
             <div id="grid" className='masonry-container'>
             <Masonry
-            breakpointCols={3}
+            breakpointCols={{default: 3, 700: 2}}
             className="my-masonry-grid"
             columnClassName="my-masonry-grid_column">
 

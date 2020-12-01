@@ -18,7 +18,7 @@ import {
 const animationMap = {
     titlePhoto: {
         initial: {
-            y: '30vh',
+            y: '25vh',
             opacity: 1,
         },
         transitionStart: {
@@ -44,12 +44,12 @@ const animationMap = {
         initial: {
             x: 100,
             opacity: 0,
-            y: '30vh',
+            y: '25vh',
         },
         transitionStart: {
             x: 0,
             opacity: 1,
-            y: '30vh',
+            y: '25vh',
         },
         transitionBack: {
             x: 400,
@@ -240,7 +240,7 @@ const AddContent = (props) => {
                     }, {merge: true}) 
                 })
                 .then(()=> {
-                    // setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+                    setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                     db.collection('preview-posts').add({
                         reference: `/posts/${docRef.id}`,
                         timestamp,
@@ -288,8 +288,6 @@ const AddContent = (props) => {
         let index = []
         let indexNum = 0
         const upload = () => {
-            console.log(indexNum)
-            console.log('working')
             if(indexNum<fileArray.length) {
                 const file = fileArray[indexNum]
                 const metadata = {
@@ -305,11 +303,10 @@ const AddContent = (props) => {
                         indexNum++ 
                         index.push(downloadURL) 
                     }).then((downloadURL)=> {
+                        setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                         if(urlArray.length===fileArray.length) {
-                            console.log(photoUrlArraySorted)
                             submit(photoUrlArraySorted, [...urlArray, downloadURL], photoIndexes, user, imageSizeArray)
                         }else{
-                            setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                             upload()
                         }
                     })
@@ -333,15 +330,17 @@ const AddContent = (props) => {
 
     const getBodyImages = () => {
         const images = document.getElementsByClassName('body-photos')
+        let count = 0
         let imagesArray = []
         for (let i = 0; i < images.length; i++) {
             let subArray = []
             for(let j = 0; j<images[i].files.length; j++) {
+                count += 1
                 subArray.push(images[i].files[j])
             }
             imagesArray.push(subArray)
         }
-        setUploadCount(uploadCount + imagesArray.length)
+        setUploadCount(uploadCount => uploadCount + count)
         setBodyImages(imagesArray)
     }
 
@@ -421,6 +420,9 @@ const AddContent = (props) => {
             <Scroll scrollHeight='90vh' visibility={animationMap.body[bodyProps].opacity}>
                 <Body imageSizeRatio={imageSizeRatio} setImageSizeRatio={setImageSizeRatio} setBody={setBody} animationMap={animationMap} bodyProps={bodyProps}></Body>
             </Scroll>
+            {switchValue === 5 ? 
+            null
+            :
             <ButtonContainer>
                 {switchValue === 1 ? 
                 null
@@ -433,6 +435,7 @@ const AddContent = (props) => {
                 <NextButton width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
                 }
             </ButtonContainer>
+            }
         </div>
     )
 }

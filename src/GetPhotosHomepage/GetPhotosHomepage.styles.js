@@ -13,6 +13,7 @@ export const PhotoTitle = styled.div`
     transition: opacity 500ms;
     transition-delay: 250ms;
     font-size: 30px;
+    white-space: nowrap;
 `
 
 export const PhotoLocation = styled.div`
@@ -36,7 +37,7 @@ export const Image = styled.img`
 
     width: ${props => props.width};
 
-    @media(max-width: 520px) {
+    @media(max-width: 700px) {
         width: 40vw;
     }
 

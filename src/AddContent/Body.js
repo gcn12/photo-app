@@ -93,7 +93,8 @@ const Body = (props) => {
         image.onchange = ()=> {
             getImageMap(`image-input-${numberInputs}`, `image-div-${numberInputs}`)
             props.setBody('shiftUp')
-            window.scrollTo({top: 0})
+            const buttons = document.getElementById('body-scroll-here');
+            buttons.scrollIntoView();
         }
     }
     
@@ -150,6 +151,7 @@ const Body = (props) => {
                 <NewItemButton long={!isAdditionalElements} type="button" onClick={newImage}>Add image</NewItemButton>
                 }
             </BodyButtonContainer>
+            <div id='body-scroll-here'></div>
         </CategoryLocationContainer>
     )
 }
