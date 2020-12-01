@@ -9,7 +9,7 @@ import {
     PostContainer, 
     PostTitle,
 } from './UserPosts.styles'
-
+ 
 const DisplayPosts = (props) => {
 
     const selectPhoto = () => {

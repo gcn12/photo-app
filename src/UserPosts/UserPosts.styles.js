@@ -13,9 +13,15 @@ export const Photo = styled.img`
 `
 
 export const PostsContainer = styled.div`
-    display: flex;
+    /* display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-between; */
+    /* margin: 0 5%; */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    grid-gap: 20px;
+    align-items: stretch;
+    justify-items: center;
 `
 
 export const PostContainer = styled.div`

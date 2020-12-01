@@ -20,6 +20,7 @@ export const BodyImagePreview = styled.img`
     /* width: 70vw; */
     width: ${props=> `${props.width}vw`};
     height: auto;
+    margin: 0 1%;
     /* height: 400px; */
     /* width: auto; */
 `

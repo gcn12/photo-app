@@ -38,7 +38,7 @@ const BodyImage = (props) => {
     return(
         // <BodyImagePreview id={`body-photo-${props.index}-${props.i}`} width={65 / (props.bodyImages[props.index] ? props.bodyImages[props.index].length : 1)} ></BodyImagePreview>
         // <BodyImagePreview id={`body-photo-${props.index}-${props.index}`} ></BodyImagePreview>
-        <BodyImagePreview id={`body-photo-${props.index}-${props.i}`} width={70 * props.imageSizeRatio} ></BodyImagePreview>
+        <BodyImagePreview id={`body-photo-${props.index}-${props.i}`} width={65 * props.imageSizeRatio} ></BodyImagePreview>
     )
 }
 
