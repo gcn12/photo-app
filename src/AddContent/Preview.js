@@ -56,8 +56,7 @@ const Preview = (props) => {
                     null
                     }
                     <div>
-
-                    <MainImage id='test' alt='display' src={props?.mainImage}></MainImage>
+                    <MainImage id='test'  width={props.isImageHorizontal ? '80vw' : 'auto'} height={props.isImageHorizontal ? 'auto' : '80vh'} alt='display' src={props?.mainImage}></MainImage>
                     <InfoContainer>
     
                     <SubmitButton className='dropdown'>

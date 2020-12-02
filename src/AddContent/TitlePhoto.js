@@ -16,6 +16,14 @@ const TitlePhoto = (props) => {
         const file = document.getElementById('photo-input').files[0]
         const viewFile = new FileReader()
         viewFile.onload = (e) => {
+            const heightWidth = new Image()
+            heightWidth.src=e.target.result
+            heightWidth.onload = function () {
+                if(heightWidth.height / heightWidth.width > 1)  {
+                    props.setIsImageHorizontal(false)
+                }
+
+            }
             const image = document.getElementById('previewImage')
             image.src = e.target.result
             props.setMainImage(e.target.result)

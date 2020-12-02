@@ -193,6 +193,7 @@ const AddContent = (props) => {
     const [uploadProgress, setUploadProgress] = useState(0)
     const [uploadProgressColor, setUploadProgressColor] = useState(false)
     const [paragraph, setParagraph] = useState('')
+    const [isImageHorizontal, setIsImageHorizontal] = useState(true)
 
     const submit = (imagesEmptyArrays, unsortedImages, imageMap, user, imageSizeArray) => {
         const title = document.getElementById('add-content-title').value
@@ -453,12 +454,12 @@ const AddContent = (props) => {
             <div>
 
             <Scroll animate={previewProps} variants={animationMap.preview} scrollHeight='90vh' visibility={animationMap.preview[previewProps].opacity}>
-                <Preview imageSizeRatio={imageSizeRatio} bodyImages={bodyImages} bodyContent={bodyContent} mainImage={mainImage} previewProps={previewProps} animationMap={animationMap}></Preview>
+                <Preview isImageHorizontal={isImageHorizontal} imageSizeRatio={imageSizeRatio} bodyImages={bodyImages} bodyContent={bodyContent} mainImage={mainImage} previewProps={previewProps} animationMap={animationMap}></Preview>
             </Scroll>
             </div>
             }
             <Scroll scrollHeight='90vh' visibility={animationMap.titlePhoto[titlePhotoProps].opacity}>
-                <TitlePhoto setMainImage={setMainImage} animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} transition={titlePhotoProps}/>
+                <TitlePhoto setIsImageHorizontal={setIsImageHorizontal} setMainImage={setMainImage} animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} transition={titlePhotoProps}/>
             </Scroll>
             <Scroll scrollHeight='90vh' visibility={animationMap.categoryLocation[categoryLocationProps].opacity}>
                 <CategoryLocation animationMap={animationMap} categoryLocation={categoryLocationProps}/>
