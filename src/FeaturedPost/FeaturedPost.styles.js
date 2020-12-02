@@ -7,7 +7,7 @@ export const Container = styled.div`
 `
 
 export const InfoContainer = styled.div`
-    width: 80%;
+    /* width: 80%; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -21,7 +21,7 @@ export const BodyContainer = styled.div`
 `
 
 export const Title = styled.div`
-    color: white;
+    /* color: #242424; */
     font-size: 40px;
 `
 
@@ -30,11 +30,11 @@ export const Image = styled.img`
 `
 
 export const Author = styled.div`
-    color: white;
+    /* color: #242424; */
 `
 
 export const Description = styled.div`
-    color: white;
+    /* color: white; */
     width: 65vw;
     margin: 20px 0;
     font-size: 20px;

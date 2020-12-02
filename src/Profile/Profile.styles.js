@@ -10,8 +10,23 @@ export const UL = styled.ul`
     display: flex;
     justify-content: space-evenly;
     padding: 0;
+    margin: 0;
 `
 
 export const Container = styled.div`
     margin: 0 10%;
+`
+
+export const LI = styled.li`
+    cursor: pointer;
+    -webkit-touch-callout: none; 
+    -webkit-user-select: none; 
+    -khtml-user-select: none; 
+    -moz-user-select: none; 
+    -ms-user-select: none; 
+    user-select: none; 
+
+    &:hover {
+        border-bottom: 1px solid #242424;
+    }
 `

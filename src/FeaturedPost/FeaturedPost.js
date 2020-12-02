@@ -131,6 +131,8 @@ const FeaturedPost = (props) => {
             <SubmitButton onClick={()=>props.setPageRoute('GetPhotos')}>Back</SubmitButton>
             <Container>
                 <Title>{props.photoInformation?.title}</Title>
+                <div>
+
                 <Image id='test' alt='display' src={props?.photoInformation?.image}></Image>
                 <InfoContainer>
                     {props?.user ? 
@@ -156,6 +158,7 @@ const FeaturedPost = (props) => {
                     <Author>{props.photoInformation?.author}</Author>
                     <Author>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</Author>
                 </InfoContainer>
+                </div>
             </Container>
                 {props.photoInformation?.content.map((item, index) => {
                     // console.log(props.photoInformation.images[index])

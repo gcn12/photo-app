@@ -5,6 +5,7 @@ export const PhotoTextContainer = styled.div`
 `
 
 export const PhotoTitle = styled.div`
+    color: white;
     position: absolute;
     top: 43%;
     left: 50%;
@@ -27,6 +28,7 @@ export const PhotoLocation = styled.div`
     transition-delay: 250ms;
     font-size: 20px;
     white-space: nowrap;
+    color: white;
 `
 
 export const Image = styled.img`
@@ -40,10 +42,6 @@ export const Image = styled.img`
     @media(max-width: 700px) {
         width: 40vw;
     }
-
-    /* @media(max-width: 400px) {
-        width: 50vw;
-    } */
 
     animation: fadeIn ease 3s;
     -webkit-animation: fadeIn ease 3s;

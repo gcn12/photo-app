@@ -29,7 +29,7 @@ const Autocomplete = (props) => {
 
     return(
         <div>
-            <input onChange={initAutocomplete} id='autocomplete'></input>
+            <input autoComplete='off' onChange={initAutocomplete} id='autocomplete'></input>
         </div>
     )
 }

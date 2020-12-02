@@ -2,8 +2,9 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     width: 250px;
-    background-color: black;
+    background-color: #242424;
     position: absolute;
+    border-radius: 5%;
 `
 
 export const Collection = styled.div`
@@ -54,4 +55,9 @@ export const CreateNewInput = styled.input`
 
 export const CreateNewSubmit = styled.button`
     height: 35px;
+`
+
+export const CollectionName = styled.div`
+    font-size: 20px;
+    color: white;
 `

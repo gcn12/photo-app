@@ -5,7 +5,7 @@ import {
     BodyImagePreview,
     PreviewContainer2,
 } from './Preview.styles'
-import { SubmitButton } from '../AddContent/AddContentAnimationTest.styles'
+import { SubmitButton } from './AddContent.styles'
 import {
     Title,
     Description,

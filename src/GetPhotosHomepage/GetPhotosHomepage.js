@@ -10,7 +10,6 @@ import {
     PhotoTitle,
     PhotoTextContainer,
     PhotoLocation,
-    SortSelect,
 } from './GetPhotosHomepage.styles'
 import Masonry from 'react-masonry-css'
 import { SubmitButton } from '../AddContent/AddContent.styles'
@@ -52,23 +51,6 @@ const GetPhotos = (props) => {
     const { setHomePhotoInformation, homePhotoInformation} = props
     const [startAfter, setStartAfter] = useState(null)
 
-    const sort = () => {
-        const e = document.getElementById('sort-photos')
-        const value = e.options[e.selectedIndex].value
-        if(value !== 'Sort by:') {
-            db.collection('preview-posts').orderBy(value, 'desc')
-            .limit(10)
-            .get()
-            .then(data=> {
-                const photoArray = []
-                data.docs.forEach(item=> {
-                    photoArray.push(item.data())
-                })
-                setHomePhotoInformation([...photoArray])
-            })
-        }
-    }
-
     const lazy = () => {
         db.collection('preview-posts')
         .startAt(startAfter)
@@ -106,11 +88,7 @@ const GetPhotos = (props) => {
     return(
         // <Container onLoad={startObserve}>
         <Container>
-            <SortSelect id='sort-photos' onChange={()=>sort()}>
-                <option defaultValue value=''>Sort by:</option>
-                <option value='timestamp'>Newest</option>
-                <option value='views'>Most popular</option>
-            </SortSelect>
+            <div style={{marginTop: '15px'}}></div>
             <div id="grid" className='masonry-container'>
             <Masonry
             breakpointCols={{default: 3, 700: 2}}

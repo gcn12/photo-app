@@ -8,7 +8,7 @@ import {
     Label,
     BodyButtonContainer,
     CategoryLocationContainer,
-} from './AddContentAnimationTest.styles'
+} from './AddContent.styles'
 
 const Body = (props) => {
 

@@ -14,13 +14,13 @@ export const TextField = styled.input`
 export const SubmitButton = styled.button`
     display:inline-block;
     padding: 0.35em 1.2em;
-    border: 0.1em solid #FFFFFF;
+    border: 0.1em solid #242424;
     margin: 0 0.3em 0.3em 0;
     border-radius:0.12em;
     box-sizing: border-box;
     text-decoration:none;
     font-weight:300;
-    color:#FFFFFF;
+    /* color:#FFFFFF; */
     text-align:center;
     transition: all 0.2s;
     background-color: transparent;
@@ -30,8 +30,8 @@ export const SubmitButton = styled.button`
     transition: background-color 350ms;
 
     &:hover{
-        background-color: white;
-        color: black;
+        background-color: #242424;
+        color: #FFFFFF;
         cursor: pointer;
     }
 `

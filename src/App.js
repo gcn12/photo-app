@@ -63,7 +63,7 @@ const App = () => {
             )
           case 'GetPhotos':
             return (
-              <VerticalScroll scrollHeight='93vh'>
+              <VerticalScroll scrollHeight='87vh'>
                 <GetPhotos 
                   getFeaturedPhotoInfo={getFeaturedPhotoInfo}
                   homePhotoInformation={homePhotoInformation} 

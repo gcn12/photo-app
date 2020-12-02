@@ -13,7 +13,7 @@ import React, {
 import {
     NextButton,
     ButtonContainer,
-} from './AddContentAnimationTest.styles'
+} from './AddContent.styles'
 
 const animationMap = {
     titlePhoto: {

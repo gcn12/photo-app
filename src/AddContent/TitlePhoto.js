@@ -5,7 +5,7 @@ import {
     Container,
     Label,
     FileUpload,
-} from './AddContentAnimationTest.styles'
+} from './AddContent.styles'
 
 const TitlePhoto = (props) => {
 

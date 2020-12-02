@@ -5,7 +5,7 @@ import {
     SelectInput,
     CategoryLocationContainer,
     Label,
-} from './AddContentAnimationTest.styles'
+} from './AddContent.styles'
 
 const CategoryLocation = (props) => {
     return(

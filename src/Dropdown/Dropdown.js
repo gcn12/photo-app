@@ -9,6 +9,7 @@ import {
     CreateNewButton,
     CreateNewInput,
     CreateNewSubmit,
+    CollectionName,
 } from './Dropdown.styles'
 
 const DropdownItem = (props) => {
@@ -106,12 +107,12 @@ const DropdownItem = (props) => {
 
     return(
         <Collection className='dropdown' onClick={null}>
-            <div className='dropdown'>{props.collection}</div>
+            <CollectionName className='dropdown'>{props.collection}</CollectionName>
             {props.collectionsList.length > 0 ?
                 (props.bool ?
-                <div style={{cursor: 'pointer'}} className='dropdown' onClick={removeFromCollection}>Remove</div>
+                <CollectionName style={{cursor: 'pointer'}} className='dropdown' onClick={removeFromCollection}>Remove</CollectionName>
                 :
-                <div style={{cursor: 'pointer'}} className='dropdown' onClick={addToCollection}>Add</div> )
+                <CollectionName style={{cursor: 'pointer'}} className='dropdown' onClick={addToCollection}>Add</CollectionName> )
             :
             null
         }
@@ -161,7 +162,7 @@ const Dropdown = (props) => {
         }else{
             setIsCollectionExists(true)
         }
-    }
+    } 
 
     return(
         <Container>

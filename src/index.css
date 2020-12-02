@@ -7,12 +7,16 @@ body {
   font-family: 'Prata', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: white;
+  color: #242424;
   /* overscroll-behavior-y: none; */
 }
 
-html {
-  background-color: #2B2B2B;
+button {
+  font-family: 'Prata', serif;
+}
+
+html { 
+  background-color: #f5f5f5;
 }
 
 .text {

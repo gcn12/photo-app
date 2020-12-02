@@ -44,7 +44,7 @@ const UploadProgress = (props) => {
                     strokeWidth={stroke}
                     strokeDasharray = {circumference + ' ' + circumference}
                     style = {{strokeDashoffset}}
-                    stroke='white'
+                    stroke='#242424'
                     fill="transparent"
                     r={normalizedRadius}
                     cx={radius}
@@ -52,7 +52,7 @@ const UploadProgress = (props) => {
                 />
             </svg>
             }
-            <UploadingTitle style={{color: props.uploadProgressColor ? 'green' : 'white'}}>{props.uploadProgressColor ? 'Upload succeeded' : 'Uploading...'}</UploadingTitle>
+            <UploadingTitle style={{color: props.uploadProgressColor ? 'green' : '#242424'}}>{props.uploadProgressColor ? 'Upload succeeded' : 'Uploading...'}</UploadingTitle>
             {/* {props.uploadProgressColor ? 
             :
             <UploadingTitle>Uploading...</UploadingTitle>

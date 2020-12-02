@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Title = styled.div`
-    color: white;
+    /* color: white; */
     font-size: 25px;
 `
 
@@ -34,7 +34,7 @@ export const PostContainer = styled.div`
 `
 
 export const PostTitle = styled.div`
-    color: white;
+    /* color: white; */
     font-size: 20px;
     justify-self: center;
 `
