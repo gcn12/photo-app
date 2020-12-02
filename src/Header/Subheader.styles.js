@@ -8,7 +8,14 @@ export const UL = styled.ul`
     padding: 0;
     margin: 0;
     display: flex;
-    list-style-type: none;
+    
+    @media (max-width: 670px) {
+        display: none;
+        visibility: hidden;
+        /* list-style-type: none; */
+        /* flex-direction: column; */
+        /* display: block; */
+    }
     /* justify-content: space-evenly; */
 `
 

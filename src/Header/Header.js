@@ -32,15 +32,15 @@ const Header = (props) => {
                     {/* <LI onClick={()=> getPhotoInfo('South America')}>SOUTH AMERICA</LI> */}
                 </UL>
                 {props.user ? 
-                <Navigation onClick={()=>props.setPageRoute('Upload')}>Upload</Navigation>
+                <Navigation cursor='pointer' onClick={()=>props.setPageRoute('Upload')}>Upload</Navigation>
                 :
-                null
+                <Navigation cursor='pointer' onClick={()=>props.setPageRoute('Signup')}>Signup</Navigation>
                 }
                 <Navigation>|</Navigation>
                 {props.user ? 
-                <Navigation onClick={()=>props.setPageRoute('Profile')}>Profile</Navigation>
+                <Navigation cursor='pointer' onClick={()=>props.setPageRoute('Profile')}>Profile</Navigation>
                 :
-                <Navigation onClick={()=>props.setPageRoute('Login')}>Log in</Navigation>
+                <Navigation cursor='pointer' onClick={()=>props.setPageRoute('Login')}>Log in</Navigation>
                 } 
             </Container>
             <Subheader setHomePhotoInformation={props.setHomePhotoInformation}/>

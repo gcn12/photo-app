@@ -35,7 +35,7 @@ export const Border = styled.div`
 `
 
 export const Navigation = styled.div`
-    cursor: pointer;
+    cursor: ${props=>props.cursor};
     font-size: 22px;
     margin: 0 5px;
     &:hover{

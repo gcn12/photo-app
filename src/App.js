@@ -10,7 +10,7 @@ import Profile from './Profile/Profile'
 import Login from './Login/Login'
 // import TestFile from './TestFile'
 import AddContent from './AddContent/AddContent'
-// import Signup from './SignUp/SignUp'
+import Signup from './SignUp/SignUp'
 import firebase from 'firebase'
 import { db } from './Firebase'
 // import { firebaseApp } from './Firebase'
@@ -47,7 +47,7 @@ const App = () => {
       null
       }
 
-      {/* <Signup /> */}
+      
       {/* <TestFile /> */}
 
       {(() => {
@@ -92,6 +92,8 @@ const App = () => {
             />;
           case 'Login':
             return <Login setUser={setUser} user={user} />
+          case 'Signup':
+            return <Signup />
           default:
             return null;
         }
