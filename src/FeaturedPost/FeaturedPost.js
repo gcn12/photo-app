@@ -8,7 +8,7 @@ import moment from 'moment'
 import {
     Title,
     Description,
-    Image,
+    MainImage,
     Author,
     Container,
     InfoContainer,
@@ -26,6 +26,7 @@ const FeaturedPost = (props) => {
     const [showDropdown, setShowDropdown] = useState(null)
     const [countryPhotos, setCountryPhotos] = useState([])
     const [cityPhotos, setCityPhotos] = useState([])
+    const [isImageHorizontal, setIsImageHorizontal] = useState(true)
 
     
     const getCities = () => {
@@ -66,6 +67,20 @@ const FeaturedPost = (props) => {
     useEffect(()=>getCities(props.photoInformation.id), [])
     // eslint-disable-next-line
     useEffect(()=>getVH(), [])
+    // eslint-disable-next-line
+    useEffect(()=>getImageSize(), [])
+
+
+    const getImageSize = () => {
+        var img = new Image();
+        img.onload = function () { 
+            if (img.height / img.width > 1) {
+                setIsImageHorizontal(false)
+            }
+            // alert("height: " + img.height + " width:" + img.width); 
+        };
+        img.src = props.photoInformation.image;
+    }
     
 
     const getVH = () => {
@@ -133,7 +148,7 @@ const FeaturedPost = (props) => {
                 <Title>{props.photoInformation?.title}</Title>
                 <div>
 
-                <Image id='test' alt='display' src={props?.photoInformation?.image}></Image>
+                <MainImage width={isImageHorizontal ? '90vw' : 'auto'} height={isImageHorizontal ? 'auto' : '90vh'} id='test' alt='display' src={props?.photoInformation?.image}></MainImage>
                 <InfoContainer>
                     {props?.user ? 
                     <div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import firebase from 'firebase'
-import signout from './Signout'
+// import signout from './Signout'
 import { 
     TextField, 
     SubmitButton,
@@ -34,7 +34,7 @@ const Login = (props) => {
                 <TextField onChange={e => setPassword(e.target.value)} type='password'></TextField>
                 <SubmitButton onClick={submit}>Login</SubmitButton>
                 <br></br>
-                <SubmitButton onClick={signout}>Signout</SubmitButton>
+                {/* <SubmitButton onClick={signout}>Signout</SubmitButton> */}
             </Container>
         </Container2>
     )

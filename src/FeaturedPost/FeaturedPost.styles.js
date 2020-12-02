@@ -25,8 +25,11 @@ export const Title = styled.div`
     font-size: 40px;
 `
 
-export const Image = styled.img`
-    height: 90vh;
+export const MainImage = styled.img`
+    /* height: 90vh; */
+    height: ${props=> props.height};
+    width: ${props=> props.width};
+    /* max-height: 90vh; */
 `
 
 export const Author = styled.div`

@@ -37,7 +37,7 @@ export const SubmitButton = styled.button`
 `
 
 export const Text = styled.div`
-    color: white;
+    /* color: white; */
 `
 
 export const Container = styled.div`

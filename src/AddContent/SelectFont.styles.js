@@ -15,12 +15,18 @@ export const Title = styled.div`
 `
 
 export const Paragraph = styled.div`
-    font-size: 30px;
-    padding: 0 20%;
+    font-size: 22px;
+    padding: 20px 20%;
     font-family: ${props=> props.font};
     text-align: justify;
 `
 
 export const FontOption = styled.option`
     font-family: ${props=> props.font};
+    /* font-size: 20px; */
+`
+
+export const FontSelect = styled.select`
+    font-size: 20px;
+    padding: 10px;
 `

@@ -9,7 +9,7 @@ import { SubmitButton } from './AddContent.styles'
 import {
     Title,
     Description,
-    Image,
+    MainImage,
     Author,
     Container,
     InfoContainer,
@@ -57,7 +57,7 @@ const Preview = (props) => {
                     }
                     <div>
 
-                    <Image id='test' alt='display' src={props?.mainImage}></Image>
+                    <MainImage id='test' alt='display' src={props?.mainImage}></MainImage>
                     <InfoContainer>
     
                     <SubmitButton className='dropdown'>

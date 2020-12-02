@@ -100,11 +100,13 @@ const animationMap = {
     },
     selectFont: {
         initial: {
-            y: '25vh',
+            y: '10vh',
+            x: 100,
             opacity: 0,
         },
         transitionStart: {
-            y: '25vh',
+            x: 0,
+            y: '10vh',
             opacity: 1,
         },
         transitionBack: {
@@ -112,7 +114,8 @@ const animationMap = {
             opacity: 1,
         },
         transitionEnd: {
-            opacity: 0
+            opacity: 0,
+            x: -100
         },
         transition: {
             x: {
@@ -394,8 +397,8 @@ const AddContent = (props) => {
                 setSwitchValue(4)
                 break
             case 4:
-                setSelectFontProps('transitionEnd')
                 setPreviewProps('transitionStart')
+                setSelectFontProps('transitionEnd')
                 // setSwitchValue(4)
                 getBodyContent()
                 getBodyImages()
@@ -416,16 +419,18 @@ const AddContent = (props) => {
     const transitionSwitchBack = () => {
         switch(switchValue) {
             case 2:
-                setCategoryLocationProps('transitionBack')
                 setTitlePhotoProps('transitionBack')
+                setCategoryLocationProps('transitionBack')
                 setSwitchValue(1)
                 break
             case 3: 
                 setCategoryLocationProps('transitionStart')
+                setBody('transitionEnd')
                 setSwitchValue(2)
                 break
             case 4:
                 setBody('transitionBack')
+                setSelectFontProps('transitionEnd')
                 setSwitchValue(3)
                 break
             case 5: 
@@ -461,7 +466,7 @@ const AddContent = (props) => {
             <Scroll scrollHeight='90vh' visibility={animationMap.body[bodyProps].opacity}>
                 <Body imageSizeRatio={imageSizeRatio} setImageSizeRatio={setImageSizeRatio} setBody={setBody} animationMap={animationMap} bodyProps={bodyProps}></Body>
             </Scroll>
-            <Scroll scrollHeight='90vh' visibility={animationMap.selectFont[selectFontProps].opacity}>
+            <Scroll variants={animationMap.selectFont} animate={selectFontProps} scrollHeight='90vh' visibility={animationMap.selectFont[selectFontProps].opacity}>
                 <SelectFont paragraph={paragraph} animationMap={animationMap} selectFontProps={selectFontProps}/>
             </Scroll>
             {switchValue === 6 ? 
