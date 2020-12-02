@@ -92,6 +92,11 @@ export const PhotoContainer = styled.div`
     }
 `
 
+export const LazyButtonContainer = styled.div`
+    display: flex;
+    justify-content: center;
+`
+
 export const Container = styled.div`
     margin: 0 15px;
     margin-left: 40px;

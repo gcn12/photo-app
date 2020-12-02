@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
     Container,
     Paragraph,
@@ -9,24 +9,24 @@ import {
 
 const SelectFont = (props) => {
 
-    const [font, setFont] = useState('')
-
     const getFont = () => {
         const selectedFont = document.getElementById('font-select').value
-        setFont(selectedFont)
+        props.setFont(selectedFont)
     }
 
     return(
-        // <Container visibility={props.animationMap.selectFont[props.selectFontProps].opacity} variants={props.animationMap.selectFont} initial='initial' animate={props.selectBodyProps} transition='transition'>
-        <Container visibility={props.animationMap.selectFont[props.selectFontProps].opacity}>
+        <Container visibility={props.animationMap.selectFont[props.selectFontProps].opacity} variants={props.animationMap.selectFont} initial='initial' animate={props.selectFontProps} transition='transition'>
+        {/* <Container visibility={props.animationMap.selectFont[props.selectFontProps].opacity}> */}
             <Title>Select font:</Title>
-            <Paragraph font={font}>{props.paragraph}</Paragraph>
+            <Paragraph font={props.font}>{props.paragraph}</Paragraph>
             <FontSelect onChange={getFont} id='font-select'>
                 <FontOption value="'Castoro', serif;" font="'Castoro', serif;">Castoro</FontOption>
                 <FontOption value="'Roboto', sans-serif;" font="'Roboto', sans-serif;">Roboto</FontOption>
                 <FontOption value="'Raleway', sans-serif;" font="'Raleway', sans-serif;">Raleway</FontOption>
                 <FontOption value="'Zilla Slab', serif;" font="'Zilla Slab', serif;">Zilla Slab</FontOption>
-                <FontOption value="'Caveat', cursive;" font="'Caveat', cursive;">Caveat</FontOption>
+                <FontOption value="'Open Sans', sans-serif;" font="'Open Sans', sans-serif;">Open Sans</FontOption>
+                <FontOption value="'Poppins', sans-serif;" font="'Poppins', sans-serif;">Poppins</FontOption>
+                <FontOption value="'Antic Slab', serif;" font="'Antic Slab', serif;">Antic Slab</FontOption>
             </FontSelect>
         </Container>
     )

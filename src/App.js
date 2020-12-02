@@ -41,7 +41,7 @@ const App = () => {
 
   return (
     <div>
-      {pageRoute==='GetPhotos' ? 
+      {pageRoute==='GetPhotos' || pageRoute==='FeaturedPost'  ? 
       <Header setHomePhotoInformation={setHomePhotoInformation} setPageRoute={setPageRoute} user={user}/>
       :
       null

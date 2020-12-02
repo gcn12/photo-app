@@ -23,6 +23,7 @@ export const BodyContainer = styled.div`
 export const Title = styled.div`
     /* color: #242424; */
     font-size: 40px;
+    font-family: ${props=> props.font};
 `
 
 export const MainImage = styled.img`
@@ -35,9 +36,11 @@ export const MainImage = styled.img`
 
 export const Author = styled.div`
     /* color: #242424; */
+    font-family: ${props=> props.font};
 `
 
 export const Description = styled.div`
+    font-family: ${props=> props.font};
     /* color: white; */
     width: 65vw;
     margin: 20px 0;

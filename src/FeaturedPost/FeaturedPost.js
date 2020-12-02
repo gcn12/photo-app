@@ -145,7 +145,7 @@ const FeaturedPost = (props) => {
         <div>
             <SubmitButton onClick={()=>props.setPageRoute('GetPhotos')}>Back</SubmitButton>
             <Container>
-                <Title>{props.photoInformation?.title}</Title>
+                <Title font={props.photoInformation.font}>{props.photoInformation?.title}</Title>
                 <div>
 
                 <MainImage width={isImageHorizontal ? '80vw' : 'auto'} height={isImageHorizontal ? 'auto' : '80vh'} id='test' alt='display' src={props?.photoInformation?.image}></MainImage>
@@ -170,8 +170,8 @@ const FeaturedPost = (props) => {
                     </div>
                     :
                     null}
-                    <Author>{props.photoInformation?.author}</Author>
-                    <Author>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</Author>
+                    <Author font={props.photoInformation.font}>{props.photoInformation?.author}</Author>
+                    <Author font={props.photoInformation.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</Author>
                 </InfoContainer>
                 </div>
             </Container>
@@ -180,7 +180,7 @@ const FeaturedPost = (props) => {
                     return(
                         <BodyContainer key={index}>
                             {/* <FeaturedPostGallery images={props.photoInformation.images[index]}></FeaturedPostGallery> */}
-                            <Description>{item}</Description>
+                            <Description font={props.photoInformation.font}>{item}</Description>
                             <BodyImageContainer>
                             {props.photoInformation.images[index].map((image, i)=> {
                                 // console.log(props.photoInformation.photoBodyMap[index][i])

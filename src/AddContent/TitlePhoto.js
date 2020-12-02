@@ -12,7 +12,7 @@ const TitlePhoto = (props) => {
     const [isImage, setIsImage] = useState(false)
 
     const displayImage = () => {
-        props.setTitlePhotoProps('transitionStart')
+        props.setTitlePhotoProps('shiftUp')
         const file = document.getElementById('photo-input').files[0]
         const viewFile = new FileReader()
         viewFile.onload = (e) => {
@@ -22,7 +22,6 @@ const TitlePhoto = (props) => {
                 if(heightWidth.height / heightWidth.width > 1)  {
                     props.setIsImageHorizontal(false)
                 }
-
             }
             const image = document.getElementById('previewImage')
             image.src = e.target.result
@@ -34,7 +33,7 @@ const TitlePhoto = (props) => {
 
     return(
         <div>
-            <Container visibility={props.animationMap.titlePhoto[props.transition].opacity} initial='initial'  transition='transition' variants={props.animationMap.titlePhoto} animate={props.transition}>
+            <Container visibility={props.animationMap.titlePhoto[props.titlePhotoProps].opacity} initial='initial'  transition='transition' variants={props.animationMap.titlePhoto} animate={props.titlePhotoProps}>
                 <Label>Create a title:</Label>
                 <TextInput autoComplete='off' id='add-content-title'></TextInput>
                 <Label>Upload header photo:</Label>

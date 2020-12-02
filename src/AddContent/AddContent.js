@@ -19,45 +19,53 @@ import {
 const animationMap = {
     titlePhoto: {
         initial: {
+            x: 0,
             y: '25vh',
             opacity: 1,
         },
-        transitionStart: {
+        shiftUp: {
+            x: 0,
             y: 10,
             opacity: 1,
         }, 
         transitionEnd: {
-            x: -200,
+            x: -100,
+            y: 10,
             opacity: 0,
         },
         transitionBack: {
-            y: 10,
             x: 0,
+            // y: 10,
             opacity: 1,
         }, 
         transition: {
+            opacity: {
+                delay: 1,
+            },
             x: {
-                duration: 10
+                type: 'spring',
+                stiffness: 1000,
             }
         }
     },
     categoryLocation: {
         initial: {
             x: 100,
-            opacity: 0,
             y: '25vh',
+            opacity: 0,
         },
         transitionStart: {
             x: 0,
-            opacity: 1,
             y: '25vh',
+            opacity: 1,
         },
         transitionBack: {
-            x: 400,
-            opacity: 0,
+            x: 0,
+            y: '25vh',
+            opacity: 1,
         },
         transitionEnd: {
-            x: -1000,
+            x: -100,
             opacity: 0
         },
         transition: {
@@ -70,25 +78,25 @@ const animationMap = {
     body: {
         initial: {
             x: 100,
-            opacity: 0,
             y: '25vh',
+            opacity: 0,
         },
         transitionStart: {
             x: 0,
-            opacity: 1,
             y: '25vh',
+            opacity: 1,
         },
         shiftUp: {
             x: 0,
-            opacity: 1,
             y: '0',
+            opacity: 1,
         },
         transitionBack: {
             x: 0,
             opacity: 1,
         },
         transitionEnd: {
-            x: -1000,
+            x: -100,
             opacity: 0
         },
         transition: {
@@ -100,8 +108,8 @@ const animationMap = {
     },
     selectFont: {
         initial: {
-            y: '10vh',
             x: 100,
+            y: '10vh',
             opacity: 0,
         },
         transitionStart: {
@@ -126,19 +134,21 @@ const animationMap = {
     },
     preview: {
         initial: {
+            x: 100,
             y: '10',
             opacity: 0,
         },
         transitionStart: {
-            opacity: 1,
+            x: 0,
             y: 0,
+            opacity: 1,
         },
         transitionBack: {
             x: 0,
-            opacity: 0,
+            opacity: 1,
         },
         transitionEnd: {
-            // x: -1000,
+            x: -100,
             opacity: 0
         },
         transition: {
@@ -156,8 +166,8 @@ const animationMap = {
         },
         transitionStart: {
             x: 0,
-            opacity: 1,
             y: '35vh',
+            opacity: 1,
         },
         // transitionBack: {
         //     x: 0,
@@ -194,6 +204,7 @@ const AddContent = (props) => {
     const [uploadProgressColor, setUploadProgressColor] = useState(false)
     const [paragraph, setParagraph] = useState('')
     const [isImageHorizontal, setIsImageHorizontal] = useState(true)
+    const [font, setFont] = useState('')
 
     const submit = (imagesEmptyArrays, unsortedImages, imageMap, user, imageSizeArray) => {
         const title = document.getElementById('add-content-title').value
@@ -238,6 +249,7 @@ const AddContent = (props) => {
             setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
             const continent = data.docs[0].data()[country]
             db.collection('posts').add({
+                font,
                 photoBodyMap: imageSizeArray,
                 content: descriptionArray,
                 images: urlObject,
@@ -379,6 +391,13 @@ const AddContent = (props) => {
         setBodyImages(imagesArray)
     }
 
+    // setTitlePhotoProps
+    // setCategoryLocationProps
+    // setBody
+    // setSelectFontProps
+    // setPreviewProps
+    // setUploadStatusProps
+
     const transitionSwitchNext = () => {
         switch(switchValue) {
             case 1:
@@ -387,20 +406,19 @@ const AddContent = (props) => {
                 setSwitchValue(2)
                 break
             case 2:
-                setBody('transitionStart')
                 setCategoryLocationProps('transitionEnd')
+                setBody('transitionStart')
                 setSwitchValue(3)
                 break
             case 3:
-                getParagraphSample()
-                setSelectFontProps('transitionStart')
                 setBody('transitionEnd')
+                setSelectFontProps('transitionStart')
+                getParagraphSample()
                 setSwitchValue(4)
                 break
             case 4:
-                setPreviewProps('transitionStart')
                 setSelectFontProps('transitionEnd')
-                // setSwitchValue(4)
+                setPreviewProps('transitionStart')
                 getBodyContent()
                 getBodyImages()
                 setSwitchValue(5)
@@ -421,22 +439,22 @@ const AddContent = (props) => {
         switch(switchValue) {
             case 2:
                 setTitlePhotoProps('transitionBack')
-                setCategoryLocationProps('transitionBack')
+                setCategoryLocationProps('initial')
                 setSwitchValue(1)
                 break
             case 3: 
-                setCategoryLocationProps('transitionStart')
-                setBody('transitionEnd')
+                setCategoryLocationProps('transitionBack')
+                setBody('initial')
                 setSwitchValue(2)
                 break
             case 4:
                 setBody('transitionBack')
-                setSelectFontProps('transitionEnd')
+                setSelectFontProps('initial')
                 setSwitchValue(3)
                 break
             case 5: 
                 setSelectFontProps('transitionBack')
-                setPreviewProps('transitionBack')
+                setPreviewProps('initial')
                 setSwitchValue(4)
                 break
             default: 
@@ -453,13 +471,13 @@ const AddContent = (props) => {
             :
             <div>
 
-            <Scroll animate={previewProps} variants={animationMap.preview} scrollHeight='90vh' visibility={animationMap.preview[previewProps].opacity}>
-                <Preview isImageHorizontal={isImageHorizontal} imageSizeRatio={imageSizeRatio} bodyImages={bodyImages} bodyContent={bodyContent} mainImage={mainImage} previewProps={previewProps} animationMap={animationMap}></Preview>
+            <Scroll scrollHeight='90vh' visibility={animationMap.preview[previewProps].opacity}>
+                <Preview font={font} isImageHorizontal={isImageHorizontal} imageSizeRatio={imageSizeRatio} bodyImages={bodyImages} bodyContent={bodyContent} mainImage={mainImage} previewProps={previewProps} animationMap={animationMap}></Preview>
             </Scroll>
             </div>
             }
             <Scroll scrollHeight='90vh' visibility={animationMap.titlePhoto[titlePhotoProps].opacity}>
-                <TitlePhoto setIsImageHorizontal={setIsImageHorizontal} setMainImage={setMainImage} animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} transition={titlePhotoProps}/>
+                <TitlePhoto setIsImageHorizontal={setIsImageHorizontal} setMainImage={setMainImage} animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} titlePhotoProps={titlePhotoProps}/>
             </Scroll>
             <Scroll scrollHeight='90vh' visibility={animationMap.categoryLocation[categoryLocationProps].opacity}>
                 <CategoryLocation animationMap={animationMap} categoryLocation={categoryLocationProps}/>
@@ -467,8 +485,9 @@ const AddContent = (props) => {
             <Scroll scrollHeight='90vh' visibility={animationMap.body[bodyProps].opacity}>
                 <Body imageSizeRatio={imageSizeRatio} setImageSizeRatio={setImageSizeRatio} setBody={setBody} animationMap={animationMap} bodyProps={bodyProps}></Body>
             </Scroll>
-            <Scroll variants={animationMap.selectFont} animate={selectFontProps} scrollHeight='90vh' visibility={animationMap.selectFont[selectFontProps].opacity}>
-                <SelectFont paragraph={paragraph} animationMap={animationMap} selectFontProps={selectFontProps}/>
+            {/* <Scroll variants={animationMap.selectFont} animate={selectFontProps} scrollHeight='90vh' visibility={animationMap.selectFont[selectFontProps].opacity}> */}
+            <Scroll scrollHeight='90vh' visibility={animationMap.selectFont[selectFontProps].opacity}>
+                <SelectFont font={font} setFont={setFont} paragraph={paragraph} animationMap={animationMap} selectFontProps={selectFontProps}/>
             </Scroll>
             {switchValue === 6 ? 
             null
@@ -507,3 +526,69 @@ const AddContent = (props) => {
 }
 
 export default AddContent
+
+
+// const transitionSwitchNext = () => {
+//     switch(switchValue) {
+//         case 1:
+//             setTitlePhotoProps('transitionEnd')
+//             setCategoryLocationProps('transitionStart')
+//             setSwitchValue(2)
+//             break
+//         case 2:
+//             setBody('transitionStart')
+//             setCategoryLocationProps('transitionEnd')
+//             setSwitchValue(3)
+//             break
+//         case 3:
+//             getParagraphSample()
+//             setSelectFontProps('transitionStart')
+//             setBody('transitionEnd')
+//             setSwitchValue(4)
+//             break
+//         case 4:
+//             setPreviewProps('transitionStart')
+//             setSelectFontProps('transitionEnd')
+//             // setSwitchValue(4)
+//             getBodyContent()
+//             getBodyImages()
+//             setSwitchValue(5)
+//         break
+//             case 5: 
+//             setPreviewProps('transitionEnd')
+//             fileUpload(props.user, imageSizeRatio)
+//             setUploadStatusProps('transitionStart')
+//             setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
+//             setSwitchValue(6)
+//             break
+//         default: 
+//             return null
+//     }
+// }
+
+// const transitionSwitchBack = () => {
+//     switch(switchValue) {
+//         case 2:
+//             setTitlePhotoProps('transitionBack')
+//             setCategoryLocationProps('transitionBack')
+//             setSwitchValue(1)
+//             break
+//         case 3: 
+//             setCategoryLocationProps('transitionStart')
+//             setBody('transitionBack')
+//             setSwitchValue(2)
+//             break
+//         case 4:
+//             setBody('transitionStart')
+//             setSelectFontProps('transitionBack')
+//             setSwitchValue(3)
+//             break
+//         case 5: 
+//             setSelectFontProps('transitionStart')
+//             setPreviewProps('transitionBack')
+//             setSwitchValue(4)
+//             break
+//         default: 
+//             return null
+//     }
+// }

@@ -7,10 +7,10 @@ import {
 } from './Preview.styles'
 import { SubmitButton } from './AddContent.styles'
 import {
+    Author,
     Title,
     Description,
     MainImage,
-    Author,
     Container,
     InfoContainer,
     BodyContainer,
@@ -51,19 +51,19 @@ const Preview = (props) => {
             <PreviewContainer initial='initial' visibility={props.animationMap.preview[props.previewProps].opacity} transition='transition' animate={props.previewProps} variants={props.animationMap.preview}>
                 <Container>
                     {document.getElementById('add-content-title') ? 
-                    <Title>{document.getElementById('add-content-title').value}</Title>
+                    <Title font={props.font}>{document.getElementById('add-content-title').value}</Title>
                     :
                     null
                     }
-                    <div>
+                    <div> 
                     <MainImage id='test'  width={props.isImageHorizontal ? '80vw' : 'auto'} height={props.isImageHorizontal ? 'auto' : '80vh'} alt='display' src={props?.mainImage}></MainImage>
                     <InfoContainer>
     
                     <SubmitButton className='dropdown'>
                         <div className='dropdown'>Add to collection</div>
                     </SubmitButton>
-                    <Author>{'Dan Richards'}</Author>
-                    <Author>{moment(Date.now()).format('MMMM Do YYYY')}</Author>
+                    <Author font={props.font}>{'Dan Richards'}</Author>
+                    <Author font={props.font}>{moment(Date.now()).format('MMMM Do YYYY')}</Author>
                     </InfoContainer>
                     </div>
                 </Container> 
@@ -71,7 +71,7 @@ const Preview = (props) => {
                     // console.log(item)
                     return(
                         <BodyContainer margin='35px' key={index}>
-                            <Description>{item}</Description>
+                            <Description font={props.font}>{item}</Description>
                             <BodyImageContainer>
                             {props?.bodyImages[index]?.map((image, i)=> {
                                 return(

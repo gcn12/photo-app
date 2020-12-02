@@ -3,8 +3,7 @@ import { motion } from 'framer-motion'
 
 export const Container = styled(motion.div)`
     visibility: ${props=> props.visibility ? 'null' : 'hidden'};
-    display: ${props=> props.visibility ? 'null' : 'none'};
-    display: flex;
+    display: ${props=> props.visibility ? 'flex' : 'none'};
     justify-content: center;
     align-items: center;
     flex-direction: column;

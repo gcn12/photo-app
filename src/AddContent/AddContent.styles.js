@@ -37,11 +37,11 @@ export const NextButton = styled.button`
 export const Container = styled(motion.div)`
     /* height: 110vh; */
     visibility: ${props=> props.visibility ? 'null' : 'hidden'};
-    display: ${props=> props.visibility ? 'flex' : 'none'};
+    display: ${props=> props.visibility ? 'null' : 'none'};
     /* left: 20%;
     top: 40%;
     position: absolute;  */
-    /* display: flex; */
+    display: flex;
     flex-wrap: wrap;
     flex-direction: column; 
     align-items: center;
@@ -78,7 +78,7 @@ export const PreviewContainer = styled.div`
 
 export const PreviewImage = styled.img`
     /* height: 450px; */
-    height: 55vh;
+    height: 52vh;
     width: auto;
 `
 

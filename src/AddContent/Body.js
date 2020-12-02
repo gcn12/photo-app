@@ -14,61 +14,68 @@ const Body = (props) => {
 
     const [isAddImage, setIsAddImage] = useState(false)
     const [isAdditionalElements, setIsAdditionalElements] = useState(false)
+    const [isTooManyImages, setIsTooManyImages] = useState(false)
 
     const getImageMap = (inputID, inputDiv) => {
         const images = document.getElementById(inputID)
         let sizeMapArray = new Array(images.files.length).fill('')
-        if(images.files.length>1) {
-            for (let i = 0; i < images.files.length; i++) {
-                const file = images.files[i];
+        if(images.files.length<4) {
+            if(images.files.length>1) {
+                props.setBody('shiftUp')
+                setIsTooManyImages(false)
+                for (let i = 0; i < images.files.length; i++) {
+                    const file = images.files[i];
+                    const fileReader  = new FileReader();
+                    fileReader.onload = function(e)  {
+                        const displayImage = document.createElement("img");
+                        displayImage.src = e.target.result;
+                        displayImage.className = 'upload-gallery-image'
+                        // document.body.appendChild(displayImage);
+                        document.getElementById(inputDiv).appendChild(displayImage);
+                    }
+                    fileReader.readAsDataURL(file);
+    
+                    let percentageArray = []
+                    const reader = new FileReader()
+                    reader.readAsDataURL(images.files[i]);
+                    reader.onload = (e) => {
+                        const image = document.createElement('img')
+                        image.src = e.target.result;
+                        image.onload = function () {
+                            const height = this.height;
+                            const width = this.width;
+                            sizeMapArray[i] = width/height
+                            if(sizeMapArray.length === images.files.length) {
+                                const reducer = (sum, val) => sum + val;
+                                let ratioTotal = sizeMapArray.reduce(reducer, 0);
+                                for (let image of sizeMapArray) {
+                                    percentageArray.push(image/ratioTotal)
+                                }
+                                const index = inputID[inputID.length-1]
+                                const imageSizeRatioCopy = props.imageSizeRatio 
+                                imageSizeRatioCopy[index] = percentageArray
+                                props.setImageSizeRatio(imageSizeRatioCopy)
+                            }
+                        };
+                    }
+                }
+            }else{
+                const index = inputID[inputID.length-1]
+                const imageSizeRatioCopy = props.imageSizeRatio 
+                imageSizeRatioCopy[index] = [1]
+                props.setImageSizeRatio(imageSizeRatioCopy)
+                const file = images.files[0];
                 const fileReader  = new FileReader();
                 fileReader.onload = function(e)  {
                     const displayImage = document.createElement("img");
                     displayImage.src = e.target.result;
                     displayImage.className = 'upload-gallery-image'
-                    // document.body.appendChild(displayImage);
                     document.getElementById(inputDiv).appendChild(displayImage);
                 }
                 fileReader.readAsDataURL(file);
-
-                let percentageArray = []
-                const reader = new FileReader()
-                reader.readAsDataURL(images.files[i]);
-                reader.onload = (e) => {
-                    const image = document.createElement('img')
-                    image.src = e.target.result;
-                    image.onload = function () {
-                        const height = this.height;
-                        const width = this.width;
-                        sizeMapArray[i] = width/height
-                        if(sizeMapArray.length === images.files.length) {
-                            const reducer = (sum, val) => sum + val;
-                            let ratioTotal = sizeMapArray.reduce(reducer, 0);
-                            for (let image of sizeMapArray) {
-                                percentageArray.push(image/ratioTotal)
-                            }
-                            const index = inputID[inputID.length-1]
-                            const imageSizeRatioCopy = props.imageSizeRatio 
-                            imageSizeRatioCopy[index] = percentageArray
-                            props.setImageSizeRatio(imageSizeRatioCopy)
-                        }
-                    };
-                }
             }
         }else{
-            const index = inputID[inputID.length-1]
-            const imageSizeRatioCopy = props.imageSizeRatio 
-            imageSizeRatioCopy[index] = [1]
-            props.setImageSizeRatio(imageSizeRatioCopy)
-            const file = images.files[0];
-            const fileReader  = new FileReader();
-            fileReader.onload = function(e)  {
-                const displayImage = document.createElement("img");
-                displayImage.src = e.target.result;
-                displayImage.className = 'upload-gallery-image'
-                document.getElementById(inputDiv).appendChild(displayImage);
-            }
-            fileReader.readAsDataURL(file);
+            setIsTooManyImages(true)
         }
     }
 
@@ -99,7 +106,7 @@ const Body = (props) => {
         checkAdditionalElement()
         image.onchange = ()=> {
             getImageMap(`image-input-${numberInputs}`, `image-div-${numberInputs}`)
-            props.setBody('shiftUp')
+            // props.setBody('shiftUp')
             const buttons = document.getElementById('body-scroll-here');
             buttons.scrollIntoView();
         }
@@ -110,6 +117,7 @@ const Body = (props) => {
         const parent = document.getElementById('content-form')
         parent.removeChild(parent.lastChild)
         if(isAddImage) {
+            setIsTooManyImages(false)
             parent.removeChild(parent.lastChild)
             parent.removeChild(parent.lastChild)
             const imageSizeRatioCopy = props.imageSizeRatio
@@ -147,6 +155,7 @@ const Body = (props) => {
                 <Label>Body content</Label>
                 <DescriptionInput className='content-paragraph' id='content-paragraph-original'></DescriptionInput>
             </Container>
+            {isTooManyImages ? <div>Exceeded image limit of three</div> : null}
             <BodyButtonContainer id='add-content-body-buttons'>
                 {isAdditionalElements ? 
                 <RemoveLastElement type="button" onClick={removeLastElement}>{`Remove last ${isAddImage ? 'image' : 'text block'}`}</RemoveLastElement>

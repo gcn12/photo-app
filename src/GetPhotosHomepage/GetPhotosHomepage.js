@@ -10,9 +10,10 @@ import {
     PhotoTitle,
     PhotoTextContainer,
     PhotoLocation,
+    LazyButtonContainer,
 } from './GetPhotosHomepage.styles'
 import Masonry from 'react-masonry-css'
-import { SubmitButton } from '../AddContent/AddContent.styles'
+import { SubmitButton, } from '../AddContent/AddContent.styles'
 
 const DisplayPhoto = (props) => {
 
@@ -108,7 +109,9 @@ const GetPhotos = (props) => {
                 :
                 null}
             </Masonry>
-            <SubmitButton onClick={lazy}>Load more</SubmitButton>
+            <LazyButtonContainer>
+                <SubmitButton onClick={lazy}>Load more</SubmitButton>
+            </LazyButtonContainer>
             </div>
         </Container>
     )
