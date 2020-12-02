@@ -80,7 +80,13 @@ const Body = (props) => {
         image.setAttribute('multiple', '')
         image.setAttribute('accept', 'image/jpeg, image/png, image/jpg, image/tif')
         image.id = `image-input-${numberInputs}`
+        image.setAttribute('hidden', '')
 
+        const uploadButtonLabel = document.createElement('label')
+        uploadButtonLabel.htmlFor = `image-input-${numberInputs}`
+        uploadButtonLabel.className = 'upload-button-label'
+        uploadButtonLabel.innerHTML = 'Select images (max. 3)'
+        
         const imageDiv = document.createElement('div')
         imageDiv.id = `image-div-${numberInputs}`
         imageDiv.className = 'image-div'
@@ -88,6 +94,7 @@ const Body = (props) => {
         const parent = document.getElementById('content-form')
         parent.appendChild(image)
         parent.appendChild(imageDiv)
+        parent.appendChild(uploadButtonLabel)
         setIsAddImage(!isAddImage)
         checkAdditionalElement()
         image.onchange = ()=> {
@@ -103,6 +110,7 @@ const Body = (props) => {
         const parent = document.getElementById('content-form')
         parent.removeChild(parent.lastChild)
         if(isAddImage) {
+            parent.removeChild(parent.lastChild)
             parent.removeChild(parent.lastChild)
             const imageSizeRatioCopy = props.imageSizeRatio
             delete imageSizeRatioCopy[numberInputs-1]
@@ -137,7 +145,7 @@ const Body = (props) => {
         <CategoryLocationContainer visibility={props.animationMap.body[props.bodyProps].opacity} variants={props.animationMap.body} animate={props.bodyProps} transition='transition' initial={'initial'}>
             <Container visibility={props.animationMap.body[props.bodyProps].opacity} id='content-form'>
                 <Label>Body content</Label>
-                <DescriptionInput className='content-paragraph'></DescriptionInput>
+                <DescriptionInput className='content-paragraph' id='content-paragraph-original'></DescriptionInput>
             </Container>
             <BodyButtonContainer id='add-content-body-buttons'>
                 {isAdditionalElements ? 

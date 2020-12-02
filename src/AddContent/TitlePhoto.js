@@ -26,12 +26,12 @@ const TitlePhoto = (props) => {
 
     return(
         <div>
-           
             <Container visibility={props.animationMap.titlePhoto[props.transition].opacity} initial='initial'  transition='transition' variants={props.animationMap.titlePhoto} animate={props.transition}>
                 <Label>Create a title:</Label>
                 <TextInput autoComplete='off' id='add-content-title'></TextInput>
                 <Label>Upload header photo:</Label>
-                <FileUpload onChange={displayImage} id='photo-input' type='file' className='photo-input'></FileUpload>
+                <input hidden onChange={displayImage} id='photo-input' type='file' className='photo-input'></input>
+                <FileUpload htmlFor='photo-input'>Select image</FileUpload>
                 <br></br>
                 {isImage ? 
                 <PreviewImage alt='preview' id='previewImage'></PreviewImage>

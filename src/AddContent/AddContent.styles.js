@@ -63,8 +63,13 @@ export const CategoryLocationContainer = styled(motion.div)`
     justify-content: center;
 `
 
-export const FileUpload = styled.input`
+export const FileUpload = styled.label`
     margin: 10px 0 0 0;
+    border: 1px solid black;
+    padding: 5px;
+    color: black;
+    cursor: pointer;
+    font-size: 20px;
 `
 
 export const PreviewContainer = styled.div`

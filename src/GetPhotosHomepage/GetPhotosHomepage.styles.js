@@ -55,7 +55,7 @@ export const Image = styled.img`
     }
 
     @-moz-keyframes fadeIn {
-        0% {opacity:0;}
+        0% {opacity:0;} 
         100% {opacity:1;}
     }
 
@@ -94,7 +94,12 @@ export const PhotoContainer = styled.div`
 
 export const Container = styled.div`
     margin: 0 15px;
-    margin-left: 35px;
+    margin-left: 40px;
+
+    @media (max-width: 670px) {
+        margin: 0;
+        margin-left: 0px;
+    }
 `
 
 export const SortSelect = styled.select`

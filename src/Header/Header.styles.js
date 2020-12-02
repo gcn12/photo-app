@@ -4,7 +4,8 @@ export const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px 30px 0;
+    margin: 0px 30px 0;
+    padding: 10px 0 0 0;
 `
 
 export const UL = styled.ul`
@@ -31,7 +32,9 @@ export const LI = styled.li`
 `
 
 export const Border = styled.div`
-    border-bottom: 2px solid #c2c2c2;
+    /* position: fixed; */
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #c9c9c9;
 `
 
 export const Navigation = styled.div`

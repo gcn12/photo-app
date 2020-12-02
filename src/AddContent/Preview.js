@@ -55,6 +55,8 @@ const Preview = (props) => {
                     :
                     null
                     }
+                    <div>
+
                     <Image id='test' alt='display' src={props?.mainImage}></Image>
                     <InfoContainer>
     
@@ -64,7 +66,8 @@ const Preview = (props) => {
                     <Author>{'Dan Richards'}</Author>
                     <Author>{moment(Date.now()).format('MMMM Do YYYY')}</Author>
                     </InfoContainer>
-                </Container>
+                    </div>
+                </Container> 
                 {props.bodyContent.map((item, index) => {
                     // console.log(item)
                     return(

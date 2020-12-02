@@ -28,11 +28,12 @@
     display: -webkit-box; /* Not needed if autoprefixing */
     display: -ms-flexbox; /* Not needed if autoprefixing */
     display: flex;
-    margin-left: -5px; /* gutter size offset */
+    /* margin-left: -5px; gutter size offset */
     width: auto;
+    align-self: center;
 }
 .my-masonry-grid_column {
-margin-left: 5px; /* gutter size */
+/* margin-left: 5px; gutter size */
 background-clip: padding-box;
 }
 
@@ -57,4 +58,13 @@ background-clip: padding-box;
     transition: .8s;
     transform: rotate(-90deg);
     transform-origin: 50% 50%;
+}
+
+.upload-button-label {
+    margin: 5px 0 10px 0;
+    border: 1px solid black;
+    padding: 5px;
+    color: black;
+    cursor: pointer;
+    font-size: 18px;
 }
