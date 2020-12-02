@@ -148,7 +148,7 @@ const FeaturedPost = (props) => {
                 <Title>{props.photoInformation?.title}</Title>
                 <div>
 
-                <MainImage width={isImageHorizontal ? '90vw' : 'auto'} height={isImageHorizontal ? 'auto' : '90vh'} id='test' alt='display' src={props?.photoInformation?.image}></MainImage>
+                <MainImage width={isImageHorizontal ? '80vw' : 'auto'} height={isImageHorizontal ? 'auto' : '80vh'} id='test' alt='display' src={props?.photoInformation?.image}></MainImage>
                 <InfoContainer>
                     {props?.user ? 
                     <div>

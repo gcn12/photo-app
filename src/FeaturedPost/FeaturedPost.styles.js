@@ -29,7 +29,8 @@ export const MainImage = styled.img`
     /* height: 90vh; */
     height: ${props=> props.height};
     width: ${props=> props.width};
-    /* max-height: 90vh; */
+    max-height: 90vh;
+    max-width: 90vw;
 `
 
 export const Author = styled.div`
