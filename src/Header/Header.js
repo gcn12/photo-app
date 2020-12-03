@@ -13,6 +13,7 @@ import {
 const Header = (props) => {
 
     const[dropdownTransition, setDropdownTransition] = useState('initial')
+    const[visibility, setVisibility] = useState(false)
 
     const getPhotoInfo = (continent) => {
         const photosArray = []
@@ -29,7 +30,7 @@ const Header = (props) => {
 
     return(
         <Border>
-            <SubheaderDropdown dropdownTransition={dropdownTransition} setDropdownTransition={setDropdownTransition}/>
+            <SubheaderDropdown setHomePhotoInformation={props.setHomePhotoInformation} setVisibility={setVisibility} visibility={visibility} dropdownTransition={dropdownTransition} setDropdownTransition={setDropdownTransition}/>
             <Container className='test'>
                 <UL>
                     <LI onClick={()=> getPhotoInfo('North America')}>Discover</LI>
@@ -47,7 +48,7 @@ const Header = (props) => {
                 <Navigation cursor='pointer' onClick={()=>props.setPageRoute('Login')}>Log in</Navigation>
                 } 
             </Container>
-            <Subheader setDropdownTransition={setDropdownTransition} setHomePhotoInformation={props.setHomePhotoInformation}/>
+            <Subheader setVisibility={setVisibility} setDropdownTransition={setDropdownTransition} setHomePhotoInformation={props.setHomePhotoInformation}/>
             <div style={{marginBottom: '10px'}}></div>
         </Border>
     )

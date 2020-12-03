@@ -26,6 +26,12 @@ const Subheader = (props) => {
         })
     }
 
+
+    const openDropdown = () => {
+        props.setDropdownTransition('transitionStart')
+        props.setVisibility(true)
+    }
+
     return(
         <div>
             <Container>
@@ -38,7 +44,7 @@ const Subheader = (props) => {
             </Container>
             <Container>
                 <ULMobile>
-                    <LI onClick={()=>props.setDropdownTransition('transitionStart')}>Sort &#x25BC;</LI>
+                    <LI onClick={openDropdown}>Sort &#x25BC;</LI>
                 </ULMobile>
             </Container>
         </div>
