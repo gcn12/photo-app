@@ -33,6 +33,7 @@ const UserPosts = (props) => {
             if (props.user) {
                 db.collection('users').doc(user)
                 .collection('posts')
+                .orderBy('timestamp', 'desc')
                 .get()
                 .then(posts => {
                     const postsArray = []

@@ -20,6 +20,7 @@ const Login = (props) => {
             firebase.auth().signInWithEmailAndPassword(email, password)
             .then(user => {
                 props.setUser(user.user.uid)
+                props.setPageRoute('GetPhotos')
             })
             .catch(error=>console.log(error))
         }
@@ -28,7 +29,7 @@ const Login = (props) => {
     return(
         <Container2>
             <Container>
-                <Text>Email {props.user}</Text>
+                <Text>Email</Text>
                 <TextField onChange={e => setEmail(e.target.value)}></TextField>
                 <Text>Password</Text>
                 <TextField onChange={e => setPassword(e.target.value)} type='password'></TextField>

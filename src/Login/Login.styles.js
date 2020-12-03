@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const TextField = styled.input`
-    width: 400px;
+    width: 40vw;
     height: 30px;
     font-size: 20px;
     transition: height 500ms;

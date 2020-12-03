@@ -120,6 +120,7 @@ const App = () => {
             />
           case 'Profile':
             return <Profile 
+              setUser={setUser}
               getFeaturedPhotoInfo={getFeaturedPhotoInfo}
               setHomePhotoInformation={setHomePhotoInformation} 
               setPhotoInformation={setPhotoInformation} 
@@ -127,9 +128,9 @@ const App = () => {
               setPageRoute={setPageRoute} 
             />;
           case 'Login':
-            return <Login setUser={setUser} user={user} />
+            return <Login setPageRoute={setPageRoute} setUser={setUser} user={user} />
           case 'Signup':
-            return <Signup setPageRoute={setPageRoute} />
+            return <Signup setUser={setUser} setPageRoute={setPageRoute} />
           default:
             return null;
         }

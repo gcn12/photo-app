@@ -2,6 +2,7 @@ import React from 'react'
 import {
     Container,
     CenterList,
+    CancelContainer,
     Cancel,
     UL,
     LI,
@@ -47,9 +48,9 @@ const SubheaderDropdown = (props) => {
 
     return(
         <Container visibility={props.visibility} transition='transition' variants={variants} initial='initial' animate={props.dropdownTransition}>
-            <div>
+            <CancelContainer>
                 <Cancel onClick={closeDropdown}>&times;</Cancel>
-            </div>
+            </CancelContainer>
             <CenterList>
                 <UL>
                     <LI underline={selected === 'assorted' ? true : false}>ASSORTED</LI>

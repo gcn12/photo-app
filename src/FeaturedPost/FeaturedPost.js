@@ -14,7 +14,7 @@ import {
     InfoContainer,
     BodyContainer,
     BodyImageContainer,
-    Date,
+    DateStyle,
     // Container2,
     // Container3,
     BodyImage,
@@ -171,7 +171,7 @@ const FeaturedPost = (props) => {
                     :
                     null}
                     <Author onClick={()=>props.getUserProfile(props.photoInformation.username)} font={props.photoInformation.font}>{props.photoInformation?.author}</Author>
-                    <Date font={props.photoInformation.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</Date>
+                    <DateStyle font={props.photoInformation.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</DateStyle>
                 </InfoContainer>
                 </div>
             </Container>

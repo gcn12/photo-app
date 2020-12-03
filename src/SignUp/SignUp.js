@@ -31,6 +31,7 @@ const Signup = (props) => {
                 .then(()=> {
                     console.log('sign up complete')
                     props.setPageRoute('GetPhotos')
+                    props.setUser(user.user.id)
                 })
                 .catch(err=>console.log(err))
             })

@@ -7,7 +7,7 @@ const Settings = (props) => {
 
     const signoutWithRoute = () => {
         props.setPageRoute('GetPhotos')
-        signout()
+        signout(props.setUser)
     }
     
     return(

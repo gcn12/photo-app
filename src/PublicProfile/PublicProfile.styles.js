@@ -11,7 +11,7 @@ export const ProfileImage = styled.img`
 export const Container = styled.div`
     /* max-width: 30%; */
     /* min-width: 200px; */
-    width: 300px;
+    width: 600px;
     height: 100%;
     background-color: white;
     display: flex;

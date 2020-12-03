@@ -62,9 +62,15 @@ export const UL = styled.ul`
     /* justify-content: space-evenly; */
 `
 
+export const CancelContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
+`
+
 export const Cancel = styled.div`
     position: absolute;
     right: 0;
-    font-size: 50px;
+    margin-right: 15px;
+    font-size: 70px;
     cursor: pointer;
 `

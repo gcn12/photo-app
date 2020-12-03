@@ -40,7 +40,7 @@ export const Author = styled.div`
     font-family: ${props=> props.font};
 `
 
-export const Date = styled.div`
+export const DateStyle = styled.div`
     /* color: #242424; */
     font-family: ${props=> props.font};
 `
