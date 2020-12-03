@@ -14,6 +14,7 @@ const Header = (props) => {
 
     const[dropdownTransition, setDropdownTransition] = useState('initial')
     const[visibility, setVisibility] = useState(false)
+    const [selected, setSelected] = useState('assorted')
 
     const getPhotoInfo = (continent) => {
         const photosArray = []
@@ -28,9 +29,23 @@ const Header = (props) => {
         })
     }
 
+    const sort = (value) => {
+        setSelected(value)
+        db.collection('preview-posts').orderBy(value, 'desc')
+        .limit(10)
+        .get()
+        .then(data=> {
+            const photoArray = []
+            data.docs.forEach(item=> {
+                photoArray.push(item.data())
+            })
+            props.setHomePhotoInformation([...photoArray])
+        })
+    }
+
     return(
         <Border>
-            <SubheaderDropdown setHomePhotoInformation={props.setHomePhotoInformation} setVisibility={setVisibility} visibility={visibility} dropdownTransition={dropdownTransition} setDropdownTransition={setDropdownTransition}/>
+            <SubheaderDropdown sort={sort} setSelected={setSelected} selected={selected} setHomePhotoInformation={props.setHomePhotoInformation} setVisibility={setVisibility} visibility={visibility} dropdownTransition={dropdownTransition} setDropdownTransition={setDropdownTransition}/>
             <Container className='test'>
                 <UL>
                     <LI onClick={()=> getPhotoInfo('North America')}>Discover</LI>
@@ -48,7 +63,7 @@ const Header = (props) => {
                 <Navigation cursor='pointer' onClick={()=>props.setPageRoute('Login')}>Log in</Navigation>
                 } 
             </Container>
-            <Subheader setVisibility={setVisibility} setDropdownTransition={setDropdownTransition} setHomePhotoInformation={props.setHomePhotoInformation}/>
+            <Subheader sort={sort} setSelected={setSelected} selected={selected} setVisibility={setVisibility} setDropdownTransition={setDropdownTransition} setHomePhotoInformation={props.setHomePhotoInformation}/>
             <div style={{marginBottom: '10px'}}></div>
         </Border>
     )

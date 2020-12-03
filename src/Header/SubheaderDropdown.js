@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { db } from '../Firebase'
+import React from 'react'
 import {
     Container,
     CenterList,
@@ -39,22 +38,12 @@ const SubheaderDropdown = (props) => {
         
     }
 
-    const [selected, setSelected] = useState('assorted')
-
-    const sort = (value) => {
-        db.collection('preview-posts').orderBy(value, 'desc')
-        .limit(10)
-        .get()
-        .then(data=> {
-            const photoArray = []
-            data.docs.forEach(item=> {
-                photoArray.push(item.data())
-            })
-            props.setHomePhotoInformation([...photoArray])
-        })
+    const sortPosts = (value) => {
+        props.sort(value)
         closeDropdown()
-        setSelected(value)
     }
+
+    const { selected } = props
 
     return(
         <Container visibility={props.visibility} transition='transition' variants={variants} initial='initial' animate={props.dropdownTransition}>
@@ -64,8 +53,8 @@ const SubheaderDropdown = (props) => {
             <CenterList>
                 <UL>
                     <LI underline={selected === 'assorted' ? true : false}>ASSORTED</LI>
-                    <LI onClick={()=>sort('views')} underline={selected === 'views' ? true : false}>POPULAR</LI>
-                    <LI onClick={()=>sort('timestamp')} underline={selected === 'timestamp' ? true : false}>NEWEST</LI>
+                    <LI onClick={()=>sortPosts('views')} underline={selected === 'views' ? true : false}>POPULAR</LI>
+                    <LI onClick={()=>sortPosts('timestamp')} underline={selected === 'timestamp' ? true : false}>NEWEST</LI>
                     <LI underline={selected === '' ? true : false}>HIGHEST RATED</LI>
                 </UL>
             </CenterList>
