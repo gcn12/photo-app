@@ -13,8 +13,9 @@ const Autocomplete = (props) => {
                 // componentRestrictions: {'country': ['au']},
                 // fields: ['place_id', 'geometry', 'name']
             }
-        )
+            )
         autocomplete.addListener('place_changed', onPlaceChanged)
+        props.checkProceed()
         console.log('autocomplete')
     }
 

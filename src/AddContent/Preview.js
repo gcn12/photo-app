@@ -15,6 +15,7 @@ import {
     InfoContainer,
     BodyContainer,
     BodyImageContainer,
+    Date,
     // Container2,
     // Container3,
 } from '../FeaturedPost/FeaturedPost.styles'
@@ -63,7 +64,7 @@ const Preview = (props) => {
                         <div className='dropdown'>Add to collection</div>
                     </SubmitButton>
                     <Author font={props.font}>{'Dan Richards'}</Author>
-                    <Author font={props.font}>{moment(Date.now()).format('MMMM Do YYYY')}</Author>
+                    <Date font={props.font}>{moment(Date.now()).format('MMMM Do YYYY')}</Date>
                     </InfoContainer>
                     </div>
                 </Container> 

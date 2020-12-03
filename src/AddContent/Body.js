@@ -149,11 +149,19 @@ const Body = (props) => {
         }
     }
 
+    const checkProceed = () => {
+        if(document.getElementById('content-paragraph-original').value.length > 60) {
+            props.setBodyProceed(true)
+        }else{
+            props.setBodyProceed(false)
+        }
+    }
+
     return(
         <CategoryLocationContainer visibility={props.animationMap.body[props.bodyProps].opacity} variants={props.animationMap.body} animate={props.bodyProps} transition='transition' initial={'initial'}>
             <Container visibility={props.animationMap.body[props.bodyProps].opacity} id='content-form'>
                 <Label>Body content</Label>
-                <DescriptionInput className='content-paragraph' id='content-paragraph-original'></DescriptionInput>
+                <DescriptionInput onChange={checkProceed} className='content-paragraph' id='content-paragraph-original'></DescriptionInput>
             </Container>
             {isTooManyImages ? <div>Exceeded image limit of three</div> : null}
             <BodyButtonContainer id='add-content-body-buttons'>

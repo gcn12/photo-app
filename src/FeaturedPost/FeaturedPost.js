@@ -14,6 +14,7 @@ import {
     InfoContainer,
     BodyContainer,
     BodyImageContainer,
+    Date,
     // Container2,
     // Container3,
     BodyImage,
@@ -147,7 +148,6 @@ const FeaturedPost = (props) => {
             <Container>
                 <Title font={props.photoInformation.font}>{props.photoInformation?.title}</Title>
                 <div>
-
                 <MainImage width={isImageHorizontal ? '80vw' : 'auto'} height={isImageHorizontal ? 'auto' : '80vh'} id='test' alt='display' src={props?.photoInformation?.image}></MainImage>
                 <InfoContainer>
                     {props?.user ? 
@@ -170,22 +170,18 @@ const FeaturedPost = (props) => {
                     </div>
                     :
                     null}
-                    <Author font={props.photoInformation.font}>{props.photoInformation?.author}</Author>
-                    <Author font={props.photoInformation.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</Author>
+                    <Author onClick={()=>props.getUserProfile(props.photoInformation.username)} font={props.photoInformation.font}>{props.photoInformation?.author}</Author>
+                    <Date font={props.photoInformation.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</Date>
                 </InfoContainer>
                 </div>
             </Container>
                 {props.photoInformation?.content.map((item, index) => {
-                    // console.log(props.photoInformation.images[index])
                     return(
                         <BodyContainer key={index}>
-                            {/* <FeaturedPostGallery images={props.photoInformation.images[index]}></FeaturedPostGallery> */}
                             <Description font={props.photoInformation.font}>{item}</Description>
                             <BodyImageContainer>
-                            {props.photoInformation.images[index].map((image, i)=> {
-                                // console.log(props.photoInformation.photoBodyMap[index][i])
+                            {props?.photoInformation?.images[index]?.map((image, i)=> {
                                 return(
-                                    // <BodyImage width={Math.round(65 * props.photoInformation.photoBodyMap[index][i])} src={image} key={i}></BodyImage>
                                     <BodyImage width={65 * props.photoInformation.photoBodyMap[index][i]} src={image} key={i}></BodyImage>
                                 )
                             })}
@@ -194,7 +190,6 @@ const FeaturedPost = (props) => {
                     )
                 })}
             
-
             <HorizontalGallery 
                 setCollectionsList={setCollectionsList}
                 getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}

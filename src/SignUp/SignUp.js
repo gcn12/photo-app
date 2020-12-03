@@ -9,9 +9,11 @@ import {
     Container2,
 } from '../Login/Login.styles'
 
-const Signup = () => {
+const Signup = (props) => {
 
     const [email, setEmail] = useState()
+    const [username, setUsername] = useState()
+    const [name, setName] = useState()
     const [password, setPassword] = useState()
 
     const submit = () => {
@@ -20,9 +22,16 @@ const Signup = () => {
             .then(user=> {
                 console.log(user.user.uid)
                 db.collection('users').doc(user.user.uid).set({
-                    username: user.user.uid
+                    id: user.user.uid,
+                    username,
+                    name,
+                    profileImage: null,
+                    bio: null,
                 }, {merge: true})
-                .then(console.log('sign up complete'))
+                .then(()=> {
+                    console.log('sign up complete')
+                    props.setPageRoute('GetPhotos')
+                })
                 .catch(err=>console.log(err))
             })
             .catch(err=>console.log(err))
@@ -32,8 +41,12 @@ const Signup = () => {
     return(
         <Container2>
             <Container>
+                <Text>Name</Text>
+                <TextField onChange={e=> setName(e.target.value)}></TextField>
                 <Text>Email</Text>
                 <TextField onChange={e => setEmail(e.target.value)}></TextField>
+                <Text>Username</Text>
+                <TextField onChange={e=> setUsername(e.target.value)}></TextField>
                 <Text>Password</Text>
                 <TextField onChange={e=> setPassword(e.target.value)} type='password'></TextField>
                 <SubmitButton onClick={submit}>Signup</SubmitButton>

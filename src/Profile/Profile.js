@@ -34,7 +34,7 @@ const Profile = (props) => {
                             <Collections setHomePhotoInformation={props.setHomePhotoInformation} setPageRoute={props.setPageRoute} user={props.user}/>
                         )
                     case 'Settings':
-                        return <Settings />
+                        return <Settings setPageRoute={props.setPageRoute}/>
                     default:
                         return null
                 }

@@ -8,6 +8,7 @@ import FeaturedPost from './FeaturedPost/FeaturedPost'
 import GetPhotos from './GetPhotosHomepage/GetPhotosHomepage'
 import Profile from './Profile/Profile'
 import Login from './Login/Login'
+import PublicProfile from './PublicProfile/PublicProfile'
 // import TestFile from './TestFile'
 import AddContent from './AddContent/AddContent'
 import Signup from './SignUp/SignUp'
@@ -20,16 +21,45 @@ const App = () => {
   const [homePhotoInformation, setHomePhotoInformation] = useState(null)
   const [photoInformation, setPhotoInformation] = useState(null)
   const [pageRoute, setPageRoute] = useState('GetPhotos')
+  const [userData, setUserData] = useState([])
+  const [userPosts, setUserPosts] = useState([])
 
-  const getFeaturedPhotoInfo = (docID) => {
+  const getFeaturedPhotoInfo = (docID, username) => {
     db.collection('posts').doc(docID)
     .get()
     .then(data=> {
-      setPhotoInformation(data.data())
+      const info = data.data()
+      info['username'] = username
+      setPhotoInformation(info)
       setPageRoute('FeaturedPost')
       window.scrollTo({top: 0})
     })
   }
+
+  const getUserProfile = (username) => {
+    setPageRoute('PublicProfile')
+    db.collection('users')
+    .where('username', '==', username)
+    .get()
+    .then(data=> {
+        let dataArray = []
+        data.forEach(item=> {
+            dataArray.push(item.data())
+        })
+        setUserData(dataArray)
+    })
+
+    db.collection('preview-posts')
+    .where('username', '==', username)
+    .get()
+    .then(data=> {
+        const postArray = []
+        data.forEach(item=> {
+          postArray.push(item.data())
+        })
+        setUserPosts(postArray)
+    })
+}
   
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user)=> {
@@ -47,11 +77,16 @@ const App = () => {
       null
       }
 
+
+      {/* <TestFile />  */}
       
-      {/* <TestFile /> */}
+      
+      
 
       {(() => {
         switch (pageRoute) {
+          case 'PublicProfile':
+            return <PublicProfile userPosts={userPosts} userData={userData} user={user} getFeaturedPhotoInfo={getFeaturedPhotoInfo}/>
           case 'Upload':
             return(
               <AddContent 
@@ -75,6 +110,7 @@ const App = () => {
             )
           case 'FeaturedPost':
             return <FeaturedPost 
+              getUserProfile={getUserProfile}
               getFeaturedPhotoInfo={getFeaturedPhotoInfo}
               user={user} 
               setHomePhotoInformation={setHomePhotoInformation} 
@@ -93,7 +129,7 @@ const App = () => {
           case 'Login':
             return <Login setUser={setUser} user={user} />
           case 'Signup':
-            return <Signup />
+            return <Signup setPageRoute={setPageRoute} />
           default:
             return null;
         }

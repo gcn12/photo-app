@@ -19,19 +19,20 @@ export const NextButton = styled.button`
     /* position: absolute; */
     /* right: 150px; */
     justify-content: flex-end;
-    cursor: pointer;
+    cursor: ${props=> props.proceed ? 'pointer' : 'default'};
     color: white;
-    background-color: #141414;
+    /* background-color: #141414; */
+    background-color: ${props=> props.proceed ? '#141414' : '#6e6e6e'};
     border: none;
     width: ${props => props.width};
     /* width: 120px; */
     height: 50px;
-    cursor: pointer;
+    /* cursor: pointer; */
     transition: background-color 400ms;
 
-    &:hover {
+    /* &:hover {
         background-color: #212121;
-    }
+    } */
 `
 
 export const Container = styled(motion.div)`

@@ -12,6 +12,7 @@ const TitlePhoto = (props) => {
     const [isImage, setIsImage] = useState(false)
 
     const displayImage = () => {
+        checkProceed()
         props.setTitlePhotoProps('shiftUp')
         const file = document.getElementById('photo-input').files[0]
         const viewFile = new FileReader()
@@ -31,11 +32,19 @@ const TitlePhoto = (props) => {
         setIsImage(true)
     }
 
+    const checkProceed = () => {
+        if (document.getElementById('add-content-title').value.length > 1 && document.getElementById('photo-input').files.length===1) {
+            props.setTitlePhotoProceed(true)
+        }else{
+            props.setTitlePhotoProceed(false)
+        }
+    }
+
     return(
         <div>
-            <Container visibility={props.animationMap.titlePhoto[props.titlePhotoProps].opacity} initial='initial'  transition='transition' variants={props.animationMap.titlePhoto} animate={props.titlePhotoProps}>
+            <Container visibility={props.animationMap.titlePhoto[props.titlePhotoProps].opacity} initial='initial' transition='transition' variants={props.animationMap.titlePhoto} animate={props.titlePhotoProps}>
                 <Label>Create a title:</Label>
-                <TextInput autoComplete='off' id='add-content-title'></TextInput>
+                <TextInput onChange={checkProceed} autoComplete='off' id='add-content-title'></TextInput>
                 <Label>Upload header photo:</Label>
                 <input hidden onChange={displayImage} id='photo-input' type='file' className='photo-input'></input>
                 <FileUpload htmlFor='photo-input'>Select image</FileUpload>

@@ -10,7 +10,7 @@ import {
     PostTitle,
 } from './UserPosts.styles'
  
-const DisplayPosts = (props) => {
+export const DisplayPosts = (props) => {
 
     const selectPhoto = () => {
         props.getFeaturedPhotoInfo(props.post.id)

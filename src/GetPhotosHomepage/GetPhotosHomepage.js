@@ -20,7 +20,7 @@ const DisplayPhoto = (props) => {
     const click = () => {
         // props.setPageRoute('PhotoFeatured')
         props.setPhotoInformation(props.photoInfo)
-        props.getFeaturedPhotoInfo(props.photoInfo.id)
+        props.getFeaturedPhotoInfo(props.photoInfo.id, props.photoInfo.username)
         db.collection('preview-posts').where('image', '==', props.photoInfo.image)
         .get()
         .then(reference=> {

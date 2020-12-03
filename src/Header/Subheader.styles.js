@@ -19,6 +19,21 @@ export const UL = styled.ul`
     /* justify-content: space-evenly; */
 `
 
+export const ULMobile = styled.ul`
+    padding: 0;
+    margin: 0;
+    display: flex;
+    
+    @media (min-width: 670px) {
+        display: none;
+        visibility: hidden;
+        /* list-style-type: none; */
+        /* flex-direction: column; */
+        /* display: block; */
+    }
+    /* justify-content: space-evenly; */
+`
+
 export const LI = styled.ul`
     font-size: 18px;
     padding: 0;

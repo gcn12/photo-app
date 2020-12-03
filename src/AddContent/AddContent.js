@@ -6,7 +6,6 @@ import Scroll from './Scroll'
 import SelectFont from './SelectFont'
 import { db } from '../Firebase'
 import firebase from 'firebase'
-// import { fileUpload } from './Submit'
 import UploadProgress from './UploadProgress'
 import React, { 
     useState 
@@ -205,6 +204,10 @@ const AddContent = (props) => {
     const [paragraph, setParagraph] = useState('')
     const [isImageHorizontal, setIsImageHorizontal] = useState(true)
     const [font, setFont] = useState('')
+    const [titlePhotoProceed, setTitlePhotoProceed] = useState(false)
+    const [categoryLocationProceed, setCategoryLocationProceed] = useState(false)
+    const [bodyProceed, setBodyProceed] = useState(false)
+    const [fontProceed, setFontProceed] = useState(true)
 
     const submit = (imagesEmptyArrays, unsortedImages, imageMap, user, imageSizeArray) => {
         const title = document.getElementById('add-content-title').value
@@ -241,69 +244,77 @@ const AddContent = (props) => {
         for (let i=0; i<imagesEmptyArraysCopy.length; i++) {
             urlObject[i] = imagesEmptyArraysCopy[i]
         }
-    
-        db.collection('continents-countries').doc('map').collection(country)
-        .where(country, 'in', ['North America', 'South America', 'Asia', 'Europe', 'Oceania', 'Africa'])
+
+        db.collection('users')
+        .doc(props.user)
         .get()
-        .then(data => {
-            setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-            const continent = data.docs[0].data()[country]
-            db.collection('posts').add({
-                font,
-                photoBodyMap: imageSizeArray,
-                content: descriptionArray,
-                images: urlObject,
-                title,
-                timestamp,
-                image: mainImage,
-                category,
-                city,
-                country,
-                continent,
-                author: 'Dan Smith',
-                views: 0,
-            }).then(docRef => {
+        .then(data=> {
+            const username = data.data()['username']
+            db.collection('continents-countries').doc('map').collection(country)
+            .where(country, 'in', ['North America', 'South America', 'Asia', 'Europe', 'Oceania', 'Africa'])
+            .get()
+            .then(data => {
                 setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-                db.collection('users').doc(user)
-                .collection('posts').doc(docRef.id).set({
-                    reference: `posts/${docRef.id}`,
+                const continent = data.docs[0].data()[country]
+                db.collection('posts').add({
+                    font,
+                    photoBodyMap: imageSizeArray,
+                    content: descriptionArray,
+                    images: urlObject,
+                    title,
                     timestamp,
-                    id: docRef.id,
-                    title: title,
                     image: mainImage,
-                    views: 0,
+                    category,
                     city,
                     country,
                     continent,
-                }, {merge: true})
-                .then(()=>{ 
-                    db.collection('posts').doc(docRef.id).set({
-                        id: docRef.id,
-                    }, {merge: true}) 
-                })
-                .then(()=> {
+                    author: 'Dan Smith',
+                    views: 0,
+                }).then(docRef => {
                     setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-                    db.collection('preview-posts').add({
-                        reference: `/posts/${docRef.id}`,
+                    db.collection('users').doc(user)
+                    .collection('posts').doc(docRef.id).set({
+                        reference: `posts/${docRef.id}`,
                         timestamp,
                         id: docRef.id,
-                        title,
+                        title: title,
                         image: mainImage,
                         views: 0,
-                        category,
                         city,
                         country,
                         continent,
+                    }, {merge: true})
+                    .then(()=>{ 
+                        db.collection('posts').doc(docRef.id).set({
+                            id: docRef.id,
+                        }, {merge: true}) 
                     })
-                    // .then(()=>setUploadProgress(previousUploadProgress=> previousUploadProgress + 1))
-                    .then(()=>{
-                        console.log('uploaded')
-                        setTimeout(()=>setUploadProgressColor(true), 300)
-                        setTimeout(()=>props.getFeaturedPhotoInfo(docRef.id), 2000)
-                    })
-                })              
+                    .then(()=> {
+                        setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+                        db.collection('preview-posts').add({
+                            reference: `/posts/${docRef.id}`,
+                            username,
+                            timestamp,
+                            id: docRef.id,
+                            title,
+                            image: mainImage,
+                            views: 0,
+                            category,
+                            city,
+                            country,
+                            continent,
+                        })
+                        // .then(()=>setUploadProgress(previousUploadProgress=> previousUploadProgress + 1))
+                        .then(()=>{
+                            console.log('uploaded')
+                            setTimeout(()=>setUploadProgressColor(true), 300)
+                            setTimeout(()=>props.getFeaturedPhotoInfo(docRef.id), 2000)
+                        })
+                    })              
+                })
             })
         })
+    
     }
     
     const fileUpload = (user, imageSizeArray) => {
@@ -391,30 +402,29 @@ const AddContent = (props) => {
         setBodyImages(imagesArray)
     }
 
-    // setTitlePhotoProps
-    // setCategoryLocationProps
-    // setBody
-    // setSelectFontProps
-    // setPreviewProps
-    // setUploadStatusProps
-
     const transitionSwitchNext = () => {
         switch(switchValue) {
             case 1:
-                setTitlePhotoProps('transitionEnd')
-                setCategoryLocationProps('transitionStart')
-                setSwitchValue(2)
+                if(titlePhotoProceed) {
+                    setTitlePhotoProps('transitionEnd')
+                    setCategoryLocationProps('transitionStart')
+                    setSwitchValue(2)
+                }
                 break
             case 2:
-                setCategoryLocationProps('transitionEnd')
-                setBody('transitionStart')
-                setSwitchValue(3)
+                if(categoryLocationProceed) {
+                    setCategoryLocationProps('transitionEnd')
+                    setBody('transitionStart')
+                    setSwitchValue(3)
+                }
                 break
             case 3:
-                setBody('transitionEnd')
-                setSelectFontProps('transitionStart')
-                getParagraphSample()
-                setSwitchValue(4)
+                if(bodyProceed) {
+                    setBody('transitionEnd')
+                    setSelectFontProps('transitionStart')
+                    getParagraphSample()
+                    setSwitchValue(4)
+                }
                 break
             case 4:
                 setSelectFontProps('transitionEnd')
@@ -462,9 +472,11 @@ const AddContent = (props) => {
         }
     }
 
+
+
     return(
         <div>
-            <NextButton width='130px' onClick={()=>props.setPageRoute('GetPhotos')}>Back</NextButton>
+            <NextButton proceed={1} width='130px' onClick={()=>props.setPageRoute('GetPhotos')}>Back</NextButton>
             <UploadProgress uploadProgressColor={uploadProgressColor} animate={uploadStatusProps} variants={animationMap.uploadStatus} uploadCount={uploadCount} uploadProgress={uploadProgress}/>
             {switchValue === 6 ? 
             null
@@ -477,17 +489,16 @@ const AddContent = (props) => {
             </div>
             }
             <Scroll scrollHeight='90vh' visibility={animationMap.titlePhoto[titlePhotoProps].opacity}>
-                <TitlePhoto setIsImageHorizontal={setIsImageHorizontal} setMainImage={setMainImage} animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} titlePhotoProps={titlePhotoProps}/>
+                <TitlePhoto setTitlePhotoProceed={setTitlePhotoProceed} setIsImageHorizontal={setIsImageHorizontal} setMainImage={setMainImage} animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} titlePhotoProps={titlePhotoProps}/>
             </Scroll>
             <Scroll scrollHeight='90vh' visibility={animationMap.categoryLocation[categoryLocationProps].opacity}>
-                <CategoryLocation animationMap={animationMap} categoryLocation={categoryLocationProps}/>
+                <CategoryLocation setCategoryLocationProceed={setCategoryLocationProceed} animationMap={animationMap} categoryLocation={categoryLocationProps}/>
             </Scroll>
             <Scroll scrollHeight='90vh' visibility={animationMap.body[bodyProps].opacity}>
-                <Body imageSizeRatio={imageSizeRatio} setImageSizeRatio={setImageSizeRatio} setBody={setBody} animationMap={animationMap} bodyProps={bodyProps}></Body>
+                <Body setBodyProceed={setBodyProceed} imageSizeRatio={imageSizeRatio} setImageSizeRatio={setImageSizeRatio} setBody={setBody} animationMap={animationMap} bodyProps={bodyProps}></Body>
             </Scroll>
-            {/* <Scroll variants={animationMap.selectFont} animate={selectFontProps} scrollHeight='90vh' visibility={animationMap.selectFont[selectFontProps].opacity}> */}
             <Scroll scrollHeight='90vh' visibility={animationMap.selectFont[selectFontProps].opacity}>
-                <SelectFont font={font} setFont={setFont} paragraph={paragraph} animationMap={animationMap} selectFontProps={selectFontProps}/>
+                <SelectFont setFontProceed={setFontProceed} font={font} setFont={setFont} paragraph={paragraph} animationMap={animationMap} selectFontProps={selectFontProps}/>
             </Scroll>
             {switchValue === 6 ? 
             null
@@ -496,29 +507,24 @@ const AddContent = (props) => {
                 {switchValue === 1 ? 
                 null
                 :
-                <NextButton width='150px' onClick={transitionSwitchBack}>Back</NextButton>
+                <NextButton proceed={1} width='150px' onClick={transitionSwitchBack}>Back</NextButton>
                 }
                 {(()=> {
                     switch (switchValue) {
-                        case 5:
-                            return <NextButton width={switchValue === 1 ? '300px' :'150px'} onClick={transitionSwitchNext}>Submit</NextButton>
-                        case 4: 
-                            return <NextButton width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Preview</NextButton>
                         case 1: 
-                            return <NextButton width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
-                        case 3: 
-                            return <NextButton width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
+                            return <NextButton proceed={titlePhotoProceed} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
                         case 2: 
-                            return <NextButton width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
+                            return <NextButton proceed={categoryLocationProceed} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
+                        case 3: 
+                            return <NextButton proceed={bodyProceed } width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
+                        case 4: 
+                            return <NextButton proceed={fontProceed} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Preview</NextButton>
+                        case 5:
+                            return <NextButton proceed={true} width={switchValue === 1 ? '300px' :'150px'} onClick={transitionSwitchNext}>Submit</NextButton>
                         default: 
                             return null
                     }
                 })()}
-                {/* {switchValue === 4 ? 
-                <NextButton width={switchValue === 1 ? '300px' :'150px'} onClick={transitionSwitchNext}>Submit</NextButton>
-                :
-                <NextButton width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
-                } */}
             </ButtonContainer>
             }
         </div>

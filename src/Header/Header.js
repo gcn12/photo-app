@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { db } from '../Firebase'
 import Subheader from './Subheader'
+import SubheaderDropdown from './SubheaderDropdown'
 import {
     Container,
     UL,
@@ -10,6 +11,8 @@ import {
 } from './Header.styles'
 
 const Header = (props) => {
+
+    const[dropdownTransition, setDropdownTransition] = useState('initial')
 
     const getPhotoInfo = (continent) => {
         const photosArray = []
@@ -26,6 +29,7 @@ const Header = (props) => {
 
     return(
         <Border>
+            <SubheaderDropdown dropdownTransition={dropdownTransition} setDropdownTransition={setDropdownTransition}/>
             <Container className='test'>
                 <UL>
                     <LI onClick={()=> getPhotoInfo('North America')}>Discover</LI>
@@ -43,7 +47,7 @@ const Header = (props) => {
                 <Navigation cursor='pointer' onClick={()=>props.setPageRoute('Login')}>Log in</Navigation>
                 } 
             </Container>
-            <Subheader setHomePhotoInformation={props.setHomePhotoInformation}/>
+            <Subheader setDropdownTransition={setDropdownTransition} setHomePhotoInformation={props.setHomePhotoInformation}/>
             <div style={{marginBottom: '10px'}}></div>
         </Border>
     )

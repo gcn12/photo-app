@@ -4,6 +4,7 @@ import {
     Container,
     UL,
     LI,
+    ULMobile,
 } from './Subheader.styles'
 
 
@@ -26,14 +27,21 @@ const Subheader = (props) => {
     }
 
     return(
-        <Container>
-            <UL>
-                <LI underline={selected === 'assorted' ? true : false}>Assorted</LI>
-                <LI onClick={()=>sort('views')} underline={selected === 'views' ? true : false}>Popular</LI>
-                <LI onClick={()=>sort('timestamp')} underline={selected === 'timestamp' ? true : false}>Newest</LI>
-                <LI>Highest rated</LI>
-            </UL>
-        </Container>
+        <div>
+            <Container>
+                <UL>
+                    <LI underline={selected === 'assorted' ? true : false}>Assorted</LI>
+                    <LI onClick={()=>sort('views')} underline={selected === 'views' ? true : false}>Popular</LI>
+                    <LI onClick={()=>sort('timestamp')} underline={selected === 'timestamp' ? true : false}>Newest</LI>
+                    <LI>Highest rated</LI>
+                </UL>
+            </Container>
+            <Container>
+                <ULMobile>
+                    <LI onClick={()=>props.setDropdownTransition('transitionStart')}>Sort &#x25BC;</LI>
+                </ULMobile>
+            </Container>
+        </div>
     )
 }
 
