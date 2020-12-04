@@ -7,6 +7,7 @@ import '../App.css'
 import { 
     Container, 
     LazyButtonContainer,
+    PhotoDescriptionViewContainer,
 } from './GetPhotosHomepage.styles'
 import Masonry from 'react-masonry-css'
 import { SubmitButton, } from '../AddContent/AddContent.styles'
@@ -55,7 +56,7 @@ const GetPhotos = (props) => {
     return(
         <div>
             {props.displayView ? 
-            <div>
+            <PhotoDescriptionViewContainer>
                 {props.homePhotoInformation ? props.homePhotoInformation.map((photo, index)=> {
                     return(
                         <PhotoDescriptionView 
@@ -74,7 +75,7 @@ const GetPhotos = (props) => {
                 :
                 null
                 }
-            </div>
+            </PhotoDescriptionViewContainer>
             :
             <Container>
                 <div style={{marginTop: '15px'}}></div>

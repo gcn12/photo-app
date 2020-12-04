@@ -1,5 +1,14 @@
 import styled from 'styled-components'
 
+export const PhotoDescriptionViewContainer = styled.div`
+    margin: 0 2%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-gap: 20px;
+    align-items: stretch;
+    justify-items: center;
+`
+
 export const LazyButtonContainer = styled.div`
     display: flex;
     justify-content: center;

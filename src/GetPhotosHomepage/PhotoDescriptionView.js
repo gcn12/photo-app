@@ -22,7 +22,7 @@ const PhotoDescriptionView = (props) => {
     }
 
     return(
-        <Container onClick={click} style={{marginBottom: '20px', cursor: 'pointer'}}>
+        <Container onClick={click}>
             <Card>
                 <div>{props.photoInfo.title}</div>
                 <Image src={props.photoInfo.image}></Image>
