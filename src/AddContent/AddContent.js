@@ -296,6 +296,7 @@ const AddContent = (props) => {
                             username,
                             timestamp,
                             id: docRef.id,
+                            previewDescription: descriptionArray[0],
                             title,
                             image: mainImage,
                             views: 0,
@@ -532,69 +533,3 @@ const AddContent = (props) => {
 }
 
 export default AddContent
-
-
-// const transitionSwitchNext = () => {
-//     switch(switchValue) {
-//         case 1:
-//             setTitlePhotoProps('transitionEnd')
-//             setCategoryLocationProps('transitionStart')
-//             setSwitchValue(2)
-//             break
-//         case 2:
-//             setBody('transitionStart')
-//             setCategoryLocationProps('transitionEnd')
-//             setSwitchValue(3)
-//             break
-//         case 3:
-//             getParagraphSample()
-//             setSelectFontProps('transitionStart')
-//             setBody('transitionEnd')
-//             setSwitchValue(4)
-//             break
-//         case 4:
-//             setPreviewProps('transitionStart')
-//             setSelectFontProps('transitionEnd')
-//             // setSwitchValue(4)
-//             getBodyContent()
-//             getBodyImages()
-//             setSwitchValue(5)
-//         break
-//             case 5: 
-//             setPreviewProps('transitionEnd')
-//             fileUpload(props.user, imageSizeRatio)
-//             setUploadStatusProps('transitionStart')
-//             setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
-//             setSwitchValue(6)
-//             break
-//         default: 
-//             return null
-//     }
-// }
-
-// const transitionSwitchBack = () => {
-//     switch(switchValue) {
-//         case 2:
-//             setTitlePhotoProps('transitionBack')
-//             setCategoryLocationProps('transitionBack')
-//             setSwitchValue(1)
-//             break
-//         case 3: 
-//             setCategoryLocationProps('transitionStart')
-//             setBody('transitionBack')
-//             setSwitchValue(2)
-//             break
-//         case 4:
-//             setBody('transitionStart')
-//             setSelectFontProps('transitionBack')
-//             setSwitchValue(3)
-//             break
-//         case 5: 
-//             setSelectFontProps('transitionStart')
-//             setPreviewProps('transitionBack')
-//             setSwitchValue(4)
-//             break
-//         default: 
-//             return null
-//     }
-// }

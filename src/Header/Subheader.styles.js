@@ -8,6 +8,7 @@ export const UL = styled.ul`
     padding: 0;
     margin: 0;
     display: flex;
+    justify-content: space-between;
     
     @media (max-width: 670px) {
         display: none;

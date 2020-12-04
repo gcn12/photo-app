@@ -23,6 +23,7 @@ const App = () => {
   const [pageRoute, setPageRoute] = useState('GetPhotos')
   const [userData, setUserData] = useState([])
   const [userPosts, setUserPosts] = useState([])
+  const [displayView, setDisplayView] = useState(false)
 
   const getFeaturedPhotoInfo = (docID, username) => {
     db.collection('posts').doc(docID)
@@ -72,7 +73,7 @@ const App = () => {
   return (
     <div>
       {pageRoute==='GetPhotos' || pageRoute==='FeaturedPost'  ? 
-      <Header setHomePhotoInformation={setHomePhotoInformation} setPageRoute={setPageRoute} user={user}/>
+      <Header displayView={displayView} setDisplayView={setDisplayView} setHomePhotoInformation={setHomePhotoInformation} setPageRoute={setPageRoute} user={user}/>
       :
       null
       }
@@ -100,6 +101,7 @@ const App = () => {
             return (
               <VerticalScroll scrollHeight='87vh'>
                 <GetPhotos 
+                  displayView={displayView}
                   getFeaturedPhotoInfo={getFeaturedPhotoInfo}
                   homePhotoInformation={homePhotoInformation} 
                   setHomePhotoInformation={setHomePhotoInformation} 

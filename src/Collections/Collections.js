@@ -51,17 +51,6 @@ const Collection = (props) => {
     
     return(
         <ImageTitleContainer>
-            <Header>
-                <Title>{props.collection[0]}</Title>
-                <Ellipsis onClick={()=>setIsDeleteMenu(!isDeleteMenu)}>
-                    <div className='delete-collection'>&#8942;</div>
-                    {isDeleteMenu ? 
-                    <DropdownDelete collectionInfo={props.collectionInfo} index={props.index} setCollectionInfo={props.setCollectionInfo} user={props.user} collectionName={props.collection[0]}></DropdownDelete>
-                    :
-                    null
-                    }
-                </Ellipsis>
-            </Header>
             <ImagesContainer onClick={getPhotos}>
                 {items > 0 ? 
                 <div>
@@ -74,6 +63,17 @@ const Collection = (props) => {
                 <NoImage>Collection is empty</NoImage>
                 }
             </ImagesContainer>
+            <Header>
+                <Title>{props.collection[0]}</Title>
+                <Ellipsis onClick={()=>setIsDeleteMenu(!isDeleteMenu)}>
+                    <div className='delete-collection'>&#8942;</div>
+                    {isDeleteMenu ? 
+                    <DropdownDelete collectionInfo={props.collectionInfo} index={props.index} setCollectionInfo={props.setCollectionInfo} user={props.user} collectionName={props.collection[0]}></DropdownDelete>
+                    :
+                    null
+                    }
+                </Ellipsis>
+            </Header>
         </ImageTitleContainer>
     )
 }

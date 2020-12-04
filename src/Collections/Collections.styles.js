@@ -32,6 +32,7 @@ export const ImagesContainer = styled.div`
     width: 270px;
     overflow: hidden;
     cursor: pointer;
+    border-radius: 5%;
 `
 
 export const Container = styled.div`

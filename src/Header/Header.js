@@ -63,7 +63,7 @@ const Header = (props) => {
                 <Navigation cursor='pointer' onClick={()=>props.setPageRoute('Login')}>Log in</Navigation>
                 } 
             </Container>
-            <Subheader sort={sort} setSelected={setSelected} selected={selected} setVisibility={setVisibility} setDropdownTransition={setDropdownTransition} setHomePhotoInformation={props.setHomePhotoInformation}/>
+            <Subheader displayView={props.displayView} setDisplayView={props.setDisplayView} sort={sort} setSelected={setSelected} selected={selected} setVisibility={setVisibility} setDropdownTransition={setDropdownTransition} setHomePhotoInformation={props.setHomePhotoInformation}/>
             <div style={{marginBottom: '10px'}}></div>
         </Border>
     )
