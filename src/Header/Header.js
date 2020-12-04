@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { db } from '../Firebase'
 import Subheader from './Subheader'
 import SubheaderDropdown from './SubheaderDropdown'
+import { Link } from 'react-router-dom' 
 import {
     Container,
     UL,
@@ -13,21 +14,8 @@ import {
 const Header = (props) => {
 
     const[dropdownTransition, setDropdownTransition] = useState('initial')
-    const[visibility, setVisibility] = useState(false)
+    const[visibility, setVisibility] = useState('show')
     const [selected, setSelected] = useState('assorted')
-
-    const getPhotoInfo = (continent) => {
-        const photosArray = []
-        db.collection('posts').where('continent', '==', continent)
-        .get()
-        .then(photos => {
-            photos.docs.forEach(photo=> {
-                photosArray.push(photo.data())
-            })
-            console.log(photosArray)
-            props.setHomePhotoInformation(photosArray)
-        })
-    }
 
     const sort = (value) => {
         setSelected(value)
@@ -48,19 +36,29 @@ const Header = (props) => {
             <SubheaderDropdown sort={sort} setSelected={setSelected} selected={selected} setHomePhotoInformation={props.setHomePhotoInformation} setVisibility={setVisibility} visibility={visibility} dropdownTransition={dropdownTransition} setDropdownTransition={setDropdownTransition}/>
             <Container className='test'>
                 <UL>
-                    <LI onClick={()=> getPhotoInfo('North America')}>Discover</LI>
+                    <Link to='/photo-app/posts' style={{ textDecoration: 'none' }}>
+                        <LI>Discover</LI>
+                    </Link>
                     {/* <LI onClick={()=> getPhotoInfo('South America')}>SOUTH AMERICA</LI> */}
                 </UL>
                 {props.user ? 
-                <Navigation cursor='pointer' onClick={()=>props.setPageRoute('Upload')}>Upload</Navigation>
+                <Link to='/photo-app/upload' style={{ textDecoration: 'none' }}>
+                    <Navigation cursor='pointer'>Upload</Navigation>
+                </Link>
                 :
-                <Navigation cursor='pointer' onClick={()=>props.setPageRoute('Signup')}>Signup</Navigation>
+                <Link to='/photo-app/signup' style={{ textDecoration: 'none' }}>
+                    <Navigation cursor='pointer'>Signup</Navigation>
+                </Link>
                 }
                 <Navigation>|</Navigation>
                 {props.user ? 
-                <Navigation cursor='pointer' onClick={()=>props.setPageRoute('Profile')}>Profile</Navigation>
+                <Link to='/photo-app/profile' style={{ textDecoration: 'none' }}>
+                    <Navigation cursor='pointer'>Profile</Navigation>
+                </Link>
                 :
-                <Navigation cursor='pointer' onClick={()=>props.setPageRoute('Login')}>Log in</Navigation>
+                <Link to='/photo-app/login' style={{ textDecoration: 'none' }}>
+                    <Navigation cursor='pointer'>Log in</Navigation>
+                </Link>
                 } 
             </Container>
             <Subheader displayView={props.displayView} setDisplayView={props.setDisplayView} sort={sort} setSelected={setSelected} selected={selected} setVisibility={setVisibility} setDropdownTransition={setDropdownTransition} setHomePhotoInformation={props.setHomePhotoInformation}/>

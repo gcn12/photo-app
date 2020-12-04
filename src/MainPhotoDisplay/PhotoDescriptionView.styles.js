@@ -6,7 +6,7 @@ export const Container = styled.div`
 
 export const Card = styled.div`
     /* padding: 20px; */
-    background-color: #f0f0f0;
+    background-color: #b2d9db;
     width: 400px;
     height: 600px;
     border-radius: 6%;

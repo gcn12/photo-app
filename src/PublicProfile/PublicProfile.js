@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { DisplayPosts } from '../UserPosts/UserPosts'
 import {
     ProfileImage,
@@ -8,6 +8,11 @@ import {
 
 const PublicProfile = (props) => {
 
+    useEffect(()=> {
+        props.getUserProfile(props.match.params.username)
+        // eslint-disable-next-line
+    }, [])
+    
     const { userData, userPosts } = props
     return(
         <div>

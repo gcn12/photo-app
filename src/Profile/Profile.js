@@ -3,7 +3,6 @@ import UserPosts from '../UserPosts/UserPosts'
 import { SubmitButton } from '../AddContent/AddContent.styles'
 import Collections from '../Collections/Collections'
 import Settings from '../Settings/Settings'
-// import { LI } from '../Header/Header.styles'
 import { 
     UL, 
     HeaderContainer,
@@ -15,7 +14,7 @@ const Profile = (props) => {
     const [profilePage, setProfilePage] = useState('Collections')
     return(
         <Container>
-            <SubmitButton onClick={()=>props.setPageRoute('GetPhotos')}>Back</SubmitButton>
+            <SubmitButton onClick={()=>props.history.goBack()}>Back</SubmitButton>
             <HeaderContainer>
                 <UL>
                     <LI style={{borderBottom: profilePage==='Collections' ? '1px solid #242424' : null}} onClick={()=>setProfilePage('Collections')}>Collections</LI>
@@ -26,15 +25,15 @@ const Profile = (props) => {
             {(()=> {
                 switch (profilePage) {
                     case 'Posts': 
-                        return(
-                            <UserPosts getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} setPhotoInformation={props.setPhotoInformation} setPageRoute={props.setPageRoute} user={props.user} />
+                        return( 
+                            <UserPosts getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} setPhotoInformation={props.setPhotoInformation} user={props.user} />
                         )
                     case 'Collections':
                         return(
-                            <Collections setHomePhotoInformation={props.setHomePhotoInformation} setPageRoute={props.setPageRoute} user={props.user}/>
+                            <Collections history={props.history} setHomePhotoInformation={props.setHomePhotoInformation} user={props.user}/>
                         )
                     case 'Settings':
-                        return <Settings setUser={props.setUser} setPageRoute={props.setPageRoute}/>
+                        return <Settings history={props.history} setUser={props.setUser} />
                     default:
                         return null
                 }

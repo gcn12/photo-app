@@ -219,6 +219,12 @@ const AddContent = (props) => {
         const timestamp = Date.now()
         const descriptionArray = []
         const content = document.getElementsByClassName('content-paragraph')
+
+        console.log(title)
+        let url = title.replaceAll(' ', '-')
+        console.log(url)
+        url = url.toLowerCase()
+        console.log(url)
     
         for (let i=0; i<content.length; i++) {
             descriptionArray.push(String(content[i].value))
@@ -244,6 +250,10 @@ const AddContent = (props) => {
         for (let i=0; i<imagesEmptyArraysCopy.length; i++) {
             urlObject[i] = imagesEmptyArraysCopy[i]
         }
+        db.collection('users').doc(props.user)
+        .get()
+        .then(data=> {
+            const name = data.data().name
 
         db.collection('users')
         .doc(props.user)
@@ -268,27 +278,15 @@ const AddContent = (props) => {
                     city,
                     country,
                     continent,
-                    author: 'Dan Smith',
+                    author: name,
                     views: 0,
+                    url,
+                    username
                 }).then(docRef => {
                     setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-                    db.collection('users').doc(user)
-                    .collection('posts').doc(docRef.id).set({
-                        reference: `posts/${docRef.id}`,
-                        timestamp,
+                    db.collection('posts').doc(docRef.id).set({
                         id: docRef.id,
-                        title: title,
-                        image: mainImage,
-                        views: 0,
-                        city,
-                        country,
-                        continent,
-                    }, {merge: true})
-                    .then(()=>{ 
-                        db.collection('posts').doc(docRef.id).set({
-                            id: docRef.id,
-                        }, {merge: true}) 
-                    })
+                    }, {merge: true}) 
                     .then(()=> {
                         setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                         db.collection('preview-posts').add({
@@ -296,6 +294,7 @@ const AddContent = (props) => {
                             username,
                             timestamp,
                             id: docRef.id,
+                            author: name,
                             previewDescription: descriptionArray[0],
                             title,
                             image: mainImage,
@@ -304,18 +303,19 @@ const AddContent = (props) => {
                             city,
                             country,
                             continent,
+                            url,
                         })
                         // .then(()=>setUploadProgress(previousUploadProgress=> previousUploadProgress + 1))
                         .then(()=>{
                             console.log('uploaded')
                             setTimeout(()=>setUploadProgressColor(true), 300)
-                            setTimeout(()=>props.getFeaturedPhotoInfo(docRef.id), 2000)
+                            setTimeout(()=>props.getFeaturedPhotoInfo(url, username), 2000)
                         })
                     })              
                 })
             })
         })
-    
+        })
     }
     
     const fileUpload = (user, imageSizeArray) => {
@@ -477,7 +477,7 @@ const AddContent = (props) => {
 
     return(
         <div>
-            <NextButton proceed={1} width='130px' onClick={()=>props.setPageRoute('GetPhotos')}>Back</NextButton>
+            <NextButton proceed={1} width='130px' onClick={()=>props.history.goBack()}>Back</NextButton>
             <UploadProgress uploadProgressColor={uploadProgressColor} animate={uploadStatusProps} variants={animationMap.uploadStatus} uploadCount={uploadCount} uploadProgress={uploadProgress}/>
             {switchValue === 6 ? 
             null

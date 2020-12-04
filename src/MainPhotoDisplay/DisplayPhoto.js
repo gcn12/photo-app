@@ -13,9 +13,9 @@ import {
 const DisplayPhoto = (props) => {
 
     const click = () => {
-        // props.setPageRoute('PhotoFeatured')
         props.setPhotoInformation(props.photoInfo)
-        props.getFeaturedPhotoInfo(props.photoInfo.id, props.photoInfo.username)
+        props.getFeaturedPhotoInfo(props.photoInfo.url, props.photoInfo.username)
+        props.history.push(`/photo-app/posts/${props.photoInfo.username}/${props.photoInfo.url}`)
         db.collection('preview-posts').where('image', '==', props.photoInfo.image)
         .get()
         .then(reference=> {

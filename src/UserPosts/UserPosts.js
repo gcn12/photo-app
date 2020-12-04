@@ -31,16 +31,20 @@ const UserPosts = (props) => {
     useEffect(()=>  {
         const getPosts = (user) => {
             if (props.user) {
-                db.collection('users').doc(user)
-                .collection('posts')
-                .orderBy('timestamp', 'desc')
+                db.collection('users').doc(props.user)
                 .get()
-                .then(posts => {
-                    const postsArray = []
-                    posts.docs.forEach(post => {
-                        postsArray.push(post.data())
+                .then(data=> {
+                    const username = data.data().username
+                    db.collection('preview-posts').where('username', '==', username)
+                    .orderBy('timestamp', 'desc')
+                    .get()
+                    .then(posts => {
+                        const postsArray = []
+                        posts.docs.forEach(post => {
+                            postsArray.push(post.data())
+                        })
+                        setPosts(postsArray)
                     })
-                    setPosts(postsArray)
                 })
             }
             console.log('running')
@@ -57,7 +61,6 @@ const UserPosts = (props) => {
                         <DisplayPosts 
                             getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
                             setPhotoInformation={props.setPhotoInformation} 
-                            setPageRoute={props.setPageRoute} 
                             key={index} 
                             post={post}
                         />

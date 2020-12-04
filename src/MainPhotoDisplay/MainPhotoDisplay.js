@@ -8,7 +8,7 @@ import {
     Container, 
     LazyButtonContainer,
     PhotoDescriptionViewContainer,
-} from './GetPhotosHomepage.styles'
+} from './MainPhotoDisplay.styles'
 import Masonry from 'react-masonry-css'
 import { SubmitButton, } from '../AddContent/AddContent.styles'
 
@@ -58,13 +58,13 @@ const GetPhotos = (props) => {
             {props.displayView ? 
             <PhotoDescriptionViewContainer>
                 {props.homePhotoInformation ? props.homePhotoInformation.map((photo, index)=> {
-                    return(
+                    return( 
                         <PhotoDescriptionView 
+                        history={props.history}
                         lazy={lazy}
                         index={index}
                         length={props.homePhotoInformation.length}
                         getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
-                        setPageRoute={props.setPageRoute} 
                         setPhotoInformation={props.setPhotoInformation} 
                         key={index} 
                         photoInfo={photo} 
@@ -89,11 +89,11 @@ const GetPhotos = (props) => {
                     {props.homePhotoInformation ? props.homePhotoInformation.map((photo, index)=> {
                         return(
                             <DisplayPhoto 
+                                history={props.history}
                                 lazy={lazy}
                                 index={index}
                                 length={props.homePhotoInformation.length}
                                 getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
-                                setPageRoute={props.setPageRoute} 
                                 setPhotoInformation={props.setPhotoInformation} 
                                 key={index} 
                                 // grid={grid} 

@@ -10,13 +10,24 @@ const DropdownDelete = (props) => {
         db.collection('users')
         .doc(props.user)
         .collection('collection-names')
-        .where('name', '==', props.collectionName)
+        .where('collection', '==', props.collectionName)
         .get()
         .then(data=> {
             data.docs.forEach(item => {
                 item.ref.delete()
             })
             console.log('collection deleted')
+        })
+
+        db.collection('users')
+        .doc(props.user)
+        .collection('collections')
+        .where('collection', '==', props.collectionName)
+        .get()
+        .then(data=> {
+            data.docs.forEach(item => {
+                item.ref.delete()
+            })
         })
         const collectionInfo = props.collectionInfo
         collectionInfo.splice(props.index, 1)

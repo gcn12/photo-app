@@ -13,6 +13,7 @@ export const Ellipsis = styled.div`
 export const Image = styled.img`
     height: ${props => props.height};
     width: ${props => props.width};
+    margin: ${props => props.margin};
     object-fit: cover;
     float: left;
 `

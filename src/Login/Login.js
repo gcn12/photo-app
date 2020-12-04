@@ -20,7 +20,7 @@ const Login = (props) => {
             firebase.auth().signInWithEmailAndPassword(email, password)
             .then(user => {
                 props.setUser(user.user.uid)
-                props.setPageRoute('GetPhotos')
+                props.history.push('/photo-app/posts')
             })
             .catch(error=>console.log(error))
         }

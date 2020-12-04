@@ -40,7 +40,7 @@ const HorizontalGallery = (props) => {
                 photosArray.push(photo.data())
             })
             props.setHomePhotoInformation(photosArray)
-            props.setPageRoute('GetPhotos')
+            props.history.push('photo-app/posts')
         })
     }
 

@@ -38,6 +38,7 @@ export const Border = styled.div`
 `
 
 export const Navigation = styled.div`
+    text-decoration: none;
     white-space: nowrap;
     cursor: ${props=>props.cursor};
     font-size: 22px;

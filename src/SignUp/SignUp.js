@@ -30,7 +30,7 @@ const Signup = (props) => {
                 }, {merge: true})
                 .then(()=> {
                     console.log('sign up complete')
-                    props.setPageRoute('GetPhotos')
+                    props.history.push('/photo-app/posts')
                     props.setUser(user.user.id)
                 })
                 .catch(err=>console.log(err))
@@ -41,6 +41,7 @@ const Signup = (props) => {
 
     return(
         <Container2>
+            {console.log(props)}
             <Container>
                 <Text>Name</Text>
                 <TextField onChange={e=> setName(e.target.value)}></TextField>

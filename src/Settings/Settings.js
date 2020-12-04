@@ -6,7 +6,7 @@ import { Container } from './Settings.styles'
 const Settings = (props) => {
 
     const signoutWithRoute = () => {
-        props.setPageRoute('GetPhotos')
+        props.history.push('/photo-app/posts')
         signout(props.setUser)
     }
     

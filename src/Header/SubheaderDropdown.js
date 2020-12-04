@@ -35,7 +35,7 @@ const SubheaderDropdown = (props) => {
 
     const closeDropdown = () => {
         props.setDropdownTransition('transitionEnd')
-        setTimeout(()=> props.setVisibility(false), 300)
+        setTimeout(()=> props.setVisibility('hide'), 300)
         
     }
 

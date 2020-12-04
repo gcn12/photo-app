@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { motion } from 'framer-motion'
 
 export const Container = styled(motion.div)`
-    visibility: ${props=>props.visibility ? 'null' :'hidden'};
+    visibility: ${props=>props.visibility==='hide' ? 'null' :'hidden'};
     display: ${props=>props.visibility ? 'null' :'none'};
     background-color: white;
     height: 100vh;

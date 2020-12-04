@@ -149,7 +149,7 @@ const Dropdown = (props) => {
             .collection('collection-names')
             .doc(collectionName)
             .set({
-                name: collectionName,
+                collection: collectionName,
                 timestamp: Date.now(),
                 preview: [props.photoInformation.image]
             },{merge: true})
