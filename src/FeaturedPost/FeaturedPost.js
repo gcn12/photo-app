@@ -205,9 +205,9 @@ const FeaturedPost = (props) => {
         .doc(props.user)
         .collection('hearts')
         .doc('hearts')
-        .update({
+        .set({
             hearts: firebase.firestore.FieldValue.arrayUnion(props.photoInformation.id)
-        })
+        }, {merge: true})
         .then(()=> {
             setIsHeart(true)
         })
@@ -218,9 +218,9 @@ const FeaturedPost = (props) => {
         .doc(props.user)
         .collection('hearts')
         .doc('hearts')
-        .update({
+        .set({
             hearts: firebase.firestore.FieldValue.arrayRemove(props.photoInformation.id)
-        }).then(()=> {
+        }, {merge: true}).then(()=> {
             setIsHeart(false)
         })
     }
