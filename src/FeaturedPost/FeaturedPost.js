@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import {ReactComponent as EmptyHeart} from '../EmptyHeart.svg'
 import { ReactComponent as FilledHeart } from '../FilledHeart.svg'
 import firebase from 'firebase'
+import { motion } from 'framer-motion'
 // import FeaturedPostGallery from '../FeaturedPostGallery/FeaturedPostGallery'
 import { SubmitButton } from '../AddContent/AddContent.styles'
 import moment from 'moment'
@@ -36,6 +37,7 @@ const FeaturedPost = (props) => {
     const [cityPhotos, setCityPhotos] = useState([])
     const [isImageHorizontal, setIsImageHorizontal] = useState(true)
     const [isHeart, setIsHeart] = useState(false)
+    const [animateLoad, setAnimateLoad] = useState('initial')
 
     
     const getCities = () => {
@@ -62,6 +64,8 @@ const FeaturedPost = (props) => {
         window.scrollTo({top: 0})
     }
 
+    
+
     const getPost = (docID) => {
         db.collection('posts')
         .doc(docID)
@@ -71,8 +75,6 @@ const FeaturedPost = (props) => {
         })
     }
     
-    // const { url, username } = props.match.params
-    // const { getFeaturedPhotoInfo } = props
     // eslint-disable-next-line
     // useEffect(()=>getCities(props?.photoInformation?.id), [])
     // eslint-disable-next-line
@@ -92,16 +94,16 @@ const FeaturedPost = (props) => {
         .where('username', '==', username)
         .get()
         .then(data=> {
-          let arr = []
-          data.forEach(item=> {
+            let arr = []
+            data.forEach(item=> {
             arr.push(item.data())
-          })
-          const info = arr[0]
-          getImageSize(info.image)
-          info['username'] = username
-          props.setPhotoInformation(info)
-          window.scrollTo({top: 0})
-          firebase.auth().onAuthStateChanged((user)=> {
+            })
+            const info = arr[0]
+            getImageSize(info.image)
+            info['username'] = username
+            props.setPhotoInformation(info)
+            window.scrollTo({top: 0})
+            firebase.auth().onAuthStateChanged((user)=> {
             if(user) {
                 db.collection('users')
                 .doc(user.uid)
@@ -115,33 +117,13 @@ const FeaturedPost = (props) => {
                     })
                     setIsHeart(arr.length)
                 })
+                .then(()=> {
+                    setAnimateLoad('transitionStart')
+                })
             }
-        })
+            })
         })
     }
-
-
-    // const getHearts = () => {
-    //     db.collection('users')
-    //     .doc(props.user)
-    //     .collection('hearts')
-    //     .where('hearts', 'array-contains', props.photoInformation.id)
-    //     .get()
-    //     .then(data=> {
-    //         let arr = []
-    //         data.forEach(item=> {
-    //             arr.push(item.data())
-    //         })
-    //         setIsHeart(arr.length)
-    //     })
-    // }
-
-    
-
-    
-
-
-
 
     const getImageSize = (src) => {
         var img = new Image();
@@ -149,7 +131,6 @@ const FeaturedPost = (props) => {
             if (img.height / img.width > 1) {
                 setIsImageHorizontal(false)
             }
-            // alert("height: " + img.height + " width:" + img.width); 
         };
         // img.src = props?.photoInformation?.image;
         img.src = src
@@ -241,13 +222,22 @@ const FeaturedPost = (props) => {
         }
     }
 
+    const variants = {
+        initial: {
+            opacity: 0,
+        },
+        transitionStart: {
+            opacity: 1,
+        }
+    }
+
     return(
-        <div>
+        <motion.div variants={variants} initial='initial' animate={animateLoad}>
             <SubmitButton onClick={()=>props.history.goBack()}>Back</SubmitButton>
-            <Container>
+            <Container >
                 <Title font={props?.photoInformation?.font}>{props?.photoInformation?.title}</Title>
                 <div>
-                <MainImage width={isImageHorizontal ? '80vw' : 'auto'} height={isImageHorizontal ? 'auto' : '80vh'} id='test' alt='display' src={props?.photoInformation?.image}></MainImage>
+                <MainImage onLoad={null} width={isImageHorizontal ? '80vw' : 'auto'} height={isImageHorizontal ? 'auto' : '80vh'} id='featured-main-image' alt='display' src={props?.photoInformation?.image}></MainImage>
                 <InfoContainer>
                     {props?.user ? 
                     <AddCollectionHeartContainer>
@@ -323,7 +313,7 @@ const FeaturedPost = (props) => {
                 photos={countryPhotos} 
                 photoInformation={props.photoInformation} 
             />
-        </div>
+        </motion.div>
     )
 }
 
