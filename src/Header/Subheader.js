@@ -11,7 +11,7 @@ const Subheader = (props) => {
 
     const openDropdown = () => {
         props.setDropdownTransition('transitionStart')
-        props.setVisibility('show')
+        props.setVisibility(true)
     }
 
     return(

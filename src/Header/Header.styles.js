@@ -22,6 +22,7 @@ export const UL = styled.ul`
 `
 
 export const LI = styled.li`
+    color: #242424;
     cursor: pointer;
     -webkit-touch-callout: none; 
     -webkit-user-select: none; 
@@ -38,6 +39,7 @@ export const Border = styled.div`
 `
 
 export const Navigation = styled.div`
+    color: #242424;
     text-decoration: none;
     white-space: nowrap;
     cursor: ${props=>props.cursor};

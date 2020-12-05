@@ -35,6 +35,7 @@ export const MainImage = styled.img`
 `
 
 export const Author = styled.div`
+    color: #242424;
     /* color: #242424; */
     cursor: pointer;
     font-family: ${props=> props.font};

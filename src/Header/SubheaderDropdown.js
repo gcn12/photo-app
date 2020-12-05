@@ -35,7 +35,7 @@ const SubheaderDropdown = (props) => {
 
     const closeDropdown = () => {
         props.setDropdownTransition('transitionEnd')
-        setTimeout(()=> props.setVisibility('hide'), 300)
+        setTimeout(()=> props.setVisibility(false), 300)
         
     }
 
@@ -47,7 +47,7 @@ const SubheaderDropdown = (props) => {
     const { selected } = props
 
     return(
-        <Container visibility={props.visibility} transition='transition' variants={variants} initial='initial' animate={props.dropdownTransition}>
+        <Container visibility={props.visibility ? 1 : 0} transition='transition' variants={variants} initial='initial' animate={props.dropdownTransition}>
             <CancelContainer>
                 <Cancel onClick={closeDropdown}>&times;</Cancel>
             </CancelContainer>

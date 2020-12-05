@@ -14,7 +14,7 @@ import {
 const Header = (props) => {
 
     const[dropdownTransition, setDropdownTransition] = useState('initial')
-    const[visibility, setVisibility] = useState('show')
+    const[visibility, setVisibility] = useState(false)
     const [selected, setSelected] = useState('assorted')
 
     const sort = (value) => {
