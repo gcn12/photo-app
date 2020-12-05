@@ -1,22 +1,24 @@
 {
   "files": {
     "main.css": "/photo-app/static/css/main.2828231f.chunk.css",
-    "main.js": "/photo-app/static/js/main.47c42d97.chunk.js",
-    "main.js.map": "/photo-app/static/js/main.47c42d97.chunk.js.map",
+    "main.js": "/photo-app/static/js/main.9853309f.chunk.js",
+    "main.js.map": "/photo-app/static/js/main.9853309f.chunk.js.map",
     "runtime-main.js": "/photo-app/static/js/runtime-main.b01c153d.js",
     "runtime-main.js.map": "/photo-app/static/js/runtime-main.b01c153d.js.map",
-    "static/js/2.7a0029e7.chunk.js": "/photo-app/static/js/2.7a0029e7.chunk.js",
-    "static/js/2.7a0029e7.chunk.js.map": "/photo-app/static/js/2.7a0029e7.chunk.js.map",
+    "static/js/2.0beccae0.chunk.js": "/photo-app/static/js/2.0beccae0.chunk.js",
+    "static/js/2.0beccae0.chunk.js.map": "/photo-app/static/js/2.0beccae0.chunk.js.map",
     "static/js/3.059019a7.chunk.js": "/photo-app/static/js/3.059019a7.chunk.js",
     "static/js/3.059019a7.chunk.js.map": "/photo-app/static/js/3.059019a7.chunk.js.map",
     "index.html": "/photo-app/index.html",
     "static/css/main.2828231f.chunk.css.map": "/photo-app/static/css/main.2828231f.chunk.css.map",
-    "static/js/2.7a0029e7.chunk.js.LICENSE.txt": "/photo-app/static/js/2.7a0029e7.chunk.js.LICENSE.txt"
+    "static/js/2.0beccae0.chunk.js.LICENSE.txt": "/photo-app/static/js/2.0beccae0.chunk.js.LICENSE.txt",
+    "static/media/EmptyHeart.0c52fcba.svg": "/photo-app/static/media/EmptyHeart.0c52fcba.svg",
+    "static/media/FilledHeart.246dfe67.svg": "/photo-app/static/media/FilledHeart.246dfe67.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.b01c153d.js",
-    "static/js/2.7a0029e7.chunk.js",
+    "static/js/2.0beccae0.chunk.js",
     "static/css/main.2828231f.chunk.css",
-    "static/js/main.47c42d97.chunk.js"
+    "static/js/main.9853309f.chunk.js"
   ]
 }
