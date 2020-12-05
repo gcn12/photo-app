@@ -220,11 +220,8 @@ const AddContent = (props) => {
         const descriptionArray = []
         const content = document.getElementsByClassName('content-paragraph')
 
-        console.log(title)
         let url = title.replaceAll(' ', '-')
-        console.log(url)
         url = url.toLowerCase()
-        console.log(url)
     
         for (let i=0; i<content.length; i++) {
             descriptionArray.push(String(content[i].value))
@@ -310,6 +307,7 @@ const AddContent = (props) => {
                             console.log('uploaded')
                             setTimeout(()=>setUploadProgressColor(true), 300)
                             setTimeout(()=>props.getFeaturedPhotoInfo(url, username), 2000)
+                            setTimeout(()=>props.history.push(`/photo-app/posts/${username}/${url}`), 2000)
                         })
                     })              
                 })

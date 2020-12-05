@@ -42,6 +42,7 @@ const App = () => {
     })
   }
 
+
   const getUserProfile = (username) => {
     db.collection('users')
     .where('username', '==', username)

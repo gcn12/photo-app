@@ -13,7 +13,8 @@ import {
 export const DisplayPosts = (props) => {
 
     const selectPhoto = () => {
-        props.getFeaturedPhotoInfo(props.post.id)
+        props.getFeaturedPhotoInfo(props.post.url, props.post.username)
+        props.history.push(`/photo-app/posts/${props.post.username}/${props.post.url}`)
     }
 
     return(
@@ -59,6 +60,7 @@ const UserPosts = (props) => {
                 {posts?.map((post, index)=> {
                     return(
                         <DisplayPosts 
+                            history={props.history}
                             getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
                             setPhotoInformation={props.setPhotoInformation} 
                             key={index} 

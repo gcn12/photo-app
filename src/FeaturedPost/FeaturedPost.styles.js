@@ -69,3 +69,8 @@ export const BodyImageContainer = styled.div`
     justify-content: center;
     align-items: center;
 `
+
+export const AddCollectionHeartContainer = styled.div`
+    display: flex;
+    align-items: center;
+`
