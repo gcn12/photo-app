@@ -92,7 +92,7 @@ const App = () => {
           <Login setUser={setUser} {...props}/>
         )} />
  
-        <Route exact path='/photo-app/profile' render={(props)=>( <Profile 
+        <Route path='/photo-app/profile/:route?' render={(props)=>( <Profile 
           setUser={setUser}
           getFeaturedPhotoInfo={getFeaturedPhotoInfo}
           setHomePhotoInformation={setHomePhotoInformation} 
@@ -100,6 +100,7 @@ const App = () => {
           user={user} 
           {...props}
         />)} />
+
         <Route exact path='/photo-app/upload' render={(props)=> (<AddContent 
           getFeaturedPhotoInfo={getFeaturedPhotoInfo}
           setPhotoInformation={setPhotoInformation}
@@ -129,7 +130,7 @@ const App = () => {
         />
         )} />
 
-        <Route exact path='/photo-app/posts' render={(props)=> (
+        <Route exact path='/photo-app/posts/:sort?' render={(props)=> (
           <VerticalScroll scrollHeight='87vh'>
             <MainPhotoDisplay 
               displayView={displayView}

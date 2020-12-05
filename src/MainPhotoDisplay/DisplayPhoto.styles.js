@@ -37,11 +37,11 @@ export const Image = styled.img`
     transition: 800ms ease;
     transition-delay: 250ms;
 
-    @media(min-width: 1000px) {
+    @media(min-width: 1100px) {
         width: 22vw;
     }
 
-    @media(max-width: 1000px) {
+    @media(max-width: 1100px) {
         width: 30vw;
     }
 

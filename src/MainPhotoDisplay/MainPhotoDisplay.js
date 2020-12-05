@@ -82,7 +82,7 @@ const GetPhotos = (props) => {
                 <div id="grid" className='masonry-container'>
                 <Masonry
                 // breakpointCols={{default: 3, 700: 2}}
-                breakpointCols={{default: 4, 1000: 3, 700: 2}}
+                breakpointCols={{default: 4, 1100: 3, 700: 2}}
                 className="my-masonry-grid"
                 columnClassName="my-masonry-grid_column">
 

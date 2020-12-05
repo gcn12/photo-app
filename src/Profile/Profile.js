@@ -3,6 +3,7 @@ import UserPosts from '../UserPosts/UserPosts'
 import { SubmitButton } from '../AddContent/AddContent.styles'
 import Collections from '../Collections/Collections'
 import Settings from '../Settings/Settings'
+import { Link } from 'react-router-dom'
 import { 
     UL, 
     HeaderContainer,
@@ -11,31 +12,37 @@ import {
 } from './Profile.styles'
 
 const Profile = (props) => {
-    const [profilePage, setProfilePage] = useState('Collections')
+    const [profilePage, setProfilePage] = useState(props.match.params.route)
     return(
         <Container>
             <SubmitButton onClick={()=>props.history.goBack()}>Back</SubmitButton>
             <HeaderContainer>
                 <UL>
-                    <LI style={{borderBottom: profilePage==='Collections' ? '1px solid #242424' : null}} onClick={()=>setProfilePage('Collections')}>Collections</LI>
-                    <LI style={{borderBottom: profilePage==='Posts' ? '1px solid #242424' : null}} onClick={()=>setProfilePage('Posts')}>Posts</LI>
-                    <LI style={{borderBottom: profilePage==='Settings' ? '1px solid #242424' : null}} onClick={()=>setProfilePage('Settings')}>Settings</LI>
+                    <Link to='/photo-app/profile/collections' style={{textDecoration: 'none'}}>
+                        <LI style={{borderBottom: profilePage==='collections' ? '1px solid #242424' : null}} onClick={()=>setProfilePage('collections')}>Collections</LI>
+                    </Link>
+                    <Link to='/photo-app/profile/posts' style={{textDecoration: 'none'}}>
+                        <LI style={{borderBottom: profilePage==='posts' ? '1px solid #242424' : null}} onClick={()=>setProfilePage('posts')}>Posts</LI>
+                    </Link>
+                    <Link to='/photo-app/profile/settings' style={{textDecoration: 'none'}}>
+                        <LI style={{borderBottom: profilePage==='settings' ? '1px solid #242424' : null}} onClick={()=>setProfilePage('settings')}>Settings</LI>
+                    </Link>
                 </UL>
             </HeaderContainer>
             {(()=> {
                 switch (profilePage) {
-                    case 'Posts': 
+                    case 'posts': 
                         return( 
                             <UserPosts getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} setPhotoInformation={props.setPhotoInformation} user={props.user} />
                         )
-                    case 'Collections':
+                    case 'collections':
                         return(
                             <Collections history={props.history} setHomePhotoInformation={props.setHomePhotoInformation} user={props.user}/>
                         )
-                    case 'Settings':
+                    case 'settings':
                         return <Settings history={props.history} setUser={props.setUser} />
                     default:
-                        return null
+                        return <Collections history={props.history} setHomePhotoInformation={props.setHomePhotoInformation} user={props.user}/>
                 }
 
             })()}

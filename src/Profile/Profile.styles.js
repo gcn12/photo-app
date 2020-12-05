@@ -18,6 +18,7 @@ export const Container = styled.div`
 `
 
 export const LI = styled.li`
+    color: #242424;
     cursor: pointer;
     -webkit-touch-callout: none; 
     -webkit-user-select: none; 
