@@ -78,7 +78,7 @@ const FeaturedPost = (props) => {
     // eslint-disable-next-line
     useEffect(()=>getVH(), [])
     // eslint-disable-next-line
-    useEffect(()=>getImageSize(), [])
+    // useEffect(()=>getImageSize(), [])
     
     useEffect(()=>{
         // eslint-disable-next-line
@@ -97,6 +97,7 @@ const FeaturedPost = (props) => {
             arr.push(item.data())
           })
           const info = arr[0]
+          getImageSize(info.image)
           info['username'] = username
           props.setPhotoInformation(info)
           window.scrollTo({top: 0})
@@ -142,7 +143,7 @@ const FeaturedPost = (props) => {
 
 
 
-    const getImageSize = () => {
+    const getImageSize = (src) => {
         var img = new Image();
         img.onload = function () { 
             if (img.height / img.width > 1) {
@@ -150,7 +151,8 @@ const FeaturedPost = (props) => {
             }
             // alert("height: " + img.height + " width:" + img.width); 
         };
-        img.src = props?.photoInformation?.image;
+        // img.src = props?.photoInformation?.image;
+        img.src = src
     }
     
 
