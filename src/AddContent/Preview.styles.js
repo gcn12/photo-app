@@ -4,6 +4,12 @@ import { motion } from 'framer-motion'
 export const Title = styled.div`
     font-size: 40px;
     font-family: ${props=> props.font};
+` 
+
+export const AddCollectionHeartContainer = styled.div`
+    display: flex;
+    align-items: center;
+    position: relative;
 `
 
 export const Description = styled.div`

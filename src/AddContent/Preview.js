@@ -1,9 +1,11 @@
 import React from 'react'
 import moment from 'moment'
+import { ReactComponent as FilledHeart } from '../Icons/FilledHeart.svg'
 import {
     PreviewContainer,
     BodyImagePreview,
     PreviewContainer2,
+    AddCollectionHeartContainer,
 } from './Preview.styles'
 import { SubmitButton } from './AddContent.styles'
 import {
@@ -47,31 +49,30 @@ const Preview = (props) => {
     
     return( 
         <PreviewContainer2>
-        {/* {console.log(props.imageSizeRatio)} */}
-
             <PreviewContainer initial='initial' visibility={props.animationMap.preview[props.previewProps].opacity} transition='transition' animate={props.previewProps} variants={props.animationMap.preview}>
                 <Container>
                     {document.getElementById('add-content-title') ? 
                     <Title font={props.font}>{document.getElementById('add-content-title').value}</Title>
                     :
-                    null
+                    null 
                     }
                     <div> 
                     <MainImage id='test'  width={props.isImageHorizontal ? '80vw' : 'auto'} height={props.isImageHorizontal ? 'auto' : '80vh'} alt='display' src={props?.mainImage}></MainImage>
                     <InfoContainer>
-    
-                    <SubmitButton className='dropdown'>
-                        <div className='dropdown'>Add to collection</div>
-                    </SubmitButton>
+                    <AddCollectionHeartContainer>
+                        <SubmitButton className='dropdown'>
+                            <div className='dropdown'>Add to collection</div>
+                        </SubmitButton>
+                        <FilledHeart style={{marginLeft: '10px'}} />
+                    </AddCollectionHeartContainer>
                     <Author font={props.font}>{'Dan Richards'}</Author>
                     <DateStyle font={props.font}>{moment(Date.now()).format('MMMM Do YYYY')}</DateStyle>
                     </InfoContainer>
                     </div>
                 </Container> 
                 {props.bodyContent.map((item, index) => {
-                    // console.log(item)
                     return(
-                        <BodyContainer margin='35px' key={index}>
+                        <BodyContainer margin='90px' key={index}>
                             <Description font={props.font}>{item}</Description>
                             <BodyImageContainer>
                             {props?.bodyImages[index]?.map((image, i)=> {

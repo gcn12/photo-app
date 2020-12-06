@@ -79,7 +79,7 @@ export const PreviewContainer = styled.div`
 
 export const PreviewImage = styled.img`
     /* height: 450px; */
-    height: 52vh;
+    height: 45vh;
     width: auto;
 `
 
@@ -162,5 +162,5 @@ export const Label = styled.label`
 export const BodyButtonContainer = styled.div`
     display: flex;
     align-items: center;
-    margin-bottom: 60px;
+    margin-bottom: 80px;
 `

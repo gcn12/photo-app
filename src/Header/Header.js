@@ -60,7 +60,11 @@ const Header = (props) => {
                 </Link>
                 } 
             </Container>
+            {props.location.pathname.includes('/photo-app/posts') ? 
             <Subheader displayView={props.displayView} setDisplayView={props.setDisplayView} sort={sort} setSelected={setSelected} selected={selected} setVisibility={setVisibility} setDropdownTransition={setDropdownTransition} setHomePhotoInformation={props.setHomePhotoInformation}/>
+            :
+            null
+            }
             <div style={{marginBottom: '10px'}}></div>
         </Border>
     )

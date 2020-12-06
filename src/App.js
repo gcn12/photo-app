@@ -80,8 +80,11 @@ const App = () => {
     <div>
       {/* <TestFile />  */}
 
+      <Route path='/photo-app/' render={(props)=> (
+        <Header {...props} displayView={displayView} setDisplayView={setDisplayView} setHomePhotoInformation={setHomePhotoInformation} user={user}/>
+      )} />
 
-      <Header displayView={displayView} setDisplayView={setDisplayView} setHomePhotoInformation={setHomePhotoInformation} user={user}/>
+      
         
       <Switch>
 
@@ -119,7 +122,7 @@ const App = () => {
           />
         )} />
 
-        <Route exact path='/photo-app/posts/:username/:url' render={(props)=> (
+        <Route exact path='/photo-app/post/:username/:url' render={(props)=> (
           <FeaturedPost 
           getUserProfile={getUserProfile}
           getFeaturedPhotoInfo={getFeaturedPhotoInfo}

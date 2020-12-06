@@ -14,7 +14,7 @@ export const DisplayPosts = (props) => {
 
     const selectPhoto = () => {
         props.getFeaturedPhotoInfo(props.post.url, props.post.username)
-        props.history.push(`/photo-app/posts/${props.post.username}/${props.post.url}`)
+        props.history.push(`/photo-app/post/${props.post.username}/${props.post.url}`)
     }
 
     return(

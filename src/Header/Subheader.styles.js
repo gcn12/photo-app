@@ -24,6 +24,7 @@ export const ULMobile = styled.ul`
     padding: 0;
     margin: 0;
     display: flex;
+    justify-content: space-between;
     
     @media (min-width: 670px) {
         display: none;

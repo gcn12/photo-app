@@ -1,13 +1,23 @@
 import styled from 'styled-components'
 
 export const PhotoDescriptionViewContainer = styled.div`
-    margin: 0 2%;
+    margin: 2% 7%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    grid-gap: 20px;
-    align-items: stretch;
+    /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
+    grid-template-columns: repeat(3, auto);
+    grid-column-gap: 2%;
+    grid-row-gap: 2%;
+    align-items: center;
     justify-items: center;
-`
+    justify-content: center;
+
+    @media (max-width: 1100px){
+        grid-template-columns: repeat(2, auto);
+    }
+    @media (max-width: 750px){
+        grid-template-columns: repeat(1, auto);
+    }
+` 
 
 export const LazyButtonContainer = styled.div`
     display: flex;

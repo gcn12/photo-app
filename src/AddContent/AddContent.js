@@ -19,17 +19,17 @@ const animationMap = {
     titlePhoto: {
         initial: {
             x: 0,
-            y: '25vh',
+            y: '20vh',
             opacity: 1,
         },
         shiftUp: {
             x: 0,
-            y: 10,
+            y: '1vh',
             opacity: 1,
         }, 
         transitionEnd: {
             x: -100,
-            y: 10,
+            y: '1vh',
             opacity: 0,
         },
         transitionBack: {
@@ -50,17 +50,17 @@ const animationMap = {
     categoryLocation: {
         initial: {
             x: 100,
-            y: '25vh',
+            y: '20vh',
             opacity: 0,
         },
         transitionStart: {
             x: 0,
-            y: '25vh',
+            y: '20vh',
             opacity: 1,
         },
         transitionBack: {
             x: 0,
-            y: '25vh',
+            y: '20vh',
             opacity: 1,
         },
         transitionEnd: {
@@ -77,12 +77,12 @@ const animationMap = {
     body: {
         initial: {
             x: 100,
-            y: '25vh',
+            y: '20vh',
             opacity: 0,
         },
         transitionStart: {
             x: 0,
-            y: '25vh',
+            y: '20vh',
             opacity: 1,
         },
         shiftUp: {
@@ -168,12 +168,7 @@ const animationMap = {
             y: '35vh',
             opacity: 1,
         },
-        // transitionBack: {
-        //     x: 0,
-        //     opacity: 0,
-        // },
         transitionEnd: {
-            // x: -1000,
             opacity: 0
         },
         transition: {
@@ -307,7 +302,7 @@ const AddContent = (props) => {
                             console.log('uploaded')
                             setTimeout(()=>setUploadProgressColor(true), 300)
                             setTimeout(()=>props.getFeaturedPhotoInfo(url, username), 2000)
-                            setTimeout(()=>props.history.push(`/photo-app/posts/${username}/${url}`), 2000)
+                            setTimeout(()=>props.history.push(`/photo-app/post/${username}/${url}`), 2000)
                         })
                     })              
                 })

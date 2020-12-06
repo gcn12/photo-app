@@ -15,7 +15,7 @@ const DisplayPhoto = (props) => {
     const click = () => {
         props.setPhotoInformation(props.photoInfo)
         props.getFeaturedPhotoInfo(props.photoInfo.url, props.photoInfo.username)
-        props.history.push(`/photo-app/posts/${props.photoInfo.username}/${props.photoInfo.url}`)
+        props.history.push(`/photo-app/post/${props.photoInfo.username}/${props.photoInfo.url}`)
         db.collection('preview-posts').where('image', '==', props.photoInfo.image)
         .get()
         .then(reference=> {

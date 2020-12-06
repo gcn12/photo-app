@@ -2,14 +2,19 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     cursor: pointer;
-`
-
-export const Card = styled.div`
-    /* padding: 20px; */
-    background-color: #b2d9db;
-    width: 400px;
-    height: 600px;
     border-radius: 6%;
+    overflow: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+    transition: box-shadow 400ms ease-in-out;
+    &:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, .4);
+    }
+`
+ 
+ export const Card = styled.div`
+    width: 350px;
+    height: 600px;
+    background-color: #f5f5f5;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,14 +22,12 @@ export const Card = styled.div`
 
 export const Image = styled.img`
     margin-bottom: 15px;
-    filter: brightness(1);
-    transition: 800ms ease;
-    transition-delay: 250ms;
     object-fit: cover;
-    width: 300px;
+    width: 350px;
     height: 250px;
 `
 
 export const Description = styled.div`
     text-align: justify;
+    padding: 0 5%;
 `
