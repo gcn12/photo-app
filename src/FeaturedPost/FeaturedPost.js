@@ -3,8 +3,8 @@ import HorizontalGallery from '../HorizontalGallery/HorizontalGallery'
 import Dropdown from '../Dropdown/Dropdown'
 import { db } from '../Firebase'
 import { Link } from 'react-router-dom'
-import {ReactComponent as EmptyHeart} from '../EmptyHeart.svg'
-import { ReactComponent as FilledHeart } from '../FilledHeart.svg'
+import { ReactComponent as EmptyHeart } from '../Icons/EmptyHeart.svg'
+import { ReactComponent as FilledHeart } from '../Icons/FilledHeart.svg'
 import firebase from 'firebase'
 import { motion } from 'framer-motion'
 // import FeaturedPostGallery from '../FeaturedPostGallery/FeaturedPostGallery'
@@ -76,8 +76,6 @@ const FeaturedPost = (props) => {
     // eslint-disable-next-line
     // useEffect(()=>getCities(props?.photoInformation?.id), [])
     // eslint-disable-next-line
-    useEffect(()=>getVH(), [])
-    // eslint-disable-next-line
     // useEffect(()=>getImageSize(), [])
     
     useEffect(()=>{
@@ -134,11 +132,6 @@ const FeaturedPost = (props) => {
         img.src = src
     }
     
-
-    const getVH = () => {
-        let vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }
 
     const getCollectionsList = () => {
         const collectionsArray = []

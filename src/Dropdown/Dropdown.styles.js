@@ -45,16 +45,18 @@ export const CreateNewButton = styled.button`
 `
 
 export const CreateNewInput = styled.input`
-    display:inline-block;
-    border: 0.1em solid #242424;
+    /* display:inline-block;
     margin: 0 0.3em 0.3em 0;
     border-radius:0.12em;
-    box-sizing: border-box;
+    box-sizing: border-box; */
     /* color: white; */
+    border-radius: 5%;
+    border: 1px solid #242424;
     background-color: #f5f5f5;
-    height: 30px;
+    height: 26px;
     width: 150px;
     font-size: 15px;
+    margin-right: 5px;
 `
 
 export const CreateNewSubmit = styled.button`

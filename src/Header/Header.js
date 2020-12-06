@@ -34,12 +34,11 @@ const Header = (props) => {
     return(
         <Border>
             <SubheaderDropdown sort={sort} setSelected={setSelected} selected={selected} setHomePhotoInformation={props.setHomePhotoInformation} setVisibility={setVisibility} visibility={visibility} dropdownTransition={dropdownTransition} setDropdownTransition={setDropdownTransition}/>
-            <Container className='test'>
+            <Container>
                 <UL>
                     <Link to='/photo-app/posts' style={{ textDecoration: 'none' }}>
                         <LI>Discover</LI>
                     </Link>
-                    {/* <LI onClick={()=> getPhotoInfo('South America')}>SOUTH AMERICA</LI> */}
                 </UL>
                 {props.user ? 
                 <Link to='/photo-app/upload' style={{ textDecoration: 'none' }}>

@@ -14,39 +14,41 @@ import {
 const Profile = (props) => {
     const [profilePage, setProfilePage] = useState(props.match.params.route)
     return(
-        <Container>
+        <div>
             <SubmitButton onClick={()=>props.history.goBack()}>Back</SubmitButton>
-            <HeaderContainer>
-                <UL>
-                    <Link to='/photo-app/profile/collections' style={{textDecoration: 'none'}}>
-                        <LI style={{borderBottom: profilePage!=='posts' && profilePage!=='settings'  ? '1px solid #242424' : null}} onClick={()=>setProfilePage('collections')}>Collections</LI>
-                    </Link>
-                    <Link to='/photo-app/profile/posts' style={{textDecoration: 'none'}}>
-                        <LI style={{borderBottom: profilePage==='posts' ? '1px solid #242424' : null}} onClick={()=>setProfilePage('posts')}>Posts</LI>
-                    </Link>
-                    <Link to='/photo-app/profile/settings' style={{textDecoration: 'none'}}>
-                        <LI style={{borderBottom: profilePage==='settings' ? '1px solid #242424' : null}} onClick={()=>setProfilePage('settings')}>Settings</LI>
-                    </Link>
-                </UL>
-            </HeaderContainer>
-            {(()=> {
-                switch (profilePage) {
-                    case 'posts': 
-                        return( 
-                            <UserPosts history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} setPhotoInformation={props.setPhotoInformation} user={props.user} />
-                        )
-                    case 'collections':
-                        return(
-                            <Collections history={props.history} setHomePhotoInformation={props.setHomePhotoInformation} user={props.user}/>
-                        )
-                    case 'settings':
-                        return <Settings history={props.history} setUser={props.setUser} />
-                    default:
-                        return <Collections history={props.history} setHomePhotoInformation={props.setHomePhotoInformation} user={props.user}/>
-                }
+            <Container>
+                <HeaderContainer>
+                    <UL>
+                        <Link to='/photo-app/profile/collections' style={{textDecoration: 'none'}}>
+                            <LI style={{borderBottom: profilePage!=='posts' && profilePage!=='settings'  ? '1px solid #242424' : null}} onClick={()=>setProfilePage('collections')}>Collections</LI>
+                        </Link>
+                        <Link to='/photo-app/profile/posts' style={{textDecoration: 'none'}}>
+                            <LI style={{borderBottom: profilePage==='posts' ? '1px solid #242424' : null}} onClick={()=>setProfilePage('posts')}>Posts</LI>
+                        </Link>
+                        <Link to='/photo-app/profile/settings' style={{textDecoration: 'none'}}>
+                            <LI style={{borderBottom: profilePage==='settings' ? '1px solid #242424' : null}} onClick={()=>setProfilePage('settings')}>Settings</LI>
+                        </Link>
+                    </UL>
+                </HeaderContainer>
+                {(()=> {
+                    switch (profilePage) {
+                        case 'posts': 
+                            return( 
+                                <UserPosts history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} setPhotoInformation={props.setPhotoInformation} user={props.user} />
+                            )
+                        case 'collections':
+                            return(
+                                <Collections history={props.history} setHomePhotoInformation={props.setHomePhotoInformation} user={props.user}/>
+                            )
+                        case 'settings':
+                            return <Settings history={props.history} setUser={props.setUser} />
+                        default:
+                            return <Collections history={props.history} setHomePhotoInformation={props.setHomePhotoInformation} user={props.user}/>
+                    }
 
-            })()}
-        </Container>
+                })()}
+            </Container>
+        </div>
     )
 }
 

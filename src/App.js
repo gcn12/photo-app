@@ -48,11 +48,11 @@ const App = () => {
     .where('username', '==', username)
     .get()
     .then(data=> {
-        let dataArray = []
-        data.forEach(item=> {
-            dataArray.push(item.data())
-        })
-        setUserData(dataArray)
+      let dataArray = []
+      data.forEach(item=> {
+          dataArray.push(item.data())
+      })
+      setUserData(dataArray)
     })
 
     db.collection('preview-posts')
@@ -60,11 +60,11 @@ const App = () => {
     .orderBy('timestamp', 'desc')
     .get()
     .then(data=> {
-        const postArray = []
-        data.forEach(item=> {
-          postArray.push(item.data())
-        })
-        setUserPosts(postArray)
+      const postArray = []
+      data.forEach(item=> {
+        postArray.push(item.data())
+      })
+      setUserPosts(postArray)
     })
 }
   
@@ -78,11 +78,11 @@ const App = () => {
 
   return (
     <div>
+      {/* <TestFile />  */}
+
 
       <Header displayView={displayView} setDisplayView={setDisplayView} setHomePhotoInformation={setHomePhotoInformation} user={user}/>
-
-
-      {/* <TestFile />  */}
+        
       <Switch>
 
         <Route exact path='/photo-app/signup/' render={(props)=> (

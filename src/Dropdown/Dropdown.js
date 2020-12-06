@@ -166,8 +166,8 @@ const Dropdown = (props) => {
     } 
 
     return(
-        <Container>
-            <VerticalScroll scrollHeight='120px' maxHeight='200px'>
+        <Container className='dropdown'>
+            <VerticalScroll className='dropdown' scrollHeight='120px' maxHeight='200px'>
             {props.collectionsList?.map((collection, index) => {
                 return(
                     <DropdownItem 
@@ -188,7 +188,7 @@ const Dropdown = (props) => {
             </VerticalScroll>
             <div style={{display: 'flex', justifyContent: 'center'}}>
                 {isCreateCollection ? 
-                <div style={{display: 'flex', alignItems: 'center'}}>
+                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                     <CreateNewInput autoComplete='off' placeholder='collection name' id='collection-name' className='dropdown'></CreateNewInput>
                     <CreateNewSubmit onClick={createCollection} className='dropdown'>Create</CreateNewSubmit>
                 </div>
