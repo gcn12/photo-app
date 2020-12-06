@@ -1,42 +1,36 @@
 import React from 'react'
-import { db } from '../Firebase'
+import { ReactComponent as TrashCan } from '../Icons/TrashCan.svg'
+import { ReactComponent as Edit } from '../Icons/Edit.svg'
 import {
-    Container
+    Container,
+    Options,
+    Option
 } from './DropdownDelete.styles'
 
 const DropdownDelete = (props) => {
 
-    const deleteCollection = () => {
-        db.collection('users')
-        .doc(props.user)
-        .collection('collection-names')
-        .where('collection', '==', props.collectionName)
-        .get()
-        .then(data=> {
-            data.docs.forEach(item => {
-                item.ref.delete()
-            })
-            console.log('collection deleted')
-        })
+    const renameCollection = () => {
+        props.setShowRename(true)
+        props.setCollectionName(props.collectionName)
+    }
 
-        db.collection('users')
-        .doc(props.user)
-        .collection('collections')
-        .where('collection', '==', props.collectionName)
-        .get()
-        .then(data=> {
-            data.docs.forEach(item => {
-                item.ref.delete()
-            })
-        })
-        const collectionInfo = props.collectionInfo
-        collectionInfo.splice(props.index, 1)
-        props.setCollectionInfo([...collectionInfo])
+    const deleteCollection = () => {
+        props.setShowDelete(true)
+        props.setCollectionName(props.collectionName)
     }
 
     return(
-        <Container onClick={deleteCollection}>
-            Delete
+        <Container>
+            <Options>
+                <div style={{display: 'flex', alignItems:'center'}}>
+                    <Edit style={{height: '20px', width: '20px'}} />
+                    <Option onClick={renameCollection}>Rename</Option>
+                </div>
+                <div style={{display: 'flex', alignItems:'center'}}>
+                    <TrashCan style={{height: '20px', width: '20px'}} />
+                    <Option onClick={deleteCollection}>Delete</Option>
+                </div>
+            </Options>
         </Container>
     )
 }

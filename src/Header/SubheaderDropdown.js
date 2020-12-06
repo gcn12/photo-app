@@ -16,7 +16,7 @@ const variants = {
     },
     transitionStart: {
         y: 0,
-        opacity: 1,
+        opacity: .94,
     },
     transitionEnd: {
         y: -200,

@@ -14,7 +14,7 @@ export const UL = styled.ul`
     margin: 0;
     list-style-type: none;
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     font-size: 25px;
     &:hover{
         color: #4a4a4a
@@ -22,6 +22,7 @@ export const UL = styled.ul`
 `
 
 export const LI = styled.li`
+    margin-right: 15px;
     color: #242424;
     cursor: pointer;
     -webkit-touch-callout: none; 

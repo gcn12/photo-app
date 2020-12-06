@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    width: 100px;
-    height: 40px;
+    width: 120px;
+    height: 80px;
     position: absolute;
     background-color: white;
     font-size: 20px;
@@ -11,11 +11,18 @@ export const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    border-color: black;
-    border: 1px black solid;
+    border-radius: 5%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .3);
+`
 
+export const Options = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+export const Option = styled.div`
     &:hover {
-        background-color: #525252;
-        color: white;
+        background-color: #dedede;
+        /* color: white; */
     }
 `

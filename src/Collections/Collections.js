@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { db } from '../Firebase'
 import DropdownDelete from './DropdownDelete'
+import Rename from './Rename'
+import Delete from './Delete'
 import { 
     Title
 } from '../UserPosts/UserPosts.styles'
@@ -68,7 +70,7 @@ const Collection = (props) => {
                 <Ellipsis onClick={()=>setIsDeleteMenu(!isDeleteMenu)}>
                     <div className='delete-collection'>&#8942;</div>
                     {isDeleteMenu ? 
-                    <DropdownDelete collectionInfo={props.collectionInfo} index={props.index} setCollectionInfo={props.setCollectionInfo} user={props.user} collectionName={props.collection[0]}></DropdownDelete>
+                    <DropdownDelete setShowDelete={props.setShowDelete} setCollectionName={props.setCollectionName} setShowRename={props.setShowRename} collectionInfo={props.collectionInfo} index={props.index} setCollectionInfo={props.setCollectionInfo} user={props.user} collectionName={props.collection[0]}></DropdownDelete>
                     :
                     null
                     }
@@ -81,6 +83,9 @@ const Collection = (props) => {
 const Collections = (props) => {
 
     const [collectionInfo, setCollectionInfo] = useState([])
+    const [showRename, setShowRename] = useState(false)
+    const [showDelete, setShowDelete] = useState(false)
+    const [collectionName, setCollectionName] = useState('')
 
     const getCollections = () => {
         if(props.user) {    
@@ -110,22 +115,37 @@ const Collections = (props) => {
     useEffect(getCollections, [props.user])
  
     return(
-        <Container>
-            {collectionInfo?.map((collection, index)=> {
-                return(
-                    <Collection 
-                        history={props.history}
-                        collectionInfo={collectionInfo}
-                        setCollectionInfo={setCollectionInfo}
-                        index={index}
-                        user={props.user} 
-                        setHomePhotoInformation={props.setHomePhotoInformation} 
-                        collection={collection} 
-                        key={index}
-                    />
-                )
-            })}
-        </Container>
+        <div>
+            { showRename ?
+            <Rename showRename={showRename} getCollections={getCollections} user={props.user} collectionName={collectionName} setShowRename={setShowRename}></Rename>
+            : 
+            null
+            }
+            {showDelete ? 
+            <Delete collectionName={collectionName} setShowDelete={setShowDelete} />
+            :
+            null
+            }
+            <Container>
+                {collectionInfo?.map((collection, index)=> {
+                    return(
+                        <Collection 
+                            setShowDelete={setShowDelete}
+                            setCollectionName={setCollectionName}
+                            setShowRename={setShowRename}
+                            history={props.history}
+                            collectionInfo={collectionInfo}
+                            setCollectionInfo={setCollectionInfo}
+                            index={index}
+                            user={props.user} 
+                            setHomePhotoInformation={props.setHomePhotoInformation} 
+                            collection={collection} 
+                            key={index}
+                        />
+                    )
+                })}
+            </Container>
+        </div>
     )
 }
 

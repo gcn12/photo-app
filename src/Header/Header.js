@@ -37,6 +37,9 @@ const Header = (props) => {
             <Container>
                 <UL>
                     <Link to='/photo-app/posts' style={{ textDecoration: 'none' }}>
+                        <LI>Wall</LI>
+                    </Link>
+                    <Link to='/photo-app/discover' style={{ textDecoration: 'none' }}>
                         <LI>Discover</LI>
                     </Link>
                 </UL>

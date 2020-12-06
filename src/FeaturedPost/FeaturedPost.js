@@ -38,12 +38,12 @@ const FeaturedPost = (props) => {
     const [animateLoad, setAnimateLoad] = useState('initial')
 
     
-    const getCities = () => {
+    const getCities = (city, country, continent) => {
         const ref = db.collection('preview-posts')
-        .where('continent', '==', props?.photoInformation?.continent)
-        .where('country', '==', props?.photoInformation?.country)
+        .where('continent', '==', continent)
+        .where('country', '==', country)
 
-        ref.where('city', '==', props?.photoInformation?.city)
+        ref.where('city', '==', city)
         .get().then(snapshot=>{
             const cityArray = []
             snapshot.forEach(city=>{
@@ -92,13 +92,15 @@ const FeaturedPost = (props) => {
         .then(data=> {
             let arr = []
             data.forEach(item=> {
-            arr.push(item.data())
+                arr.push(item.data())
+                console.log(item.data())
             })
             const info = arr[0]
             getImageSize(info.image)
             info['username'] = username
             props.setPhotoInformation(info)
             window.scrollTo({top: 0})
+            getCities(info.city, info.country, info.continent)
             firebase.auth().onAuthStateChanged((user)=> {
             if(user) {
                 db.collection('users')

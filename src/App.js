@@ -4,6 +4,7 @@ import React, {
 } from 'react'
 import Header from './Header/Header'
 import VerticalScroll from './VeritcalScroll/VerticalScroll'
+import Discover from './Discover/Discover'
 import FeaturedPost from './FeaturedPost/FeaturedPost'
 import MainPhotoDisplay from './MainPhotoDisplay/MainPhotoDisplay'
 import Profile from './Profile/Profile'
@@ -112,6 +113,7 @@ const App = () => {
           {...props}
           /> 
         )} />
+
         <Route path='/photo-app/profiles/:username' render={(props)=>(<PublicProfile 
           getUserProfile={getUserProfile}
           userPosts={userPosts} 
@@ -132,6 +134,10 @@ const App = () => {
           photoInformation={photoInformation} 
           {...props}
         />
+        )} />
+
+        <Route exact path='/photo-app/discover' render={()=> (
+          <Discover />
         )} />
 
         <Route exact path='/photo-app/posts/:sort?' render={(props)=> (

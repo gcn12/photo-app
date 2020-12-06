@@ -4,17 +4,12 @@ import { motion } from 'framer-motion'
 export const Container = styled(motion.div)`
     visibility: ${props=>props.visibility ? 'null' :'hidden'};
     display: ${props=>props.visibility ? 'null' :'none'};
-    /* visibility: ${props=>props.visibility};
-    display: ${props=>props.visibility}; */
     background-color: white;
     height: 100vh;
     width: 100vw;
     position: absolute;
     z-index: 1;
     opacity: .93;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
 `
 
 export const CenterList = styled.div`
@@ -28,7 +23,6 @@ export const LI = styled.li`
     padding: 0;
     font-size: 30px;
     margin: 0 0 15px 0px;
-    /* text-decoration: ${props=> props.underline ? 'underline' : null}; */
     border-bottom: ${props=> props.underline ? '1px solid black' : null};
     cursor: pointer;
     -webkit-touch-callout: none; 
@@ -40,7 +34,6 @@ export const LI = styled.li`
     
 
     &:hover {
-        /* border-bottom: 1px solid black; */
         color: #4a4a4a;
     }
 `
