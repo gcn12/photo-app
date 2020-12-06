@@ -21,8 +21,6 @@ import {
     BodyImageContainer,
     DateStyle,
     AddCollectionHeartContainer,
-    // Container2,
-    // Container3,
     BodyImage,
 } from './FeaturedPost.styles'
 
@@ -242,13 +240,8 @@ const FeaturedPost = (props) => {
                     {props?.user ? 
                     <AddCollectionHeartContainer>
                         <SubmitButton className='dropdown' onClick={showDropdownAndGetList}>
-                            <div className='dropdown'>Add to collection</div>
+                            <div className='dropdown'>Add to collection &#x25BC;</div>
                         </SubmitButton>
-                        {isHeart ? 
-                        <FilledHeart onClick={unheartImage} style={{marginLeft: '10px', cursor: 'pointer'}} />
-                        :
-                        <EmptyHeart onClick={heartImage} style={{marginLeft: '10px', cursor: 'pointer'}} />
-                        }
                         {showDropdown ? 
                         <Dropdown
                             photoInformation={props.photoInformation}
@@ -261,6 +254,11 @@ const FeaturedPost = (props) => {
                         /> 
                         : 
                         null}  
+                        {isHeart ? 
+                        <FilledHeart onClick={unheartImage} style={{marginLeft: '10px', cursor: 'pointer'}} />
+                        :
+                        <EmptyHeart onClick={heartImage} style={{marginLeft: '10px', cursor: 'pointer'}} />
+                        }
                     </AddCollectionHeartContainer>
                     :
                     null}

@@ -10,6 +10,7 @@ import {
     CreateNewInput,
     CreateNewSubmit,
     CollectionName,
+    RemoveAdd,
 } from './Dropdown.styles'
 
 const DropdownItem = (props) => {
@@ -110,9 +111,9 @@ const DropdownItem = (props) => {
             <CollectionName className='dropdown'>{props.collection}</CollectionName>
             {props.collectionsList.length > 0 ?
                 (props.bool ?
-                <CollectionName style={{cursor: 'pointer'}} className='dropdown' onClick={removeFromCollection}>Remove</CollectionName>
+                <RemoveAdd style={{cursor: 'pointer'}} className='dropdown' onClick={removeFromCollection}>Remove</RemoveAdd>
                 :
-                <CollectionName style={{cursor: 'pointer'}} className='dropdown' onClick={addToCollection}>Add</CollectionName> )
+                <RemoveAdd style={{cursor: 'pointer'}} className='dropdown' onClick={addToCollection}>Add</RemoveAdd> )
             :
             null
         }
@@ -185,14 +186,16 @@ const Dropdown = (props) => {
                 )
             })}
             </VerticalScroll>
-            {isCreateCollection ? 
-            <div>
-                <CreateNewInput autoComplete='off' placeholder='collection name' id='collection-name' className='dropdown'></CreateNewInput>
-                <CreateNewSubmit onClick={createCollection} className='dropdown'>Enter</CreateNewSubmit>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+                {isCreateCollection ? 
+                <div style={{display: 'flex', alignItems: 'center'}}>
+                    <CreateNewInput autoComplete='off' placeholder='collection name' id='collection-name' className='dropdown'></CreateNewInput>
+                    <CreateNewSubmit onClick={createCollection} className='dropdown'>Create</CreateNewSubmit>
+                </div>
+                :
+                <CreateNewButton onClick={()=>setIsCreateCollection(true)} className='dropdown'>Create new collection</CreateNewButton>
+                }
             </div>
-            :
-            <CreateNewButton onClick={()=>setIsCreateCollection(true)} className='dropdown'>Create new collection</CreateNewButton>
-        }
         {isCollectionExists ? <Warning>Collection already exists</Warning> : null}
         </Container>
     )

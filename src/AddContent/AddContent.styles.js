@@ -88,10 +88,11 @@ export const SubmitButton = styled.button`
     color: white;
     background-color: #141414;
     border: none;
-    width: 120px;
+    width: 140px;
     height: 50px;
     cursor: pointer;
     transition: background-color 400ms;
+    border-radius: 3%;
 
     &:hover {
         background-color: #212121;

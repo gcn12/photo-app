@@ -19,7 +19,7 @@ const Profile = (props) => {
             <HeaderContainer>
                 <UL>
                     <Link to='/photo-app/profile/collections' style={{textDecoration: 'none'}}>
-                        <LI style={{borderBottom: profilePage==='collections' ? '1px solid #242424' : null}} onClick={()=>setProfilePage('collections')}>Collections</LI>
+                        <LI style={{borderBottom: profilePage!=='posts' && profilePage!=='settings'  ? '1px solid #242424' : null}} onClick={()=>setProfilePage('collections')}>Collections</LI>
                     </Link>
                     <Link to='/photo-app/profile/posts' style={{textDecoration: 'none'}}>
                         <LI style={{borderBottom: profilePage==='posts' ? '1px solid #242424' : null}} onClick={()=>setProfilePage('posts')}>Posts</LI>
