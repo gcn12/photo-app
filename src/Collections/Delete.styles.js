@@ -28,7 +28,7 @@ export const DeleteButton = styled.button`
     width: 120px;
     height: 50px;
     font-size: 20px;
-    background-color: #242424;
+    background-color: #e04343;
     color: white;
     border: none;
     border-radius: 2px;

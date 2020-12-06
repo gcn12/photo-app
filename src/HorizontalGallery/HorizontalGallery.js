@@ -14,7 +14,7 @@ const DisplayPhoto = (props) => {
     const selectPhoto = () => {
         // props.getPost(props.info.id)
         props.setCollectionsList([])
-        props.getFeaturedPhotoInfo(props.info.id)
+        props.getFeaturedPhotoInfo(props.info.url, props.info.username)
         db.collection('preview-posts').where('image', '==', props.url)
         .get()
         .then(reference=> {
