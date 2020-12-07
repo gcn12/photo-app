@@ -8,7 +8,7 @@ export const Container = styled(motion.div)`
     height: 100vh;
     width: 100vw;
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     opacity: .93;
 `
 
