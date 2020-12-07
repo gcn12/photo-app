@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { db } from '../Firebase'
 import DisplayPhoto from './DisplayPhoto'
 import PhotoDescriptionView from './PhotoDescriptionView'
-// import { useInView } from 'react-intersection-observer'
 import '../App.css'
 import { 
     Container, 

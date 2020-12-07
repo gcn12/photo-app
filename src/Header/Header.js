@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { db } from '../Firebase'
 import Subheader from './Subheader'
 import SubheaderDropdown from './SubheaderDropdown'
+import CategoriesDropdown from './CategoriesDropdown'
 import { Link } from 'react-router-dom' 
 import {
     Container,
@@ -13,9 +14,12 @@ import {
 
 const Header = (props) => {
 
-    const[dropdownTransition, setDropdownTransition] = useState('initial')
-    const[visibility, setVisibility] = useState(false)
+    const [dropdownTransition, setDropdownTransition] = useState('initial')
+    const [visibility, setVisibility] = useState(false)
+    const [dropdownCategoriesTransition, setDropdownCategoriesTransition] = useState('initial')
+    const [categoriesVisibility, setCategoriesVisibility] = useState(false)
     const [selected, setSelected] = useState('assorted')
+    const [selectedCategory, setSelectedCategory] = useState('')
 
     const sort = (value) => {
         setSelected(value)
@@ -31,12 +35,69 @@ const Header = (props) => {
         })
     }
 
+    const getAssortedPhotos = () => {
+        setSelected('assorted')
+        let randomString = ''
+        const values = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789'
+        for (let i = 0; i < 8; i++) {
+            randomString += values[Math.floor(Math.random() * 62)]
+        }
+        window.scrollTo({top: 0})
+        db.collection('preview-posts')
+        .orderBy('id', 'asc')
+        .where('id', '>=', randomString)
+        .limit(28)
+        .get()
+        .then(snapshot => {
+            // setStartAfter(snapshot.docs[snapshot.docs.length-1])
+            const photosArray = []
+            snapshot.docs.forEach(doc => {
+                photosArray.push(doc.data())
+            })
+            if(photosArray.length===0) {
+                db.collection('preview-posts')
+                .orderBy('id', 'asc')
+                .where('id', '<=', randomString)
+                .limit(28)
+                .get()
+                .then(snapshot => {
+                    // setStartAfter(snapshot.docs[snapshot.docs.length-1])
+                    const photosArray = []
+                    snapshot.docs.forEach(doc => {
+                        photosArray.push(doc.data())
+                    })
+                    props.setHomePhotoInformation(photosArray)
+                })
+            }else{
+                props.setHomePhotoInformation(photosArray)
+            }
+        })
+    }
+
+    const getCategoryPhotos = (category) => {
+        setSelectedCategory(category)
+        window.scrollTo({top: 0})
+        db.collection('preview-posts')
+        .where('category', '==', category)
+        .limit(28)
+        .get()
+        .then(snapshot => {
+            // setStartAfter(snapshot.docs[snapshot.docs.length-1])
+            const photosArray = []
+            snapshot.docs.forEach(doc => {
+                photosArray.push(doc.data())
+            })
+            props.setHomePhotoInformation(photosArray)
+        })
+    }
+
     return(
         <Border>
-            <SubheaderDropdown sort={sort} setSelected={setSelected} selected={selected} setHomePhotoInformation={props.setHomePhotoInformation} setVisibility={setVisibility} visibility={visibility} dropdownTransition={dropdownTransition} setDropdownTransition={setDropdownTransition}/>
+            <SubheaderDropdown getAssortedPhotos={getAssortedPhotos} sort={sort} setSelected={setSelected} selected={selected} setHomePhotoInformation={props.setHomePhotoInformation} setVisibility={setVisibility} visibility={visibility} dropdownTransition={dropdownTransition} setDropdownTransition={setDropdownTransition}/>
+            <CategoriesDropdown selectedCategory={selectedCategory} getCategoryPhotos={getCategoryPhotos} dropdownCategoriesTransition={dropdownCategoriesTransition} categoriesVisibility={categoriesVisibility} setCategoriesVisibility={setCategoriesVisibility} setDropdownCategoriesTransition={setDropdownCategoriesTransition}/>
             <Container>
                 <UL>
-                    <Link to='/photo-app/posts' style={{ textDecoration: 'none' }}>
+                    <Link onClick={getAssortedPhotos} to='/photo-app/posts' style={{ textDecoration: 'none' }}>
                         <LI>Wall</LI>
                     </Link>
                     <Link to='/photo-app/discover' style={{ textDecoration: 'none' }}>
@@ -64,7 +125,7 @@ const Header = (props) => {
                 } 
             </Container>
             {props.location.pathname.includes('/photo-app/posts') ? 
-            <Subheader displayView={props.displayView} setDisplayView={props.setDisplayView} sort={sort} setSelected={setSelected} selected={selected} setVisibility={setVisibility} setDropdownTransition={setDropdownTransition} setHomePhotoInformation={props.setHomePhotoInformation}/>
+            <Subheader setCategoriesVisibility={setCategoriesVisibility} setDropdownCategoriesTransition={setDropdownCategoriesTransition} getCategoryPhotos={getCategoryPhotos} getAssortedPhotos={getAssortedPhotos} displayView={props.displayView} setDisplayView={props.setDisplayView} sort={sort} setSelected={setSelected} selected={selected} setVisibility={setVisibility} setDropdownTransition={setDropdownTransition} setHomePhotoInformation={props.setHomePhotoInformation}/>
             :
             null
             }

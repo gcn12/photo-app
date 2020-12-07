@@ -53,7 +53,7 @@ const SubheaderDropdown = (props) => {
             </CancelContainer>
             <CenterList>
                 <UL>
-                    <LI underline={selected === 'assorted' ? true : false}>ASSORTED</LI>
+                    <LI onClick={props.getAssortedPhotos} underline={selected === 'assorted' ? true : false}>ASSORTED</LI>
                     <LI onClick={()=>sortPosts('views')} underline={selected === 'views' ? true : false}>POPULAR</LI>
                     <LI onClick={()=>sortPosts('timestamp')} underline={selected === 'timestamp' ? true : false}>NEWEST</LI>
                     <LI underline={selected === '' ? true : false}>HIGHEST RATED</LI>

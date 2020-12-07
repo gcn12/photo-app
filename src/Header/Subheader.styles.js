@@ -54,3 +54,15 @@ export const LI = styled.ul`
         color: #4a4a4a;
     }
 `
+
+export const CategoriesButton = styled.div`
+    margin-right: 15px;
+    cursor: pointer;
+    position: relative;
+    -webkit-touch-callout: none; 
+    -webkit-user-select: none; 
+    -khtml-user-select: none; 
+    -moz-user-select: none; 
+    -ms-user-select: none; 
+    user-select: none; 
+`
