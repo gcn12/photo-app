@@ -1,28 +1,30 @@
 {
   "files": {
     "main.css": "/photo-app/static/css/main.79c4180c.chunk.css",
-    "main.js": "/photo-app/static/js/main.657a1c82.chunk.js",
-    "main.js.map": "/photo-app/static/js/main.657a1c82.chunk.js.map",
+    "main.js": "/photo-app/static/js/main.e371ebfc.chunk.js",
+    "main.js.map": "/photo-app/static/js/main.e371ebfc.chunk.js.map",
     "runtime-main.js": "/photo-app/static/js/runtime-main.b01c153d.js",
     "runtime-main.js.map": "/photo-app/static/js/runtime-main.b01c153d.js.map",
-    "static/js/2.8e4fc96e.chunk.js": "/photo-app/static/js/2.8e4fc96e.chunk.js",
-    "static/js/2.8e4fc96e.chunk.js.map": "/photo-app/static/js/2.8e4fc96e.chunk.js.map",
+    "static/js/2.4d90557f.chunk.js": "/photo-app/static/js/2.4d90557f.chunk.js",
+    "static/js/2.4d90557f.chunk.js.map": "/photo-app/static/js/2.4d90557f.chunk.js.map",
     "static/js/3.059019a7.chunk.js": "/photo-app/static/js/3.059019a7.chunk.js",
     "static/js/3.059019a7.chunk.js.map": "/photo-app/static/js/3.059019a7.chunk.js.map",
     "index.html": "/photo-app/index.html",
     "static/css/main.79c4180c.chunk.css.map": "/photo-app/static/css/main.79c4180c.chunk.css.map",
-    "static/js/2.8e4fc96e.chunk.js.LICENSE.txt": "/photo-app/static/js/2.8e4fc96e.chunk.js.LICENSE.txt",
+    "static/js/2.4d90557f.chunk.js.LICENSE.txt": "/photo-app/static/js/2.4d90557f.chunk.js.LICENSE.txt",
+    "static/media/Add.9e5fd29d.svg": "/photo-app/static/media/Add.9e5fd29d.svg",
     "static/media/DescriptionGrid.4e622689.svg": "/photo-app/static/media/DescriptionGrid.4e622689.svg",
     "static/media/Edit.4333674f.svg": "/photo-app/static/media/Edit.4333674f.svg",
     "static/media/EmptyHeart.0c52fcba.svg": "/photo-app/static/media/EmptyHeart.0c52fcba.svg",
     "static/media/FilledHeart.246dfe67.svg": "/photo-app/static/media/FilledHeart.246dfe67.svg",
     "static/media/PhotoGrid.37a6f80c.svg": "/photo-app/static/media/PhotoGrid.37a6f80c.svg",
+    "static/media/Profile.a85c8195.svg": "/photo-app/static/media/Profile.a85c8195.svg",
     "static/media/TrashCan.e4984568.svg": "/photo-app/static/media/TrashCan.e4984568.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.b01c153d.js",
-    "static/js/2.8e4fc96e.chunk.js",
+    "static/js/2.4d90557f.chunk.js",
     "static/css/main.79c4180c.chunk.css",
-    "static/js/main.657a1c82.chunk.js"
+    "static/js/main.e371ebfc.chunk.js"
   ]
 }
