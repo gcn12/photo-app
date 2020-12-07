@@ -5,7 +5,7 @@ export const Container = styled.div`
     bottom: 0px;
     background-color: #f5f5f5;
     border-top: 1px solid #b3b3b3;
-    padding: 15px;
+    padding: 10px 0;
     width: 100%;
     display: flex;
     justify-content: space-evenly;
@@ -19,8 +19,8 @@ export const Container = styled.div`
 `
 
 export const ProfileImage = styled.img`
-    height: 30px;
-    width: 30px;
+    height: 24px;
+    width: 24px;
     cursor: pointer;
     border-radius: 50%;
     border: 1px solid black;

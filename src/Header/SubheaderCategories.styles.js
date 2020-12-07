@@ -29,4 +29,8 @@ export const LI = styled.li`
     -moz-user-select: none; 
     -ms-user-select: none; 
     user-select: none; 
+    padding: 2px;
+    &:hover{
+        background-color: #ededed;
+    }
 `

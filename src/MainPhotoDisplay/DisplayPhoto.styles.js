@@ -32,6 +32,7 @@ export const PhotoLocation = styled.div`
 `
 
 export const Image = styled.img`
+    /* align-self: end; */
     margin-bottom: 15px;
     filter: brightness(1);
     transition: 800ms ease;

@@ -31,7 +31,6 @@ export const LI = styled.li`
     -moz-user-select: none; 
     -ms-user-select: none; 
     user-select: none; 
-    
 
     &:hover {
         color: #4a4a4a;

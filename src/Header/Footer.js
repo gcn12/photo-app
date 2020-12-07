@@ -9,14 +9,13 @@ import {
     ProfileImage,
 } from './Footer.styles'
 
-const Footer = () => {
+const Footer = (props) => {
 
     const [imageURL, setImageURL] = useState('')
 
     const getProfileImage = () => {
         firebase.auth().onAuthStateChanged((user)=> {
             if(user) {
-                // user.uid
                 db.collection('users')
                 .doc(user.uid)
                 .get()
@@ -35,19 +34,25 @@ const Footer = () => {
 
 
     return(
-        <Container>
-            <Link to='/photo-app/upload'>
-                <Add style={{cursor: 'pointer'}} />
-            </Link>
-            <Link to='/photo-app/profile'>
-                {imageURL.length>0 ? 
-                <ProfileImage src={imageURL} alt='profile'></ProfileImage>
-                :
-                <Profile style={{cursor: 'pointer'}} />
-                }
-            </Link>
-        </Container>
-    )
+        <div>
+            {!props.location.pathname.includes('/upload') ? 
+                <Container>
+                <Link to='/photo-app/upload'>
+                    <Add style={{cursor: 'pointer'}} />
+                </Link>
+                <Link to='/photo-app/profile'>
+                    {imageURL.length>0 ? 
+                    <ProfileImage src={imageURL} alt='profile'></ProfileImage>
+                    :
+                    <Profile style={{cursor: 'pointer'}} />
+                    }
+                </Link>
+            </Container>
+            :
+            null
+            }
+        </div>
+        )
 }
 
 export default Footer
