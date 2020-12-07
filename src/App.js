@@ -10,6 +10,7 @@ import MainPhotoDisplay from './MainPhotoDisplay/MainPhotoDisplay'
 import Profile from './Profile/Profile'
 import Login from './Login/Login'
 import PublicProfile from './PublicProfile/PublicProfile'
+import Footer from './Header/Footer'
 // import TestFile from './TestFile'
 import AddContent from './AddContent/AddContent'
 import Signup from './SignUp/SignUp'
@@ -85,7 +86,9 @@ const App = () => {
         <Header {...props} displayView={displayView} setDisplayView={setDisplayView} setHomePhotoInformation={setHomePhotoInformation} user={user}/>
       )} />
 
-      
+      <Route path='/photo-app/' render={(props)=> (
+        <Footer {...props} />
+      )} />
         
       <Switch>
 

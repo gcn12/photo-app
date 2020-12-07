@@ -10,6 +10,7 @@ import {
     LI,
     Border,
     Navigation,
+    HeaderRight,
 } from './Header.styles'
 
 const Header = (props) => {
@@ -104,25 +105,27 @@ const Header = (props) => {
                         <LI>Discover</LI>
                     </Link>
                 </UL>
-                {props.user ? 
-                <Link to='/photo-app/upload' style={{ textDecoration: 'none' }}>
-                    <Navigation cursor='pointer'>Upload</Navigation>
-                </Link>
-                :
-                <Link to='/photo-app/signup' style={{ textDecoration: 'none' }}>
-                    <Navigation cursor='pointer'>Signup</Navigation>
-                </Link>
-                }
-                <Navigation>|</Navigation>
-                {props.user ? 
-                <Link to='/photo-app/profile' style={{ textDecoration: 'none' }}>
-                    <Navigation cursor='pointer'>Profile</Navigation>
-                </Link>
-                :
-                <Link to='/photo-app/login' style={{ textDecoration: 'none' }}>
-                    <Navigation cursor='pointer'>Log in</Navigation>
-                </Link>
-                } 
+                <HeaderRight>
+                    {props.user ? 
+                    <Link to='/photo-app/upload' style={{ textDecoration: 'none' }}>
+                        <Navigation cursor='pointer'>Upload</Navigation>
+                    </Link>
+                    :
+                    <Link to='/photo-app/signup' style={{ textDecoration: 'none' }}>
+                        <Navigation cursor='pointer'>Signup</Navigation>
+                    </Link>
+                    }
+                    <Navigation>|</Navigation>
+                    {props.user ? 
+                    <Link to='/photo-app/profile' style={{ textDecoration: 'none' }}>
+                        <Navigation cursor='pointer'>Profile</Navigation>
+                    </Link>
+                    :
+                    <Link to='/photo-app/login' style={{ textDecoration: 'none' }}>
+                        <Navigation cursor='pointer'>Log in</Navigation>
+                    </Link>
+                    } 
+                </HeaderRight>
             </Container>
             {props.location.pathname.includes('/photo-app/posts') ? 
             <Subheader setCategoriesVisibility={setCategoriesVisibility} setDropdownCategoriesTransition={setDropdownCategoriesTransition} getCategoryPhotos={getCategoryPhotos} getAssortedPhotos={getAssortedPhotos} displayView={props.displayView} setDisplayView={props.setDisplayView} sort={sort} setSelected={setSelected} selected={selected} setVisibility={setVisibility} setDropdownTransition={setDropdownTransition} setHomePhotoInformation={props.setHomePhotoInformation}/>

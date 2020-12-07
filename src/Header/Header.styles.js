@@ -6,6 +6,10 @@ export const Container = styled.div`
     align-items: center;
     margin: 0px 30px 10px;
     padding: 10px 0 0 0;
+
+    @media(max-width: 550px) {
+        margin: 0 0 10px;
+    }
 `
 
 export const UL = styled.ul`
@@ -48,6 +52,14 @@ export const Navigation = styled.div`
     margin: 0 5px;
     &:hover{
         color: #4a4a4a
+    }
+`
+
+export const HeaderRight = styled.div`
+    display: flex;
+    @media(max-width: 550px){
+        visibility: hidden;
+        display: none;
     }
 `
 
