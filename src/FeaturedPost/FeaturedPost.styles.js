@@ -52,7 +52,7 @@ export const DateStyle = styled.div`
 export const Description = styled.div`
     font-family: ${props=> props.font};
     /* color: white; */
-    width: 65vw;
+    width: 45vw;
     margin: 20px 0;
     font-size: 20px;
     white-space: pre-wrap;

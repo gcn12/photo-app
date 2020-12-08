@@ -9,6 +9,11 @@ import firebase from 'firebase'
 import { motion } from 'framer-motion'
 // import FeaturedPostGallery from '../FeaturedPostGallery/FeaturedPostGallery'
 import { SubmitButton } from '../AddContent/AddContent.styles'
+import { 
+    incrementHeartCount, 
+    decrementHeartCount,
+    calculateLikeRatio,
+} from '../Functions'
 import moment from 'moment'
 import {
     Title,
@@ -93,7 +98,6 @@ const FeaturedPost = (props) => {
             let arr = []
             data.forEach(item=> {
                 arr.push(item.data())
-                console.log(item.data())
             })
             const info = arr[0]
             getImageSize(info.image)
@@ -186,7 +190,14 @@ const FeaturedPost = (props) => {
         }, {merge: true})
         .then(()=> {
             setIsHeart(true)
+            db.collection('preview-posts').where('id', '==', props.photoInformation.id)
+            .get()
+            .then(ref=> {
+                incrementHeartCount(ref.docs[0].ref.id)
+                calculateLikeRatio(ref.docs[0].ref.id)
+            })
         })
+        
     }
 
     const unheartImage = () => {
@@ -198,6 +209,12 @@ const FeaturedPost = (props) => {
             hearts: firebase.firestore.FieldValue.arrayRemove(props.photoInformation.id)
         }, {merge: true}).then(()=> {
             setIsHeart(false)
+            db.collection('preview-posts').where('id', '==', props.photoInformation.id)
+            .get()
+            .then(ref=> {
+                decrementHeartCount(ref.docs[0].ref.id)
+                calculateLikeRatio(ref.docs[0].ref.id)
+            })
         })
     }
 
@@ -271,7 +288,6 @@ const FeaturedPost = (props) => {
                             <Description font={props.photoInformation.font}>{item}</Description>
                             <BodyImageContainer>
                             {props?.photoInformation?.images[index]?.map((image, i)=> {
-                                console.log(props.photoInformation.photoBodyMap[index][i])
                                 return(
                                     <BodyImage margin={props.photoInformation.photoBodyMap[index].length > 1 ? '0 .5%' : '0%'} width={65 * props.photoInformation.photoBodyMap[index][i]} src={image} key={i}></BodyImage>
                                 )

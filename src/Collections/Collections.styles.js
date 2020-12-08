@@ -46,7 +46,7 @@ export const Container = styled.div`
     /* display: flex; */
     /* flex-wrap: wrap; */
     /* justify-content: space-between; */
-    margin: 0 2%;
+    margin: 20px 2% 0 2%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
     grid-gap: 20px;

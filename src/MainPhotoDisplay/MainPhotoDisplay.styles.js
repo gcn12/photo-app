@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const PhotoDescriptionViewContainer = styled.div`
     margin: 2% 7%;
     display: grid;
-    /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
     grid-template-columns: repeat(3, auto);
     grid-column-gap: 2%;
     grid-row-gap: 2%;

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { DisplayPosts } from '../UserPosts/UserPosts'
+import PublicProfilePosts from './PublicProfilePosts'
 import {
     ProfileImage,
     Container,
@@ -15,7 +15,7 @@ const PublicProfile = (props) => {
     
     const { userData, userPosts } = props
     return(
-        <div>
+        <div style={{display: 'flex'}}>
             <div style={{display: 'flex',   flexDirection: "column", alignItems: "center"}}>
                 <Container>
                     <ProfileImage alt='profile' src={userData[0]?.profileImage}></ProfileImage>
@@ -29,7 +29,7 @@ const PublicProfile = (props) => {
                 <PostsContainer>
                 {userPosts?.map((post, index)=> {
                     return(
-                        <DisplayPosts getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} key={index} post={post}/>
+                        <PublicProfilePosts post={post} history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} key={index} />
                     )
                 })}
                 </PostsContainer>

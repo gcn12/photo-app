@@ -61,7 +61,7 @@ const SubheaderDropdown = (props) => {
                     <LI onClick={getAssortedPhotosAndClose} underline={selected === 'assorted' ? true : false}>ASSORTED</LI>
                     <LI onClick={()=>sortPosts('views')} underline={selected === 'views' ? true : false}>POPULAR</LI>
                     <LI onClick={()=>sortPosts('timestamp')} underline={selected === 'timestamp' ? true : false}>NEWEST</LI>
-                    <LI underline={selected === '' ? true : false}>HIGHEST RATED</LI>
+                    <LI onClick={()=>sortPosts('ratio')} underline={selected === 'ratio' ? true : false}>HIGHEST RATED</LI>
                 </UL>
             </CenterList>
         </Container>

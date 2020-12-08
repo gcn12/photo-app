@@ -271,7 +271,7 @@ const AddContent = (props) => {
                     country,
                     continent,
                     author: name,
-                    views: 0,
+                    // views: 0, change back later
                     url,
                     username
                 }).then(docRef => {
@@ -290,12 +290,15 @@ const AddContent = (props) => {
                             previewDescription: descriptionArray[0],
                             title,
                             image: mainImage,
-                            views: 0,
                             category,
                             city,
                             country,
                             continent,
                             url,
+                            // views: 0,
+                            views: Math.round(Math.random*500)+500,
+                            hearts: Math.round(Math.random*300)+100,
+                            ratio: Math.random,
                         })
                         // .then(()=>setUploadProgress(previousUploadProgress=> previousUploadProgress + 1))
                         .then(()=>{

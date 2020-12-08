@@ -42,7 +42,7 @@ const GetPhotos = (props) => {
         window.scrollTo({top: 0})
         if(!homePhotoInformation){
             db.collection('preview-posts')
-            .limit(10)
+            .limit(20)
             .get()
             .then(snapshot => {
                 setStartAfter(snapshot.docs[snapshot.docs.length-1])
@@ -97,9 +97,11 @@ const GetPhotos = (props) => {
             :
             <Container>
                 <div className="image-list">{images}</div>;
-                <SubmitButton onClick={lazy}>Load more</SubmitButton>
             </Container>
             }
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+                <SubmitButton onClick={lazy}>Load more</SubmitButton>
+            </div>
         </div>
        
        )
@@ -117,9 +119,22 @@ class ImageCard extends Component {
     componentDidMount() {
         this.imageRef.current.addEventListener("load", this.setSpans)
         window.addEventListener("resize", ()=>setTimeout(()=> {
-            const height = this.imageRef.current.clientHeight;
-            const spans = Math.ceil(height) + 7;
-            this.setState({ spans: spans });
+            if(this.imageRef.current) {
+                const height = this.imageRef.current.clientHeight;
+                const spans = Math.ceil(height) + 7;
+                this.setState({ spans: spans });
+            }
+        }, 800))
+    }
+
+    componentWillUnmount() {
+        this.imageRef.current.addEventListener("load", this.setSpans)
+        window.addEventListener("resize", ()=>setTimeout(()=> {
+            if(this.imageRef.current) {
+                const height = this.imageRef.current.clientHeight;
+                const spans = Math.ceil(height) + 7;
+                this.setState({ spans: spans });
+                }
         }, 750))
     }
      
@@ -137,7 +152,7 @@ class ImageCard extends Component {
         .get()
         .then(reference=> {
             incrementViewCount(reference.docs[0].ref.id)
-        })
+        }) 
     }
     
     render() {
@@ -145,7 +160,7 @@ class ImageCard extends Component {
             <div style={{ gridRowEnd: `span ${this.state.spans}` }}>
                 <PhotoContainer onClick={this.click}>
                     <PhotoTextContainer>
-                        <Image className='masonry-image' onClick={this.click} ref={this.imageRef} src={this.props.photoInfo.image} alt='main display'  />
+                        <Image className='masonry-image' ref={this.imageRef} src={this.props.photoInfo.image} alt='main display'  />
                         <TextContainer>
                             <PhotoTitle>{this.props.photoInfo.title}</PhotoTitle>
                             <PhotoLocation>{`${this.props.photoInfo.city}, ${this.props.photoInfo.country}`}</PhotoLocation>
