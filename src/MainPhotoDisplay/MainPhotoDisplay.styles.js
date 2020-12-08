@@ -25,13 +25,20 @@ export const LazyButtonContainer = styled.div`
 `
 
 export const Container = styled.div`
-    /* margin: 0 15px;
-    margin-left: 40px;
+    margin: 15px 15px 0 15px;
 
     @media (max-width: 670px) {
-        margin: 0;
-        margin-left: 0px;
-    } */
+        margin: 10px 5px 20px 5px;
+    }
+`
+
+export const ImageList = styled.div`
+    display: grid;
+    /* grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); */
+    grid-template-columns: repeat(4, auto);
+    grid-gap: 0 5px;
+    grid-auto-rows: 1px;
+    justify-items: center;
 `
 
 export const SortSelect = styled.select`

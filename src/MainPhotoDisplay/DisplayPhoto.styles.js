@@ -6,10 +6,10 @@ export const PhotoTextContainer = styled.div`
 
 export const PhotoTitle = styled.div`
     color: white;
-    position: absolute;
-    top: 43%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    /* position: absolute;
+    top: 50%;
+    left: 50%; */
+    /* transform: translate(-50%, -50%); */
     opacity: 0;
     transition: opacity 500ms;
     transition-delay: 250ms;
@@ -18,11 +18,11 @@ export const PhotoTitle = styled.div`
 `
 
 export const PhotoLocation = styled.div`
-    position: absolute;
-    top: 57%;
-    left: 50%;
-    margin-left: -5px;
-    transform: translate(-50%, -50%);
+    /* position: absolute;
+    top: 55%;
+    left: 50%; */
+    /* margin-left: -5px; */
+    /* transform: translate(-50%, -50%); */
     opacity: 0;
     transition: opacity 500ms;
     transition-delay: 250ms;
@@ -31,23 +31,32 @@ export const PhotoLocation = styled.div`
     color: white;
 `
 
+export const TextContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
+
 export const Image = styled.img`
-    /* align-self: end; */
-    margin-bottom: 15px;
     filter: brightness(1);
     transition: 800ms ease;
     transition-delay: 250ms;
 
     @media(min-width: 1100px) {
-        width: 400px;
+        width: 24vw;
     }
 
-    @media(max-width: 1100px) {
+    @media(max-width: 900px) {
         width: 30vw;
     }
 
-    @media(max-width: 700px) {
-        width: 40vw;
+    @media(max-width: 500px) {
+        width: 48vw;
     }
 
     animation: fadeIn ease 3s;
@@ -83,7 +92,6 @@ export const Image = styled.img`
 `
 
 export const PhotoContainer = styled.div`
-
     cursor: pointer;
 
     &:hover ${PhotoTitle}{

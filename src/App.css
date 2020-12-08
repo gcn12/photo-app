@@ -73,11 +73,30 @@ background-clip: padding-box;
     display: grid;
     /* grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); */
     grid-template-columns: repeat(4, auto);
-    grid-gap: 0 10px;
+    grid-gap: 0 5px;
     grid-auto-rows: 1px;
     justify-items: center;
+
 }
 
-.image-list img {
+.masonry-image {
     width: 23vw;
+}
+
+@media only screen and (max-width: 900px) {
+    .image-list{
+        grid-template-columns: repeat(3, auto);
+    }
+    .masonry-image {
+        width: 30vw;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .image-list{
+        grid-template-columns: repeat(2, auto);
+    }
+    .masonry-image {
+        width: 48vw;
+    }
 }

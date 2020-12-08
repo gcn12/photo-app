@@ -9,11 +9,12 @@ import {
 } from './MainPhotoDisplay.styles'
 import { SubmitButton, } from '../AddContent/AddContent.styles'
 import { 
-    Image, 
+    Image,
     PhotoContainer,
     PhotoTitle,
     PhotoTextContainer,
     PhotoLocation,
+    TextContainer,
 } from './DisplayPhoto.styles'
 
 const GetPhotos = (props) => {
@@ -119,13 +120,7 @@ class ImageCard extends Component {
             const height = this.imageRef.current.clientHeight;
             const spans = Math.ceil(height) + 7;
             this.setState({ spans: spans });
-        }, 1000))
-    }
-
-    setSpans2 = () => { 
-        const height = this.imageRef.current.clientHeight;
-        const spans = Math.ceil(height) + 7;
-        this.setState({ spans: spans });
+        }, 750))
     }
      
     setSpans = () => { 
@@ -146,13 +141,15 @@ class ImageCard extends Component {
     }
     
     render() {
-        return(
+        return( 
             <div style={{ gridRowEnd: `span ${this.state.spans}` }}>
                 <PhotoContainer onClick={this.click}>
                     <PhotoTextContainer>
-                        <Image onClick={this.click} ref={this.imageRef} src={this.props.photoInfo.image} alt='main display'  />
-                        <PhotoTitle>{this.props.photoInfo.title}</PhotoTitle>
-                        <PhotoLocation>{`${this.props.photoInfo.city}, ${this.props.photoInfo.country}`}</PhotoLocation>
+                        <Image className='masonry-image' onClick={this.click} ref={this.imageRef} src={this.props.photoInfo.image} alt='main display'  />
+                        <TextContainer>
+                            <PhotoTitle>{this.props.photoInfo.title}</PhotoTitle>
+                            <PhotoLocation>{`${this.props.photoInfo.city}, ${this.props.photoInfo.country}`}</PhotoLocation>
+                        </TextContainer>
                     </PhotoTextContainer>
                 </PhotoContainer>
             </div>

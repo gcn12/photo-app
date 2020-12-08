@@ -43,7 +43,9 @@ const Subheader = (props) => {
                         <div className='categories-dropdown'>
                             <CategoriesButton className='categories-dropdown' onClick={()=>setShowCategories(!showCategories)}>Categories &#x25BC;</CategoriesButton>
                             {showCategories ? 
-                            <SubheaderCategories getCategoryPhotos={props.getCategoryPhotos} className='categories-dropdown' />
+                            <div style={{position: 'relative'}}>
+                                <SubheaderCategories getCategoryPhotos={props.getCategoryPhotos} className='categories-dropdown' />
+                            </div>
                             :
                             null
                             }
