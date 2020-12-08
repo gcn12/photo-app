@@ -24,7 +24,7 @@ const GetPhotos = (props) => {
     const lazy = () => {
         db.collection('preview-posts')
         .startAt(startAfter)
-        .limit(15)
+        .limit(2)
         .get()
         .then(snapshot => {
             setStartAfter(snapshot.docs[snapshot.docs.length-1])
@@ -41,7 +41,7 @@ const GetPhotos = (props) => {
         window.scrollTo({top: 0})
         if(!homePhotoInformation){
             db.collection('preview-posts')
-            .limit(28)
+            .limit(2)
             .get()
             .then(snapshot => {
                 setStartAfter(snapshot.docs[snapshot.docs.length-1])
@@ -114,10 +114,12 @@ class ImageCard extends Component {
     }
 
     componentDidMount() {
-        this.imageRef.current.addEventListener("load", this.setSpans);
+        this.imageRef.current.addEventListener("load", this.setSpans)
+        window.addEventListener("resize", this.setSpans)
     }
      
     setSpans = () => { 
+        console.log('working')
         const height = this.imageRef.current.clientHeight;
         const spans = Math.ceil(height) + 7;
         this.setState({ spans: spans });
