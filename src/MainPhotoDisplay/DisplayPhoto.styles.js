@@ -39,7 +39,7 @@ export const Image = styled.img`
     transition-delay: 250ms;
 
     @media(min-width: 1100px) {
-        width: 22vw;
+        width: 400px;
     }
 
     @media(max-width: 1100px) {

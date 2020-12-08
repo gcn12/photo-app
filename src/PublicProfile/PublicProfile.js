@@ -3,7 +3,7 @@ import { DisplayPosts } from '../UserPosts/UserPosts'
 import {
     ProfileImage,
     Container,
-    // PostsContainer,
+    PostsContainer,
 } from './PublicProfile.styles'
 
 const PublicProfile = (props) => {
@@ -24,16 +24,16 @@ const PublicProfile = (props) => {
                     <div>{userData[0]?.bio}</div>
                 </Container>
             </div>
-                {/* <PostsContainer> */}
                 <div>
 
+                <PostsContainer>
                 {userPosts?.map((post, index)=> {
                     return(
                         <DisplayPosts getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} key={index} post={post}/>
                     )
                 })}
+                </PostsContainer>
                 </div>
-                {/* </PostsContainer> */}
         </div>
     )
 }

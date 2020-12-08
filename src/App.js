@@ -6,7 +6,7 @@ import Header from './Header/Header'
 import VerticalScroll from './VeritcalScroll/VerticalScroll'
 import Discover from './Discover/Discover'
 import FeaturedPost from './FeaturedPost/FeaturedPost'
-import MainPhotoDisplay from './MainPhotoDisplay/MainPhotoDisplay'
+import MainPhotoDisplay from './MainPhotoDisplay/MainPhotoDisplayNew'
 import Profile from './Profile/Profile'
 import Login from './Login/Login'
 import PublicProfile from './PublicProfile/PublicProfile'
@@ -80,11 +80,13 @@ const App = () => {
 
   return (
     <div>
-      {/* <TestFile />  */}
 
       <Route path='/photo-app/' render={(props)=> (
         <Header {...props} displayView={displayView} setDisplayView={setDisplayView} setHomePhotoInformation={setHomePhotoInformation} user={user}/>
       )} />
+
+
+      {/* <TestFile homePhotoInformation={homePhotoInformation}  setHomePhotoInformation={setHomePhotoInformation}  />  */}
 
       <Route path='/photo-app/' render={(props)=> (
         <Footer {...props} />

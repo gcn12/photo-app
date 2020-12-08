@@ -25,13 +25,11 @@ export const Container = styled.div`
 `
 
 export const PostsContainer = styled.div`
-    /* display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between; */
-    /* margin: 0 5%; */
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-    grid-gap: 20px;
-    align-items: stretch;
+    /* grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); */
+    grid-template-columns: repeat(4, auto);
+    grid-column-gap: 10px;
+    /* align-items: stretch; */
     justify-items: center;
+    justify-content: center;
 `

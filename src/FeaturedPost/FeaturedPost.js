@@ -258,7 +258,7 @@ const FeaturedPost = (props) => {
                     :
                     null}
                     <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} style={{textDecoration: 'none'}}>
-                    <Author font={props?.photoInformation?.font}>{props?.photoInformation?.author}</Author>
+                    <Author font={props?.photoInformation?.font}>{props?.photoInformation?.author} | {props?.photoInformation?.username}</Author>
                     {/* <Author onClick={()=>props.getUserProfile(props.photoInformation.username)} font={props.photoInformation.font}>{props.photoInformation?.author}</Author> */}
                     </Link>
                     <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</DateStyle>

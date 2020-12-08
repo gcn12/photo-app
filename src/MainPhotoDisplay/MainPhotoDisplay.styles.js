@@ -25,13 +25,13 @@ export const LazyButtonContainer = styled.div`
 `
 
 export const Container = styled.div`
-    margin: 0 15px;
+    /* margin: 0 15px;
     margin-left: 40px;
 
     @media (max-width: 670px) {
         margin: 0;
         margin-left: 0px;
-    }
+    } */
 `
 
 export const SortSelect = styled.select`

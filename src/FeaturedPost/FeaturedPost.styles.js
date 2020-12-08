@@ -36,6 +36,7 @@ export const MainImage = styled.img`
 
 export const Author = styled.div`
     color: #242424;
+    font-size: 20px;
     /* color: #242424; */
     cursor: pointer;
     font-family: ${props=> props.font};
@@ -44,6 +45,7 @@ export const Author = styled.div`
 export const DateStyle = styled.div`
     /* color: #242424; */
     font-family: ${props=> props.font};
+    font-size: 20px;
 `
 
 export const Description = styled.div`
