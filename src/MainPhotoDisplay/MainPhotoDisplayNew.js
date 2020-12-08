@@ -41,7 +41,7 @@ const GetPhotos = (props) => {
         window.scrollTo({top: 0})
         if(!homePhotoInformation){
             db.collection('preview-posts')
-            .limit(2)
+            .limit(10)
             .get()
             .then(snapshot => {
                 setStartAfter(snapshot.docs[snapshot.docs.length-1])
@@ -115,11 +115,20 @@ class ImageCard extends Component {
 
     componentDidMount() {
         this.imageRef.current.addEventListener("load", this.setSpans)
-        window.addEventListener("resize", this.setSpans)
+        window.addEventListener("resize", ()=>setTimeout(()=> {
+            const height = this.imageRef.current.clientHeight;
+            const spans = Math.ceil(height) + 7;
+            this.setState({ spans: spans });
+        }, 1000))
+    }
+
+    setSpans2 = () => { 
+        const height = this.imageRef.current.clientHeight;
+        const spans = Math.ceil(height) + 7;
+        this.setState({ spans: spans });
     }
      
     setSpans = () => { 
-        console.log('working')
         const height = this.imageRef.current.clientHeight;
         const spans = Math.ceil(height) + 7;
         this.setState({ spans: spans });
