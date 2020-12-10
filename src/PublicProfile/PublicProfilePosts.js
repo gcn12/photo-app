@@ -14,7 +14,6 @@ const PublicProfilesPosts = (props) => {
 
     return(
         <Container onClick={selectPhoto}>
-            {console.log(props.post)}
             <Image src={props.post.image} alt=''></Image>
             <Title>{props.post.title}</Title>
             <Title>{`${props.post.city}, ${props.post.country}`}</Title>

@@ -15,7 +15,9 @@ const DisplayPhoto = (props) => {
         // props.getPost(props.info.id)
         props.setCollectionsList([])
         props.getFeaturedPhotoInfo(props.info.url, props.info.username)
-        db.collection('preview-posts').where('image', '==', props.url)
+        db.collection('preview-posts')
+        .where('image', '==', props.url)
+        .where('username', '==', props.username)
         .get()
         .then(reference=> {
             incrementViewCount(reference.docs[0].ref.id)

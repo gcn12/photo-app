@@ -61,10 +61,8 @@ export const Description = styled.div`
 `
 
 export const BodyImage = styled.img`
-    width: ${props=> `${props.width}vw`};
-    /* width: calc(var(--vh, 1vh) * ${props=> `${props.width}`}); */
-    height: auto;
-    /* margin: 0 .5%; */
+    width: ${props=> `${props.width}`};
+    max-height: 90vh;
     margin: ${props=> props.margin}
 `
 

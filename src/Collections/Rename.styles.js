@@ -2,16 +2,29 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     height: 200px;
-    width: 500px;
+    /* width: 500px; */
+    width: 30vw;
     background-color: #f5f5f5;
     margin: auto;
-    position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
+    /* position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0; */
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     padding: 20px;
     box-shadow: 0px 0px 1px 100vmax rgba(0,0,0,0.8);
+
+    @media (max-width: 1100px) {
+        width: 40vw;
+    }
+    @media (max-width: 800px) {
+        width: 60vw;
+        height: 180px;
+    }
 `
 
 export const Text = styled.div`

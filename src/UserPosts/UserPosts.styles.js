@@ -12,6 +12,16 @@ export const Photo = styled.img`
     border-radius: 50%;
 `
 
+export const GearIcon = styled.img`
+    position: absolute;
+    left: 300;
+    top: 100;
+    transform: translate(270%, 10%);
+    z-index: 0;
+    visibility: ${props=> props.visibility};
+    display: ${props=> props.display};
+`
+
 export const PostsContainer = styled.div`
     /* display: flex;
     flex-wrap: wrap;
@@ -25,12 +35,25 @@ export const PostsContainer = styled.div`
 `
 
 export const PostContainer = styled.div`
+    height: 100%;
+    width: 100%;
     margin: 20px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    /* &:hover ${GearIcon} {
+        visibility: visible;
+        display: initial;
+    } */
+    ${props => props.shouldHover 
+        ? `&:hover ${GearIcon} {
+            visibility: visible;
+            display: initial;
+        }` 
+        : ''
+    }
 `
 
 export const PostTitle = styled.div`

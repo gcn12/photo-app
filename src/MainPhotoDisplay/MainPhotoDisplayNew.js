@@ -96,7 +96,7 @@ const GetPhotos = (props) => {
             </PhotoDescriptionViewContainer>
             :
             <Container>
-                <div className="image-list">{images}</div>;
+                <div className="image-list">{images}</div>
             </Container>
             }
             <div style={{display: 'flex', justifyContent: 'center'}}>

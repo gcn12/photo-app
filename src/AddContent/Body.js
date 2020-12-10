@@ -129,6 +129,7 @@ const Body = (props) => {
     }
 
     const newParagraph = () => {
+        console.log(document.getElementById('content-paragraph-original').value)
         const input = document.createElement('textarea')
         input.className='add-content-description-input content-paragraph additional-item'
         const parent = document.getElementById('content-form')

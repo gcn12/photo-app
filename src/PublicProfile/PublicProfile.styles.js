@@ -11,7 +11,7 @@ export const ProfileImage = styled.img`
 export const Container = styled.div`
     width: 250px;
     height: 600px;
-    background-color: white;
+    background-color: #fcfcfc;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,10 +24,10 @@ export const Container = styled.div`
 
 export const PostsContainer = styled.div`
     display: grid;
-    /* grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); */
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    /* grid-template-columns: repeat(3, auto); */
     grid-column-gap: 30px;
-    /* align-items: stretch; */
-    justify-items: center;
-    justify-content: center;
+    margin: 0 50px 0 400px;
+    justify-items: end;
+    justify-content: end;
 `

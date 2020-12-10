@@ -44,7 +44,14 @@ const TitlePhoto = (props) => {
         <div>
             <Container visibility={props.animationMap.titlePhoto[props.titlePhotoProps].opacity} initial='initial' transition='transition' variants={props.animationMap.titlePhoto} animate={props.titlePhotoProps}>
                 <Label>Create a title:</Label>
-                <TextInput onChange={checkProceed} autoComplete='off' id='add-content-title'></TextInput>
+                <div>
+                    <TextInput onChange={checkProceed} autoComplete='off' id='add-content-title'></TextInput>
+                    {props.isDuplicate ? 
+                    <div style={{color: '#e04343'}}>Title already used</div>
+                    :
+                    null
+                    }
+                </div>
                 <Label>Upload header photo:</Label>
                 <input hidden onChange={displayImage} id='photo-input' type='file' className='photo-input'></input>
                 <FileUpload htmlFor='photo-input'>Select image</FileUpload>

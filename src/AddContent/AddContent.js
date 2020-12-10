@@ -203,6 +203,7 @@ const AddContent = (props) => {
     const [categoryLocationProceed, setCategoryLocationProceed] = useState(false)
     const [bodyProceed, setBodyProceed] = useState(false)
     const [fontProceed, setFontProceed] = useState(true)
+    const [isDuplicate, setIsDuplicate] = useState(false)
 
     const submit = (imagesEmptyArrays, unsortedImages, imageMap, user, imageSizeArray) => {
         const title = document.getElementById('add-content-title').value
@@ -246,71 +247,80 @@ const AddContent = (props) => {
         .get()
         .then(data=> {
             const name = data.data().name
-
-        db.collection('users')
-        .doc(props.user)
-        .get()
-        .then(data=> {
-            const username = data.data()['username']
-            db.collection('continents-countries').doc('map').collection(country)
-            .where(country, 'in', ['North America', 'South America', 'Asia', 'Europe', 'Oceania', 'Africa'])
+            db.collection('users')
+            .doc(props.user)
             .get()
-            .then(data => {
-                setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-                const continent = data.docs[0].data()[country]
-                db.collection('posts').add({
-                    font,
-                    photoBodyMap: imageSizeArray,
-                    content: descriptionArray,
-                    images: urlObject,
-                    title,
-                    timestamp,
-                    image: mainImage,
-                    category,
-                    city,
-                    country,
-                    continent,
-                    author: name,
-                    // views: 0, change back later
-                    url,
-                    username
-                }).then(docRef => {
+            .then(data=> {
+                const username = data.data()['username']
+                db.collection('continents-countries').doc('map').collection(country)
+                .where(country, 'in', ['North America', 'South America', 'Asia', 'Europe', 'Oceania', 'Africa'])
+                .get()
+                .then(data => {
                     setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-                    db.collection('posts').doc(docRef.id).set({
-                        id: docRef.id,
-                    }, {merge: true}) 
-                    .then(()=> {
+                    const continent = data.docs[0].data()[country]
+                    db.collection('posts').add({
+                        font,
+                        photoBodyMap: imageSizeArray,
+                        content: descriptionArray,
+                        images: urlObject,
+                        title,
+                        timestamp,
+                        image: mainImage,
+                        category,
+                        city,
+                        country,
+                        continent,
+                        author: name,
+                        // views: 0, change back later
+                        url,
+                        username
+                    }).then(docRef => {
                         setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-                        db.collection('preview-posts').add({
-                            reference: `/posts/${docRef.id}`,
-                            username,
-                            timestamp,
+                        db.collection('posts').doc(docRef.id).set({
                             id: docRef.id,
-                            author: name,
-                            previewDescription: descriptionArray[0],
-                            title,
-                            image: mainImage,
-                            category,
-                            city,
-                            country,
-                            continent,
-                            url,
-                            // views: 0,
-                            views: Math.round(Math.random*500)+500,
-                            hearts: Math.round(Math.random*300)+100,
-                            ratio: Math.random,
-                        })
-                        // .then(()=>setUploadProgress(previousUploadProgress=> previousUploadProgress + 1))
-                        .then(()=>{
-                            console.log('uploaded')
-                            setTimeout(()=>setUploadProgressColor(true), 300)
-                            setTimeout(()=>props.getFeaturedPhotoInfo(url, username), 2000)
-                            setTimeout(()=>props.history.push(`/photo-app/post/${username}/${url}`), 2000)
-                        })
-                    })              
+                        }, {merge: true}) 
+                        .then(()=> {
+                            const views = Math.round(Math.random()*500)+500
+                            const hearts = Math.round(Math.random()*300)+100
+                            const ratio = hearts / views
+                            setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+                            db.collection('preview-posts').add({
+                                reference: `/posts/${docRef.id}`,
+                                username,
+                                timestamp,
+                                id: docRef.id,
+                                author: name,
+                                previewDescription: descriptionArray[0],
+                                title,
+                                image: mainImage,
+                                category,
+                                city,
+                                country,
+                                continent,
+                                url,
+                                // views: 0,
+                                views,
+                                hearts,
+                                ratio,
+                            })
+                            // .then(()=>setUploadProgress(previousUploadProgress=> previousUploadProgress + 1))
+                            .then(()=>{
+                                db.collection('users')
+                                .doc(props.user)
+                                .collection('post-names')
+                                .doc('post-names')
+                                .set({
+                                    'post-names': firebase.firestore.FieldValue.arrayUnion(url)
+                                }, {merge: true})
+                                console.log('uploaded')
+                                setTimeout(()=>setUploadProgressColor(true), 300)
+                                setTimeout(()=>props.getFeaturedPhotoInfo(url, username), 2000)
+                                setTimeout(()=>props.history.push(`/photo-app/post/${username}/${url}`), 2000)
+                            })
+                        })              
+                    })
                 })
             })
-        })
         })
     }
     
@@ -379,8 +389,35 @@ const AddContent = (props) => {
     }
 
     const getParagraphSample = () => {
+        let paragraphArr = []
         const paragraph = document.getElementById('content-paragraph-original').value
-        setParagraph(paragraph)
+        paragraphArr.push(paragraph)
+        setParagraph(paragraphArr)
+    }
+
+    const checkTitleDuplicates = () => {
+        const title = document.getElementById('add-content-title').value
+        let url = title.replaceAll(' ', '-')
+        url = url.toLowerCase()
+        db.collection('users').doc(props.user)
+        .collection('post-names')
+        .where('post-names', 'array-contains', url)
+        .get()
+        .then(data=> {
+            let dataArray = []
+            data.forEach(item=> {
+                dataArray.push(item.data())
+            })
+            if(dataArray.length > 0){
+                setIsDuplicate(true)
+                setTitlePhotoProceed(false)
+            }else{
+                setIsDuplicate(false)
+                setTitlePhotoProps('transitionEnd')
+                setCategoryLocationProps('transitionStart')
+                setSwitchValue(2)
+            }
+        })
     }
 
     const getBodyImages = () => {
@@ -403,9 +440,10 @@ const AddContent = (props) => {
         switch(switchValue) {
             case 1:
                 if(titlePhotoProceed) {
-                    setTitlePhotoProps('transitionEnd')
-                    setCategoryLocationProps('transitionStart')
-                    setSwitchValue(2)
+                    checkTitleDuplicates()
+                    // setTitlePhotoProps('transitionEnd')
+                    // setCategoryLocationProps('transitionStart')
+                    // setSwitchValue(2)
                 }
                 break
             case 2:
@@ -486,7 +524,7 @@ const AddContent = (props) => {
             </div>
             }
             <Scroll scrollHeight='90vh' visibility={animationMap.titlePhoto[titlePhotoProps].opacity}>
-                <TitlePhoto setTitlePhotoProceed={setTitlePhotoProceed} setIsImageHorizontal={setIsImageHorizontal} setMainImage={setMainImage} animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} titlePhotoProps={titlePhotoProps}/>
+                <TitlePhoto isDuplicate={isDuplicate} setTitlePhotoProceed={setTitlePhotoProceed} setIsImageHorizontal={setIsImageHorizontal} setMainImage={setMainImage} animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} titlePhotoProps={titlePhotoProps}/>
             </Scroll>
             <Scroll scrollHeight='90vh' visibility={animationMap.categoryLocation[categoryLocationProps].opacity}>
                 <CategoryLocation setCategoryLocationProceed={setCategoryLocationProceed} animationMap={animationMap} categoryLocation={categoryLocationProps}/>

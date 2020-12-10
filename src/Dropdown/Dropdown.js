@@ -87,7 +87,8 @@ const DropdownItem = (props) => {
         .then(data => {
             data.docs[0].ref.delete()
             .then(()=> {
-                updateCollectionPreview(false)
+                // updateCollectionPreview(false)
+                remove()
             })
         })
     }

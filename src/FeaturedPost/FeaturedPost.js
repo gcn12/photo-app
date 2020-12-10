@@ -289,7 +289,7 @@ const FeaturedPost = (props) => {
                             <BodyImageContainer>
                             {props?.photoInformation?.images[index]?.map((image, i)=> {
                                 return(
-                                    <BodyImage margin={props.photoInformation.photoBodyMap[index].length > 1 ? '0 .5%' : '0%'} width={65 * props.photoInformation.photoBodyMap[index][i]} src={image} key={i}></BodyImage>
+                                    <BodyImage margin={props.photoInformation.photoBodyMap[index].length > 1 ? '0 .5%' : '0%'} width={props.photoInformation.photoBodyMap[index].length > 1 ? `${65 * props.photoInformation.photoBodyMap[index][i]}vw` : 'auto'} src={image} key={i}></BodyImage>
                                 )
                             })}
                             </BodyImageContainer>

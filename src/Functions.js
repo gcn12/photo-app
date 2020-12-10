@@ -1,30 +1,36 @@
 import { db } from "./Firebase"
-import firebase from 'firebase'
+// import firebase from 'firebase'
 
+
+// export const incrementViewCount = (docID) => {
+//     const increment = firebase.firestore.FieldValue.increment(1)
+//     db.collection('preview-posts').doc(docID)
+//     .update({
+//         views: increment
+//     })
+//     .then(()=>null)
+// }
 
 export const incrementViewCount = (docID) => {
-    const increment = firebase.firestore.FieldValue.increment(1)
-    db.collection('preview-posts').doc(docID)
-    .update({
-        views: increment
+    db.collection('pending-views')
+    .add({
+        id: docID
     })
     .then(()=>null)
 }
 
 export const incrementHeartCount = (docID) => {
-    const increment = firebase.firestore.FieldValue.increment(1)
-    db.collection('preview-posts').doc(docID)
-    .update({
-        hearts: increment
+    db.collection('pending-increment-hearts')
+    .add({
+        id: docID
     })
     .then(()=>null)
 }
 
 export const decrementHeartCount = (docID) => {
-    const increment = firebase.firestore.FieldValue.increment(-1)
-    db.collection('preview-posts').doc(docID)
-    .update({
-        hearts: increment
+    db.collection('pending-decrement-hearts')
+    .add({
+        id: docID
     })
     .then(()=>null)
 }

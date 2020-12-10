@@ -39,8 +39,9 @@ export const LI = styled.li`
 
 export const Border = styled.div`
     /* position: fixed; */
-    background-color: #f5f5f5;
-    border-bottom: 1px solid #c9c9c9;
+    background-color: #fcfcfc;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+    /* box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, .1); */
 `
 
 export const Navigation = styled.div`

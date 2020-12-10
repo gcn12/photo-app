@@ -18,6 +18,7 @@ export const Paragraph = styled.div`
     padding: 20px 20%;
     font-family: ${props=> props.font};
     text-align: justify;
+    white-space: pre-line;
 `
 
 export const FontOption = styled.option`
