@@ -78,13 +78,26 @@ const App = () => {
     })
   }, [])
 
+  const testDelete = () => {
+    const ref = firebase.storage().ref('chris123/image-test')
+    ref.listAll()
+    .then(data=> {
+      data.items.forEach(item=> {
+        console.log(item)
+        const deleteRef = firebase.storage().ref(ref.fullPath)
+        const childRef = deleteRef.child(item.name)
+        childRef.delete()
+      })
+    })
+  }
+
   return (
     <div>
-
       <Route path='/photo-app/' render={(props)=> (
         <Header {...props} displayView={displayView} setDisplayView={setDisplayView} setHomePhotoInformation={setHomePhotoInformation} user={user}/>
-      )} />
+        )} />
 
+        
 
       {/* <TestFile homePhotoInformation={homePhotoInformation}  setHomePhotoInformation={setHomePhotoInformation}  />  */}
 
@@ -146,7 +159,7 @@ const App = () => {
         )} />
 
         <Route exact path='/photo-app/posts/:sort?' render={(props)=> (
-          <VerticalScroll scrollHeight='87vh'>
+          // <VerticalScroll scrollHeight='90vh'>
             <MainPhotoDisplay 
               displayView={displayView}
               getFeaturedPhotoInfo={getFeaturedPhotoInfo}
@@ -155,9 +168,10 @@ const App = () => {
               setPhotoInformation={setPhotoInformation} 
               {...props}
             />
-          </VerticalScroll>
+          // </VerticalScroll>
         )} />
       </Switch>
+      {/* <button onClick={testDelete}>Delete</button> */}
     </div>
   );
 }

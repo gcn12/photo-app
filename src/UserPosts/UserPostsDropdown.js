@@ -9,9 +9,11 @@ import {
 
 const PostDropdown = (props) => {
 
-    const renameCollection = () => {
-        props.setShowRename(true)
+    const editPost = () => {
+        // props.setShowRename(true)
         // props.setCollectionName(props.collectionName)
+        props.setShowEdit(true)
+        props.getPostData()
     }
 
     const deletePost = () => {
@@ -25,7 +27,7 @@ const PostDropdown = (props) => {
             <Options>
                 <div style={{display: 'flex', alignItems:'center'}}>
                     <Edit style={{height: '20px', width: '20px'}} />
-                    <Option onClick={renameCollection}>Edit</Option>
+                    <Option onClick={editPost}>Edit</Option>
                 </div>
                 <div style={{display: 'flex', alignItems:'center'}}>
                     <TrashCan style={{height: '20px', width: '20px'}} />

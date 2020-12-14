@@ -146,6 +146,7 @@ export const DescriptionInput = styled.textarea`
     width: 60vw;
     height: 150px;
     font-size: 20px;
+    margin-bottom: 20px;
 `
 
 export const SelectInput = styled.select`
@@ -162,5 +163,5 @@ export const Label = styled.label`
 export const BodyButtonContainer = styled.div`
     display: flex;
     align-items: center;
-    margin-bottom: 80px;
+    margin-bottom: 50px;
 `

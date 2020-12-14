@@ -72,7 +72,7 @@ const GetPhotos = (props) => {
     });
 
     return(
-        <div>
+        <div style={{marginTop: '120px'}}>
             {props.displayView ? 
             <PhotoDescriptionViewContainer>
                 {props.homePhotoInformation ? props.homePhotoInformation.map((photo, index)=> {

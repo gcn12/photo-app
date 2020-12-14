@@ -122,7 +122,7 @@ const Collections = (props) => {
             null
             }
             {showDelete ? 
-            <Delete collectionName={collectionName} setShowDelete={setShowDelete} />
+            <Delete setCollectionInfo={setCollectionInfo} collectionInfo={collectionInfo} user={props.user} collectionName={collectionName} setShowDelete={setShowDelete} />
             :
             null
             }

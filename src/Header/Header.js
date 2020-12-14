@@ -93,7 +93,7 @@ const Header = (props) => {
     }
 
     return(
-        <div>
+        <div style={{position: 'fixed', top: 0, width: '100%', marginBottom: '20px', zIndex:2}}>
             {!props.location.pathname.includes('/photo-app/upload') ? 
             <Border>
                 <SubheaderDropdown getAssortedPhotos={getAssortedPhotos} sort={sort} setSelected={setSelected} selected={selected} setHomePhotoInformation={props.setHomePhotoInformation} setVisibility={setVisibility} visibility={visibility} dropdownTransition={dropdownTransition} setDropdownTransition={setDropdownTransition}/>

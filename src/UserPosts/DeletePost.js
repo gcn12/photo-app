@@ -10,11 +10,13 @@ import {
 const DeletePost = (props) => {
     
     const deleteCollection = () => {
+        console.log(props.user)
         db.collection('pending-delete-post')
         .add({
             username: props.username,
             url: props.url,
             image: props.image,
+            id: props.user,
         }).then(()=> {
             props.removePostFromPosts(props.index)
         })

@@ -198,7 +198,7 @@ const AddContent = (props) => {
     const [uploadProgressColor, setUploadProgressColor] = useState(false)
     const [paragraph, setParagraph] = useState('')
     const [isImageHorizontal, setIsImageHorizontal] = useState(true)
-    const [font, setFont] = useState('')
+    const [font, setFont] = useState("'Castoro', serif;")
     const [titlePhotoProceed, setTitlePhotoProceed] = useState(false)
     const [categoryLocationProceed, setCategoryLocationProceed] = useState(false)
     const [bodyProceed, setBodyProceed] = useState(false)
@@ -216,7 +216,8 @@ const AddContent = (props) => {
         const descriptionArray = []
         const content = document.getElementsByClassName('content-paragraph')
 
-        let url = title.replaceAll(' ', '-')
+        let titleNoBlankSpace = title.trim()
+        let url = titleNoBlankSpace.replaceAll(' ', '-')
         url = url.toLowerCase()
     
         for (let i=0; i<content.length; i++) {
@@ -347,36 +348,46 @@ const AddContent = (props) => {
         const urlArray = []
         let index = []
         let indexNum = 0
-        const upload = () => {
-            if(indexNum<fileArray.length) {
-                const file = fileArray[indexNum]
-                const metadata = {
-                    contentType: file.type
+        db.collection('users')
+        .doc(props.user)
+        .get()
+        .then(userData=> {
+            const title = document.getElementById('add-content-title').value
+            let url = title.replaceAll(' ', '-')
+            url = url.toLowerCase()
+            const username = userData.data().username
+            const upload = () => {
+                if(indexNum<fileArray.length) {
+                    const random = Math.round(Math.random()*1000000)
+                    const file = fileArray[indexNum]
+                    const metadata = {
+                        contentType: file.type
+                    }
+                    firebase.storage().ref()
+                    .child(`${username}/${url}/${file.name}${random}`)
+                    .put(file, metadata)
+                    .then(snapshot => {
+                        snapshot.ref.getDownloadURL()
+                        .then(downloadURL => {
+                            urlArray.push(downloadURL)  
+                            indexNum++ 
+                            index.push(downloadURL) 
+                        }).then((downloadURL)=> {
+                            setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+                            if(urlArray.length===fileArray.length) {
+                                submit(photoUrlArraySorted, [...urlArray, downloadURL], photoIndexes, user, imageSizeArray)
+                            }else{
+                                upload()
+                            }
+                        })
+                        .catch(error => console.log(error))
+                    });
+                }else{
+                    return
                 }
-                firebase.storage().ref()
-                .child(file.name)
-                .put(file, metadata)
-                .then(snapshot => {
-                    snapshot.ref.getDownloadURL()
-                    .then(downloadURL => {
-                        urlArray.push(downloadURL)  
-                        indexNum++ 
-                        index.push(downloadURL) 
-                    }).then((downloadURL)=> {
-                        setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-                        if(urlArray.length===fileArray.length) {
-                            submit(photoUrlArraySorted, [...urlArray, downloadURL], photoIndexes, user, imageSizeArray)
-                        }else{
-                            upload()
-                        }
-                    })
-                    .catch(error => console.log(error))
-                });
-            }else{
-                return
             }
-        }
-        upload()
+            upload()
+        })
     }
 
     const getBodyContent = () => {
@@ -467,6 +478,7 @@ const AddContent = (props) => {
                 getBodyContent()
                 getBodyImages()
                 setSwitchValue(5)
+                props.setPhotoInformation([])
             break
                 case 5: 
                 setPreviewProps('transitionEnd')
@@ -511,13 +523,13 @@ const AddContent = (props) => {
 
     return(
         <div>
-            <NextButton proceed={1} width='130px' onClick={()=>props.history.goBack()}>Back</NextButton>
             <UploadProgress uploadProgressColor={uploadProgressColor} animate={uploadStatusProps} variants={animationMap.uploadStatus} uploadCount={uploadCount} uploadProgress={uploadProgress}/>
             {switchValue === 6 ? 
             null
             :
             <div>
 
+            <NextButton proceed={1} width='130px' onClick={()=>props.history.goBack()}>Back</NextButton>
             <Scroll scrollHeight='90vh' visibility={animationMap.preview[previewProps].opacity}>
                 <Preview font={font} isImageHorizontal={isImageHorizontal} imageSizeRatio={imageSizeRatio} bodyImages={bodyImages} bodyContent={bodyContent} mainImage={mainImage} previewProps={previewProps} animationMap={animationMap}></Preview>
             </Scroll>

@@ -15,7 +15,7 @@ export const Container = styled.div`
     flex-direction: column;
     padding: 10px 20px 20px 20px;
     box-shadow: 0px 0px 1px 100vmax rgba(0,0,0,0.8);
-    z-index: 1;
+    z-index: 3;
     @media (max-width: 1100px) {
         width: 40vw;
     }

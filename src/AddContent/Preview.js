@@ -72,7 +72,7 @@ const Preview = (props) => {
                 </Container> 
                 {props.bodyContent.map((item, index) => {
                     return(
-                        <BodyContainer margin='90px' key={index}>
+                        <BodyContainer margin='0px' key={index}>
                             <Description font={props.font}>{item}</Description>
                             <BodyImageContainer>
                             {props?.bodyImages[index]?.map((image, i)=> {

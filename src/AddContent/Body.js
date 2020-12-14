@@ -106,7 +106,6 @@ const Body = (props) => {
         checkAdditionalElement()
         image.onchange = ()=> {
             getImageMap(`image-input-${numberInputs}`, `image-div-${numberInputs}`)
-            // props.setBody('shiftUp')
             const buttons = document.getElementById('body-scroll-here');
             buttons.scrollIntoView();
         }
@@ -129,17 +128,13 @@ const Body = (props) => {
     }
 
     const newParagraph = () => {
-        console.log(document.getElementById('content-paragraph-original').value)
         const input = document.createElement('textarea')
         input.className='add-content-description-input content-paragraph additional-item'
         const parent = document.getElementById('content-form')
         parent.appendChild(input)
         setIsAddImage(!isAddImage)
         checkAdditionalElement()
-        // if(document.getElementsByClassName('add-content-description-input').length > 0){
-        //     props.setBody('shiftUp')
-        // }
-     }
+    }
 
     const checkAdditionalElement = () => {
         const additionalElements = document.getElementsByClassName('additional-item')

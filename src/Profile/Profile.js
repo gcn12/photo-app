@@ -14,7 +14,7 @@ import {
 const Profile = (props) => {
     const [profilePage, setProfilePage] = useState(props.match.params.route)
     return(
-        <div>
+        <div style={{marginTop: '52px'}}>
             <SubmitButton onClick={()=>props.history.goBack()}>Back</SubmitButton>
             <Container>
                 <HeaderContainer>

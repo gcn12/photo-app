@@ -10,6 +10,7 @@ import {
 const Delete = (props) => {
     
     const deleteCollection = () => {
+        props.setShowDelete(false)
         db.collection('users')
         .doc(props.user)
         .collection('collection-names')
@@ -31,10 +32,10 @@ const Delete = (props) => {
             data.docs.forEach(item => {
                 item.ref.delete()
             })
+            const collectionInfo = props.collectionInfo
+            collectionInfo.splice(props.index, 1)
+            props.setCollectionInfo([...collectionInfo])
         })
-        const collectionInfo = props.collectionInfo
-        collectionInfo.splice(props.index, 1)
-        props.setCollectionInfo([...collectionInfo])
     }
 
     return(

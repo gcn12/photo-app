@@ -19,7 +19,10 @@ export const GearIcon = styled.img`
     transform: translate(270%, 10%);
     z-index: 0;
     visibility: ${props=> props.visibility};
-    display: ${props=> props.display};
+    /* display: ${props=> props.display}; */
+    opacity: ${props=> props.opacity};
+    transition: opacity 500ms ease-in-out;
+    transition-delay: 150ms;
 `
 
 export const PostsContainer = styled.div`
@@ -43,16 +46,15 @@ export const PostContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* &:hover ${GearIcon} {
-        visibility: visible;
-        display: initial;
-    } */
     ${props => props.shouldHover 
         ? `&:hover ${GearIcon} {
             visibility: visible;
-            display: initial;
+            // display: initial;
         }` 
         : ''
+    }
+    &:hover ${GearIcon} {
+        opacity: 1; 
     }
 `
 

@@ -15,7 +15,9 @@ const Autocomplete = (props) => {
             }
             )
         autocomplete.addListener('place_changed', onPlaceChanged)
-        props.checkProceed()
+        if(props.isCheckProceed) {
+            props.checkProceed()
+        }
         console.log('autocomplete')
     }
 

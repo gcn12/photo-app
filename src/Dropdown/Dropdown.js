@@ -52,7 +52,6 @@ const DropdownItem = (props) => {
         .update(updateObject)
         .then(()=>{
             updateRef.collection('collections')
-            // .where('image', '!=', props.photoInformation.image)
             .where('collection', '==', props.collection)
             .orderBy('timestamp', 'desc') 
             .limit(4)
@@ -61,8 +60,9 @@ const DropdownItem = (props) => {
                 const imageArray = []
                 data.docs.forEach(image=> {
                     imageArray.push(image.data().image)
+                    console.log(image.data())
                 })
-                
+                console.log(imageArray)
                 updateRef.collection('collection-names')
                 .doc(props.collection)
                 .set({
