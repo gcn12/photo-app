@@ -185,3 +185,9 @@ export const SelectInput = styled.select`
     height: 40px;
     font-size: 20px;
 `
+
+export const PostDescriptionInput = styled.textarea`
+    width: 600px;
+    height: 150px;
+    font-size: 20px;
+`

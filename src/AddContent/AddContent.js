@@ -3,6 +3,7 @@ import CategoryLocation from './CategoryLocation'
 import Preview from './Preview'
 import Body from './Body'
 import Scroll from './Scroll'
+import PostDescription from './PostDescription'
 import SelectFont from './SelectFont'
 import { db } from '../Firebase'
 import firebase from 'firebase'
@@ -48,6 +49,33 @@ const animationMap = {
         }
     },
     categoryLocation: {
+        initial: {
+            x: 100,
+            y: '20vh',
+            opacity: 0,
+        },
+        transitionStart: {
+            x: 0,
+            y: '20vh',
+            opacity: 1,
+        },
+        transitionBack: {
+            x: 0,
+            y: '20vh',
+            opacity: 1,
+        },
+        transitionEnd: {
+            x: -100,
+            opacity: 0
+        },
+        transition: {
+            x: {
+                type: 'spring',
+                stiffness: 1000,
+            }
+        }
+    },
+    createDescription: {
         initial: {
             x: 100,
             y: '20vh',
@@ -189,6 +217,7 @@ const AddContent = (props) => {
     const [previewProps, setPreviewProps] = useState('initial')
     const [uploadStatusProps, setUploadStatusProps] = useState('initial')
     const [selectFontProps, setSelectFontProps] = useState('initial')
+    const [createDescriptionProps, setCreateDescriptionProps] = useState('initial')
     const [switchValue, setSwitchValue] = useState(1)
     const [bodyContent, setBodyContent] = useState([])
     const [bodyImages, setBodyImages] = useState([])
@@ -204,6 +233,7 @@ const AddContent = (props) => {
     const [bodyProceed, setBodyProceed] = useState(false)
     const [fontProceed, setFontProceed] = useState(true)
     const [isDuplicate, setIsDuplicate] = useState(false)
+    const [numberCharacters, setNumberCharacters] = useState(200)
 
     const submit = (imagesEmptyArrays, unsortedImages, imageMap, user, imageSizeArray) => {
         const title = document.getElementById('add-content-title').value
@@ -222,6 +252,13 @@ const AddContent = (props) => {
     
         for (let i=0; i<content.length; i++) {
             descriptionArray.push(String(content[i].value))
+        }
+
+        let previewDescription
+        if (document.getElementById('post-description-input').value.length > 0) {
+            previewDescription = document.getElementById('post-description-input').value
+        }else{
+            previewDescription = descriptionArray[0].substring(0, 200)
         }
     
         let mainImage = ''
@@ -266,12 +303,14 @@ const AddContent = (props) => {
                         images: urlObject,
                         title,
                         timestamp,
+                        previewDescription,
                         image: mainImage,
                         category,
                         city,
                         country,
                         continent,
                         author: name,
+                        location,
                         // views: 0, change back later
                         url,
                         username
@@ -291,7 +330,7 @@ const AddContent = (props) => {
                                 timestamp,
                                 id: docRef.id,
                                 author: name,
-                                previewDescription: descriptionArray[0],
+                                previewDescription,
                                 title,
                                 image: mainImage,
                                 category,
@@ -460,32 +499,39 @@ const AddContent = (props) => {
             case 2:
                 if(categoryLocationProceed) {
                     setCategoryLocationProps('transitionEnd')
-                    setBody('transitionStart')
+                    setCreateDescriptionProps('transitionStart')
                     setSwitchValue(3)
                 }
                 break
-            case 3:
+            case 3: 
+            if (numberCharacters >= 0) {
+                setCreateDescriptionProps('transitionEnd')
+                setBody('transitionStart')
+                setSwitchValue(4)
+            }
+                break
+            case 4:
                 if(bodyProceed) {
                     setBody('transitionEnd')
                     setSelectFontProps('transitionStart')
                     getParagraphSample()
-                    setSwitchValue(4)
+                    setSwitchValue(5)
                 }
                 break
-            case 4:
+            case 5:
                 setSelectFontProps('transitionEnd')
                 setPreviewProps('transitionStart')
                 getBodyContent()
                 getBodyImages()
-                setSwitchValue(5)
+                setSwitchValue(6)
                 props.setPhotoInformation([])
             break
-                case 5: 
+                case 6: 
                 setPreviewProps('transitionEnd')
                 fileUpload(props.user, imageSizeRatio)
                 setUploadStatusProps('transitionStart')
                 setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
-                setSwitchValue(6)
+                setSwitchValue(7)
                 break
             default: 
                 return null
@@ -499,20 +545,24 @@ const AddContent = (props) => {
                 setCategoryLocationProps('initial')
                 setSwitchValue(1)
                 break
-            case 3: 
+            case 3:
                 setCategoryLocationProps('transitionBack')
-                setBody('initial')
                 setSwitchValue(2)
                 break
-            case 4:
-                setBody('transitionBack')
-                setSelectFontProps('initial')
+            case 4: 
+            setCreateDescriptionProps('transitionBack')
+                setBody('initial')
                 setSwitchValue(3)
                 break
-            case 5: 
+            case 5:
+                setBody('transitionBack')
+                setSelectFontProps('initial')
+                setSwitchValue(4)
+                break
+            case 6: 
                 setSelectFontProps('transitionBack')
                 setPreviewProps('initial')
-                setSwitchValue(4)
+                setSwitchValue(5)
                 break
             default: 
                 return null
@@ -524,7 +574,7 @@ const AddContent = (props) => {
     return(
         <div>
             <UploadProgress uploadProgressColor={uploadProgressColor} animate={uploadStatusProps} variants={animationMap.uploadStatus} uploadCount={uploadCount} uploadProgress={uploadProgress}/>
-            {switchValue === 6 ? 
+            {switchValue === 7 ? 
             null
             :
             <div>
@@ -547,7 +597,14 @@ const AddContent = (props) => {
             <Scroll scrollHeight='90vh' visibility={animationMap.selectFont[selectFontProps].opacity}>
                 <SelectFont setFontProceed={setFontProceed} font={font} setFont={setFont} paragraph={paragraph} animationMap={animationMap} selectFontProps={selectFontProps}/>
             </Scroll>
-            {switchValue === 6 ? 
+            
+
+            <Scroll scrollHeight='90vh' visibility={animationMap.createDescription[createDescriptionProps].opacity}>
+                <PostDescription setNumberCharacters={setNumberCharacters} animationMap={animationMap} createDescriptionProps={createDescriptionProps} />
+            </Scroll>
+
+
+            {switchValue === 7 ? 
             null
             :
             <ButtonContainer>
@@ -562,11 +619,13 @@ const AddContent = (props) => {
                             return <NextButton proceed={titlePhotoProceed} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
                         case 2: 
                             return <NextButton proceed={categoryLocationProceed} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
-                        case 3: 
-                            return <NextButton proceed={bodyProceed } width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
+                        case 3:
+                            return <NextButton proceed={numberCharacters >= 0 ? true : false} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
                         case 4: 
+                            return <NextButton proceed={bodyProceed} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
+                        case 5: 
                             return <NextButton proceed={fontProceed} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Preview</NextButton>
-                        case 5:
+                        case 6:
                             return <NextButton proceed={true} width={switchValue === 1 ? '300px' :'150px'} onClick={transitionSwitchNext}>Submit</NextButton>
                         default: 
                             return null

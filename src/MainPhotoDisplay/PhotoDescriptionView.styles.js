@@ -14,16 +14,17 @@ export const Container = styled.div`
  export const Card = styled.div`
     border-radius: 5px;
     width: 350px;
-    height: 600px;
+    height: 450px;
     background-color: #f5f5f5;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 15px;
 `
 
 export const Image = styled.img`
     border-radius: 5px 5px 0 0;
-    margin-bottom: 15px;
+    padding-bottom: 15px;
     object-fit: cover;
     width: 350px;
     height: 250px;

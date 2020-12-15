@@ -10,7 +10,6 @@ import {
 const DeletePost = (props) => {
     
     const deleteCollection = () => {
-        console.log(props.user)
         db.collection('pending-delete-post')
         .add({
             username: props.username,
@@ -21,6 +20,7 @@ const DeletePost = (props) => {
             props.removePostFromPosts(props.index)
         })
         props.setShowDelete(false)
+        props.setShowGear(false)
     }
 
     const cancelDelete = () => {

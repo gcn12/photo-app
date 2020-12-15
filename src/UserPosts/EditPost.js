@@ -24,6 +24,7 @@ import {
     Label,
     PhotoAndButtonContainer,
     SelectInput,
+    PostDescriptionInput,
 } from './EditPost.styles'
 
 const EditPost = (props) => {
@@ -35,6 +36,7 @@ const EditPost = (props) => {
     const [imagesToUpload, setImagesToUpload] = useState([])
     const [filesArray, setFilesArray] = useState([])
     const [postData, setPostData] = useState({})
+    const [remainingCharacters, setRemainingCharacters] = useState(200)
 
     const newImage = () => {
         const filesArrayCopy = filesArray
@@ -110,6 +112,13 @@ const EditPost = (props) => {
         setFont(props?.postData[0]?.font)
         document.getElementById('font-select').value = props?.postData[0]?.font
         document.getElementById('category').value = props?.postData[0]?.category
+        document.getElementById('autocomplete').value = props?.postData[0]?.location
+        document.getElementById('edit-post-description').value = props?.postData[0]?.previewDescription
+
+        if(props?.postData[0]?.previewDescription) {
+            const quanityCharacters = 200 - props?.postData[0]?.previewDescription.length 
+            setRemainingCharacters(quanityCharacters)
+        }
         // document.getElementsByClassName('edit-body-text').style.fontFamily = props?.postData[0]?.font
         if(props?.postData[0]?.content.length > 0) {
             setIsAdditionalElements(true)
@@ -306,14 +315,11 @@ const EditPost = (props) => {
         }
         console.log(allImages)
         const title = document.getElementById('edit-post-title').value
-        // const location = document.getElementById('autocomplete').value
-        // let country 
-        // let city
-        // if(location.length > 0) {
-        //     const splitLocation = location.split(',')
-        //     country = splitLocation[splitLocation.length-1].trim()
-        //     city = splitLocation[0]
-        // }
+        const previewDescription = document.getElementById('edit-post-description').value
+        const location = document.getElementById('autocomplete').value
+        let country 
+        let city
+        
         const category = document.getElementById('category').value
         const descriptionArray = []
         const content = document.getElementsByClassName('content-paragraph')
@@ -323,12 +329,23 @@ const EditPost = (props) => {
 
         const fullPostUpdate = {}
         const previewPostUpdate = {}
+        if(location.length > 2 && location !== postData.location) {
+            const splitLocation = location.split(',')
+            country = splitLocation[splitLocation.length-1].trim()
+            city = splitLocation[0].trim()
+            fullPostUpdate['country'] = country
+            fullPostUpdate['city'] = city
+            fullPostUpdate['location'] = location
+        }
 
-        // if (location.length > 3 && country!==postData.country && city!==postData.city) {
-        //     fullPostUpdate['city'] = city
-        //     fullPostUpdate['country'] = country
-        // }
 
+        if (previewDescription !== postData.previewDescription) {
+            fullPostUpdate['previewDescription'] = previewDescription
+            previewPostUpdate['previewDescription'] = previewDescription
+        }else{
+            previewPostUpdate['previewDescription'] = descriptionArray[0].substring(0,200)
+            fullPostUpdate['previewDescription'] = descriptionArray[0].substring(0,200)
+        }
         if (title !== postData.title && title.length > 0) {
             fullPostUpdate['title'] = title
             previewPostUpdate['title'] = title
@@ -344,16 +361,10 @@ const EditPost = (props) => {
             fullPostUpdate['image'] = mainImage
             previewPostUpdate['image'] = mainImage
         }
-        previewPostUpdate['previewDescription'] = descriptionArray[0]
         fullPostUpdate['photoBodyMap'] = postData.photoBodyMap
         fullPostUpdate['content'] = descriptionArray
         fullPostUpdate['images'] = allImages
 
-
-
-    
-        
-        
 
         db.collection('posts')
         .where('username', '==', postData.username)
@@ -385,19 +396,15 @@ const EditPost = (props) => {
             })              
         })
     }
+
+    const calculateRemainingCharacters = () => {
+        const characters = document.getElementById('edit-post-description').value
+        const characterQuantity = 200 - characters.length
+        setRemainingCharacters(characterQuantity)
+    }
      
     const test = () => {
-        // const copy = postData
-        // copy.images[0] = ['link']
-        // copy.content[3] = 'hello'
-        // console.log(copy)
-        // setPostData(copy)
         console.log(postData)
-        // console.log(imagesToUpload)
-        // console.log(filesArray)
-        // console.log(document.getElementById('edit-post-title').value)
-        
-
     }
 
     return(
@@ -453,7 +460,10 @@ const EditPost = (props) => {
                             <NewItemButton long={!isAdditionalElements} type="button" onClick={newImage}>Add image</NewItemButton>
                             }
                         </BodyButtonContainer>
-                        <Label>Change font:</Label>
+                        <Label>Post description</Label>
+                        <PostDescriptionInput onChange={calculateRemainingCharacters} id='edit-post-description'></PostDescriptionInput>
+                        <div>Remaining characters: {remainingCharacters}</div>
+                        <Label>Font:</Label>
                         <FontSelect onChange={getFont} id='font-select'>
                             <FontOption value="'Castoro', serif;" font="'Castoro', serif;">Castoro</FontOption>
                             <FontOption value="'Roboto', sans-serif;" font="'Roboto', sans-serif;">Roboto</FontOption>
@@ -463,7 +473,7 @@ const EditPost = (props) => {
                             <FontOption value="'Poppins', sans-serif;" font="'Poppins', sans-serif;">Poppins</FontOption>
                             <FontOption value="'Antic Slab', serif;" font="'Antic Slab', serif;">Antic Slab</FontOption>
                         </FontSelect>
-                        <Label htmlFor='category'>Change category:</Label>
+                        <Label htmlFor='category'>Category:</Label>
                         <SelectInput onChange={null} name='category' id='category'>
                             <option value='restaurant'>Restaurant</option>
                             <option value='entertainment'>Entertainment</option>
@@ -472,8 +482,8 @@ const EditPost = (props) => {
                             <option value='shopping'>Shopping</option>
                             <option value='museum'>Museum</option>
                         </SelectInput>
-                        <Label>Change location:</Label>
-                        <Autocomplete id='autocomplete'/>
+                        <Label>Location:</Label>
+                        <Autocomplete id='autocomplete-component'/>
                         <div style={{marginBottom: '20px'}}></div>
                         <div style={{display: 'flex'}}>
                             <Cancel onClick={()=>props.setShowEdit(false)}>Cancel</Cancel>

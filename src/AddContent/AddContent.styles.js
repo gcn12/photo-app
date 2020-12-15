@@ -165,3 +165,17 @@ export const BodyButtonContainer = styled.div`
     align-items: center;
     margin-bottom: 50px;
 `
+
+export const PostDescriptionContainer = styled(motion.div)`
+    visibility: ${props=> props.visibility ? 'null' : 'hidden'};
+    display: ${props=> props.visibility ? 'flex' : 'none'};
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+`
+
+export const PostDescriptionInput = styled.textarea`
+    width: 600px;
+    height: 150px;
+    font-size: 20px;
+`

@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const ResultsContainer = styled.div`
-    /* height: 600px; */
     width: 320px;
     background-color: #ededed;
     position: absolute;
@@ -18,4 +17,15 @@ export const Container = styled.div`
 export const SearchBox = styled.input`
     height: 20px;
     width: 200px;
+`
+
+export const MoreResults = styled.div`
+    display: flex;
+    justify-content: center;
+    padding: 5px 15px;
+    cursor: pointer;
+    &:hover{
+        /* background-color: gainsboro; */
+        background-color: #d1d1d1;
+    }
 `
