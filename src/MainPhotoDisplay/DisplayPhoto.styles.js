@@ -44,6 +44,7 @@ export const TextContainer = styled.div`
 
 export const Image = styled.img`
     filter: brightness(1);
+    transition: filter 2000ms ease;
     transition: 800ms ease;
     transition-delay: 250ms;
 
@@ -103,6 +104,6 @@ export const PhotoContainer = styled.div`
     }
 
     &:hover ${Image} {
-        filter: brightness(.3)
+        filter: brightness(.3);
     }
 `

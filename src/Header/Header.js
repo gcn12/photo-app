@@ -3,6 +3,7 @@ import { db } from '../Firebase'
 import Subheader from './Subheader'
 import SubheaderDropdown from './SubheaderDropdown'
 import CategoriesDropdown from './CategoriesDropdown'
+import Search from '../Search/Search'
 import { Link } from 'react-router-dom' 
 import {
     Container,
@@ -107,6 +108,7 @@ const Header = (props) => {
                             <LI>Discover</LI>
                         </Link>
                     </UL>
+                    <Search />
                     <HeaderRight>
                         {props.user ? 
                         <Link to='/photo-app/upload' style={{ textDecoration: 'none' }}>

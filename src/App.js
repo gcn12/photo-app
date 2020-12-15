@@ -3,7 +3,7 @@ import React, {
   useEffect,
 } from 'react'
 import Header from './Header/Header'
-import VerticalScroll from './VeritcalScroll/VerticalScroll'
+// import VerticalScroll from './VeritcalScroll/VerticalScroll'
 import Discover from './Discover/Discover'
 import FeaturedPost from './FeaturedPost/FeaturedPost'
 import MainPhotoDisplay from './MainPhotoDisplay/MainPhotoDisplayNew'
@@ -77,19 +77,6 @@ const App = () => {
       }
     })
   }, [])
-
-  const testDelete = () => {
-    const ref = firebase.storage().ref('chris123/image-test')
-    ref.listAll()
-    .then(data=> {
-      data.items.forEach(item=> {
-        console.log(item)
-        const deleteRef = firebase.storage().ref(ref.fullPath)
-        const childRef = deleteRef.child(item.name)
-        childRef.delete()
-      })
-    })
-  }
 
   return (
     <div>
@@ -172,6 +159,7 @@ const App = () => {
         )} />
       </Switch>
       {/* <button onClick={testDelete}>Delete</button> */}
+
     </div>
   );
 }
