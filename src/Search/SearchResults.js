@@ -2,14 +2,15 @@ import React from 'react'
 import {
     Photo,
     Container,
+    Text,
 } from './SearchResults.styles'
 
 const SearchResults = (props) => {
     return(
         <Container>
             <Photo alt='' src={props.hit.image}></Photo>
-            <div>{props.hit.title}</div>
-            <div>{props.hit.username}</div>
+            <Text>{props.hit.title}</Text>
+            <Text>{props.hit.username}</Text>
         </Container>
     )
 }
