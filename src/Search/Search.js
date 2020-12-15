@@ -27,7 +27,7 @@ const Search = () => {
             if(query.length > 0) {
                 setShowResults(true)
                 index.search(query, {
-                    attributesToRetrieve: ['title', 'country', 'image', 'username', 'url'],
+                    attributesToRetrieve: ['title', 'country', 'image', 'username', 'url', 'city'],
                     hitsPerPage: 5,
                 }).then(({ hits }) => {
                     console.log(hits);
