@@ -40,6 +40,7 @@ const CategoriesDropdown = (props) => {
     const sortPosts = (value) => {
         props.getCategoryPhotos(value)
         closeDropdown()
+        props.setIsMainPhotosVisible(false)
     }
 
     const { selectedCategory } = props

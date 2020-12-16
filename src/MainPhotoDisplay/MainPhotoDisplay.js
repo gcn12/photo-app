@@ -159,6 +159,7 @@ class ImageCard extends Component {
 
     imageLoaded = () => {
         if (this.props.index === this.props.photoLength - 1){
+            // setTimeout(()=>this.props.setIsMainPhotosVisible(true), 1200)
             this.props.setIsMainPhotosVisible(true)
         }
     }

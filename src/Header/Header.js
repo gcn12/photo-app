@@ -38,7 +38,8 @@ const Header = (props) => {
             data.docs.forEach(item=> {
                 photoArray.push(item.data())
             })
-            props.setHomePhotoInformation([...photoArray])
+            setTimeout(()=> props.setHomePhotoInformation([...photoArray]), 700)
+            // props.setHomePhotoInformation([...photoArray])
         })
     }
 
@@ -73,7 +74,8 @@ const Header = (props) => {
                     snapshot.docs.forEach(doc => {
                         photosArray.push(doc.data())
                     })
-                    props.setHomePhotoInformation(photosArray)
+                    setTimeout(()=> props.setHomePhotoInformation([...photosArray]), 700)
+                    // props.setHomePhotoInformation(photosArray)
                 })
             }else{
                 props.setHomePhotoInformation(photosArray)
@@ -94,21 +96,21 @@ const Header = (props) => {
             snapshot.docs.forEach(doc => {
                 photosArray.push(doc.data())
             })
-            props.setHomePhotoInformation(photosArray)
+            // props.setHomePhotoInformation(photosArray)
+            setTimeout(()=> props.setHomePhotoInformation([...photosArray]), 700)
         })
     }
 
     const startSearchTransition = () => {
         setSearchVisibility(true)
-        setSearchTransition('transitionStart')
     }
 
     return(
         <div style={{position: 'fixed', top: 0, width: '100%', marginBottom: '20px', zIndex:2}}>
             {!props.location.pathname.includes('/photo-app/upload') ? 
             <Border>
-                <SubheaderDropdown getAssortedPhotos={getAssortedPhotos} sort={sort} setSelected={setSelected} selected={selected} setHomePhotoInformation={props.setHomePhotoInformation} setVisibility={setVisibility} visibility={visibility} dropdownTransition={dropdownTransition} setDropdownTransition={setDropdownTransition}/>
-                <CategoriesDropdown selectedCategory={selectedCategory} getCategoryPhotos={getCategoryPhotos} dropdownCategoriesTransition={dropdownCategoriesTransition} categoriesVisibility={categoriesVisibility} setCategoriesVisibility={setCategoriesVisibility} setDropdownCategoriesTransition={setDropdownCategoriesTransition}/>
+                <SubheaderDropdown setIsMainPhotosVisible={props.setIsMainPhotosVisible} getAssortedPhotos={getAssortedPhotos} sort={sort} setSelected={setSelected} selected={selected} setHomePhotoInformation={props.setHomePhotoInformation} setVisibility={setVisibility} visibility={visibility} dropdownTransition={dropdownTransition} setDropdownTransition={setDropdownTransition}/>
+                <CategoriesDropdown setIsMainPhotosVisible={props.setIsMainPhotosVisible} selectedCategory={selectedCategory} getCategoryPhotos={getCategoryPhotos} dropdownCategoriesTransition={dropdownCategoriesTransition} categoriesVisibility={categoriesVisibility} setCategoriesVisibility={setCategoriesVisibility} setDropdownCategoriesTransition={setDropdownCategoriesTransition}/>
                 <SearchDropdown setSearchVisibility={setSearchVisibility} searchVisibility={searchVisibility} setSearchTransition={setSearchTransition} searchTransition={searchTransition} />
                 <Container>
                     <UL>

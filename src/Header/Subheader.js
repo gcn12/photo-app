@@ -54,7 +54,7 @@ const Subheader = (props) => {
                             <CategoriesButton className='categories-dropdown' onClick={()=>setShowCategories(!showCategories)}>Categories &#x25BC;</CategoriesButton>
                             {showCategories ? 
                             <div style={{position: 'relative'}}>
-                                <SubheaderCategories getCategoryPhotos={props.getCategoryPhotos} className='categories-dropdown' />
+                                <SubheaderCategories setIsMainPhotosVisible={props.setIsMainPhotosVisible} getCategoryPhotos={props.getCategoryPhotos} className='categories-dropdown' />
                             </div>
                             :
                             null
@@ -64,8 +64,6 @@ const Subheader = (props) => {
                         <div style={{margin: '0 10px 0 15px', cursor: props.displayView ? 'default' : 'pointer' }} onClick={()=>props.setDisplayView(true)} ><DescriptionGrid style={{fill: props.displayView ? 'gray' : 'black'}} /></div>
                     </div>
                 </UL>
-
-
             </Container>
             <Container>
                 <ULMobile>

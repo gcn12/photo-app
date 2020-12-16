@@ -6,15 +6,21 @@ import {
 } from './SubheaderCategories.styles'
 
 const SubheaderCategories = (props) => {
+
+    const getPhotos = (category) => {
+        props.setIsMainPhotosVisible(false)
+        props.getCategoryPhotos(category)
+    }
+
     return(
         <Container className='categories-dropdown'>
             <UL className='categories-dropdown'>
-                <LI onClick={()=>props.getCategoryPhotos('entertainment')}>Entertainment</LI>
-                <LI onClick={()=>props.getCategoryPhotos('adventure')}>Adventure</LI>
-                <LI onClick={()=>props.getCategoryPhotos('restaurant')}>Restaurant</LI>
-                <LI onClick={()=>props.getCategoryPhotos('sightseeing')}>Sightseeing</LI>
-                <LI onClick={()=>props.getCategoryPhotos('shopping')}>Shopping</LI>
-                <LI onClick={()=>props.getCategoryPhotos('museum')}>Museum</LI>
+                <LI onClick={()=>getPhotos('entertainment')}>Entertainment</LI>
+                <LI onClick={()=>getPhotos('adventure')}>Adventure</LI>
+                <LI onClick={()=>getPhotos('restaurant')}>Restaurant</LI>
+                <LI onClick={()=>getPhotos('sightseeing')}>Sightseeing</LI>
+                <LI onClick={()=>getPhotos('shopping')}>Shopping</LI>
+                <LI onClick={()=>getPhotos('museum')}>Museum</LI>
             </UL>
         </Container>
     )

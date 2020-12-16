@@ -34,9 +34,9 @@ const variants = {
 const SubheaderDropdown = (props) => {
 
     const closeDropdown = () => {
+        props.setIsMainPhotosVisible(false)
         props.setDropdownTransition('transitionEnd')
         setTimeout(()=> props.setVisibility(false), 300)
-        
     }
 
     const sortPosts = (value) => {
@@ -45,6 +45,7 @@ const SubheaderDropdown = (props) => {
     }
 
     const getAssortedPhotosAndClose = () => {
+        props.setIsMainPhotosVisible(false)
         closeDropdown()
         props.getAssortedPhotos()
     }

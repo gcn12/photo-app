@@ -3,8 +3,8 @@ import { motion } from 'framer-motion'
 
 export const DisplayContainer = styled(motion.div)`
     opacity: ${props=> props.opacity};
-    transition-delay: 1s;
-    transition: opacity 2s;
+    /* transition-delay: 1s; */
+    transition: opacity 700ms ease-in-out;
 `
 
 export const PhotoDescriptionViewContainer = styled.div`
