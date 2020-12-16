@@ -103,6 +103,7 @@ const Header = (props) => {
 
     const startSearchTransition = () => {
         setSearchVisibility(true)
+        setSearchTransition('transitionStart')
     }
 
     const getAssortedAndDropOpacity = () => {
