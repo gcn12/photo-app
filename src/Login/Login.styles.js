@@ -48,4 +48,5 @@ export const Container = styled.div`
 export const Container2 = styled.div`
     display: flex;
     justify-content: center;
+    margin-top: 55px;
 `

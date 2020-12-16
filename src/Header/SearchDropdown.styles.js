@@ -55,6 +55,14 @@ export const Image = styled.img`
     height: 50px;
     width: 50px;
     object-fit: cover;
+    border-radius: 3px;
+`
+
+export const ProfileImage = styled.img`
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 50%;
 `
 
 export const ResultContainer = styled.div`

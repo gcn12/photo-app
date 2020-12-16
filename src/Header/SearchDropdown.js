@@ -10,6 +10,7 @@ import {
     Image,
     ResultContainer,
     Text,
+    ProfileImage,
 } from './SearchDropdown.styles'
 
 const variants = {
@@ -40,43 +41,80 @@ const SearchDropdown = (props) => {
     const [hits, setHits] = useState([])
     const [showResults, setShowResults] = useState(false)
     
-    
     useEffect(()=> {
         const searchClient = algoliasearch(
             'VNSU9OYWB2',
             '6478d10ccc9941fe49a73aeb6ba2e73f'
         )
-        const search = (querySearch) => {
-            const index = searchClient.initIndex('test_PHOTOAPP')
+
+        const search = () => {
+            
+            const queries = [{
+                indexName: 'users',
+                query: query,
+                params: {
+                    hitsPerPage: 2,
+                    attributesToRetrieve: ['name', 'image', 'username', 'profileImage'],
+                }
+            }, {
+                indexName: 'test_PHOTOAPP',
+                query: query,
+                params: {
+                    hitsPerPage: 2,
+                    attributesToRetrieve: ['title', 'country', 'image', 'username', 'url', 'city'],
+                }
+            }]
+
             if(query.length > 0) {
                 setShowResults(true)
-                index.search(query, {
-                    attributesToRetrieve: ['title', 'country', 'image', 'username', 'url', 'city'],
-                    hitsPerPage: 5,
-                }).then(({ hits }) => {
-                    console.log(hits);
+
+                searchClient.multipleQueries(queries).then(({ results }) => {
                     if(hits.length>0) {
-                        setHits([...hits])
+                        let resultsArray = [...results[1].hits, ...results[0].hits]
+                        console.log(results);
+                        setHits(resultsArray)
                     }else{
                         setHits('No results')
                     }
                 });
+                
             }else{
                 setHits([])
             }
         }
-        const timeout = setTimeout(()=> search(query), 300)
+        const timeout = setTimeout(()=> search(), 300)
         return ()=> clearTimeout(timeout)
+        // eslint-disable-next-line 
     }, [query])
 
-    // window.onclick = (e) => {
-    //     if (!e.target.matches('.search-results')) {
-    //         setShowResults(false)
-    //         if( document.getElementById('result-query-input')){
-    //             document.getElementById('result-query-input').value = ''
+    //Single index search:
+    // useEffect(()=> {
+    //     const searchClient = algoliasearch(
+    //         'VNSU9OYWB2',
+    //         '6478d10ccc9941fe49a73aeb6ba2e73f'
+    //     )
+    //     const search = (querySearch) => {
+    //         const index = searchClient.initIndex('test_PHOTOAPP')
+    //         if(query.length > 0) {
+    //             setShowResults(true)
+    //             index.search(query, {
+    //                 attributesToRetrieve: ['title', 'country', 'image', 'username', 'url', 'city'],
+    //                 hitsPerPage: 5,
+    //             }).then(({ hits }) => {
+    //                 console.log(hits);
+    //                 if(hits.length>0) {
+    //                     setHits([...hits])
+    //                 }else{
+    //                     setHits('No results')
+    //                 }
+    //             });
+    //         }else{
+    //             setHits([])
     //         }
     //     }
-    // }
+    //     const timeout = setTimeout(()=> search(query), 300)
+    //     return ()=> clearTimeout(timeout)
+    // }, [query])
 
     const clearResults = () => {
         setShowResults(false)
@@ -106,7 +144,18 @@ const SearchDropdown = (props) => {
                     <div>
                         {hits.length > 0 ? 
                         hits?.map((item, index)=> {
-                            return(
+                            return item.name ? 
+                            (
+                                <Link key={index} style={{ textDecoration: 'none' }} onClick={closeDropdown} to={`/photo-app/profiles/${item.username}`}> 
+                                    <ResultContainer>
+                                        <ProfileImage src={item.profileImage}></ProfileImage>
+                                        <Text>{item.name}</Text>
+                                        <Text>{item.username}</Text>
+                                    </ResultContainer>
+                                </Link>
+                            )
+                            :
+                            (
                                 <Link key={index} style={{ textDecoration: 'none' }} onClick={closeDropdown} to={`/photo-app/post/${item.username}/${item.url}`}> 
                                     <ResultContainer>
                                         <Image src={item.image}></Image>
