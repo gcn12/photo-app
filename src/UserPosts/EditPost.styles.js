@@ -39,6 +39,11 @@ export const Title = styled.input`
     font-family: ${props=> props.font};
     font-size: 30px;
     margin-bottom: 20px;
+    width: 35vw;
+    @media (max-width: 690px) {
+        width: 55vw;
+
+    }
 `
 
 export const Paragraphs = styled.textarea`
@@ -187,7 +192,7 @@ export const SelectInput = styled.select`
 `
 
 export const PostDescriptionInput = styled.textarea`
-    width: 600px;
+    width: 60vw;
     height: 150px;
     font-size: 20px;
 `

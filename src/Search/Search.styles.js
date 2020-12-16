@@ -18,7 +18,11 @@ export const Container = styled.div`
 `
 
 export const SearchBox = styled.input`
-    height: 20px;
+    border: 0;
+    padding: 3px;
+    border: 1px solid black;
+    height: 25px;
+    font-size: 20px;
     width: 200px;
     @media (max-width: 690px) {
         width: 130px;

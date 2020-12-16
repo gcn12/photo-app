@@ -403,13 +403,13 @@ const EditPost = (props) => {
         setRemainingCharacters(characterQuantity)
     }
      
-    const test = () => {
-        console.log(postData)
-    }
+    // const test = () => {
+    //     console.log(postData)
+    // }
 
     return(
         <Container>
-            <button onClick={test}>eee</button>
+            {/* <button onClick={test}>eee</button> */}
             <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                 <X onClick={()=>props.setShowEdit(false)}>&times;</X>
             </div>

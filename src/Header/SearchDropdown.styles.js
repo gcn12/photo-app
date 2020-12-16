@@ -31,6 +31,7 @@ export const Cancel = styled.div`
 
 export const SearchInput = styled.input`
     height: 50px;
+    width: 70vw;
     font-size: 30px;
 `
 

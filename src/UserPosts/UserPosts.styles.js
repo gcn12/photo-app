@@ -23,6 +23,11 @@ export const GearIcon = styled.img`
     opacity: ${props=> props.opacity};
     transition: opacity 500ms ease-in-out;
     transition-delay: 150ms;
+    @media (max-width: 690px) {
+        visibility: visible;
+        display: initial;
+        opacity: 1;
+    }
 `
 
 export const PostsContainer = styled.div`
