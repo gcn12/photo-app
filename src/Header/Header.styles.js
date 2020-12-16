@@ -61,3 +61,11 @@ export const HeaderRight = styled.div`
         display: none;
     }
 `
+
+export const IconContainer = styled.div`
+    cursor: pointer;
+    @media (min-width: 550px) {
+        visibility: hidden;
+        display: none;
+    }
+`

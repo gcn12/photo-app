@@ -8,6 +8,9 @@ export const ResultsContainer = styled.div`
     z-index: 3;
     opacity: .96;
     box-shadow: 0px 5px 6px rgba(0, 0, 0, .4);
+    @media (max-width: 690px) {
+        left: -70%;
+    }
 `
 
 export const Container = styled.div`
@@ -17,6 +20,13 @@ export const Container = styled.div`
 export const SearchBox = styled.input`
     height: 20px;
     width: 200px;
+    @media (max-width: 690px) {
+        width: 130px;
+    }
+    @media (max-width: 550px) {
+        visibility: hidden;
+        display: none;
+    }
 `
 
 export const MoreResults = styled.div`
@@ -27,5 +37,13 @@ export const MoreResults = styled.div`
     &:hover{
         /* background-color: gainsboro; */
         background-color: #d1d1d1;
+    }
+`
+
+export const IconContainer = styled.div`
+    cursor: pointer;
+    @media (min-width: 550px) {
+        visibility: hidden;
+        display: none;
     }
 `

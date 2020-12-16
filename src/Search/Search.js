@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import algoliasearch from 'algoliasearch'
 import SearchResults from './SearchResults'
-// import { ReactComponent as SearchIcon } from '../Icons/Search.svg'
 import { Link } from 'react-router-dom'
 import {
     ResultsContainer,
     Container,
     SearchBox,
     MoreResults,
+    IconContainer,
 } from './Search.styles'
 
 const Search = () => {
@@ -61,11 +61,16 @@ const Search = () => {
 
     return(
         <Container>
-            <div style={{position: 'relative'}} className='search-results'>
+            {/* <div style={{position: 'relative'}} className='search-results'> */}
                 {/* <SearchIcon style={{position: 'absolute', top: '0', transform: 'scale(.8)'}}></SearchIcon> */}
                 {/* <div style={{position: 'absolute', left: '10%'}}>search</div> */}
-                <SearchBox id='result-query-input' className='search-results' placeholder='search' onChange={(e)=> setQuery(e.target.value)}></SearchBox>
-            </div>
+            <SearchBox id='result-query-input' className='search-results' placeholder='search' onChange={(e)=> setQuery(e.target.value)}></SearchBox>
+            {/* </div> */}
+            <IconContainer>
+                {/* <SearchIcon style={{transform: 'scale(1)'}}></SearchIcon> */}
+            </IconContainer>
+
+
             {query.length > 0 && showResults ?
             <ResultsContainer>
             {hits === 'No results' ? 
@@ -90,6 +95,8 @@ const Search = () => {
             :
             null
             }
+
+            
         </Container>
     )
 }

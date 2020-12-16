@@ -3,7 +3,9 @@ import { db } from '../Firebase'
 import Subheader from './Subheader'
 import SubheaderDropdown from './SubheaderDropdown'
 import CategoriesDropdown from './CategoriesDropdown'
+import SearchDropdown from './SearchDropdown'
 import Search from '../Search/Search'
+import { ReactComponent as SearchIcon } from '../Icons/Search.svg'
 import { Link } from 'react-router-dom' 
 import {
     Container,
@@ -12,6 +14,7 @@ import {
     Border,
     Navigation,
     HeaderRight,
+    IconContainer,
 } from './Header.styles'
 
 const Header = (props) => {
@@ -20,6 +23,8 @@ const Header = (props) => {
     const [visibility, setVisibility] = useState(false)
     const [dropdownCategoriesTransition, setDropdownCategoriesTransition] = useState('initial')
     const [categoriesVisibility, setCategoriesVisibility] = useState(false)
+    const [searchTransition, setSearchTransition] = useState('initial')
+    const [searchVisibility, setSearchVisibility] = useState(false)
     const [selected, setSelected] = useState('assorted')
     const [selectedCategory, setSelectedCategory] = useState('')
 
@@ -93,12 +98,18 @@ const Header = (props) => {
         })
     }
 
+    const startSearchTransition = () => {
+        setSearchVisibility(true)
+        setSearchTransition('transitionStart')
+    }
+
     return(
         <div style={{position: 'fixed', top: 0, width: '100%', marginBottom: '20px', zIndex:2}}>
             {!props.location.pathname.includes('/photo-app/upload') ? 
             <Border>
                 <SubheaderDropdown getAssortedPhotos={getAssortedPhotos} sort={sort} setSelected={setSelected} selected={selected} setHomePhotoInformation={props.setHomePhotoInformation} setVisibility={setVisibility} visibility={visibility} dropdownTransition={dropdownTransition} setDropdownTransition={setDropdownTransition}/>
                 <CategoriesDropdown selectedCategory={selectedCategory} getCategoryPhotos={getCategoryPhotos} dropdownCategoriesTransition={dropdownCategoriesTransition} categoriesVisibility={categoriesVisibility} setCategoriesVisibility={setCategoriesVisibility} setDropdownCategoriesTransition={setDropdownCategoriesTransition}/>
+                <SearchDropdown setSearchVisibility={setSearchVisibility} searchVisibility={searchVisibility} setSearchTransition={setSearchTransition} searchTransition={searchTransition} />
                 <Container>
                     <UL>
                         <Link onClick={getAssortedPhotos} to='/photo-app/posts' style={{ textDecoration: 'none' }}>
@@ -109,6 +120,9 @@ const Header = (props) => {
                         </Link>
                     </UL>
                     <Search />
+                    <IconContainer>
+                        <SearchIcon onClick={startSearchTransition} style={{transform: 'scale(1)'}}></SearchIcon>
+                    </IconContainer>
                     <HeaderRight>
                         {props.user ? 
                         <Link to='/photo-app/upload' style={{ textDecoration: 'none' }}>
