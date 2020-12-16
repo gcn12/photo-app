@@ -242,7 +242,7 @@ const FeaturedPost = (props) => {
     }
 
     return(
-        <motion.div variants={variants} initial='initial' animate={animateLoad}>
+        <motion.div style={{marginTop: '55px'}} variants={variants} initial='initial' animate={animateLoad}>
             <SubmitButton onClick={()=>props.history.goBack()}>Back</SubmitButton>
             <Container >
                 <Title font={props?.photoInformation?.font}>{props?.photoInformation?.title}</Title>
@@ -290,6 +290,7 @@ const FeaturedPost = (props) => {
                             {props?.photoInformation?.images[index]?.map((image, i)=> {
                                 return(
                                     <BodyImage margin={props.photoInformation.photoBodyMap[index].length > 1 ? '0 .5%' : '0%'} width={props.photoInformation.photoBodyMap[index].length > 1 ? `${65 * props.photoInformation.photoBodyMap[index][i]}vw` : 'auto'} src={image} key={i}></BodyImage>
+                                    // <BodyImage margin={props.photoInformation.photoBodyMap[index].length > 1 ? '0 .5%' : '0%'} width={props.photoInformation.photoBodyMap[index].length > 1 ? `${65 * props.photoInformation.photoBodyMap[index][i]}vw` : `${65 * props.photoInformation.photoBodyMap[index][i]}vw`} src={image} key={i}></BodyImage>
                                 )
                             })}
                             </BodyImageContainer>

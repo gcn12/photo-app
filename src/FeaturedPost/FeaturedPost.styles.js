@@ -29,10 +29,13 @@ export const Title = styled.div`
 
 export const MainImage = styled.img`
     /* height: 90vh; */
-    height: ${props=> props.height};
-    width: ${props=> props.width};
+    /* height: ${props=> props.height};
+    width: ${props=> props.width}; */
+    height: auto;
+    width: auto;
     max-height: 90vh;
     max-width: 90vw;
+    display: block;
 `
 
 export const Author = styled.div`
@@ -58,12 +61,25 @@ export const Description = styled.div`
     white-space: pre-wrap;
     text-align: justify;
     text-justify: inter-word;
+    @media (max-width: 950px) {
+        width: 60vw;
+        margin: 0px;
+    }
+    @media (max-width: 500px) {
+        width: 90vw;
+        margin: 0px;
+    }
 `
 
 export const BodyImage = styled.img`
     width: ${props=> `${props.width}`};
+    margin: ${props=> props.margin};
     max-height: 90vh;
-    margin: ${props=> props.margin}
+    max-width: 65vw;
+    display: block;
+    /* @media (max-width: 950px) {
+        margin: 0;
+    } */
 `
 
 export const BodyImageContainer = styled.div`

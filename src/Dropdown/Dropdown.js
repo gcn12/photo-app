@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import VerticalScroll from '../VeritcalScroll/VerticalScroll'
 import { db } from '../Firebase'
-import firebase from 'firebase'
+// import firebase from 'firebase'
 import { 
     Container,
     Collection, 
@@ -40,17 +40,17 @@ const DropdownItem = (props) => {
     }
 
     const updateCollectionPreview = (updateTimestampBool) => {
-        const updateObject = {
-            preview: firebase.firestore.FieldValue.delete()
-        }
-        if (updateTimestampBool) {
-            updateObject['timestamp'] = Date.now()
-        }
+        // const updateObject = {
+            // preview: firebase.firestore.FieldValue.delete()
+        // }
+        // if (updateTimestampBool) {
+        //     updateObject['timestamp'] = Date.now()
+        // }
         const updateRef = db.collection('users').doc(props.user)
-        updateRef.collection('collection-names')
-        .doc(props.collection)
-        .update(updateObject)
-        .then(()=>{
+        // updateRef.collection('collection-names')
+        // .doc(props.collection)
+        // .update(updateObject)
+        // .then(()=>{
             updateRef.collection('collections')
             .where('collection', '==', props.collection)
             .orderBy('timestamp', 'desc') 
@@ -61,18 +61,21 @@ const DropdownItem = (props) => {
                 data.docs.forEach(image=> {
                     imageArray.push(image.data().image)
                 })
+                const updateObject = {}
+                if (updateTimestampBool) {
+                    updateObject['timestamp'] = Date.now()
+                }
+                updateObject['preview'] = imageArray
                 updateRef.collection('collection-names')
                 .doc(props.collection)
-                .set({
-                    preview: imageArray
-                }, {merge: true})
+                .set(updateObject, {merge: true})
                 if (updateTimestampBool) {
                     add()
                 }else{
                     remove()
                 }
             })
-        })
+        // })
     }
 
     const removeFromCollection = () => {
