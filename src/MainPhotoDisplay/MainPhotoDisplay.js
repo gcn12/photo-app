@@ -6,6 +6,7 @@ import { incrementViewCount } from '../Functions'
 import { 
     Container, 
     PhotoDescriptionViewContainer,
+    DisplayContainer,
 } from './MainPhotoDisplay.styles'
 import { SubmitButton, } from '../AddContent/AddContent.styles'
 import { 
@@ -55,16 +56,16 @@ const GetPhotos = (props) => {
             })
         }
     }, [setHomePhotoInformation, homePhotoInformation])
-    
 
     const images = props?.homePhotoInformation?.map((photo, index) => {
         return <ImageCard
+            setIsMainPhotosVisible={props.setIsMainPhotosVisible}
             key={index} 
             photoInfo={photo} 
             history={props.history}
             lazy={lazy}
             index={index}
-            length={props.homePhotoInformation.length}
+            photoLength={props.homePhotoInformation.length}
             getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
             setPhotoInformation={props.setPhotoInformation} 
             homePhotoInformation={props.homePhotoInformation}
@@ -72,16 +73,17 @@ const GetPhotos = (props) => {
     });
 
     return(
-        <div style={{marginTop: '120px'}}>
+        <DisplayContainer opacity={props.isMainPhotosVisible ? 1 : 0} style={{marginTop: '120px'}}>
             {props.displayView ? 
             <PhotoDescriptionViewContainer>
                 {props.homePhotoInformation ? props.homePhotoInformation.map((photo, index)=> {
                     return( 
                         <PhotoDescriptionView 
+                        setIsMainPhotosVisible={props.setIsMainPhotosVisible}
                         history={props.history}
                         lazy={lazy}
                         index={index}
-                        length={props.homePhotoInformation.length}
+                        photoLength={props.homePhotoInformation.length}
                         getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
                         setPhotoInformation={props.setPhotoInformation} 
                         key={index} 
@@ -102,7 +104,7 @@ const GetPhotos = (props) => {
             <div style={{display: 'flex', justifyContent: 'center'}}>
                 <SubmitButton onClick={lazy}>Load more</SubmitButton>
             </div>
-        </div>
+        </DisplayContainer>
        
        )
     }
@@ -154,13 +156,19 @@ class ImageCard extends Component {
             incrementViewCount(reference.docs[0].ref.id)
         }) 
     }
+
+    imageLoaded = () => {
+        if (this.props.index === this.props.photoLength - 1){
+            this.props.setIsMainPhotosVisible(true)
+        }
+    }
     
     render() {
         return( 
             <div style={{ gridRowEnd: `span ${this.state.spans}` }}>
                 <PhotoContainer onClick={this.click}>
                     <PhotoTextContainer>
-                        <Image className='masonry-image' ref={this.imageRef} src={this.props.photoInfo.image} alt='main display'  />
+                        <Image onLoad={this.imageLoaded} className='masonry-image' ref={this.imageRef} src={this.props.photoInfo.image} alt='main display'  />
                         <TextContainer>
                             <PhotoTitle>{this.props.photoInfo.title}</PhotoTitle>
                             <PhotoLocation>{`${this.props.photoInfo.city}, ${this.props.photoInfo.country}`}</PhotoLocation>

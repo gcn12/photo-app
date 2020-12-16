@@ -26,6 +26,7 @@ const App = () => {
   const [userData, setUserData] = useState([])
   const [userPosts, setUserPosts] = useState([])
   const [displayView, setDisplayView] = useState(false)
+  const [isMainPhotosVisible, setIsMainPhotosVisible] = useState(false)
 
   const getFeaturedPhotoInfo = (url, username) => {
     db.collection('posts')
@@ -81,7 +82,7 @@ const App = () => {
   return (
     <div>
       <Route path='/photo-app/' render={(props)=> (
-        <Header {...props} displayView={displayView} setDisplayView={setDisplayView} setHomePhotoInformation={setHomePhotoInformation} user={user}/>
+        <Header {...props} setIsMainPhotosVisible={setIsMainPhotosVisible} displayView={displayView} setDisplayView={setDisplayView} setHomePhotoInformation={setHomePhotoInformation} user={user}/>
         )} />
 
         
@@ -148,6 +149,8 @@ const App = () => {
         <Route exact path='/photo-app/posts/:sort?' render={(props)=> (
           // <VerticalScroll scrollHeight='90vh'>
             <MainPhotoDisplay 
+              isMainPhotosVisible={isMainPhotosVisible}
+              setIsMainPhotosVisible={setIsMainPhotosVisible}
               displayView={displayView}
               getFeaturedPhotoInfo={getFeaturedPhotoInfo}
               homePhotoInformation={homePhotoInformation} 

@@ -29,15 +29,25 @@ const Subheader = (props) => {
         }
     }
 
+    const changeSort = (sortCriteria) => {
+        props.setIsMainPhotosVisible(false)
+        props.sort(sortCriteria)
+    }
+
+    const getAssorted = () => {
+        props.getAssortedPhotos()
+        props.setIsMainPhotosVisible(false)
+    }
+
     return(
         <div>
             <Container>
                 <UL>
                     <div style={{display: 'flex', alignItems: 'center'}}>
-                        <LI onClick={props.getAssortedPhotos} underline={props.selected === 'assorted' ? true : false}>Assorted</LI>
-                        <LI onClick={()=>props.sort('views')} underline={props.selected === 'views' ? true : false}>Popular</LI>
-                        <LI onClick={()=>props.sort('timestamp')} underline={props.selected === 'timestamp' ? true : false}>Newest</LI>
-                        <LI onClick={()=>props.sort('ratio')} underline={props.selected === 'ratio' ? true : false}>Highest rated</LI>
+                        <LI onClick={getAssorted} underline={props.selected === 'assorted' ? true : false}>Assorted</LI>
+                        <LI onClick={()=>changeSort('views')} underline={props.selected === 'views' ? true : false}>Popular</LI>
+                        <LI onClick={()=>changeSort('timestamp')} underline={props.selected === 'timestamp' ? true : false}>Newest</LI>
+                        <LI onClick={()=>changeSort('ratio')} underline={props.selected === 'ratio' ? true : false}>Highest rated</LI>
                     </div>
                     <div style={{display: 'flex'}} >
                         <div className='categories-dropdown'>
