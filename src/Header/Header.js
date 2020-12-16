@@ -105,6 +105,11 @@ const Header = (props) => {
         setSearchVisibility(true)
     }
 
+    const getAssortedAndDropOpacity = () => {
+        props.setIsMainPhotosVisible(false)
+        getAssortedPhotos()
+    }
+
     return(
         <div style={{position: 'fixed', top: 0, width: '100%', marginBottom: '20px', zIndex:2}}>
             {!props.location.pathname.includes('/photo-app/upload') ? 
@@ -114,7 +119,7 @@ const Header = (props) => {
                 <SearchDropdown setSearchVisibility={setSearchVisibility} searchVisibility={searchVisibility} setSearchTransition={setSearchTransition} searchTransition={searchTransition} />
                 <Container>
                     <UL>
-                        <Link onClick={getAssortedPhotos} to='/photo-app/posts' style={{ textDecoration: 'none' }}>
+                        <Link onClick={getAssortedAndDropOpacity} to='/photo-app/posts' style={{ textDecoration: 'none' }}>
                             <LI>Wall</LI>
                         </Link>
                         <Link to='/photo-app/discover' style={{ textDecoration: 'none' }}>
