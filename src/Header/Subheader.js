@@ -17,12 +17,14 @@ const Subheader = (props) => {
         props.setDropdownTransition('transitionStart')
         props.setVisibility(true)
         document.body.style.overflowY = 'hidden'
+        document.body.style.position = 'relative'
     }
 
     const openDropdownCategories = () => {
         props.setDropdownCategoriesTransition('transitionStart')
         props.setCategoriesVisibility(true)
         document.body.style.overflowY = 'hidden'
+        document.body.style.position = 'relative'
     }
 
     window.onclick = (e) => {

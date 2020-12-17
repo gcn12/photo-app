@@ -117,7 +117,7 @@ const Search = () => {
             </IconContainer>
 
 
-            {query.length > 0 && showResults ?
+            {query.length > 1 && showResults ?
             <ResultsContainer>
             {hits === 'No results' ? 
             <div style={{padding: '15px'}}>No results</div>
