@@ -461,7 +461,7 @@ const EditPost = (props) => {
                             }
                         </BodyButtonContainer>
                         <Label>Post description</Label>
-                        <PostDescriptionInput onChange={calculateRemainingCharacters} id='edit-post-description'></PostDescriptionInput>
+                        <PostDescriptionInput font={font} onChange={calculateRemainingCharacters} id='edit-post-description'></PostDescriptionInput>
                         <div>Remaining characters: {remainingCharacters}</div>
                         <Label>Font:</Label>
                         <FontSelect onChange={getFont} id='font-select'>

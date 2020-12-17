@@ -35,6 +35,7 @@ const CategoriesDropdown = (props) => {
     const closeDropdown = () => {
         props.setDropdownCategoriesTransition('transitionEnd')
         setTimeout(()=> props.setCategoriesVisibility(false), 300)
+        document.body.style.overflowY = 'auto'
     }
 
     const sortPosts = (value) => {

@@ -37,6 +37,7 @@ const SubheaderDropdown = (props) => {
         props.setIsMainPhotosVisible(false)
         props.setDropdownTransition('transitionEnd')
         setTimeout(()=> props.setVisibility(false), 300)
+        document.body.style.overflowY = 'auto'
     }
 
     const sortPosts = (value) => {

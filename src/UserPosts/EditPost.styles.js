@@ -195,4 +195,5 @@ export const PostDescriptionInput = styled.textarea`
     width: 60vw;
     height: 150px;
     font-size: 20px;
+    font-family: ${props=>props.font};
 `

@@ -104,6 +104,7 @@ const Header = (props) => {
     const startSearchTransition = () => {
         setSearchVisibility(true)
         setSearchTransition('transitionStart')
+        document.body.style.overflowY = 'hidden'
     }
 
     const getAssortedAndDropOpacity = () => {

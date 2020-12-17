@@ -16,11 +16,13 @@ const Subheader = (props) => {
     const openDropdown = () => {
         props.setDropdownTransition('transitionStart')
         props.setVisibility(true)
+        document.body.style.overflowY = 'hidden'
     }
 
     const openDropdownCategories = () => {
         props.setDropdownCategoriesTransition('transitionStart')
         props.setCategoriesVisibility(true)
+        document.body.style.overflowY = 'hidden'
     }
 
     window.onclick = (e) => {
@@ -38,6 +40,7 @@ const Subheader = (props) => {
         props.getAssortedPhotos()
         props.setIsMainPhotosVisible(false)
     }
+    
 
     return(
         <div>

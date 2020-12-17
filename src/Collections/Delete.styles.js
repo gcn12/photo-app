@@ -23,6 +23,10 @@ export const Container = styled.div`
         width: 60vw;
         height: 180px;
     }
+    @media (max-width: 550px) {
+        width: 80vw;
+        height: 180px;
+    }
 `
 
 export const Text = styled.div`
