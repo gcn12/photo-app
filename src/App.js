@@ -85,9 +85,6 @@ const App = () => {
         <Header {...props} setIsMainPhotosVisible={setIsMainPhotosVisible} displayView={displayView} setDisplayView={setDisplayView} setHomePhotoInformation={setHomePhotoInformation} user={user}/>
         )} />
 
-        
-
-      {/* <TestFile homePhotoInformation={homePhotoInformation}  setHomePhotoInformation={setHomePhotoInformation}  />  */}
 
       <Route path='/photo-app/' render={(props)=> (
         <Footer {...props} user={user} />
@@ -162,7 +159,7 @@ const App = () => {
         )} />
       </Switch>
       {/* <button onClick={testDelete}>Delete</button> */}
-
+      {/* <TestFile homePhotoInformation={homePhotoInformation}  setHomePhotoInformation={setHomePhotoInformation}  />  */}
     </div>
   );
 }

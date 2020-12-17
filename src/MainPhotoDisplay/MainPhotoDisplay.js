@@ -1,4 +1,5 @@
 import React, { useEffect, useState, Component } from 'react'
+import fitty from 'fitty'
 import { db } from '../Firebase'
 import PhotoDescriptionView from './PhotoDescriptionView'
 import '../App.css'
@@ -16,6 +17,7 @@ import {
     PhotoTextContainer,
     PhotoLocation,
     TextContainer,
+    IndividualTextContainer,
 } from './DisplayPhoto.styles'
 
 const GetPhotos = (props) => {
@@ -120,11 +122,15 @@ class ImageCard extends Component {
 
     componentDidMount() {
         this.imageRef.current.addEventListener("load", this.setSpans)
+        fitty(`#fitty-${this.props.index}`)
+        fitty(`#fitty-location-${this.props.index}`)
         window.addEventListener("resize", ()=>setTimeout(()=> {
             if(this.imageRef.current) {
                 const height = this.imageRef.current.clientHeight;
                 const spans = Math.ceil(height) + 7;
                 this.setState({ spans: spans });
+                fitty(`#fitty-${this.props.index}`)
+                fitty(`#fitty-location-${this.props.index}`)
             }
         }, 800))
     }
@@ -136,7 +142,9 @@ class ImageCard extends Component {
                 const height = this.imageRef.current.clientHeight;
                 const spans = Math.ceil(height) + 7;
                 this.setState({ spans: spans });
-                }
+                fitty(`#fitty-${this.props.index}`)
+                fitty(`#fitty-location-${this.props.index}`)
+            }
         }, 750))
     }
      
@@ -171,8 +179,12 @@ class ImageCard extends Component {
                     <PhotoTextContainer>
                         <Image onLoad={this.imageLoaded} className='masonry-image' ref={this.imageRef} src={this.props.photoInfo.image} alt='main display'  />
                         <TextContainer>
-                            <PhotoTitle>{this.props.photoInfo.title}</PhotoTitle>
-                            <PhotoLocation>{`${this.props.photoInfo.city}, ${this.props.photoInfo.country}`}</PhotoLocation>
+                            <IndividualTextContainer>
+                                <PhotoTitle id={`fitty-${this.props.index}`}>{this.props.photoInfo.title}</PhotoTitle>
+                            </IndividualTextContainer>
+                            <IndividualTextContainer>
+                                <PhotoLocation id={`fitty-location-${this.props.index}`}>{`${this.props.photoInfo.city}, ${this.props.photoInfo.country}`}</PhotoLocation>
+                            </IndividualTextContainer>
                         </TextContainer>
                     </PhotoTextContainer>
                 </PhotoContainer>

@@ -51,6 +51,7 @@ const Signup = (props) => {
                 <TextField onChange={e=> setUsername(e.target.value)}></TextField>
                 <Text>Password</Text>
                 <TextField onChange={e=> setPassword(e.target.value)} type='password'></TextField>
+                <br></br>
                 <SubmitButton onClick={submit}>Signup</SubmitButton>
             </Container>
         </Container2>

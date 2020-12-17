@@ -9,6 +9,10 @@ export const TextField = styled.input`
     &:focus {
         height: 40px;
     }
+
+    @media (max-width: 600px) {
+        width: 75vw;
+    }
 `
 
 export const SubmitButton = styled.button`
@@ -41,12 +45,15 @@ export const Text = styled.div`
 `
 
 export const Container = styled.div`
-    display: flex;
+    position: absolute;
+    top: calc(50% - 120px);
+    display:flex;
     flex-direction: column;
 `
 
 export const Container2 = styled.div`
-    display: flex;
-    justify-content: center;
-    margin-top: 55px;
+display: flex;
+justify-content: center;
+    /* position: relative; */
+    /* margin-top: 55px; */
 `

@@ -33,8 +33,8 @@ const Login = (props) => {
                 <TextField onChange={e => setEmail(e.target.value)}></TextField>
                 <Text>Password</Text>
                 <TextField onChange={e => setPassword(e.target.value)} type='password'></TextField>
-                <SubmitButton onClick={submit}>Login</SubmitButton>
                 <br></br>
+                <SubmitButton onClick={submit}>Login</SubmitButton>
                 {/* <SubmitButton onClick={signout}>Signout</SubmitButton> */}
             </Container>
         </Container2>
