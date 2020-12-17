@@ -90,7 +90,7 @@ const App = () => {
       {/* <TestFile homePhotoInformation={homePhotoInformation}  setHomePhotoInformation={setHomePhotoInformation}  />  */}
 
       <Route path='/photo-app/' render={(props)=> (
-        <Footer {...props} />
+        <Footer {...props} user={user} />
       )} />
         
       <Switch>

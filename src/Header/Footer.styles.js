@@ -25,3 +25,8 @@ export const ProfileImage = styled.img`
     border-radius: 50%;
     border: 1px solid black;
 `
+
+export const Text = styled.div`
+    color: #242424;
+    font-size: 30px;
+`

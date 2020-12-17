@@ -7,6 +7,7 @@ import { ReactComponent as Profile } from '../Icons/Profile.svg'
 import {
     Container,
     ProfileImage,
+    Text,
 } from './Footer.styles'
 
 const Footer = (props) => {
@@ -35,8 +36,11 @@ const Footer = (props) => {
 
     return(
         <div>
-            {!props.location.pathname.includes('/upload') ? 
-                <Container>
+            {props.location.pathname.includes('/upload') ? 
+            null
+            :
+            props.user ? 
+            <Container>
                 <Link to='/photo-app/upload'>
                     <Add style={{cursor: 'pointer'}} />
                 </Link>
@@ -49,7 +53,14 @@ const Footer = (props) => {
                 </Link>
             </Container>
             :
-            null
+            <Container>
+                <Link to='/photo-app/signup' style={{textDecoration: 'none'}}>
+                    <Text>Sign up</Text>
+                </Link>
+                <Link to='/photo-app/login' style={{textDecoration: 'none'}}>
+                    <Text>Log in</Text>
+                </Link>
+            </Container>
             }
         </div>
         )
