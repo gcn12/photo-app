@@ -38,6 +38,7 @@ const SubheaderDropdown = (props) => {
         props.setDropdownTransition('transitionEnd')
         setTimeout(()=> props.setVisibility(false), 300)
         document.body.style.overflowY = 'auto'
+        document.body.style.position = 'initial'
     }
 
     const sortPosts = (value) => {

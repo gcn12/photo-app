@@ -125,6 +125,7 @@ const SearchDropdown = (props) => {
         props.setSearchTransition('transitionEnd')
         setTimeout(()=> props.setSearchVisibility(false), 300)
         document.body.style.overflowY = 'auto'
+        document.body.style.position = 'initial'
         clearResults()
     }
 

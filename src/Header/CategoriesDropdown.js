@@ -36,6 +36,7 @@ const CategoriesDropdown = (props) => {
         props.setDropdownCategoriesTransition('transitionEnd')
         setTimeout(()=> props.setCategoriesVisibility(false), 300)
         document.body.style.overflowY = 'auto'
+        document.body.style.position = 'initial'
     }
 
     const sortPosts = (value) => {
