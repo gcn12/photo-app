@@ -6,11 +6,11 @@ import {
 } from './AddContent.styles'
 
 const PostDescription = (props) => {
-    const [remainingCharacters, setRemainingCharacters] = useState(200)
+    const [remainingCharacters, setRemainingCharacters] = useState(150)
 
     const calculateRemainingCharacters = () => {
         const characters = document.getElementById('post-description-input').value
-        const characterQuantity = 200 - characters.length
+        const characterQuantity = 150 - characters.length
         setRemainingCharacters(characterQuantity)
         props.setNumberCharacters(characterQuantity)
     }

@@ -36,7 +36,7 @@ const EditPost = (props) => {
     const [imagesToUpload, setImagesToUpload] = useState([])
     const [filesArray, setFilesArray] = useState([])
     const [postData, setPostData] = useState({})
-    const [remainingCharacters, setRemainingCharacters] = useState(200)
+    const [remainingCharacters, setRemainingCharacters] = useState(150)
 
     const newImage = () => {
         const filesArrayCopy = filesArray
@@ -116,7 +116,7 @@ const EditPost = (props) => {
         document.getElementById('edit-post-description').value = props?.postData[0]?.previewDescription
 
         if(props?.postData[0]?.previewDescription) {
-            const quanityCharacters = 200 - props?.postData[0]?.previewDescription.length 
+            const quanityCharacters = 150 - props?.postData[0]?.previewDescription.length 
             setRemainingCharacters(quanityCharacters)
         }
         // document.getElementsByClassName('edit-body-text').style.fontFamily = props?.postData[0]?.font
@@ -343,8 +343,8 @@ const EditPost = (props) => {
             fullPostUpdate['previewDescription'] = previewDescription
             previewPostUpdate['previewDescription'] = previewDescription
         }else{
-            previewPostUpdate['previewDescription'] = descriptionArray[0].substring(0,200)
-            fullPostUpdate['previewDescription'] = descriptionArray[0].substring(0,200)
+            previewPostUpdate['previewDescription'] = descriptionArray[0].substring(0,150)
+            fullPostUpdate['previewDescription'] = descriptionArray[0].substring(0,150)
         }
         if (title !== postData.title && title.length > 0) {
             fullPostUpdate['title'] = title
@@ -399,7 +399,7 @@ const EditPost = (props) => {
 
     const calculateRemainingCharacters = () => {
         const characters = document.getElementById('edit-post-description').value
-        const characterQuantity = 200 - characters.length
+        const characterQuantity = 150 - characters.length
         setRemainingCharacters(characterQuantity)
     }
      

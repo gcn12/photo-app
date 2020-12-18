@@ -233,7 +233,7 @@ const AddContent = (props) => {
     const [bodyProceed, setBodyProceed] = useState(false)
     const [fontProceed, setFontProceed] = useState(true)
     const [isDuplicate, setIsDuplicate] = useState(false)
-    const [numberCharacters, setNumberCharacters] = useState(200)
+    const [numberCharacters, setNumberCharacters] = useState(150)
 
     const submit = (imagesEmptyArrays, unsortedImages, imageMap, user, imageSizeArray) => {
         const title = document.getElementById('add-content-title').value
@@ -260,7 +260,7 @@ const AddContent = (props) => {
         if (document.getElementById('post-description-input').value.length > 0) {
             previewDescription = document.getElementById('post-description-input').value
         }else{
-            previewDescription = descriptionArray[0].substring(0, 200)
+            previewDescription = descriptionArray[0].substring(0, 150)
         }
     
         let mainImage = ''

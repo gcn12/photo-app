@@ -7,8 +7,10 @@ import {
     Card,
     Description,
     Container,
-    NameLocation,
+    Location,
     Title,
+    // Name,
+    // LocationNameContainer,
 } from './PhotoDescriptionView.styles'
 
 const PhotoDescriptionView = (props) => {
@@ -42,7 +44,8 @@ const PhotoDescriptionView = (props) => {
         <Container onClick={click}>
             <Card>
                 <Image onLoad={imageLoaded} src={props.photoInfo.image}></Image>
-                <NameLocation>{`${props.photoInfo.author} | ${props.photoInfo.city}, ${props.photoInfo.country}`}</NameLocation>
+                <Location>{`${props.photoInfo.city}, ${props.photoInfo.country}`}</Location>
+                {/* <Name>{props.photoInfo.author}</Name> */}
                 {/* <div style={{margin: '0 5%'}}> */}
                     <Title id={`description-view-title-${props.index}`}>{props.photoInfo.title}</Title>
                 {/* </div> */}
