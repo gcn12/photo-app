@@ -25,34 +25,32 @@ const GetPhotos = (props) => {
 
     const { setHomePhotoInformation, homePhotoInformation } = props
     const [startAfter, setStartAfter] = useState(null)
+    const [isLoadMore, setIsLoadMore] = useState(true)
     // eslint-disable-next-line
     const [observerVisible, setObserverVisible] = useState(false)
-    const [randomString, setRandomString] = useState('')
 
-    // eslint-disable-next-line
-    const lazy2 = () => {
-        db.collection('preview-posts')
-        .startAfter(startAfter)
-        .limit(2)
-        .get()
-        .then(snapshot => {
-            setStartAfter(snapshot.docs[snapshot.docs.length-1].ref)
-            const photosArray = []
-            snapshot.docs.forEach(doc => {
-                photosArray.push(doc.data())
-            })
-            setHomePhotoInformation([...homePhotoInformation, ...photosArray])
-            console.log('lazy')
-        })
-    }
+    // const lazy2 = () => {
+    //     db.collection('preview-posts')
+    //     .startAfter(startAfter)
+    //     .limit(2)
+    //     .get()
+    //     .then(snapshot => {
+    //         setStartAfter(snapshot.docs[snapshot.docs.length-1].ref)
+    //         const photosArray = []
+    //         snapshot.docs.forEach(doc => {
+    //             photosArray.push(doc.data())
+    //         })
+    //         setHomePhotoInformation([...homePhotoInformation, ...photosArray])
+    //         console.log('lazy')
+    //     })
+    // }
 
     const lazy = () => {
         // window.scrollTo({top: 0})
         db.collection('preview-posts')
         .orderBy('views', 'desc')
-        // .where('id', '>=', randomString)
         .startAfter(startAfter)
-        .limit(5)
+        .limit(3)
         .get()
         .then(snapshot => {
             const photosArray = []
@@ -61,46 +59,20 @@ const GetPhotos = (props) => {
                 photosArray.push(doc.data())
             })
             if(photosArray.length > 0) {
-                setStartAfter(snapshot.docs[snapshot.docs.length-1].id)
-            }
-            if(photosArray.length===0) {
-                db.collection('preview-posts')
-                .orderBy('id', 'asc')
-                .where('id', '<=', randomString)
-                .limit(15)
-                .get()
-                .then(snapshot => {
-                    const photosArray = []
-                    snapshot.docs.forEach(doc => {
-                        console.log(doc.id)
-                        photosArray.push(doc.data())
-                    })
-                    if(photosArray.length === 10) {
-                        setStartAfter(snapshot.docs[snapshot.docs.length-1])
-                    }
-                    setTimeout(()=> props.setHomePhotoInformation([...props.homePhotoInformation, ...photosArray]), 700)
-                    // props.setHomePhotoInformation(photosArray)
-                })
+                setStartAfter(snapshot.docs[snapshot.docs.length-1])
             }else{
-                props.setHomePhotoInformation([...props.homePhotoInformation, ...photosArray])
+                setIsLoadMore(false)
             }
+            props.setHomePhotoInformation([...props.homePhotoInformation, ...photosArray])
         })
     }
 
     useEffect(()=>{
         // window.scrollTo({top: 0})
-        let randomStringText = ''
-        const values = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789'
-        for (let i = 0; i < 8; i++) {
-            randomStringText += values[Math.floor(Math.random() * 62)]
-        }
-        setRandomString(randomStringText)
-        // eslint-disable-next-line
         if(!homePhotoInformation){
             db.collection('preview-posts')
             .orderBy('views', 'desc')
-            // .where('id', '<=', randomStringText)
-            .limit(20)
+            .limit(3)
             .get()
             .then(snapshot => {
                 const photosArray = []
@@ -108,32 +80,10 @@ const GetPhotos = (props) => {
                     console.log(doc.id)
                     photosArray.push(doc.data())
                 })
-                // if(photosArray.length===0) {
-            //     db.collection('preview-posts')
-            //     .orderBy('id', 'asc')
-            //     .where('id', '<=', randomString)
-            //     .limit(5)
-            //     .get()
-            //     .then(snapshot => {
-            //         const photosArray = []
-            //         snapshot.docs.forEach(doc => {
-            //             console.log(doc.id)
-            //             photosArray.push(doc.data())
-            //         })
-            //         if(photosArray.length === 10) {
-            //             setStartAfter(snapshot.docs[snapshot.docs.length-1])
-            //         }
-            //         setTimeout(()=> props.setHomePhotoInformation([...props.homePhotoInformation, ...photosArray]), 700)
-            //         // props.setHomePhotoInformation(photosArray)
-            //     })
-            // }else{
-                // eslint-disable-next-line
                 props.setHomePhotoInformation(photosArray)
-            // }
                 if(photosArray.length > 0) {
-                    setStartAfter(snapshot.docs[snapshot.docs.length-1].id)
+                    setStartAfter(snapshot.docs[snapshot.docs.length-1])
                 }
-                // eslint-disable-next-line
                 setHomePhotoInformation(photosArray)
                 console.log('running')
             })
@@ -186,19 +136,17 @@ const GetPhotos = (props) => {
             :
             <Container>
                 <div className="image-list">{images}</div>
-                    {/* <div ref={ref}> */}
-                        {/* {console.log(inView)} */}
-                    {/* </div> */}
-                {/* <div style={{display: observerVisible ? 'initial' : 'none', visibility: observerVisible ? 'visible' : 'none'}}>
-                    <h2>Plain children are always rendered. Use onChange to monitor state.</h2>
-                <InView  as="div" onChange={observerVisible ? lazy : null}>
-                </InView>
-                </div> */}
             </Container>
             }
+            {isLoadMore ? 
             <LoadMoreButtonContainer>
                 <SubmitButton onClick={lazy}>Load more</SubmitButton>
             </LoadMoreButtonContainer>
+            :
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+                <div>You've reached the bottom</div>
+            </div>
+            }
             <div style={{margin: '30px'}}></div>
         </DisplayContainer>
        

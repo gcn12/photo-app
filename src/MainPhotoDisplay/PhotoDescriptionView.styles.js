@@ -4,8 +4,10 @@ export const Container = styled.div`
     cursor: pointer;
     /* border-radius: 6%; */
     overflow: none;
+    opacity: ${props=> props.opacity ? 1 : 0};
+    transition: opacity 700ms ease-in-out;
     /* box-shadow: 0 1px 2px rgba(0, 0, 0, .4); */
-    transition: box-shadow 400ms ease-in-out;
+    /* transition: box-shadow 400ms ease-in-out; */
     margin-bottom: 15px;
     /* &:hover {
         box-shadow: 0 5px 15px rgba(0, 0, 0, .4);

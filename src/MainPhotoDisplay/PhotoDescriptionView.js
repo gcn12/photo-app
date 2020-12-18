@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { db } from '../Firebase'
 import { incrementViewCount } from '../Functions' 
 import fitty from 'fitty'
@@ -14,6 +14,8 @@ import {
 } from './PhotoDescriptionView.styles'
 
 const PhotoDescriptionView = (props) => {
+
+    const [showPost, setShowPost] = useState(false)
 
     useEffect(()=> {
         fitty(`#description-view-title-${props.index}`, {maxSize: 30})
@@ -37,11 +39,12 @@ const PhotoDescriptionView = (props) => {
             props.setIsMainPhotosVisible(true)
             props.setObserverVisible(true)
         }
+        setShowPost(true)
     }
 
 
     return(
-        <Container onClick={click}>
+        <Container opacity={showPost ? 1 : 0} onClick={click}>
             <Card>
                 <Image onLoad={imageLoaded} src={props.photoInfo.image}></Image>
                 <Location>{`${props.photoInfo.city}, ${props.photoInfo.country}`}</Location>
