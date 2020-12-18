@@ -6,7 +6,7 @@ import Header from './Header/Header'
 // import VerticalScroll from './VeritcalScroll/VerticalScroll'
 import Discover from './Discover/Discover'
 import FeaturedPost from './FeaturedPost/FeaturedPost'
-import MainPhotoDisplay from './MainPhotoDisplay/MainPhotoDisplay'
+import MainPhotoDisplay from './MainPhotoDisplay/MainPhotoDisplayVertical'
 import Profile from './Profile/Profile'
 import Login from './Login/Login'
 import PublicProfile from './PublicProfile/PublicProfile'
@@ -17,6 +17,7 @@ import Signup from './SignUp/SignUp'
 import firebase from 'firebase'
 import { db } from './Firebase'
 import { Route, Switch } from 'react-router-dom'
+// import { SubmitButton, } from './AddContent/AddContent.styles'
 // import { firebaseApp } from './Firebase'
 
 const App = () => {
@@ -25,7 +26,7 @@ const App = () => {
   const [photoInformation, setPhotoInformation] = useState(null)
   const [userData, setUserData] = useState([])
   const [userPosts, setUserPosts] = useState([])
-  const [displayView, setDisplayView] = useState(false)
+  const [displayView, setDisplayView] = useState(true)
   const [isMainPhotosVisible, setIsMainPhotosVisible] = useState(false)
 
   const getFeaturedPhotoInfo = (url, username) => {
@@ -144,7 +145,6 @@ const App = () => {
         )} />
 
         <Route exact path='/photo-app/posts/:sort?' render={(props)=> (
-          // <VerticalScroll scrollHeight='90vh'>
             <MainPhotoDisplay 
               isMainPhotosVisible={isMainPhotosVisible}
               setIsMainPhotosVisible={setIsMainPhotosVisible}
@@ -155,9 +155,11 @@ const App = () => {
               setPhotoInformation={setPhotoInformation} 
               {...props}
             />
-          // </VerticalScroll>
         )} />
       </Switch>
+        {/* <div style={{display: 'flex', justifyContent: 'center'}}>
+            <SubmitButton onClick={null}>Load more</SubmitButton>
+        </div> */}
       {/* <button onClick={testDelete}>Delete</button> */}
       {/* <TestFile homePhotoInformation={homePhotoInformation}  setHomePhotoInformation={setHomePhotoInformation}  />  */}
     </div>

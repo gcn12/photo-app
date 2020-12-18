@@ -8,11 +8,11 @@ export const DisplayContainer = styled(motion.div)`
 `
 
 export const PhotoDescriptionViewContainer = styled.div`
-    margin: 2% 7%;
+    margin: 0% 7%;
     display: grid;
     grid-template-columns: repeat(3, auto);
     grid-column-gap: 2%;
-    grid-row-gap: 2%;
+    grid-row-gap: 0%;
     align-items: center;
     justify-items: center;
     justify-content: center;
@@ -56,4 +56,10 @@ export const SortSelect = styled.select`
     border-radius: 5%;
     margin-bottom: 10px;
     font-size: 15px;
+`
+
+export const LoadMoreButtonContainer = styled.div`
+    /* position: fixed; */
+    display: flex;
+    justify-content: center;
 `

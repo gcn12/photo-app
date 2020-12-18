@@ -247,7 +247,9 @@ const AddContent = (props) => {
         const content = document.getElementsByClassName('content-paragraph')
 
         let titleNoBlankSpace = title.trim()
-        let url = titleNoBlankSpace.replaceAll(' ', '-')
+        let url = titleNoBlankSpace.split(' ')
+        url = url.join('-')
+        // let url = titleNoBlankSpace.replaceAll(' ', '-')
         url = url.toLowerCase()
     
         for (let i=0; i<content.length; i++) {
@@ -392,7 +394,9 @@ const AddContent = (props) => {
         .get()
         .then(userData=> {
             const title = document.getElementById('add-content-title').value
-            let url = title.replaceAll(' ', '-')
+            // let url = title.replaceAll(' ', '-')
+            let url = title.split(' ')
+            url = url.join('-')
             url = url.toLowerCase()
             const username = userData.data().username
             const upload = () => {
@@ -447,7 +451,9 @@ const AddContent = (props) => {
 
     const checkTitleDuplicates = () => {
         const title = document.getElementById('add-content-title').value
-        let url = title.replaceAll(' ', '-')
+        // let url = title.replaceAll(' ', '-')
+        let url = title.split(' ')
+        url = url.join('-')
         url = url.toLowerCase()
         db.collection('users').doc(props.user)
         .collection('post-names')

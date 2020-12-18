@@ -24,6 +24,7 @@ export const SearchBox = styled.input`
     height: 25px;
     font-size: 20px;
     width: 200px;
+    box-shadow: 0px 5px 6px rgba(0, 0, 0, .1);
     @media (max-width: 690px) {
         width: 130px;
     }
@@ -31,6 +32,7 @@ export const SearchBox = styled.input`
         visibility: hidden;
         display: none;
     }
+
 `
 
 export const MoreResults = styled.div`

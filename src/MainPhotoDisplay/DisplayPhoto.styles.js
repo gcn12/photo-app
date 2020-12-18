@@ -54,6 +54,8 @@ export const TextContainer = styled.div`
 `
 
 export const Image = styled.img`
+    opacity: ${props=>props.opacity};
+
     filter: brightness(1);
     transition: filter 2000ms ease;
     transition: 800ms ease;
