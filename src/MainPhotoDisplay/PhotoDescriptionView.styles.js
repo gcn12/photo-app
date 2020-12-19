@@ -4,7 +4,7 @@ export const Container = styled.div`
     overflow: none;
     opacity: ${props=> props.opacity ? 1 : 0};
     transition: opacity 700ms ease-in-out;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
 `
  
  export const Card = styled.div`
