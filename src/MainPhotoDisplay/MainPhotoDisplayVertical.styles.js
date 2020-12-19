@@ -19,7 +19,7 @@ export const PhotoDescriptionViewContainer = styled.div`
     justify-content: center;
 
     @media (max-width: 750px){
-        grid-column-gap: 2%;
+        grid-column-gap: 0%;
     } 
 
     /* @media (max-width: 1100px){
