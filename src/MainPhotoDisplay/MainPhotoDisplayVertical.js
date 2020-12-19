@@ -23,7 +23,7 @@ import {
 
 const GetPhotos = (props) => {
 
-    const { setHomePhotoInformation, homePhotoInformation } = props
+    // const { setHomePhotoInformation, homePhotoInformation } = props
     const [startAfter, setStartAfter] = useState(null)
     const [isLoadMore, setIsLoadMore] = useState(true)
     // eslint-disable-next-line
@@ -55,7 +55,6 @@ const GetPhotos = (props) => {
         .then(snapshot => {
             const photosArray = []
             snapshot.docs.forEach(doc => {
-                console.log(doc.id)
                 photosArray.push(doc.data())
             })
             if(photosArray.length > 0) {
@@ -69,25 +68,25 @@ const GetPhotos = (props) => {
 
     useEffect(()=>{
         // window.scrollTo({top: 0})
-        if(!homePhotoInformation){
-            db.collection('preview-posts')
-            .orderBy('views', 'desc')
-            .limit(3)
-            .get()
-            .then(snapshot => {
-                const photosArray = []
-                snapshot.docs.forEach(doc => {
-                    console.log(doc.id)
-                    photosArray.push(doc.data())
-                })
-                props.setHomePhotoInformation(photosArray)
-                if(photosArray.length > 0) {
-                    setStartAfter(snapshot.docs[snapshot.docs.length-1])
-                }
-                setHomePhotoInformation(photosArray)
-                console.log('running')
-            })
-        }
+        // if(!homePhotoInformation){
+        //     db.collection('preview-posts')
+        //     .orderBy('views', 'desc')
+        //     .limit(3)
+        //     .get()
+        //     .then(snapshot => {
+        //         const photosArray = []
+        //         snapshot.docs.forEach(doc => {
+        //             console.log(doc.id)
+        //             photosArray.push(doc.data())
+        //         })
+        //         props.setHomePhotoInformation(photosArray)
+        //         if(photosArray.length > 0) {
+        //             setStartAfter(snapshot.docs[snapshot.docs.length-1])
+        //         }
+        //         setHomePhotoInformation(photosArray)
+        //         console.log('running')
+        //     })
+        // }
     // }, [setHomePhotoInformation, homePhotoInformation])
     // eslint-disable-next-line
     }, [])
@@ -140,7 +139,7 @@ const GetPhotos = (props) => {
             }
             {isLoadMore ? 
             <LoadMoreButtonContainer>
-                <SubmitButton onClick={lazy}>Load more</SubmitButton>
+                <SubmitButton onClick={()=>props.sort(props.sortCriteria)}>Load more</SubmitButton>
             </LoadMoreButtonContainer>
             :
             <div style={{display: 'flex', justifyContent: 'center'}}>

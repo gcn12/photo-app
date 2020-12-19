@@ -25,12 +25,13 @@ const Header = (props) => {
     const [categoriesVisibility, setCategoriesVisibility] = useState(false)
     const [searchTransition, setSearchTransition] = useState('initial')
     const [searchVisibility, setSearchVisibility] = useState(false)
-    const [selected, setSelected] = useState('assorted')
+    const [selected, setSelected] = useState('')
     const [selectedCategory, setSelectedCategory] = useState('')
 
     const sort = (value) => {
         setSelected(value)
-        db.collection('preview-posts').orderBy(value, 'desc')
+        db.collection('preview-posts')
+        .orderBy(value, 'desc')
         .limit(10)
         .get()
         .then(data=> {
@@ -156,7 +157,24 @@ const Header = (props) => {
                     </HeaderRight>
                 </Container>
                 {props.location.pathname.includes('/photo-app/posts') ? 
-                <Subheader setIsMainPhotosVisible={props.setIsMainPhotosVisible} setCategoriesVisibility={setCategoriesVisibility} setDropdownCategoriesTransition={setDropdownCategoriesTransition} getCategoryPhotos={getCategoryPhotos} getAssortedPhotos={getAssortedPhotos} displayView={props.displayView} setDisplayView={props.setDisplayView} sort={sort} setSelected={setSelected} selected={selected} setVisibility={setVisibility} setDropdownTransition={setDropdownTransition} setHomePhotoInformation={props.setHomePhotoInformation}/>
+                <Subheader 
+                    location={props.location}
+                    sort={props.sort} 
+                    sortCriteria={props.sortCriteria} 
+                    setSortCriteria={props.setSortCriteria}  
+                    setIsMainPhotosVisible={props.setIsMainPhotosVisible} 
+                    setCategoriesVisibility={setCategoriesVisibility} 
+                    setDropdownCategoriesTransition={setDropdownCategoriesTransition} 
+                    getCategoryPhotos={getCategoryPhotos} 
+                    getAssortedPhotos={getAssortedPhotos} 
+                    displayView={props.displayView} 
+                    setDisplayView={props.setDisplayView} 
+                    setSelected={setSelected} 
+                    selected={selected} 
+                    setVisibility={setVisibility} 
+                    setDropdownTransition={setDropdownTransition} 
+                    setHomePhotoInformation={props.setHomePhotoInformation}
+                />
                 :
                 null
                 }

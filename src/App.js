@@ -20,7 +20,7 @@ import { Route, Switch } from 'react-router-dom'
 // import { SubmitButton, } from './AddContent/AddContent.styles'
 // import { firebaseApp } from './Firebase'
 
-const App = () => {
+const App = (props) => {
   const [user, setUser] = useState()
   const [homePhotoInformation, setHomePhotoInformation] = useState(null)
   const [photoInformation, setPhotoInformation] = useState(null)
@@ -28,24 +28,103 @@ const App = () => {
   const [userPosts, setUserPosts] = useState([])
   const [displayView, setDisplayView] = useState(true)
   const [isMainPhotosVisible, setIsMainPhotosVisible] = useState(false)
+  
+  //search criteria:
+  const [sortCriteria, setSortCriteria] = useState({
+    city: '',
+    country: '',
+    continent: '',
+    category: '',
+    views: false,
+    new: false,
+    rating: false,
+  })
+  const [startAfter, setStartAfter] = useState('')
 
-  const getFeaturedPhotoInfo = (url, username) => {
-    db.collection('posts')
-    .where('url', '==', url)
-    .where('username', '==', username)
+  const sort = (criteriaObject, isNewSort) => {
+    console.log(criteriaObject)
+    let sortQuery = db.collection('preview-posts')
+    if(criteriaObject.city.length > 0) {
+      sortQuery = sortQuery.where('city', '==', criteriaObject.city)
+    }
+    if(criteriaObject.country.length > 0) {
+      sortQuery = sortQuery.where('country', '==', criteriaObject.country)
+    }
+    if(criteriaObject.continent.length > 0) {
+      sortQuery = sortQuery.where('continent', '==', criteriaObject.continent)
+    }
+    if(criteriaObject.category.length > 0) {
+      sortQuery = sortQuery.where('category', '==', criteriaObject.category)
+    }
+    if(criteriaObject.views) {
+      sortQuery = sortQuery.orderBy('views', 'desc')
+    }
+    if(criteriaObject.new) {
+      sortQuery = sortQuery.orderBy('timestamp', 'desc')
+    }
+    if(criteriaObject.rating) {
+      sortQuery = sortQuery.orderBy('ratio', 'desc')
+    }
+    if(!isNewSort) {
+      sortQuery =  sortQuery.startAfter(startAfter)
+    }
+    sortQuery
+    .limit(2)
     .get()
     .then(data=> {
-      let arr = []
+      let dataArray = []
       data.forEach(item=> {
-        arr.push(item.data())
+        dataArray.push(item.data())
       })
-      const info = arr[0]
-      info['username'] = username
-      setPhotoInformation(info)
-      window.scrollTo({top: 0})
+      setStartAfter(data.docs[data.docs.length-1])
+      if(isNewSort) {
+        setTimeout(()=>setHomePhotoInformation([...dataArray]), 700)
+      }else{
+        setTimeout(()=>setHomePhotoInformation([...homePhotoInformation, ...dataArray]), 700)
+      }
+      // setIsMainPhotosVisible(true)
     })
   }
+  
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user)=> {
+      if(user) {
+        setUser(user.uid)
+      }
+    })
 
+    if(props?.location?.pathname) {
+      let initialSort = db.collection('preview-posts')
+      let criteria = sortCriteria
+      if(props?.location?.pathname?.includes('/posts/popular')) {
+        initialSort = initialSort.orderBy('views', 'desc')
+        criteria['views'] = true
+      }
+      if(props?.location?.pathname?.includes('/posts/new')) {
+        initialSort = initialSort.orderBy('timestamp', 'desc')
+        criteria['new'] = true
+      }
+      if(props?.location?.pathname?.includes('/posts/rating')) {
+        initialSort = initialSort.orderBy('ratio', 'desc')
+        criteria['rating'] = true
+      }
+      setSortCriteria(criteria)
+      initialSort
+      .limit(5)
+      .get()
+      .then(data=> {
+        let dataArray = []
+        data.forEach(item=> {
+          console.log(item.data())
+          dataArray.push(item.data())
+        })
+        setStartAfter(data.docs[data.docs.length-1])
+        setHomePhotoInformation([...dataArray])
+        // setIsMainPhotosVisible(true)
+      })
+    }
+    // eslint-disable-next-line
+  }, [])
 
   const getUserProfile = (username) => {
     db.collection('users')
@@ -70,20 +149,33 @@ const App = () => {
       })
       setUserPosts(postArray)
     })
-}
-  
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user)=> {
-      if(user) {
-        setUser(user.uid)
-      }
+  }
+
+  const getFeaturedPhotoInfo = (url, username) => {
+    db.collection('posts')
+    .where('url', '==', url)
+    .where('username', '==', username)
+    .get()
+    .then(data=> {
+      let arr = []
+      data.forEach(item=> {
+        arr.push(item.data())
+      })
+      const info = arr[0]
+      info['username'] = username
+      setPhotoInformation(info)
+      window.scrollTo({top: 0})
     })
-  }, [])
+  }
+
+  const test = () => {
+    console.log(props)
+  }
 
   return (
     <div>
       <Route path='/photo-app/' render={(props)=> (
-        <Header {...props} setIsMainPhotosVisible={setIsMainPhotosVisible} displayView={displayView} setDisplayView={setDisplayView} setHomePhotoInformation={setHomePhotoInformation} user={user}/>
+        <Header {...props} sort={sort} sortCriteria={sortCriteria} setSortCriteria={setSortCriteria} setIsMainPhotosVisible={setIsMainPhotosVisible} displayView={displayView} setDisplayView={setDisplayView} setHomePhotoInformation={setHomePhotoInformation} user={user}/>
         )} />
 
 
@@ -146,6 +238,9 @@ const App = () => {
 
         <Route exact path='/photo-app/posts/:sort?' render={(props)=> (
             <MainPhotoDisplay 
+              setSortCriteria={setSortCriteria}
+              sortCriteria={sortCriteria}
+              sort={sort}
               isMainPhotosVisible={isMainPhotosVisible}
               setIsMainPhotosVisible={setIsMainPhotosVisible}
               displayView={displayView}
@@ -160,7 +255,7 @@ const App = () => {
         {/* <div style={{display: 'flex', justifyContent: 'center'}}>
             <SubmitButton onClick={null}>Load more</SubmitButton>
         </div> */}
-      {/* <button onClick={testDelete}>Delete</button> */}
+      <button onClick={test}>Delete</button>
       {/* <TestFile homePhotoInformation={homePhotoInformation}  setHomePhotoInformation={setHomePhotoInformation}  />  */}
     </div>
   );

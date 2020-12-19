@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ReactComponent as PhotoGrid } from '../Icons/PhotoGrid.svg'
 import { ReactComponent as DescriptionGrid } from '../Icons/DescriptionGrid.svg'
+import { Link } from 'react-router-dom'
 import {
     Container,
     UL,
@@ -20,6 +21,18 @@ const Subheader = (props) => {
         document.body.style.position = 'fixed'
     }
 
+    useEffect(()=> {
+        if (props?.location?.pathname.includes('new')) {
+            props.setSelected('timestamp')
+        }
+        if (props?.location?.pathname.includes('rating')) {
+            props.setSelected('ratio')
+        }
+        if (props?.location?.pathname.includes('popular')) {
+            props.setSelected('views')
+        }
+    }, [])
+
     const openDropdownCategories = () => {
         props.setDropdownCategoriesTransition('transitionStart')
         props.setCategoriesVisibility(true)
@@ -34,14 +47,35 @@ const Subheader = (props) => {
     }
 
     const changeSort = (sortCriteria) => {
+        // props.setHomePhotoInformation([])
+        let criteria = props.sortCriteria 
+        let newCriteria = {}
+        if(sortCriteria === 'views') {
+            newCriteria['views'] = true
+        }else {
+            newCriteria['views'] = false
+        }
+        if (sortCriteria === 'timestamp') {
+            newCriteria['new'] = true
+        }else {
+            newCriteria['new'] = false
+        }
+        if (sortCriteria === 'ratio') {
+            newCriteria['rating'] = true
+        } else {
+            newCriteria['rating'] = false
+        }
+        let finalCriteria = {...criteria, ...newCriteria}
+        console.log(finalCriteria)
+        props.setSelected(sortCriteria)
+        props.sort(finalCriteria, true)
         props.setIsMainPhotosVisible(false)
-        props.sort(sortCriteria)
     }
 
-    const getAssorted = () => {
-        props.getAssortedPhotos()
-        props.setIsMainPhotosVisible(false)
-    }
+    // const getAssorted = () => {
+    //     props.getAssortedPhotos()
+    //     props.setIsMainPhotosVisible(false)
+    // }
     
 
     return(
@@ -49,10 +83,16 @@ const Subheader = (props) => {
             <Container>
                 <UL>
                     <div style={{display: 'flex', alignItems: 'center'}}>
-                        <LI onClick={getAssorted} underline={props.selected === 'assorted' ? true : false}>Assorted</LI>
-                        <LI onClick={()=>changeSort('views')} underline={props.selected === 'views' ? true : false}>Popular</LI>
-                        <LI onClick={()=>changeSort('timestamp')} underline={props.selected === 'timestamp' ? true : false}>Newest</LI>
-                        <LI onClick={()=>changeSort('ratio')} underline={props.selected === 'ratio' ? true : false}>Highest rated</LI>
+                        {/* <LI onClick={getAssorted} underline={props.selected === 'assorted' ? true : false}>Assorted</LI> */}
+                        <Link to='/photo-app/posts/popular' style={{textDecoration: 'none'}}>
+                            <LI onClick={()=>changeSort('views')} underline={props.selected === 'views' ? true : false}>Popular</LI>
+                        </Link>
+                        <Link to='/photo-app/posts/new' style={{textDecoration: 'none'}}>
+                            <LI onClick={()=>changeSort('timestamp')} underline={props.selected === 'timestamp' ? true : false}>Newest</LI>
+                        </Link>
+                        <Link to='/photo-app/posts/rating' style={{textDecoration: 'none'}}>
+                            <LI onClick={()=>changeSort('ratio')} underline={props.selected === 'ratio' ? true : false}>Highest rated</LI>
+                        </Link>
                     </div>
                     <div style={{display: 'flex'}} >
                         <div className='categories-dropdown'>

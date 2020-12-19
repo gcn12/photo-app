@@ -37,6 +37,7 @@ export const ULMobile = styled.ul`
 `
 
 export const LI = styled.ul`
+    color: #242424;
     font-size: 18px;
     padding: 0;
     margin: 0 25px 0 0px;
