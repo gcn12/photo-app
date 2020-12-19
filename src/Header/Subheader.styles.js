@@ -2,6 +2,10 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     margin: 0 30px;
+
+    @media (max-width: 550px) {
+        margin: 0 16px;
+    }
 `
 
 export const UL = styled.ul`
