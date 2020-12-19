@@ -49,6 +49,7 @@ const FeaturedPost = (props) => {
         .where('country', '==', country)
 
         ref.where('city', '==', city)
+        .limit(6)
         .get().then(snapshot=>{
             const cityArray = []
             snapshot.forEach(city=>{
@@ -57,7 +58,7 @@ const FeaturedPost = (props) => {
             setCityPhotos(cityArray)
         })
 
-        ref.get().then(snapshot=>{
+        ref.limit(6).get().then(snapshot=>{
             const countriesArray = []
             snapshot.docs.forEach(doc=> {
                 countriesArray.push(doc.data())

@@ -13,12 +13,13 @@ import SubheaderCategories from './SubheaderCategories'
 
 
 const Subheader = (props) => {
+    const [category, setCategory] = useState('all categories')
     const [showCategories, setShowCategories] = useState(false)
     const openDropdown = () => {
         props.setDropdownTransition('transitionStart')
         props.setVisibility(true)
         document.body.style.overflowY = 'hidden'
-        document.body.style.position = 'fixed'
+        // document.body.style.position = 'fixed'
     }
 
     useEffect(()=> {
@@ -31,13 +32,14 @@ const Subheader = (props) => {
         }else{
             props.setSelected('views')
         }
+        // eslint-disable-next-line
     }, [])
 
     const openDropdownCategories = () => {
         props.setDropdownCategoriesTransition('transitionStart')
         props.setCategoriesVisibility(true)
         document.body.style.overflowY = 'hidden'
-        document.body.style.position = 'fixed'
+        // document.body.style.position = 'fixed'
     }
 
     window.onclick = (e) => {
@@ -47,7 +49,8 @@ const Subheader = (props) => {
     }
 
     const changeSort = (sortCriteria) => {
-        // props.setHomePhotoInformation([])
+        props.setHomePhotoInformation([])
+        props.setIsMainPhotosVisible(false)
         let criteria = props.sortCriteria 
         let newCriteria = {}
         if(sortCriteria === 'views') {
@@ -69,7 +72,6 @@ const Subheader = (props) => {
         console.log(finalCriteria)
         props.setSelected(sortCriteria)
         props.sort(finalCriteria, true)
-        props.setIsMainPhotosVisible(false)
     }
 
     // const getAssorted = () => {
@@ -96,10 +98,23 @@ const Subheader = (props) => {
                     </div>
                     <div style={{display: 'flex'}} >
                         <div className='categories-dropdown'>
-                            <CategoriesButton className='categories-dropdown' onClick={()=>setShowCategories(!showCategories)}>Categories &#x25BC;</CategoriesButton>
+                            <div onClick={()=>setShowCategories(!showCategories)}>
+                                <CategoriesButton className='categories-dropdown'>{category} &#x25BC;</CategoriesButton>
+                            </div>
                             {showCategories ? 
                             <div style={{position: 'relative'}}>
-                                <SubheaderCategories setIsMainPhotosVisible={props.setIsMainPhotosVisible} getCategoryPhotos={props.getCategoryPhotos} className='categories-dropdown' />
+                                <SubheaderCategories 
+                                    setHomePhotoInformation={props.setHomePhotoInformation}
+                                    category={category}
+                                    setCategory={setCategory}
+                                    setIsMainPhotosVisible={props.setIsMainPhotosVisible} 
+                                    getCategoryPhotos={props.getCategoryPhotos} 
+                                    className='categories-dropdown' 
+                                    location={props.location}
+                                    sort={props.sort} 
+                                    sortCriteria={props.sortCriteria} 
+                                    setSortCriteria={props.setSortCriteria} 
+                                />
                             </div>
                             :
                             null
@@ -114,7 +129,7 @@ const Subheader = (props) => {
                 <ULMobile>
                     <div style={{display: 'flex'}}>
                         <LI onClick={openDropdown}>Sort &#x25BC;</LI>
-                        <LI onClick={openDropdownCategories}>Categories &#x25BC;</LI>
+                        <LI onClick={openDropdownCategories}>{category} &#x25BC;</LI>
                     </div>
                     <div style={{display: 'flex'}} >
                         <div style={{cursor: props.displayView ? 'default' : 'pointer' }} onClick={()=>props.setDisplayView(true)} ><DescriptionGrid style={{fill: props.displayView ? 'gray' : 'black'}} /></div>

@@ -25,7 +25,6 @@ const GetPhotos = (props) => {
 
     // const { setHomePhotoInformation, homePhotoInformation } = props
     const [startAfter, setStartAfter] = useState(null)
-    const [isLoadMore, setIsLoadMore] = useState(true)
     // eslint-disable-next-line
     const [observerVisible, setObserverVisible] = useState(false)
 
@@ -60,7 +59,7 @@ const GetPhotos = (props) => {
             if(photosArray.length > 0) {
                 setStartAfter(snapshot.docs[snapshot.docs.length-1])
             }else{
-                setIsLoadMore(false)
+                // setIsLoadMore(false)
             }
             props.setHomePhotoInformation([...props.homePhotoInformation, ...photosArray])
         })
@@ -137,7 +136,10 @@ const GetPhotos = (props) => {
                 <div className="image-list">{images}</div>
             </Container>
             }
-            {isLoadMore ? 
+            
+            {
+            props?.homePhotoInformation?.length > 0 ?
+            props.isLoadMore ? 
             <LoadMoreButtonContainer>
                 <SubmitButton onClick={()=>props.sort(props.sortCriteria)}>Load more</SubmitButton>
             </LoadMoreButtonContainer>
@@ -145,6 +147,8 @@ const GetPhotos = (props) => {
             <div style={{display: 'flex', justifyContent: 'center'}}>
                 <div>You've reached the bottom</div>
             </div>
+            :
+            null
             }
             <div style={{margin: '30px'}}></div>
         </DisplayContainer>

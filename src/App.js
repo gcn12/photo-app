@@ -28,6 +28,7 @@ const App = (props) => {
   const [userPosts, setUserPosts] = useState([])
   const [displayView, setDisplayView] = useState(true)
   const [isMainPhotosVisible, setIsMainPhotosVisible] = useState(false)
+  const [isLoadMore, setIsLoadMore] = useState(true)
   
   //search criteria:
   const [sortCriteria, setSortCriteria] = useState({
@@ -42,7 +43,6 @@ const App = (props) => {
   const [startAfter, setStartAfter] = useState('')
 
   const sort = (criteriaObject, isNewSort) => {
-    console.log(criteriaObject)
     let sortQuery = db.collection('preview-posts')
     if(criteriaObject.city.length > 0) {
       sortQuery = sortQuery.where('city', '==', criteriaObject.city)
@@ -69,45 +69,63 @@ const App = (props) => {
       sortQuery =  sortQuery.startAfter(startAfter)
     }
     sortQuery
-    .limit(2)
+    .limit(6)
     .get()
     .then(data=> {
       let dataArray = []
       data.forEach(item=> {
         dataArray.push(item.data())
       })
+      if(dataArray.length === 0) {
+        setIsLoadMore(false)
+      }
       setStartAfter(data.docs[data.docs.length-1])
       if(isNewSort) {
-        setTimeout(()=>setHomePhotoInformation([...dataArray]), 700)
+        // for (let i = 0; i < dataArray.length; i++) {
+        //   if(dataArray.id === homePhotoInformation.id && i === dataArray.length - 1) {
+        //     setIsMainPhotosVisible(true)
+        //   }else{
+        //   }
+        // }
+        setTimeout(()=>setHomePhotoInformation([...dataArray]), 100)
+
       }else{
-        setTimeout(()=>setHomePhotoInformation([...homePhotoInformation, ...dataArray]), 700)
+        setTimeout(()=>setHomePhotoInformation([...homePhotoInformation, ...dataArray]), 100)
       }
       // setIsMainPhotosVisible(true)
     })
   }
   
+  // const { pathname } = props.location
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user)=> {
       if(user) {
         setUser(user.uid)
       }
     })
-
     if(props?.location?.pathname) {
       let initialSort = db.collection('preview-posts')
       let criteria = sortCriteria
-      if(props?.location?.pathname?.includes('/posts/popular')) {
+      if(props?.location?.pathname?.includes('/posts/popular')|| props?.location?.pathname === '/photo-app/posts') {
         initialSort = initialSort.orderBy('views', 'desc')
         criteria['views'] = true
+      }else{
+        criteria['views'] = false
       }
       if(props?.location?.pathname?.includes('/posts/new')) {
         initialSort = initialSort.orderBy('timestamp', 'desc')
         criteria['new'] = true
+      }else{
+        criteria['new'] = false
       }
       if(props?.location?.pathname?.includes('/posts/rating')) {
         initialSort = initialSort.orderBy('ratio', 'desc')
         criteria['rating'] = true
+      }else{
+        criteria['rating'] = false
       }
+      console.log(criteria)
       setSortCriteria(criteria)
       initialSort
       .limit(5)
@@ -115,7 +133,6 @@ const App = (props) => {
       .then(data=> {
         let dataArray = []
         data.forEach(item=> {
-          console.log(item.data())
           dataArray.push(item.data())
         })
         setStartAfter(data.docs[data.docs.length-1])
@@ -124,7 +141,8 @@ const App = (props) => {
       })
     }
     // eslint-disable-next-line
-  }, [])
+  // }, [pathname])
+}, [])
 
   const getUserProfile = (username) => {
     db.collection('users')
@@ -168,9 +186,9 @@ const App = (props) => {
     })
   }
 
-  const test = () => {
-    console.log(props)
-  }
+  // const test = () => {
+  //   console.log(props)
+  // }
 
   return (
     <div>
@@ -238,6 +256,7 @@ const App = (props) => {
 
         <Route exact path='/photo-app/posts/:sort?' render={(props)=> (
             <MainPhotoDisplay 
+              isLoadMore={isLoadMore}
               setSortCriteria={setSortCriteria}
               sortCriteria={sortCriteria}
               sort={sort}
@@ -255,7 +274,7 @@ const App = (props) => {
         {/* <div style={{display: 'flex', justifyContent: 'center'}}>
             <SubmitButton onClick={null}>Load more</SubmitButton>
         </div> */}
-      <button onClick={test}>Delete</button>
+      {/* <button onClick={test}>Delete</button> */}
       {/* <TestFile homePhotoInformation={homePhotoInformation}  setHomePhotoInformation={setHomePhotoInformation}  />  */}
     </div>
   );

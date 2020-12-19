@@ -35,7 +35,8 @@ const HorizontalGallery = (props) => {
 
     const seeMore = () => {
         const photosArray = []
-        db.collection('posts').where(props.place, '==', props.placeName)
+        db.collection('posts')
+        .where(props.place, '==', props.placeName)
         .get()
         .then(photos => {
             photos.docs.forEach(photo=> {

@@ -50,6 +50,7 @@ export const LI = styled.ul`
     -moz-user-select: none; 
     -ms-user-select: none; 
     user-select: none; 
+    text-transform: capitalize;
 
     &:hover {
         color: #4a4a4a;
@@ -66,4 +67,5 @@ export const CategoriesButton = styled.div`
     -moz-user-select: none; 
     -ms-user-select: none; 
     user-select: none; 
+    text-transform: capitalize;
 `

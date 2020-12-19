@@ -33,8 +33,10 @@ const variants = {
 
 const SubheaderDropdown = (props) => {
 
-    const closeDropdown = () => {
-        props.setIsMainPhotosVisible(false)
+    const closeDropdown = (isCancel) => {
+        if(!isCancel) {
+            props.setIsMainPhotosVisible(false)
+        }
         props.setDropdownTransition('transitionEnd')
         setTimeout(()=> props.setVisibility(false), 300)
         document.body.style.overflowY = 'auto'
@@ -43,7 +45,7 @@ const SubheaderDropdown = (props) => {
 
     const sortPosts = (value) => {
         props.sort(value)
-        closeDropdown()
+        closeDropdown(false)
     }
 
     const getAssortedPhotosAndClose = () => {
