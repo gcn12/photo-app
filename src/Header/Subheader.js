@@ -24,11 +24,11 @@ const Subheader = (props) => {
     useEffect(()=> {
         if (props?.location?.pathname.includes('new')) {
             props.setSelected('timestamp')
-        }
-        if (props?.location?.pathname.includes('rating')) {
+        }else if (props?.location?.pathname.includes('rating')) {
             props.setSelected('ratio')
-        }
-        if (props?.location?.pathname.includes('popular')) {
+        }else if (props?.location?.pathname.includes('popular')) {
+            props.setSelected('views')
+        }else{
             props.setSelected('views')
         }
     }, [])
