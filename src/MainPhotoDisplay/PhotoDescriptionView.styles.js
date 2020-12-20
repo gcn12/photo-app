@@ -24,7 +24,7 @@ export const Image = styled.img`
     /* overflow:hidden; */
     /* width: 350px; */
     width: 100%;
-    min-width: 300px;
+    min-width: 320px;
     max-width: 400px;
     height: 250px;
     /* max-height: 230px; */

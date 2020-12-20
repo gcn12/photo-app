@@ -71,5 +71,7 @@ export const CategoriesButton = styled.div`
     -moz-user-select: none; 
     -ms-user-select: none; 
     user-select: none; 
-    text-transform: capitalize;
+    &::first-letter {
+        text-transform: capitalize;
+    }
 `

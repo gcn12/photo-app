@@ -11,7 +11,7 @@ export const PhotoDescriptionViewContainer = styled.div`
     margin: 0% 4%;
     display: grid;
     /* grid-template-columns: repeat(3, auto); */
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
     grid-column-gap: 6%;
     grid-row-gap: 0%;
     align-items: start;

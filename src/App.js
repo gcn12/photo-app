@@ -89,10 +89,10 @@ const App = (props) => {
         //   }else{
         //   }
         // }
-        setTimeout(()=>setHomePhotoInformation([...dataArray]), 100)
+        setTimeout(()=>setHomePhotoInformation([...dataArray]), 600)
 
       }else{
-        setTimeout(()=>setHomePhotoInformation([...homePhotoInformation, ...dataArray]), 100)
+        setTimeout(()=>setHomePhotoInformation([...homePhotoInformation, ...dataArray]), 600)
       }
       // setIsMainPhotosVisible(true)
     })

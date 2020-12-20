@@ -3,6 +3,7 @@ import algoliasearch from 'algoliasearch'
 import SearchResults from './SearchResults'
 import UserResults from './UserResults'
 import { Link } from 'react-router-dom'
+import { ReactComponent as SearchIcon } from '../Icons/Search.svg'
 import {
     ResultsContainer,
     Container,
@@ -107,11 +108,11 @@ const Search = () => {
 
     return(
         <Container>
-            {/* <div style={{position: 'relative'}} className='search-results'> */}
-                {/* <SearchIcon style={{position: 'absolute', top: '0', transform: 'scale(.8)'}}></SearchIcon> */}
-                {/* <div style={{position: 'absolute', left: '10%'}}>search</div> */}
+            <div style={{position: 'relative'}} className='search-results'>
+                <SearchIcon style={{position: 'absolute', top: '5', left: '5', transform: 'scale(.8)'}}></SearchIcon>
+                <div style={{position: 'absolute', left: '10%'}}></div>
             <SearchBox id='result-query-input' className='search-results' placeholder='search' onChange={(e)=> setQuery(e.target.value)}></SearchBox>
-            {/* </div> */}
+            </div>
             <IconContainer>
                 {/* <SearchIcon style={{transform: 'scale(1)'}}></SearchIcon> */}
             </IconContainer>
