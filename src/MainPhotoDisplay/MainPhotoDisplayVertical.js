@@ -136,7 +136,6 @@ const GetPhotos = (props) => {
                 <div className="image-list">{images}</div>
             </Container>
             }
-            
             {
             props?.homePhotoInformation?.length > 0 ?
             props.isLoadMore ? 

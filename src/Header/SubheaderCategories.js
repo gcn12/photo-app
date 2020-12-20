@@ -18,7 +18,6 @@ const SubheaderCategories = (props) => {
             }else{
                 criteria['category'] = category
             }
-            console.log('category', criteria)
             props.sort(criteria, true)
         }
     }

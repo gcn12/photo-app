@@ -69,7 +69,6 @@ const Subheader = (props) => {
             newCriteria['rating'] = false
         }
         let finalCriteria = {...criteria, ...newCriteria}
-        console.log(finalCriteria)
         props.setSelected(sortCriteria)
         props.sort(finalCriteria, true)
     }

@@ -78,6 +78,8 @@ const App = (props) => {
       })
       if(dataArray.length === 0) {
         setIsLoadMore(false)
+      }else{
+        setIsLoadMore(true)
       }
       setStartAfter(data.docs[data.docs.length-1])
       if(isNewSort) {
@@ -125,7 +127,6 @@ const App = (props) => {
       }else{
         criteria['rating'] = false
       }
-      console.log(criteria)
       setSortCriteria(criteria)
       initialSort
       .limit(8)
@@ -135,6 +136,11 @@ const App = (props) => {
         data.forEach(item=> {
           dataArray.push(item.data())
         })
+        if(dataArray.length === 0) {
+          setIsLoadMore(false)
+        }else{
+          setIsLoadMore(true)
+        }
         setStartAfter(data.docs[data.docs.length-1])
         setHomePhotoInformation([...dataArray])
         // setIsMainPhotosVisible(true)
