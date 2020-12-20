@@ -24,6 +24,7 @@ export const Image = styled.img`
     /* overflow:hidden; */
     /* width: 350px; */
     width: 100%;
+    min-width: 220px;
     height: 250px;
     /* max-height: 230px; */
     box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
