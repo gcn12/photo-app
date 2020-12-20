@@ -8,11 +8,11 @@ export const DisplayContainer = styled(motion.div)`
 `
 
 export const PhotoDescriptionViewContainer = styled.div`
-    margin: 0% 12%;
+    margin: 0% 7%;
     display: grid;
     /* grid-template-columns: repeat(3, auto); */
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    grid-column-gap: 7%;
+    grid-column-gap: 6%;
     grid-row-gap: 0%;
     align-items: start;
     justify-items: center;

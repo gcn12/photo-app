@@ -10,7 +10,7 @@ export const Container = styled.div`
  export const Card = styled.div`
     /* width: 350px; */
     width: 100%;
-    min-height: 435px;
+    min-height: 420px;
     /* background-color: #f5f5f5; */
     display: flex;
     flex-direction: column;
@@ -40,7 +40,7 @@ export const Description = styled.div`
     color: #3d3d3d;
     /* width: 350px; */
     width: 100%;
-    height: 100px;
+    /* height: 100px; */
 `
 
 export const Location = styled.div`
@@ -60,7 +60,7 @@ export const Name = styled.div`
 export const Title = styled.div`
     cursor: pointer;
     font-size: 30px;
-    /* width: 100%; */
+    /* width: 120px; */
     /* padding: 0 5%; */
 `
 

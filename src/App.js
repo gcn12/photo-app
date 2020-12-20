@@ -69,7 +69,7 @@ const App = (props) => {
       sortQuery =  sortQuery.startAfter(startAfter)
     }
     sortQuery
-    .limit(6)
+    .limit(8)
     .get()
     .then(data=> {
       let dataArray = []
@@ -128,7 +128,7 @@ const App = (props) => {
       console.log(criteria)
       setSortCriteria(criteria)
       initialSort
-      .limit(5)
+      .limit(8)
       .get()
       .then(data=> {
         let dataArray = []

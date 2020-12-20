@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { db } from '../Firebase'
 import { incrementViewCount } from '../Functions' 
-import fitty from 'fitty'
+// import fitty from 'fitty'
 import {
     Image,
     Card,
