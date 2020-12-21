@@ -130,7 +130,7 @@ const Header = (props) => {
                             <LI>Discover</LI>
                         </Link>
                     </UL>
-                    <Search />
+                    <Search history={props.history} location={props.location} setSearchResults={props.setSearchResults} />
                     <IconContainer>
                         <SearchIcon onClick={startSearchTransition} style={{transform: 'scale(1)'}}></SearchIcon>
                     </IconContainer>

@@ -66,6 +66,9 @@ export const Title = styled.div`
     font-size: 30px;
     /* width: 120px; */
     /* padding: 0 5%; */
+    &:hover{
+        color: #4a4a4a;
+    }
 `
 
 export const LocationNameContainer = styled.div`

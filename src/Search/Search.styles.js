@@ -53,7 +53,6 @@ export const SearchBox = styled.input`
         visibility: hidden;
         display: none;
     }
-
 `
 
 export const MoreResults = styled.div`
@@ -69,7 +68,7 @@ export const MoreResults = styled.div`
 
 export const IconContainer = styled.div`
     cursor: pointer;
-    @media (min-width: 550px) {
+    @media (max-width: 550px) {
         visibility: hidden;
         display: none;
     }

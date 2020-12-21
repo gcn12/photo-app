@@ -8,6 +8,7 @@ import Discover from './Discover/Discover'
 import FeaturedPost from './FeaturedPost/FeaturedPost'
 import MainPhotoDisplay from './MainPhotoDisplay/MainPhotoDisplayVertical'
 import Profile from './Profile/Profile'
+import SearchPage from './SearchPage/SearchPage'
 import Login from './Login/Login'
 import PublicProfile from './PublicProfile/PublicProfile'
 import Footer from './Header/Footer'
@@ -29,6 +30,7 @@ const App = (props) => {
   const [displayView, setDisplayView] = useState(true)
   const [isMainPhotosVisible, setIsMainPhotosVisible] = useState(false)
   const [isLoadMore, setIsLoadMore] = useState(true)
+  const [searchResults, setSearchResults] = useState([])
   
   //search criteria:
   const [sortCriteria, setSortCriteria] = useState({
@@ -89,10 +91,10 @@ const App = (props) => {
         //   }else{
         //   }
         // }
-        setTimeout(()=>setHomePhotoInformation([...dataArray]), 600)
+        setTimeout(()=>setHomePhotoInformation([...dataArray]), 0)
 
       }else{
-        setTimeout(()=>setHomePhotoInformation([...homePhotoInformation, ...dataArray]), 600)
+        setTimeout(()=>setHomePhotoInformation([...homePhotoInformation, ...dataArray]), 0)
       }
       // setIsMainPhotosVisible(true)
     })
@@ -146,8 +148,8 @@ const App = (props) => {
         // setIsMainPhotosVisible(true)
       })
     }
+    // }, [pathname])
     // eslint-disable-next-line
-  // }, [pathname])
 }, [])
 
   const getUserProfile = (username) => {
@@ -199,8 +201,8 @@ const App = (props) => {
   return (
     <div>
       <Route path='/photo-app/' render={(props)=> (
-        <Header {...props} sort={sort} sortCriteria={sortCriteria} setSortCriteria={setSortCriteria} setIsMainPhotosVisible={setIsMainPhotosVisible} displayView={displayView} setDisplayView={setDisplayView} setHomePhotoInformation={setHomePhotoInformation} user={user}/>
-        )} />
+        <Header {...props} setSearchResults={setSearchResults} sort={sort} sortCriteria={sortCriteria} setSortCriteria={setSortCriteria} setIsMainPhotosVisible={setIsMainPhotosVisible} displayView={displayView} setDisplayView={setDisplayView} setHomePhotoInformation={setHomePhotoInformation} user={user}/>
+      )} />
 
 
       <Route path='/photo-app/' render={(props)=> (
@@ -208,6 +210,10 @@ const App = (props) => {
       )} />
         
       <Switch>
+
+        <Route exact path='/photo-app/search' render={(props) => (
+          <SearchPage {...props} searchResults={searchResults} />
+        )} />
 
         <Route exact path='/photo-app/signup/' render={(props)=> (
           <Signup {...props}/>

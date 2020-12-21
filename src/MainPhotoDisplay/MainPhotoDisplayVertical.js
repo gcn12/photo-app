@@ -107,7 +107,7 @@ const GetPhotos = (props) => {
     });
 
     return(
-        <DisplayContainer opacity={props.isMainPhotosVisible ? 1 : 0} style={{marginTop: '110px'}}>
+        <DisplayContainer opacity={props.isMainPhotosVisible ? 1 : 1} style={{marginTop: '110px'}}>
             {props.displayView ? 
             <PhotoDescriptionViewContainer>
                 {props.homePhotoInformation ? props.homePhotoInformation.map((photo, index)=> {
