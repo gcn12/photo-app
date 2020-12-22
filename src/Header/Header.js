@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { db } from '../Firebase'
-import Subheader from './Subheader'
+import SubheaderPosts from './SubheaderPosts'
 import SubheaderDropdown from './SubheaderDropdown'
 import CategoriesDropdown from './CategoriesDropdown'
 import SearchDropdown from './SearchDropdown'
+import SubheaderSearch from './SubheaderSearch'
 import Search from '../Search/Search'
 import { ReactComponent as SearchIcon } from '../Icons/Search.svg'
 import { Link } from 'react-router-dom' 
@@ -111,7 +112,17 @@ const Header = (props) => {
 
     const getAssortedAndDropOpacity = () => {
         props.setIsMainPhotosVisible(false)
-        getAssortedPhotos()
+        props.setHomePhotoInformation([])
+        let criteria = {
+            city: '',
+            country: '',
+            continent: '',
+            category: '',
+            views: true,
+            new: false,
+            rating: false,
+        }
+        props.sort(criteria, true)
     }
 
     return(
@@ -123,14 +134,14 @@ const Header = (props) => {
                 <SearchDropdown setSearchVisibility={setSearchVisibility} searchVisibility={searchVisibility} setSearchTransition={setSearchTransition} searchTransition={searchTransition} />
                 <Container>
                     <UL>
-                        <Link onClick={getAssortedAndDropOpacity} to='/photo-app/posts' style={{ textDecoration: 'none' }}>
+                        <Link onClick={getAssortedAndDropOpacity} to='/photo-app/posts/popular' style={{ textDecoration: 'none' }}>
                             <LI>Wall</LI>
                         </Link>
                         <Link to='/photo-app/discover' style={{ textDecoration: 'none' }}>
                             <LI>Discover</LI>
                         </Link>
                     </UL>
-                    <Search history={props.history} location={props.location} setSearchResults={props.setSearchResults} />
+                    <Search setQuery={props.setQuery} search={props.search} searchQueries={props.searchQueries} history={props.history} location={props.location} setSearchResults={props.setSearchResults} />
                     <IconContainer>
                         <SearchIcon onClick={startSearchTransition} style={{transform: 'scale(1)'}}></SearchIcon>
                     </IconContainer>
@@ -157,7 +168,32 @@ const Header = (props) => {
                     </HeaderRight>
                 </Container>
                 {props.location.pathname.includes('/photo-app/posts') ? 
-                <Subheader 
+                <SubheaderPosts 
+                    location={props.location}
+                    sort={props.sort} 
+                    sortCriteria={props.sortCriteria} 
+                    setSortCriteria={props.setSortCriteria}  
+                    setIsMainPhotosVisible={props.setIsMainPhotosVisible} 
+                    setCategoriesVisibility={setCategoriesVisibility} 
+                    setDropdownCategoriesTransition={setDropdownCategoriesTransition} 
+                    getCategoryPhotos={getCategoryPhotos} 
+                    getAssortedPhotos={getAssortedPhotos} 
+                    displayView={props.displayView} 
+                    setDisplayView={props.setDisplayView} 
+                    setSelected={setSelected} 
+                    selected={selected} 
+                    setVisibility={setVisibility} 
+                    setDropdownTransition={setDropdownTransition} 
+                    setHomePhotoInformation={props.setHomePhotoInformation}
+                />
+                :
+                null
+                }
+                {props.location.pathname.includes('/photo-app/search') ? 
+                <SubheaderSearch 
+                    search={props.search}
+                    searchQueries={props.searchQueries}
+                    setSearchQueries={props.setSearchQueries}
                     location={props.location}
                     sort={props.sort} 
                     sortCriteria={props.sortCriteria} 

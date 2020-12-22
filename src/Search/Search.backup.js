@@ -33,7 +33,7 @@ const Search = () => {
                     attributesToRetrieve: ['name', 'image', 'username', 'profileImage'],
                 }
             }, {
-                indexName: 'test_PHOTOAPP',
+                indexName: 'posts',
                 query: query,
                 params: {
                     hitsPerPage: 2,
@@ -70,7 +70,7 @@ const Search = () => {
     //     )
     //     const search = (querySearch) => {
     //         // setQuery(querySearch)
-    //         const index = searchClient.initIndex('test_PHOTOAPP')
+    //         const index = searchClient.initIndex('posts')
     //         if(query.length > 0) {
     //             setShowResults(true)
     //             index.search(query, {

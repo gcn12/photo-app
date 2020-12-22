@@ -57,7 +57,7 @@ const SearchDropdown = (props) => {
                     attributesToRetrieve: ['name', 'image', 'username', 'profileImage'],
                 }
             }, {
-                indexName: 'test_PHOTOAPP',
+                indexName: 'posts',
                 query: query,
                 params: {
                     hitsPerPage: 2,
@@ -94,7 +94,7 @@ const SearchDropdown = (props) => {
     //         '6478d10ccc9941fe49a73aeb6ba2e73f'
     //     )
     //     const search = (querySearch) => {
-    //         const index = searchClient.initIndex('test_PHOTOAPP')
+    //         const index = searchClient.initIndex('posts')
     //         if(query.length > 0) {
     //             setShowResults(true)
     //             index.search(query, {

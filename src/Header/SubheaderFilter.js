@@ -1,0 +1,32 @@
+import React from 'react'
+import {
+    Container,
+    LI,
+    UL,
+} from './SubheaderCategories.styles'
+
+const SubheaderFilter = (props) => {
+
+    const getPhotos = (result) => {
+        if(result !== props.category) {
+            props.setHomePhotoInformation([])
+            // props.setIsMainPhotosVisible(false)
+            props.setSearchQueries(result)
+            props.search(result)
+        }
+    }
+
+    return(
+        <Container className='categories-dropdown'>
+            <UL className='categories-dropdown'>
+                <LI onClick={()=>getPhotos('all results')}>All results</LI>
+                <LI onClick={()=>getPhotos('posts')}>Posts</LI>
+                <LI onClick={()=>getPhotos('people')}>People</LI>
+                <LI onClick={()=>getPhotos('cities')}>Cities</LI>
+                <LI onClick={()=>getPhotos('countries')}>Countries</LI>
+            </UL>
+        </Container>
+    )
+}
+
+export default SubheaderFilter

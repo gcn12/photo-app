@@ -36,7 +36,7 @@ export const Image = styled.img`
 `
 
 export const Description = styled.div`
-    text-align: justify;
+    /* text-align: justify; */
     font-size: 17px;
     /* padding: 0 5%; */
     color: #3d3d3d;

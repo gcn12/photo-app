@@ -1,20 +1,62 @@
 import React from 'react'
+import PhotoDescriptionView from '../MainPhotoDisplay/PhotoDescriptionView'
+import CitiesDisplay from './CitiesDisplay'
+import UsersDisplay from './UsersDisplay'
 import {
-
+    CitiesDisplayContainer,
+    PostsDisplayContainer,
+    UsersContainer
 } from './SearchPage.styles'
 
 const SearchPage = (props) => {
     return(
-        <div style={{marginTop: '55px', marginLeft: '15px'}}>
+        <div style={{margin: '100px 5% 0 5%'}}>
             {props?.searchResults !== 'No results' ? 
-            props?.searchResults?.map((item, index)=> {
-                return(
-                    item.name ? 
-                    <div key={index}>{item.name}</div>
+            <div>
+                
+                {props?.searchResults[3]?.length > 0 || props?.searchResults[2]?.length > 0 ? 
+                <div>Places</div>
+                :
+                null
+                }
+                <CitiesDisplayContainer quantity={props?.searchResults[3]?.length < 4 ? null : 'center'}>
+                    {props?.searchResults[3]?.map((item, index)=> {
+                        return (
+                            <CitiesDisplay  item={item} key={index} />
+                        )
+                    })}
+                    {props?.searchResults[2]?.map((item, index)=> {
+                        return (
+                            <CitiesDisplay   item={item} key={index} />
+                        )
+                    })}
+                </CitiesDisplayContainer>
+                {props?.searchResults[0]?.length > 0 ? 
+                <div>Posts</div>
+                :
+                null
+                }
+                <PostsDisplayContainer quantity={props?.searchResults[3]?.length < 4 ? null : 'center'} >
+                    {props?.searchResults[0]?.map((item, index)=> {
+                        return (
+                            <PhotoDescriptionView photoInfo={item} key={index} />
+                        )
+                    })}
+                </PostsDisplayContainer>
+                {props?.searchResults[1]?.length > 0 ? 
+                    <div>People</div>
                     :
-                    <div key={index}>{item.title}</div>
-                )
-            })
+                    null
+                }
+                <UsersContainer>
+                    {props?.searchResults[1]?.map((item, index)=> {
+                        return (
+                            <UsersDisplay item={item} key={index} />
+                        )
+                    })}
+                </UsersContainer>
+            </div>
+
             :
             <div>
                 <div>No results</div>

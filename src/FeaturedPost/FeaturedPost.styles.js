@@ -59,7 +59,7 @@ export const Description = styled.div`
     margin: 20px 0;
     font-size: 20px;
     white-space: pre-wrap;
-    text-align: justify;
+    /* text-align: justify; */
     text-justify: inter-word;
     @media (max-width: 950px) {
         width: 60vw;

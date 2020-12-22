@@ -12,6 +12,7 @@ import SearchPage from './SearchPage/SearchPage'
 import Login from './Login/Login'
 import PublicProfile from './PublicProfile/PublicProfile'
 import Footer from './Header/Footer'
+import algoliasearch from 'algoliasearch'
 // import TestFile from './TestFile'
 import AddContent from './AddContent/AddContent'
 import Signup from './SignUp/SignUp'
@@ -31,6 +32,7 @@ const App = (props) => {
   const [isMainPhotosVisible, setIsMainPhotosVisible] = useState(false)
   const [isLoadMore, setIsLoadMore] = useState(true)
   const [searchResults, setSearchResults] = useState([])
+  const [searchQueries, setSearchQueries] = useState('all results')
   
   //search criteria:
   const [sortCriteria, setSortCriteria] = useState({
@@ -45,6 +47,7 @@ const App = (props) => {
   const [startAfter, setStartAfter] = useState('')
 
   const sort = (criteriaObject, isNewSort) => {
+    setSortCriteria(criteriaObject)
     let sortQuery = db.collection('preview-posts')
     if(criteriaObject.city.length > 0) {
       sortQuery = sortQuery.where('city', '==', criteriaObject.city)
@@ -70,15 +73,16 @@ const App = (props) => {
     if(!isNewSort) {
       sortQuery =  sortQuery.startAfter(startAfter)
     }
+    const limit = 8
     sortQuery
-    .limit(8)
+    .limit(limit)
     .get()
     .then(data=> {
       let dataArray = []
       data.forEach(item=> {
         dataArray.push(item.data())
       })
-      if(dataArray.length === 0) {
+      if(dataArray.length === 0 || dataArray.length<limit) {
         setIsLoadMore(false)
       }else{
         setIsLoadMore(true)
@@ -129,16 +133,17 @@ const App = (props) => {
       }else{
         criteria['rating'] = false
       }
+      const limit = 8
       setSortCriteria(criteria)
       initialSort
-      .limit(8)
+      .limit(limit)
       .get()
       .then(data=> {
         let dataArray = []
         data.forEach(item=> {
           dataArray.push(item.data())
         })
-        if(dataArray.length === 0) {
+        if(dataArray.length === 0 || dataArray.length<limit) {
           setIsLoadMore(false)
         }else{
           setIsLoadMore(true)
@@ -150,7 +155,120 @@ const App = (props) => {
     }
     // }, [pathname])
     // eslint-disable-next-line
-}, [])
+  }, [])
+
+  const [query, setQuery] = useState('')
+  const search = (resultCriteria) => { 
+    const searchClient = algoliasearch(
+      'VNSU9OYWB2',
+      '6478d10ccc9941fe49a73aeb6ba2e73f'
+    )
+
+    const citiesQuery = {
+      indexName: 'cities',
+      query: query,
+      params: {
+        hitsPerPage: 6,
+        attributesToRetrieve: ['city', 'country', 'image'],
+      }
+    }
+
+    const usersQuery = {
+      indexName: 'users',
+      query: query,
+      params: {
+        hitsPerPage: 10,
+        attributesToRetrieve: ['name', 'username', 'profileImage'],
+      }
+    }
+
+    const postsQuery = {
+      indexName: 'posts',
+      query: query,
+      params: {
+        hitsPerPage: 6,
+        attributesToRetrieve: ['title', 'country', 'image', 'username', 'url', 'city', 'previewDescription'],
+      }
+    }
+
+    const countriesQuery = {
+      indexName: 'countries',
+      query: query,
+      params: {
+        hitsPerPage: 2,
+        attributesToRetrieve: ['countryOnly', 'image',],
+      }
+    }
+
+    const queries = [] 
+
+    if(resultCriteria === 'posts' || resultCriteria === 'all results') {
+      queries.push(postsQuery)
+    }
+    if(resultCriteria === 'people' || resultCriteria === 'all results') {
+      queries.push(usersQuery)
+    }
+    if(resultCriteria === 'cities' || resultCriteria === 'all results') {
+      queries.push(citiesQuery)
+    }
+    if(resultCriteria === 'countries' || resultCriteria === 'all results') {
+      queries.push(countriesQuery)
+    }
+
+    let resultsArray = []
+    if(query.length > 0) {
+    searchClient.multipleQueries(queries).then(({ results }) => {
+      if(resultCriteria==='all results'){
+        if(results[0]?.hits.length>0) {
+          resultsArray.push([...results[0].hits])
+        }else{
+          resultsArray.push([])
+        }
+        if(results[1]?.hits?.length>0) {
+          resultsArray.push([...results[1].hits])
+        }else{
+          resultsArray.push([])
+        }
+        if(results[2]?.hits?.length>0) {
+          resultsArray.push([...results[2].hits])
+        }else{
+          resultsArray.push([])
+        }
+        if(results[3]?.hits?.length>0) {
+          resultsArray.push([...results[3].hits])
+        }else{
+          resultsArray.push([])
+        }
+      }else if(resultCriteria==='posts'){
+        if(results[0]?.hits.length>0) {
+          resultsArray = [results[0].hits, [], [], []]
+        }
+      }else if(resultCriteria==='people'){
+        if(results[0]?.hits.length>0) {
+          resultsArray = [[], results[0].hits, [], []]
+        }
+      }else if(resultCriteria==='cities'){
+        if(results[0]?.hits.length>0) {
+          resultsArray = [[], [], results[0].hits, []]
+        }
+      }
+      else if(resultCriteria==='countries'){
+        if(results[0]?.hits.length>0) {
+          resultsArray = [[], [], [], results[0].hits]
+        }
+      }
+
+
+      if(resultsArray.length> 0){
+        setSearchResults(resultsArray)
+      }else{
+        setSearchResults('No results')
+      }
+    });
+    }else{
+      setSearchResults([])
+    }
+  }
 
   const getUserProfile = (username) => {
     db.collection('users')
@@ -201,7 +319,7 @@ const App = (props) => {
   return (
     <div>
       <Route path='/photo-app/' render={(props)=> (
-        <Header {...props} setSearchResults={setSearchResults} sort={sort} sortCriteria={sortCriteria} setSortCriteria={setSortCriteria} setIsMainPhotosVisible={setIsMainPhotosVisible} displayView={displayView} setDisplayView={setDisplayView} setHomePhotoInformation={setHomePhotoInformation} user={user}/>
+        <Header setQuery={setQuery} search={search} setSearchQueries={setSearchQueries} searchQueries={searchQueries} {...props} setSearchResults={setSearchResults} sort={sort} sortCriteria={sortCriteria} setSortCriteria={setSortCriteria} setIsMainPhotosVisible={setIsMainPhotosVisible} displayView={displayView} setDisplayView={setDisplayView} setHomePhotoInformation={setHomePhotoInformation} user={user}/>
       )} />
 
 

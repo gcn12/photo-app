@@ -8,7 +8,7 @@ import {
     LI,
     ULMobile,
     CategoriesButton,
-} from './Subheader.styles'
+} from './SubheaderPosts.styles'
 import SubheaderCategories from './SubheaderCategories'
 
 
@@ -72,27 +72,23 @@ const Subheader = (props) => {
         props.setSelected(sortCriteria)
         props.sort(finalCriteria, true)
     }
-
-    // const getAssorted = () => {
-    //     props.getAssortedPhotos()
-    //     props.setIsMainPhotosVisible(false)
-    // }
     
 
     return(
         <div>
+        {console.log(props.sortCriteria)}
             <Container>
                 <UL>
                     <div style={{display: 'flex', alignItems: 'center'}}>
-                        {/* <LI onClick={getAssorted} underline={props.selected === 'assorted' ? true : false}>Assorted</LI> */}
                         <Link to='/photo-app/posts/popular' style={{textDecoration: 'none'}}>
-                            <LI onClick={()=>changeSort('views')} underline={props.selected === 'views' ? true : false}>Popular</LI>
+                            {/* <LI onClick={()=>changeSort('views')} underline={props.selected === 'views' ? true : false}>Popular</LI> */}
+                            <LI onClick={()=>changeSort('views')} underline={props.sortCriteria.views===true ? true : false}>Popular</LI>
                         </Link>
                         <Link to='/photo-app/posts/new' style={{textDecoration: 'none'}}>
-                            <LI onClick={()=>changeSort('timestamp')} underline={props.selected === 'timestamp' ? true : false}>Newest</LI>
+                            <LI onClick={()=>changeSort('timestamp')} underline={props.sortCriteria.new  ? true : false}>Newest</LI>
                         </Link>
                         <Link to='/photo-app/posts/rating' style={{textDecoration: 'none'}}>
-                            <LI onClick={()=>changeSort('ratio')} underline={props.selected === 'ratio' ? true : false}>Highest rated</LI>
+                            <LI onClick={()=>changeSort('ratio')} underline={props.sortCriteria.rating ? true : false}>Highest rated</LI>
                         </Link>
                     </div>
                     <div style={{display: 'flex'}} >
