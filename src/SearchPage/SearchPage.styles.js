@@ -7,6 +7,7 @@ export const CitiesDisplayContainer = styled.div`
     align-items: start;
     justify-content: center;
     justify-items: ${props=> props.quantity};
+    margin-bottom: 30px;
     @media (max-width: 675px){
         justify-items: center;
     }
@@ -15,6 +16,7 @@ export const CitiesDisplayContainer = styled.div`
 export const PostsDisplayContainer = styled.div`
     display: grid;
     align-items: start;
+    margin-bottom: 30px;
     /* grid-template-columns: repeat(3, auto); */
     grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
     grid-column-gap: 6%;
@@ -28,5 +30,20 @@ export const PostsDisplayContainer = styled.div`
 `
 
 export const UsersContainer = styled.div`
-    
+    display: grid;
+    align-items: start;
+    /* grid-template-columns: repeat(3, auto); */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-column-gap: 6%;
+    grid-row-gap: 0%;
+    align-items: start;
+    justify-content: center;
+    justify-items: ${props=> props.quantity};
+    @media (max-width: 675px){
+        justify-items: center;
+    }
+`
+
+export const ResultTitle = styled.div`
+    font-size: 30px;
 `

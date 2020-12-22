@@ -159,6 +159,7 @@ const App = (props) => {
 
   const [query, setQuery] = useState('')
   const search = (resultCriteria) => { 
+    // setSearchResults([])
     const searchClient = algoliasearch(
       'VNSU9OYWB2',
       '6478d10ccc9941fe49a73aeb6ba2e73f'
@@ -260,7 +261,7 @@ const App = (props) => {
 
 
       if(resultsArray.length> 0){
-        setSearchResults(resultsArray)
+        setSearchResults([...resultsArray])
       }else{
         setSearchResults('No results')
       }

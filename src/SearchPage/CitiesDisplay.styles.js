@@ -1,14 +1,13 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
-    position: relative;
-    margin-bottom: 2%;
-    max-width: 400px;
-`
-
 export const ImageContainer = styled.div`
     max-width: 400px;
     border-radius: 15px;
+    transform: scale(1);
+    &:hover {
+        transition: transform 15s ease-out;
+        transform: scale(1.2);
+    }
     &::after {
         border-radius: 15px;
         display: block;
@@ -27,6 +26,18 @@ export const ImageContainer = styled.div`
           100%
         );
     } */
+`
+
+export const Container = styled.div`
+    opacity: ${props=> props.visibility};
+    transition: opacity 500ms ease-in-out;
+    position: relative;
+    margin-bottom: 2%;
+    max-width: 400px;
+    &:hover ${ImageContainer} {
+        transition: transform 15s ease-out;
+        transform: scale(1.2);
+    }
 `
 
 export const Image = styled.img`

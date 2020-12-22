@@ -96,6 +96,7 @@ const Search = (props) => {
 
     const enterQuery = (e) => {
         if(e.code==='Enter') {
+            // props.setSearchResults([[],[],[],[]])
             if(props.location.pathname !== '/photo-app/search'){
                 props.history.push('/photo-app/search')
             }

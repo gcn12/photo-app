@@ -1,14 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
-    Image
+    Image, 
+    Container
 } from './UsersDisplay.styles'
 
 const UsersDisplay = (props) => {
+
+    const [isVisble, setIsVisible] = useState(false)
+
     return(
-        <div>
-            <Image src={props.item.profileImage} alt=''></Image>
+        <Container opacity={isVisble ? 1 : 0}>
+            <Image onLoad={()=>setIsVisible(true)} src={props.item.profileImage} alt=''></Image>
             <div>{props.item.name}</div>
-        </div>
+        </Container>
     )
 }
 

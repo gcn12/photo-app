@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Image,
     Location,
@@ -7,15 +7,18 @@ import {
 } from './CitiesDisplay.styles'
 
 const CitiesDisplay = (props) => {
+    const [isVisible, setIsVisible] = useState(false)
     return(
-        <Container>
-            <ImageContainer>
-            <Image alt='' src={props.item.image}></Image>
-            </ImageContainer>
+        <Container visibility={isVisible ? 1 : 0}>
+            <div style={{overflow: 'hidden', borderRadius: '15px'}}>
+                <ImageContainer>
+                <Image onLoad={()=> setIsVisible(true)} alt='' src={props.item.image}></Image>
+                </ImageContainer>
+            </div>
             {props.item.city ? 
-            <Location>{props.item.city}, {props.item.country}</Location>
-            :
-            <Location>{props.item.countryOnly}</Location>
+                <Location>{props.item.city}, {props.item.country}</Location>
+                :
+                <Location>{props.item.countryOnly}</Location>
             }
         </Container>
     )

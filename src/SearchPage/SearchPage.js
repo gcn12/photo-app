@@ -5,7 +5,8 @@ import UsersDisplay from './UsersDisplay'
 import {
     CitiesDisplayContainer,
     PostsDisplayContainer,
-    UsersContainer
+    UsersContainer,
+    ResultTitle,
 } from './SearchPage.styles'
 
 const SearchPage = (props) => {
@@ -15,24 +16,24 @@ const SearchPage = (props) => {
             <div>
                 
                 {props?.searchResults[3]?.length > 0 || props?.searchResults[2]?.length > 0 ? 
-                <div>Places</div>
+                <ResultTitle>Places</ResultTitle>
                 :
                 null
                 }
                 <CitiesDisplayContainer quantity={props?.searchResults[3]?.length < 4 ? null : 'center'}>
                     {props?.searchResults[3]?.map((item, index)=> {
                         return (
-                            <CitiesDisplay  item={item} key={index} />
+                            <CitiesDisplay item={item} key={index} />
                         )
                     })}
                     {props?.searchResults[2]?.map((item, index)=> {
                         return (
-                            <CitiesDisplay   item={item} key={index} />
+                            <CitiesDisplay item={item} key={index} />
                         )
                     })}
                 </CitiesDisplayContainer>
                 {props?.searchResults[0]?.length > 0 ? 
-                <div>Posts</div>
+                <ResultTitle>Posts</ResultTitle>
                 :
                 null
                 }
@@ -44,7 +45,7 @@ const SearchPage = (props) => {
                     })}
                 </PostsDisplayContainer>
                 {props?.searchResults[1]?.length > 0 ? 
-                    <div>People</div>
+                    <ResultTitle>People</ResultTitle>
                     :
                     null
                 }
