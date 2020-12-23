@@ -22,8 +22,7 @@ const SubheaderFilter = (props) => {
                 <LI onClick={()=>getPhotos('all results')}>All results</LI>
                 <LI onClick={()=>getPhotos('posts')}>Posts</LI>
                 <LI onClick={()=>getPhotos('people')}>People</LI>
-                <LI onClick={()=>getPhotos('cities')}>Cities</LI>
-                <LI onClick={()=>getPhotos('countries')}>Countries</LI>
+                <LI onClick={()=>getPhotos('places')}>Places</LI>
             </UL>
         </Container>
     )

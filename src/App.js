@@ -33,13 +33,14 @@ const App = (props) => {
   const [isLoadMore, setIsLoadMore] = useState(true)
   const [searchResults, setSearchResults] = useState([])
   const [searchQueries, setSearchQueries] = useState('all results')
+  const [query, setQuery] = useState('')
   
   //search criteria:
   const [sortCriteria, setSortCriteria] = useState({
     city: '',
     country: '',
     continent: '',
-    category: '',
+    category: 'all categories',
     views: false,
     new: false,
     rating: false,
@@ -58,7 +59,7 @@ const App = (props) => {
     if(criteriaObject.continent.length > 0) {
       sortQuery = sortQuery.where('continent', '==', criteriaObject.continent)
     }
-    if(criteriaObject.category.length > 0) {
+    if(criteriaObject.category.length > 0 && criteriaObject.category!=='all categories') {
       sortQuery = sortQuery.where('category', '==', criteriaObject.category)
     }
     if(criteriaObject.views) {
@@ -157,7 +158,7 @@ const App = (props) => {
     // eslint-disable-next-line
   }, [])
 
-  const [query, setQuery] = useState('')
+  
   const search = (resultCriteria) => { 
     // setSearchResults([])
     const searchClient = algoliasearch(
@@ -209,11 +210,9 @@ const App = (props) => {
     if(resultCriteria === 'people' || resultCriteria === 'all results') {
       queries.push(usersQuery)
     }
-    if(resultCriteria === 'cities' || resultCriteria === 'all results') {
-      queries.push(citiesQuery)
-    }
-    if(resultCriteria === 'countries' || resultCriteria === 'all results') {
+    if(resultCriteria === 'places' || resultCriteria === 'all results') {
       queries.push(countriesQuery)
+      queries.push(citiesQuery)
     }
 
     let resultsArray = []
@@ -230,36 +229,30 @@ const App = (props) => {
         }else{
           resultsArray.push([])
         }
-        if(results[2]?.hits?.length>0) {
-          resultsArray.push([...results[2].hits])
+        if(results[2]?.hits?.length>0||results[3]?.hits?.length>0) {
+          resultsArray.push([...results[2].hits, ...results[3].hits])
         }else{
           resultsArray.push([])
         }
-        if(results[3]?.hits?.length>0) {
-          resultsArray.push([...results[3].hits])
-        }else{
-          resultsArray.push([])
-        }
+        // if(results[3]?.hits?.length>0) {
+        //   resultsArray.push([...results[3].hits])
+        // }else{
+        //   resultsArray.push([])
+        // }
+
       }else if(resultCriteria==='posts'){
         if(results[0]?.hits.length>0) {
-          resultsArray = [results[0].hits, [], [], []]
+          resultsArray = [results[0].hits, [], []]
         }
       }else if(resultCriteria==='people'){
         if(results[0]?.hits.length>0) {
-          resultsArray = [[], results[0].hits, [], []]
+          resultsArray = [[], results[0].hits, []]
         }
-      }else if(resultCriteria==='cities'){
-        if(results[0]?.hits.length>0) {
-          resultsArray = [[], [], results[0].hits, []]
-        }
-      }
-      else if(resultCriteria==='countries'){
-        if(results[0]?.hits.length>0) {
-          resultsArray = [[], [], [], results[0].hits]
+      }else if(resultCriteria==='places'){
+        if(results[0]?.hits.length>0 || results[1]?.hits.length>0) {
+          resultsArray = [[], [], [...results[0].hits, ...results[1].hits]]
         }
       }
-
-
       if(resultsArray.length> 0){
         setSearchResults([...resultsArray])
       }else{
@@ -331,7 +324,7 @@ const App = (props) => {
       <Switch>
 
         <Route exact path='/photo-app/search' render={(props) => (
-          <SearchPage {...props} searchResults={searchResults} />
+          <SearchPage {...props} setHomePhotoInformation={setHomePhotoInformation} sort={sort} sortCriteria={sortCriteria} setSortCriteria={setSortCriteria} searchResults={searchResults} />
         )} />
 
         <Route exact path='/photo-app/signup/' render={(props)=> (

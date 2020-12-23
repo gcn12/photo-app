@@ -13,7 +13,6 @@ import SubheaderCategories from './SubheaderCategories'
 
 
 const Subheader = (props) => {
-    const [category, setCategory] = useState('all categories')
     const [showCategories, setShowCategories] = useState(false)
     const openDropdown = () => {
         props.setDropdownTransition('transitionStart')
@@ -70,13 +69,13 @@ const Subheader = (props) => {
         }
         let finalCriteria = {...criteria, ...newCriteria}
         props.setSelected(sortCriteria)
+        props.setSortCriteria(finalCriteria)
         props.sort(finalCriteria, true)
     }
     
 
     return(
         <div>
-        {console.log(props.sortCriteria)}
             <Container>
                 <UL>
                     <div style={{display: 'flex', alignItems: 'center'}}>
@@ -94,14 +93,12 @@ const Subheader = (props) => {
                     <div style={{display: 'flex'}} >
                         <div className='categories-dropdown'>
                             <div onClick={()=>setShowCategories(!showCategories)}>
-                                <CategoriesButton className='categories-dropdown'>{category} &#x25BC;</CategoriesButton>
+                                <CategoriesButton className='categories-dropdown'>{props.sortCriteria.category} &#x25BC;</CategoriesButton>
                             </div>
                             {showCategories ? 
                             <div style={{position: 'relative'}}>
                                 <SubheaderCategories 
                                     setHomePhotoInformation={props.setHomePhotoInformation}
-                                    category={category}
-                                    setCategory={setCategory}
                                     setIsMainPhotosVisible={props.setIsMainPhotosVisible} 
                                     getCategoryPhotos={props.getCategoryPhotos} 
                                     className='categories-dropdown' 
@@ -115,8 +112,8 @@ const Subheader = (props) => {
                             null
                             }
                         </div>
-                        <div style={{cursor: props.displayView ? 'default' : 'pointer' }} onClick={()=>props.setDisplayView(true)} ><DescriptionGrid style={{fill: props.displayView ? 'gray' : 'black'}} /></div>
-                        <div style={{margin: '0 10px 0 15px', cursor: props.displayView ? 'pointer' : 'default'}}  onClick={()=>props.setDisplayView(false)} ><PhotoGrid style={{fill: props.displayView ? 'black' : 'gray'}}/></div>
+                        {/* <div style={{cursor: props.displayView ? 'default' : 'pointer' }} onClick={()=>props.setDisplayView(true)} ><DescriptionGrid style={{fill: props.displayView ? 'gray' : 'black'}} /></div> */}
+                        {/* <div style={{margin: '0 10px 0 15px', cursor: props.displayView ? 'pointer' : 'default'}}  onClick={()=>props.setDisplayView(false)} ><PhotoGrid style={{fill: props.displayView ? 'black' : 'gray'}}/></div> */}
                     </div>
                 </UL>
             </Container>
@@ -124,7 +121,7 @@ const Subheader = (props) => {
                 <ULMobile>
                     <div style={{display: 'flex'}}>
                         <LI onClick={openDropdown}>Sort &#x25BC;</LI>
-                        <LI onClick={openDropdownCategories}>{category} &#x25BC;</LI>
+                        <LI onClick={openDropdownCategories}>{props.sortCriteria.category} &#x25BC;</LI>
                     </div>
                     <div style={{display: 'flex'}} >
                         <div style={{cursor: props.displayView ? 'default' : 'pointer' }} onClick={()=>props.setDisplayView(true)} ><DescriptionGrid style={{fill: props.displayView ? 'gray' : 'black'}} /></div>

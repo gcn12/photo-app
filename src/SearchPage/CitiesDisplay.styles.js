@@ -34,9 +34,10 @@ export const Container = styled.div`
     position: relative;
     margin-bottom: 2%;
     max-width: 400px;
+    border-radius: 15px;
     &:hover ${ImageContainer} {
         transition: transform 15s ease-out;
-        transform: scale(1.2);
+        transform: scale(1.15);
     }
 `
 

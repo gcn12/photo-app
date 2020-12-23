@@ -117,7 +117,7 @@ const Header = (props) => {
             city: '',
             country: '',
             continent: '',
-            category: '',
+            category: 'all categories',
             views: true,
             new: false,
             rating: false,

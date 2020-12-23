@@ -47,3 +47,13 @@ export const UsersContainer = styled.div`
 export const ResultTitle = styled.div`
     font-size: 30px;
 `
+
+export const TitleContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+`
+
+export const SeeMore = styled.div`
+    font-size: 20px;
+    cursor: pointer;
+`

@@ -30,6 +30,7 @@ export const LI = styled.li`
     -ms-user-select: none; 
     user-select: none; 
     padding: 2px;
+    white-space: nowrap;
     &:hover{
         background-color: #ededed;
     }

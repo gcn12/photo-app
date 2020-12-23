@@ -8,16 +8,11 @@ import {
 const SubheaderCategories = (props) => {
 
     const getPhotos = (category) => {
-        if(category !== props.category) {
+        if(category !== props.sortCriteria.category) {
             props.setHomePhotoInformation([])
-            props.setCategory(category)
             props.setIsMainPhotosVisible(false)
             let criteria = props.sortCriteria
-            if(category === 'all categories') {
-                criteria['category'] = ''
-            }else{
-                criteria['category'] = category
-            }
+            criteria['category'] = category
             props.sort(criteria, true)
         }
     }
