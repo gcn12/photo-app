@@ -49,7 +49,7 @@ const SearchPage = (props) => {
                     :
                     null
                 }
-                <UsersContainer>
+                <UsersContainer quantity={props?.searchResults[1]?.length < 4 ? null : 'center'}>
                     {props?.searchResults[1]?.map((item, index)=> {
                         return (
                             <UsersDisplay item={item} key={index} />

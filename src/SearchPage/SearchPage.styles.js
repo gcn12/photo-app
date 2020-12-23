@@ -33,8 +33,8 @@ export const UsersContainer = styled.div`
     display: grid;
     align-items: start;
     /* grid-template-columns: repeat(3, auto); */
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    grid-column-gap: 6%;
+    grid-template-columns: repeat(auto-fit, minmax(303px, 1fr));
+    grid-column-gap: 2%;
     grid-row-gap: 0%;
     align-items: start;
     justify-content: center;
