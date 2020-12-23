@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { ReactComponent as PhotoGrid } from '../Icons/PhotoGrid.svg'
 import { ReactComponent as DescriptionGrid } from '../Icons/DescriptionGrid.svg'
-import SubheaderFilter from './SubheaderFilter'
-import { Link } from 'react-router-dom'
+// import SubheaderFilter from './SubheaderFilter'
+// import { Link } from 'react-router-dom'
 import {
     Container,
     UL,
@@ -15,9 +15,9 @@ import SubheaderCategories from './SubheaderCategories'
 
 const Subheader = (props) => {
     const [category, setCategory] = useState('all categories')
-    const [result, setResult] = useState('all results')
+    // const [result, setResult] = useState('all results')
     const [showCategories, setShowCategories] = useState(false)
-    const [showResults, setShowResults] = useState(false)
+    // const [showResults, setShowResults] = useState(false)
     const openDropdown = () => {
         props.setDropdownTransition('transitionStart')
         props.setVisibility(true)
@@ -49,34 +49,40 @@ const Subheader = (props) => {
         if (!e.target.matches('.categories-dropdown')) {
             setShowCategories(false)
         }
-        if (!e.target.matches('.results-dropdown')) {
-            setShowResults(false)
-        }
+        // if (!e.target.matches('.results-dropdown')) {
+            // setShowResults(false)
+        // }
     }
 
-    const changeSort = (sortCriteria) => {
-        props.setHomePhotoInformation([])
-        props.setIsMainPhotosVisible(false)
-        let criteria = props.sortCriteria 
-        let newCriteria = {}
-        if(sortCriteria === 'views') {
-            newCriteria['views'] = true
-        }else {
-            newCriteria['views'] = false
+    const changeSort = (result) => {
+        // props.setHomePhotoInformation([])
+        // props.setIsMainPhotosVisible(false)
+        // let criteria = props.sortCriteria 
+        // let newCriteria = {}
+        // if(sortCriteria === 'views') {
+        //     newCriteria['views'] = true
+        // }else {
+        //     newCriteria['views'] = false
+        // }
+        // if (sortCriteria === 'timestamp') {
+        //     newCriteria['new'] = true
+        // }else {
+        //     newCriteria['new'] = false
+        // }
+        // if (sortCriteria === 'ratio') {
+        //     newCriteria['rating'] = true
+        // } else {
+        //     newCriteria['rating'] = false
+        // }
+        // let finalCriteria = {...criteria, ...newCriteria}
+        // props.setSelected(sortCriteria)
+        // props.sort(finalCriteria, true)
+        if(result !== props.searchQueries) {
+            props.setHomePhotoInformation([])
+            // props.setIsMainPhotosVisible(false)
+            props.setSearchQueries(result)
+            props.search(result)
         }
-        if (sortCriteria === 'timestamp') {
-            newCriteria['new'] = true
-        }else {
-            newCriteria['new'] = false
-        }
-        if (sortCriteria === 'ratio') {
-            newCriteria['rating'] = true
-        } else {
-            newCriteria['rating'] = false
-        }
-        let finalCriteria = {...criteria, ...newCriteria}
-        props.setSelected(sortCriteria)
-        props.sort(finalCriteria, true)
     }
     
 
@@ -85,19 +91,14 @@ const Subheader = (props) => {
             <Container>
                 <UL>
                     <div style={{display: 'flex', alignItems: 'center'}}>
-                        <Link to='/photo-app/posts/popular' style={{textDecoration: 'none'}}>
-                            <LI onClick={()=>changeSort('views')} underline={props.selected === 'views' ? true : false}>Popular</LI>
-                        </Link>
-                        <Link to='/photo-app/posts/new' style={{textDecoration: 'none'}}>
-                            <LI onClick={()=>changeSort('timestamp')} underline={props.selected === 'timestamp' ? true : false}>Newest</LI>
-                        </Link>
-                        <Link to='/photo-app/posts/rating' style={{textDecoration: 'none'}}>
-                            <LI onClick={()=>changeSort('ratio')} underline={props.selected === 'ratio' ? true : false}>Highest rated</LI>
-                        </Link>
+                        <LI onClick={()=>changeSort('all results')} underline={props.searchQueries === 'all results' ? true : false}>All results</LI>
+                        <LI onClick={()=>changeSort('places')} underline={props.searchQueries === 'places' ? true : false}>Places</LI>
+                        <LI onClick={()=>changeSort('posts')} underline={props.searchQueries === 'posts' ? true : false}>Posts</LI>
+                        <LI onClick={()=>changeSort('people')} underline={props.searchQueries === 'people' ? true : false}>People</LI>
                     </div>
                     <div style={{display: 'flex'}} >
                         <div style={{display: 'flex'}} className='categories-dropdown'>
-                        <div onClick={()=>setShowResults(!showResults)}>
+                            {/* <div onClick={()=>setShowResults(!showResults)}>
                                 <CategoriesButton className='results-dropdown'>{props.searchQueries} &#x25BC;</CategoriesButton>
                             </div>
                             {showResults ? 
@@ -119,7 +120,7 @@ const Subheader = (props) => {
                             </div>
                             :
                             null
-                            }
+                            } */}
                             <div onClick={()=>setShowCategories(!showCategories)}>
                                 <CategoriesButton className='categories-dropdown'>{props.sortCriteria.category} &#x25BC;</CategoriesButton>
                             </div>
