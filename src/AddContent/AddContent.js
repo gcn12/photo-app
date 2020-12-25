@@ -421,7 +421,6 @@ const AddContent = (props) => {
                 .child(`${username}/${url}/${fileName}${random}`)
                 .putString(dataURL, 'data_url')
                 .then((snapshot) => {
-                    console.log('Uploaded a blob or file!')
                     snapshot.ref.getDownloadURL()
                     .then(miniImageUrl=> {
                         smallImageUrl = miniImageUrl
