@@ -29,6 +29,13 @@ export const FontOption = styled.option`
 `
 
 export const FontSelect = styled.select`
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%238C98F2'><polygon points='0,0 100,0 50,50'/></svg>") no-repeat;
+    background-size: 12px;
+    background-position: calc(100% - 15px) center;
+    background-repeat: no-repeat;
     font-size: 20px;
-    padding: 10px;
+    padding: 10px 30px 10px 10px;
 `

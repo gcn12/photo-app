@@ -38,8 +38,9 @@ export const PostsContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
     grid-gap: 20px;
-    align-items: stretch;
+    /* align-items: stretch; */
     justify-items: center;
+    align-items: start;
 `
 
 export const PostContainer = styled.div`
@@ -49,7 +50,7 @@ export const PostContainer = styled.div`
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     ${props => props.shouldHover 
         ? `&:hover ${GearIcon} {

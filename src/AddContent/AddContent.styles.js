@@ -150,9 +150,20 @@ export const DescriptionInput = styled.textarea`
 `
 
 export const SelectInput = styled.select`
+    /* -webkit-appearance: menulist-button; */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%238C98F2'><polygon points='0,0 100,0 50,50'/></svg>") no-repeat;
+    background-size: 12px;
+    background-position: calc(100% - 20px) center;
+    background-repeat: no-repeat;
+    background-color: #fafafa;
     width: 60vw;
     height: 40px;
     font-size: 20px;
+    color: #242424;
+    padding-left: 5px;
 `
 
 export const Label = styled.label`

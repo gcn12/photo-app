@@ -159,7 +159,7 @@ const App = (props) => {
   }, [])
 
   
-  const search = (resultCriteria) => { 
+  const search = (resultCriteria, filter) => { 
     // setSearchResults([])
     const searchClient = algoliasearch(
       'VNSU9OYWB2',
@@ -189,8 +189,12 @@ const App = (props) => {
       query: query,
       params: {
         hitsPerPage: 6,
-        attributesToRetrieve: ['title', 'country', 'image', 'username', 'url', 'city', 'previewDescription'],
+        attributesToRetrieve: ['category', 'title', 'country', 'image', 'username', 'url', 'city', 'previewDescription'],
       }
+    }
+
+    if (filter) {
+      postsQuery['filters'] = filter
     }
 
     const countriesQuery = {
@@ -313,7 +317,7 @@ const App = (props) => {
   return (
     <div>
       <Route path='/photo-app/' render={(props)=> (
-        <Header setQuery={setQuery} search={search} setSearchQueries={setSearchQueries} searchQueries={searchQueries} {...props} setSearchResults={setSearchResults} sort={sort} sortCriteria={sortCriteria} setSortCriteria={setSortCriteria} setIsMainPhotosVisible={setIsMainPhotosVisible} displayView={displayView} setDisplayView={setDisplayView} setHomePhotoInformation={setHomePhotoInformation} user={user}/>
+        <Header query={query} setQuery={setQuery} search={search} setSearchQueries={setSearchQueries} searchQueries={searchQueries} {...props} setSearchResults={setSearchResults} sort={sort} sortCriteria={sortCriteria} setSortCriteria={setSortCriteria} setIsMainPhotosVisible={setIsMainPhotosVisible} displayView={displayView} setDisplayView={setDisplayView} setHomePhotoInformation={setHomePhotoInformation} user={user}/>
       )} />
 
 

@@ -121,23 +121,33 @@ const Subheader = (props) => {
                             :
                             null
                             } */}
-                            <div onClick={()=>setShowCategories(!showCategories)}>
-                                <CategoriesButton className='categories-dropdown'>{props.sortCriteria.category} &#x25BC;</CategoriesButton>
-                            </div>
-                            {showCategories ? 
-                            <div style={{position: 'relative'}}>
-                                <SubheaderCategories 
-                                    setHomePhotoInformation={props.setHomePhotoInformation}
-                                    category={category}
-                                    setCategory={setCategory}
-                                    setIsMainPhotosVisible={props.setIsMainPhotosVisible} 
-                                    getCategoryPhotos={props.getCategoryPhotos} 
-                                    className='categories-dropdown' 
-                                    location={props.location}
-                                    sort={props.sort} 
-                                    sortCriteria={props.sortCriteria} 
-                                    setSortCriteria={props.setSortCriteria} 
-                                />
+                            {props.searchQueries === 'posts' ? 
+                            <div>
+                                <div onClick={()=>setShowCategories(!showCategories)}>
+                                    <CategoriesButton className='categories-dropdown'>{props.sortCriteria.category} &#x25BC;</CategoriesButton>
+                                </div>
+                                {showCategories ? 
+                                <div style={{position: 'relative'}}>
+                                    <SubheaderCategories 
+                                        query={props.query}
+                                        search={props.search}
+                                        searchQueries={props.searchQueries}
+                                        setSearchQueries={props.setSearchQueries}
+                                        setHomePhotoInformation={props.setHomePhotoInformation}
+                                        category={category}
+                                        setCategory={setCategory}
+                                        setIsMainPhotosVisible={props.setIsMainPhotosVisible} 
+                                        getCategoryPhotos={props.getCategoryPhotos} 
+                                        className='categories-dropdown' 
+                                        location={props.location}
+                                        sort={props.sort} 
+                                        sortCriteria={props.sortCriteria} 
+                                        setSortCriteria={props.setSortCriteria} 
+                                    />
+                                </div>
+                                :
+                                null
+                                }
                             </div>
                             :
                             null

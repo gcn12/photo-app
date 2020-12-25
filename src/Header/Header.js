@@ -191,6 +191,7 @@ const Header = (props) => {
                 }
                 {props.location.pathname.includes('/photo-app/search') ? 
                 <SubheaderSearch 
+                    query={props.query}
                     search={props.search}
                     searchQueries={props.searchQueries}
                     setSearchQueries={props.setSearchQueries}

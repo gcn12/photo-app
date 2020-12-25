@@ -359,6 +359,41 @@ const AddContent = (props) => {
                                 setTimeout(()=>props.getFeaturedPhotoInfo(url, username), 2000)
                                 setTimeout(()=>props.history.push(`/photo-app/post/${username}/${url}`), 2000)
                             })
+                            // .then(()=> {
+                            //     const countryRef = db.collection('countries')
+                            //     countryRef.where('country', '==', country)
+                            //     .get()
+                            //     .then(data=> {
+                            //         if(data.docs[0]) {
+                            //             const countryData = data.docs[0].data()
+                            //             if (countryData?.country) {
+                            //                 if(countryData?.count > 5 && !countryData?.image) {
+                            //                     //add to cloud function pending
+                            //                 } 
+                            //             }
+                            //         }else{
+                            //             db.collection('pending-country-add')
+                            //             .add({ country })
+                            //         }
+                            //     })
+                            //     const cityRef = db.collection('cities')
+                            //     cityRef.where('city', '==', city)
+                            //     .get()
+                            //     .then(data=> {
+                            //         if(data.docs[0]) {
+                            //             const cityData = data.docs[0].data()
+                            //             if (cityData?.country) {
+                            //                 if(cityData?.count > 5 && !cityData?.image) {
+                            //                     //add to cloud function pending
+                            //                 } 
+                            //             }
+                            //         }else{
+                            //             db.collection('pending-city-add')
+                            //             .add({ city })
+                            //         }
+                            //     })
+
+                            // })
                         })              
                     })
                 })
