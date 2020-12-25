@@ -49,7 +49,7 @@ export const DisplayPosts = (props) => {
     return(
         <PostContainer shouldHover={!props.showGear}>
             {showEdit ? 
-            <EditPost setShowEdit={setShowEdit} postData={postData}/>
+            <EditPost user={props.user} setShowEdit={setShowEdit} postData={postData}/>
             :
             null
             }
@@ -66,7 +66,7 @@ export const DisplayPosts = (props) => {
                 null
                 }
             </div>
-            <Photo onClick={selectPhoto} src={props.post.image} alt='display'></Photo>
+            <Photo onClick={selectPhoto} src={props.post.smallImage} alt='display'></Photo>
             <PostTitle onClick={selectPhoto}>{props.post.title}</PostTitle>
         </PostContainer>
     )

@@ -22,15 +22,8 @@ const Body = (props) => {
         while(imagesDiv.firstChild) {
             imagesDiv.removeChild(imagesDiv.lastChild)
         }
-        // for (let i = 0; i < images.files.length; i++) {
-        //     imagesDiv.removeChild(imagesDiv.lastChild)
-        // }
         let sizeMapArray = new Array(images.files.length).fill('')
         if(images.files.length<4) {
-            // const imageDivs = document.getElementsByClassName(`upload-gallery-image-${inputDiv}`)
-            // for (let i = 0; i < imageDivs.length; i++) {
-            //     imageDivs[i].remove()
-            // }
             if(images.files.length>1) {
                 props.setBody('shiftUp')
                 setIsTooManyImages(false)

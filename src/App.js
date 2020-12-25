@@ -403,7 +403,7 @@ const App = (props) => {
             <SubmitButton onClick={null}>Load more</SubmitButton>
         </div> */}
       {/* <button onClick={test}>Delete</button> */}
-      {/* <TestFile homePhotoInformation={homePhotoInformation}  setHomePhotoInformation={setHomePhotoInformation}  />  */}
+      {/* <TestFile user={user} homePhotoInformation={homePhotoInformation}  setHomePhotoInformation={setHomePhotoInformation}  />  */}
     </div>
   );
 }

@@ -235,7 +235,7 @@ const AddContent = (props) => {
     const [isDuplicate, setIsDuplicate] = useState(false)
     const [numberCharacters, setNumberCharacters] = useState(150)
 
-    const submit = (imagesEmptyArrays, unsortedImages, imageMap, user, imageSizeArray) => {
+    const submit = (imagesEmptyArrays, unsortedImages, imageMap, imageSizeArray, smallImageUrl) => {
         const title = document.getElementById('add-content-title').value
         const location = document.getElementById('autocomplete').value
         const splitLocation = location.split(',')
@@ -306,6 +306,7 @@ const AddContent = (props) => {
                         title,
                         timestamp,
                         previewDescription,
+                        smallImage: smallImageUrl,
                         image: mainImage,
                         category,
                         city,
@@ -333,6 +334,7 @@ const AddContent = (props) => {
                                 id: docRef.id,
                                 author: name,
                                 previewDescription,
+                                smallImage: smallImageUrl,
                                 title,
                                 image: mainImage,
                                 category,
@@ -345,7 +347,6 @@ const AddContent = (props) => {
                                 hearts,
                                 ratio,
                             })
-                            // .then(()=>setUploadProgress(previousUploadProgress=> previousUploadProgress + 1))
                             .then(()=>{
                                 db.collection('users')
                                 .doc(props.user)
@@ -354,46 +355,10 @@ const AddContent = (props) => {
                                 .set({
                                     'post-names': firebase.firestore.FieldValue.arrayUnion(url)
                                 }, {merge: true})
-                                console.log('uploaded')
                                 setTimeout(()=>setUploadProgressColor(true), 300)
                                 setTimeout(()=>props.getFeaturedPhotoInfo(url, username), 2000)
                                 setTimeout(()=>props.history.push(`/photo-app/post/${username}/${url}`), 2000)
                             })
-                            // .then(()=> {
-                            //     const countryRef = db.collection('countries')
-                            //     countryRef.where('country', '==', country)
-                            //     .get()
-                            //     .then(data=> {
-                            //         if(data.docs[0]) {
-                            //             const countryData = data.docs[0].data()
-                            //             if (countryData?.country) {
-                            //                 if(countryData?.count > 5 && !countryData?.image) {
-                            //                     //add to cloud function pending
-                            //                 } 
-                            //             }
-                            //         }else{
-                            //             db.collection('pending-country-add')
-                            //             .add({ country })
-                            //         }
-                            //     })
-                            //     const cityRef = db.collection('cities')
-                            //     cityRef.where('city', '==', city)
-                            //     .get()
-                            //     .then(data=> {
-                            //         if(data.docs[0]) {
-                            //             const cityData = data.docs[0].data()
-                            //             if (cityData?.country) {
-                            //                 if(cityData?.count > 5 && !cityData?.image) {
-                            //                     //add to cloud function pending
-                            //                 } 
-                            //             }
-                            //         }else{
-                            //             db.collection('pending-city-add')
-                            //             .add({ city })
-                            //         }
-                            //     })
-
-                            // })
                         })              
                     })
                 })
@@ -402,70 +367,127 @@ const AddContent = (props) => {
     }
     
     const fileUpload = (user, imageSizeArray) => {
-        let photoIndexes = []
-        let fileArray = []
-        const photoUrlArraySorted = []
-        // const urlArray = []
-        const photoFiles = document.getElementsByClassName('photo-input')
-        for (let i = 0; i < photoFiles.length; i++) {
-            fileArray = [...fileArray, ...photoFiles[i].files]
-            if(photoFiles[i].files.length > 1) {
-                photoUrlArraySorted.push([])
-                for(let j = 0; j<photoFiles[i].files.length; j++) {
-                    photoIndexes.push(i-1)
-                }
-            }else{
-                if(i!==0) {
-                    photoIndexes.push(i-1)
-                    photoUrlArraySorted.push([])
-                }
-            }
+        let smallImageUrl
+        const title = document.getElementById('add-content-title').value
+        let url = title.split(' ')
+        url = url.join('-')
+        url = url.toLowerCase()
+
+        const file = document.getElementsByClassName('photo-input')[0].files[0]
+        const reader2 = new FileReader()
+        reader2.readAsDataURL(file);
+        reader2.onload = (e) => {
+            const fileName = file.name
+            const image = document.createElement('img')
+            image.src = e.target.result;
+            image.onload = function () {
+                resizeFile(image, image, fileName);
+            };
         }
-        const urlArray = []
-        let index = []
-        let indexNum = 0
-        db.collection('users')
-        .doc(props.user)
-        .get()
-        .then(userData=> {
-            const title = document.getElementById('add-content-title').value
-            // let url = title.replaceAll(' ', '-')
-            let url = title.split(' ')
-            url = url.join('-')
-            url = url.toLowerCase()
-            const username = userData.data().username
-            const upload = () => {
-                if(indexNum<fileArray.length) {
-                    const random = Math.round(Math.random()*1000000)
-                    const file = fileArray[indexNum]
-                    const metadata = {
-                        contentType: file.type
-                    }
-                    firebase.storage().ref()
-                    .child(`${username}/${url}/${file.name}${random}`)
-                    .put(file, metadata)
-                    .then(snapshot => {
-                        snapshot.ref.getDownloadURL()
-                        .then(downloadURL => {
-                            urlArray.push(downloadURL)  
-                            indexNum++ 
-                            index.push(downloadURL) 
-                        }).then((downloadURL)=> {
-                            setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-                            if(urlArray.length===fileArray.length) {
-                                submit(photoUrlArraySorted, [...urlArray, downloadURL], photoIndexes, user, imageSizeArray)
-                            }else{
-                                upload()
-                            }
-                        })
-                        .catch(error => console.log(error))
-                    });
-                }else{
-                    return
-                }
+
+        const resizeFile = (loadedData, preview, fileName) => { 
+            const height = loadedData.height
+            const width = loadedData.width
+            let ratio
+            let finalHeight
+            let finalWidth
+            if (height >= width) {
+                ratio = width / height
+                finalHeight = 600
+                finalWidth = Math.round(ratio * 600)
+            }else {
+                ratio = height / width
+                finalWidth = 600
+                finalHeight = Math.round(ratio * 600)
             }
-            upload()
-        })
+            let canvas = document.createElement('canvas'),
+            ctx;
+            canvas.width = finalWidth;
+            canvas.height = finalHeight;
+            ctx = canvas.getContext('2d');
+            ctx.drawImage(preview, 0, 0, canvas.width, canvas.height);
+            fileUpload(canvas, fileName)
+        }
+
+        const fileUpload = (imageData, fileName) => {
+            var dataURL = imageData.toDataURL('image/jpeg', 1)
+            const random = Math.round(Math.random()*1000000)
+            db.collection('users')
+            .doc(props.user)
+            .get()
+            .then(userData=> {
+                const username = userData.data().username
+                firebase.storage().ref()
+                .child(`${username}/${url}/${fileName}${random}`)
+                .putString(dataURL, 'data_url')
+                .then((snapshot) => {
+                    console.log('Uploaded a blob or file!')
+                    snapshot.ref.getDownloadURL()
+                    .then(miniImageUrl=> {
+                        smallImageUrl = miniImageUrl
+
+                        let photoIndexes = []
+                        let fileArray = []
+                        const photoUrlArraySorted = []
+                        // const urlArray = []
+                        const photoFiles = document.getElementsByClassName('photo-input')
+                        for (let i = 0; i < photoFiles.length; i++) {
+                            fileArray = [...fileArray, ...photoFiles[i].files]
+                            if(photoFiles[i].files.length > 1) {
+                                photoUrlArraySorted.push([])
+                                for(let j = 0; j<photoFiles[i].files.length; j++) {
+                                    photoIndexes.push(i-1)
+                                }
+                            }else{
+                                if(i!==0) {
+                                    photoIndexes.push(i-1)
+                                    photoUrlArraySorted.push([])
+                                }
+                            }
+                        }
+                        const urlArray = []
+                        let index = []
+                        let indexNum = 0
+                        const upload = () => {
+                            if(indexNum<fileArray.length) {
+                                const random = Math.round(Math.random()*1000000)
+                                const file = fileArray[indexNum]
+                                const metadata = {
+                                    contentType: file.type
+                                }
+                                firebase.storage().ref()
+                                .child(`${username}/${url}/${file.name}${random}`)
+                                .put(file, metadata)
+                                .then(snapshot => {
+                                    snapshot.ref.getDownloadURL()
+                                    .then(downloadURL => {
+                                        urlArray.push(downloadURL)  
+                                        indexNum++ 
+                                        index.push(downloadURL) 
+                                    }).then((downloadURL)=> {
+                                        setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+                                        if(urlArray.length===fileArray.length) {
+                                            submit(photoUrlArraySorted, [...urlArray, downloadURL], photoIndexes, imageSizeArray, smallImageUrl)
+                                        }else{
+                                            upload()
+                                        }
+                                    })
+                                    .catch(error => console.log(error))
+                                });
+                            }else{
+                                return
+                            }
+                        }
+                        upload()
+                    })
+                }).catch((error) => {
+                    console.log(error)
+                })
+            })
+        }
+
+
+
     }
 
     const getBodyContent = () => {

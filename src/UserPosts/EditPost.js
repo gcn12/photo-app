@@ -253,58 +253,137 @@ const EditPost = (props) => {
     }
 
     const fileUpload = () => {
-        console.log(filesArray)
-        let index = 0
-        let j = 0
-        let finalArray = []
-        const upload = () => {
-            if(index < filesArray.length){
-                if(filesArray[index].length > 0) {
-                    const random = Math.round(Math.random()*1000000)
-                    if(j===0) {
-                        finalArray.push([])
-                    }
-                    const metadata = {
-                        contentType: filesArray[index][j].type,
-                    }
-                    const storageRef = firebase.storage().ref()
-                    const picRef = storageRef.child(`${postData.username}/${postData.url}/${filesArray[index][j].name}${random}`)
-                    const file = filesArray[index][j]
-                    picRef.put(file, metadata)
-                    .then((snapshot)=> {
-                        console.log('Uploaded file');
-                        snapshot.ref.getDownloadURL()
-                        .then((url)=> {
-                            console.log(url)
-                            finalArray[index].push(url)
-                            j++
-                            if(index === filesArray.length -1 && j===filesArray[index].length){
-                                // console.log(finalArray)
-                                submit(finalArray)
-                            }
-                            if(j === filesArray[index].length){
-                                j = 0
-                                index++
-                            }
-                            upload()
-                        })
-                    })
-                }else{
-                    if(index === filesArray.length -1 && j===filesArray[index].length){
-                        submit(finalArray)
-                        // console.log(finalArray)
-                    }else{
-                        finalArray.push([])
-                        index++
-                        upload()
-                    }
-                }
-            }
+
+        let smallImageUrl
+
+        // const title = document.getElementById('edit-post-title').value
+        // let url = title.split(' ')
+        // url = url.join('-')
+        // url = url.toLowerCase()
+
+        const file = document.getElementById('main-image-input').files[0]
+        const reader2 = new FileReader()
+        reader2.readAsDataURL(file);
+        reader2.onload = (e) => {
+            const fileName = file.name
+            const image = document.createElement('img')
+            image.src = e.target.result;
+            image.onload = function () {
+                resizeFile(image, image, fileName);
+                const height = this.height;
+                const width = this.width;
+                console.log(height, width, fileName)
+            };
         }
-        upload()
+
+        const resizeFile = (loadedData, preview, fileName) => { 
+            const height = loadedData.height
+            const width = loadedData.width
+            let ratio
+            let finalHeight
+            let finalWidth
+            if (height >= width) {
+                ratio = width / height
+                finalHeight = 600
+                finalWidth = Math.round(ratio * 600)
+            }else {
+                ratio = height / width
+                finalWidth = 600
+                finalHeight = Math.round(ratio * 600)
+            }
+            console.log(ratio, finalHeight, finalWidth)
+            let canvas = document.createElement('canvas'),
+            ctx;
+            canvas.width = finalWidth;
+            canvas.height = finalHeight;
+            ctx = canvas.getContext('2d');
+            ctx.drawImage(preview, 0, 0, canvas.width, canvas.height);
+            fileUpload(canvas, fileName)
+        }
+
+        const fileUpload = (imageData, fileName) => {
+
+            var dataURL = imageData.toDataURL('image/jpeg', 1)
+            const random = Math.round(Math.random()*1000000)
+            console.log(props.user)
+            db.collection('users')
+            .doc(props.user)
+            .get()
+            .then(userData=> {
+                const username = userData.data().username
+                firebase.storage().ref()
+                .child(`${username}/${postData.url}/${fileName}${random}`)
+                .putString(dataURL, 'data_url')
+                .then((snapshot) => {
+                    console.log('Uploaded a blob or file!')
+                    snapshot.ref.getDownloadURL()
+                    .then(miniImageUrl=> {
+                        console.log(miniImageUrl)
+                        smallImageUrl = miniImageUrl
+                        console.log(filesArray)
+                        let index = 0
+                        let j = 0
+                        let finalArray = []
+                        const upload = () => {
+                            if(index < filesArray.length){
+                                if(filesArray[index].length > 0) {
+                                    const random = Math.round(Math.random()*1000000)
+                                    if(j===0) {
+                                        finalArray.push([])
+                                    }
+                                    const metadata = {
+                                        contentType: filesArray[index][j].type,
+                                    }
+                                    const storageRef = firebase.storage().ref()
+                                    const picRef = storageRef.child(`${postData.username}/${postData.url}/${filesArray[index][j].name}${random}`)
+                                    const file = filesArray[index][j]
+                                    picRef.put(file, metadata)
+                                    .then((snapshot)=> {
+                                        console.log('Uploaded file');
+                                        snapshot.ref.getDownloadURL()
+                                        .then((url)=> {
+                                            console.log(url)
+                                            finalArray[index].push(url)
+                                            j++
+                                            if(index === filesArray.length -1 && j===filesArray[index].length){
+                                                // console.log(finalArray)
+                                                submit(finalArray, smallImageUrl)
+                                            }
+                                            if(j === filesArray[index].length){
+                                                j = 0
+                                                index++
+                                            }
+                                            upload()
+                                        })
+                                    })
+                                }else{
+                                    if(index === filesArray.length -1 && j===filesArray[index].length){
+                                        submit(finalArray)
+                                        // console.log(finalArray)
+                                    }else{
+                                        finalArray.push([])
+                                        index++
+                                        upload()
+                                    }
+                                }
+                            }
+                        }
+                        upload()
+                    })
+    
+                })
+            })
+        }
+
+
+
+
+
+
+    
     }
 
-    const submit = (images) => {
+    const submit = (images, smallImageUrl) => {
         let mainImage = postData.image
         
         const allImages = postData.images
@@ -360,6 +439,8 @@ const EditPost = (props) => {
             fullPostUpdate['font'] = font
         }
         if(mainImage!==postData.image) {
+            fullPostUpdate['smallImage'] = smallImageUrl
+            previewPostUpdate['smallImage'] = smallImageUrl
             fullPostUpdate['image'] = mainImage
             previewPostUpdate['image'] = mainImage
         }
