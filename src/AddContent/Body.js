@@ -18,8 +18,19 @@ const Body = (props) => {
 
     const getImageMap = (inputID, inputDiv) => {
         const images = document.getElementById(inputID)
+        const imagesDiv = document.getElementById(inputDiv)
+        while(imagesDiv.firstChild) {
+            imagesDiv.removeChild(imagesDiv.lastChild)
+        }
+        // for (let i = 0; i < images.files.length; i++) {
+        //     imagesDiv.removeChild(imagesDiv.lastChild)
+        // }
         let sizeMapArray = new Array(images.files.length).fill('')
         if(images.files.length<4) {
+            // const imageDivs = document.getElementsByClassName(`upload-gallery-image-${inputDiv}`)
+            // for (let i = 0; i < imageDivs.length; i++) {
+            //     imageDivs[i].remove()
+            // }
             if(images.files.length>1) {
                 props.setBody('shiftUp')
                 setIsTooManyImages(false)
@@ -29,7 +40,7 @@ const Body = (props) => {
                     fileReader.onload = function(e)  {
                         const displayImage = document.createElement("img");
                         displayImage.src = e.target.result;
-                        displayImage.className = 'upload-gallery-image'
+                        displayImage.className = `upload-gallery-image upload-gallery-image-${inputDiv}`
                         // document.body.appendChild(displayImage);
                         document.getElementById(inputDiv).appendChild(displayImage);
                     }
@@ -69,7 +80,7 @@ const Body = (props) => {
                 fileReader.onload = function(e)  {
                     const displayImage = document.createElement("img");
                     displayImage.src = e.target.result;
-                    displayImage.className = 'upload-gallery-image'
+                    displayImage.className = `upload-gallery-image upload-gallery-image-${inputDiv}`
                     document.getElementById(inputDiv).appendChild(displayImage);
                 }
                 fileReader.readAsDataURL(file);

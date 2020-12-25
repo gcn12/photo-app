@@ -14,13 +14,6 @@ export const InfoContainer = styled.div`
     align-items: center;
 `
 
-export const BodyContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: ${props=> props.margin}
-`
-
 export const Title = styled.div`
     /* color: #242424; */
     font-size: 40px;
@@ -71,6 +64,12 @@ export const Description = styled.div`
     }
 `
 
+export const AddCollectionHeartContainer = styled.div`
+    display: flex;
+    align-items: center;
+    position: relative;
+`
+
 export const BodyImage = styled.img`
     width: ${props=> `${props.width}`};
     margin: ${props=> props.margin};
@@ -82,14 +81,16 @@ export const BodyImage = styled.img`
     } */
 `
 
+export const BodyContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: ${props=> props.margin};
+`
+
 export const BodyImageContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
 `
 
-export const AddCollectionHeartContainer = styled.div`
-    display: flex;
-    align-items: center;
-    position: relative;
-`

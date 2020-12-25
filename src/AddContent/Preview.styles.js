@@ -40,14 +40,18 @@ export const PreviewContainer = styled(motion.div)`
 export const PreviewContainer2 = styled.div`
     display: flex;
     justify-content: center;
-    margin-bottom: 40px;
+    margin-bottom: 100px;
 `
 
 export const BodyImagePreview = styled.img`
     /* width: 70vw; */
-    width: ${props=> `${props.width}vw`};
+    width: ${props=> props.width};
     height: auto;
     margin: 0 1%;
+
+    max-height: 85vh;
+    max-width: 65vw;
+    display: block;
     /* height: 400px; */
     /* width: auto; */
 `

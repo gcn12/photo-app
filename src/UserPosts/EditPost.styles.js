@@ -197,3 +197,8 @@ export const PostDescriptionInput = styled.textarea`
     font-size: 20px;
     font-family: ${props=>props.font};
 `
+
+export const TooManyImages = styled.div`
+    color: #fa4670;
+    margin-top: 10px;
+`

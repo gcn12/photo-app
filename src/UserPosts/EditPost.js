@@ -25,6 +25,7 @@ import {
     PhotoAndButtonContainer,
     SelectInput,
     PostDescriptionInput,
+    TooManyImages,
 } from './EditPost.styles'
 
 const EditPost = (props) => {
@@ -37,6 +38,7 @@ const EditPost = (props) => {
     const [filesArray, setFilesArray] = useState([])
     const [postData, setPostData] = useState({})
     const [remainingCharacters, setRemainingCharacters] = useState(150)
+    const [isTooManyImages, setIsTooManyImages] = useState(false)
 
     const newImage = () => {
         const filesArrayCopy = filesArray
@@ -64,6 +66,7 @@ const EditPost = (props) => {
     const removeLastElement = () => {
         const copy = postData
         if(isAddImage) {
+            setIsTooManyImages(false)
             const filesArrayCopy = filesArray
             filesArrayCopy.pop()
             setFilesArray(filesArrayCopy)
@@ -184,8 +187,8 @@ const EditPost = (props) => {
         setImagesToUpload([...imagesToUploadCopy])
         let sizeMapArray = new Array(images.length).fill('')
         if(images.length<4) {
+            setIsTooManyImages(false)
             if(images.length>1) {
-                // setIsTooManyImages(false)
                 const imagesArray = []
                 for (let i = 0; i < images.length; i++) {
                     const file = images[i];
@@ -244,7 +247,7 @@ const EditPost = (props) => {
                 fileReader.readAsDataURL(file);
             }
         }else{
-            // setIsTooManyImages(true)
+            setIsTooManyImages(true)
         }
         
     }
@@ -256,7 +259,6 @@ const EditPost = (props) => {
         let finalArray = []
         const upload = () => {
             if(index < filesArray.length){
-                console.log('working')
                 if(filesArray[index].length > 0) {
                     const random = Math.round(Math.random()*1000000)
                     if(j===0) {
@@ -437,9 +439,14 @@ const EditPost = (props) => {
                                             })}
                                     </Masonry>
                                     {postData?.images[index] || showUpload || postData.content.length > index + 1 ? 
-                                    <div>
+                                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                                         <UploadLabel htmlFor={`edit-body-photos${index}`}>Select photos (max. 3)</UploadLabel>
                                         <input multiple id={`edit-body-photos${index}`} onChange={()=> changeBodyPhotos(index)} hidden  type='file'></input>
+                                        {isTooManyImages ? 
+                                        <TooManyImages>Exceeded image limit of three</TooManyImages>
+                                        :
+                                        null
+                                        }
                                     </div>    
                                     :
                                     null

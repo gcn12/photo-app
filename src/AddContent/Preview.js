@@ -41,7 +41,7 @@ const BodyImage = (props) => {
     return(
         // <BodyImagePreview id={`body-photo-${props.index}-${props.i}`} width={65 / (props.bodyImages[props.index] ? props.bodyImages[props.index].length : 1)} ></BodyImagePreview>
         // <BodyImagePreview id={`body-photo-${props.index}-${props.index}`} ></BodyImagePreview>
-        <BodyImagePreview id={`body-photo-${props.index}-${props.i}`} width={65 * props.imageSizeRatio} ></BodyImagePreview>
+        <BodyImagePreview id={`body-photo-${props.index}-${props.i}`}  width={props.imageSizeRatioLength > 1 ? `${65 * props.imageSizeRatio}vw` : 'auto'} ></BodyImagePreview>
     )
 }
 
@@ -77,7 +77,7 @@ const Preview = (props) => {
                             <BodyImageContainer>
                             {props?.bodyImages[index]?.map((image, i)=> {
                                 return(
-                                    <BodyImage imageSizeRatio={props.imageSizeRatio[index][i]} bodyImages={props.bodyImages} i={i} image={image} index={index} key={i}></BodyImage>
+                                    <BodyImage imageSizeRatioLength={props.imageSizeRatio[index].length} imageSizeRatio={props.imageSizeRatio[index][i]} bodyImages={props.bodyImages} i={i} image={image} index={index} key={i}></BodyImage>
                                 )
                             })}
                             </BodyImageContainer>
