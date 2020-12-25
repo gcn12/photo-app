@@ -26,6 +26,7 @@ const DropdownItem = (props) => {
                     addRef.add({
                         id: props.photoInformation.id,
                         image: props.photoInformation.image,
+                        smallImage: props.photoInformation.smallImage,
                         country: props.photoInformation.country,
                         city: props.photoInformation.city,
                         title: props.photoInformation.title,
@@ -59,7 +60,7 @@ const DropdownItem = (props) => {
             .then(data=> {
                 const imageArray = []
                 data.docs.forEach(image=> {
-                    imageArray.push(image.data().image)
+                    imageArray.push(image.data().smallImage)
                 })
                 const updateObject = {}
                 if (updateTimestampBool) {

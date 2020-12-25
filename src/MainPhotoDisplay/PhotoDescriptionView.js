@@ -46,7 +46,7 @@ const PhotoDescriptionView = (props) => {
     return(
         <Container opacity={showPost ? 1 : 0}>
             <Card>
-                <Image onClick={goToPost} onLoad={imageLoaded} src={props.photoInfo.image}></Image>
+                <Image onClick={goToPost} onLoad={imageLoaded} src={props.photoInfo.smallImage}></Image>
                 <Location>{`${props.photoInfo.city}, ${props.photoInfo.country}`}</Location>
                 {/* <Name>{props.photoInfo.author}</Name> */}
                 <Title onClick={goToPost} id={`description-view-title-${props.index}`}>{props.photoInfo.title}</Title>
