@@ -7,8 +7,11 @@ export const Container = styled.div`
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 90vw;
-    height: 100vh;
+    /* width: 90vw;
+    height: 100vh; */
+    width: ${props=>props.width};
+    height: ${props=>props.height};
+    transition: width 400ms ease-in-out, height 400ms ease-in-out;
     background-color: #fafafa;
     display: flex;
     flex-direction: column;
@@ -18,6 +21,18 @@ export const Container = styled.div`
     z-index: 2;
     box-shadow: 0px 0px 1px 100vmax rgba(0,0,0,0.8);
     border-radius: 5px;
+`
+
+export const HideContent = styled.div`
+    display: ${props=>props.display};
+    visibility: ${props=>props.visibility};
+`
+
+export const CenterUploadProgress = styled.div`
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 `
 
 export const ContentContainer = styled.div`
@@ -111,6 +126,8 @@ export const X = styled.div`
     font-size: 70px;
     cursor: pointer;
     margin-right: 30px;
+    display: ${props=>props.display};
+    visibility: ${props=>props.visibility};
 `
 
 export const Masonry = styled.div`
