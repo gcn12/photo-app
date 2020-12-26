@@ -74,7 +74,7 @@ const App = (props) => {
     if(!isNewSort) {
       sortQuery =  sortQuery.startAfter(startAfter)
     }
-    const limit = 8
+    const limit = 12
     sortQuery
     .limit(limit)
     .get()
@@ -134,7 +134,7 @@ const App = (props) => {
       }else{
         criteria['rating'] = false
       }
-      const limit = 8
+      const limit = 12
       setSortCriteria(criteria)
       initialSort
       .limit(limit)

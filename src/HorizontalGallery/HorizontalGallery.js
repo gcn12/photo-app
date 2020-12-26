@@ -57,7 +57,7 @@ const HorizontalGallery = (props) => {
             </TextContainer>
             <OverflowX>
                 {props.photos.map((info, index) => {
-                    const duplicateCheck = info.image !== props.photoInformation.image
+                    const duplicateCheck = info.image !== props.photoInformation.smallImage
                     return(
                         duplicateCheck ? 
                         <DisplayPhoto 
@@ -69,7 +69,7 @@ const HorizontalGallery = (props) => {
                             setHomePhotoInformation={props.setHomePhotoInformation} 
                             key={index} 
                             info={info} 
-                            url={info.image}
+                            url={info.smallImage}
                         /> 
                         :
                         null

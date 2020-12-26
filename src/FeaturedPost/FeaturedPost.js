@@ -283,33 +283,33 @@ const FeaturedPost = (props) => {
                 </InfoContainer>
                 </div>
             </Container>
-                {props?.photoInformation?.content?.map((item, index) => {
-                    return(
-                        <BodyContainer key={index}>
-                            <Description font={props.photoInformation.font}>{item}</Description>
-                            <BodyImageContainer>
-                                {props?.photoInformation?.images[index]?.map((image, i)=> {
-                                    return(
-                                        <BodyImage margin={props.photoInformation.photoBodyMap[index].length > 1 ? '0 .5%' : '0%'} width={props.photoInformation.photoBodyMap[index].length > 1 ? `${65 * props.photoInformation.photoBodyMap[index][i]}vw` : 'auto'} src={image} key={i}></BodyImage>
-                                    )
-                                })}
-                            </BodyImageContainer>
-                        </BodyContainer>
-                    )
-                })}
-                <HorizontalGallery 
-                history={props.history}
-                setCollectionsList={setCollectionsList}
-                getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
-                getPost={getPost}
-                getCountries={getCities} 
-                setHomePhotoInformation={props.setHomePhotoInformation} 
-                placeName={props?.city} 
-                place={'city'} 
-                title={props.photoInformation?.city} 
-                photoInformation={props.photoInformation} 
-                photos={cityPhotos} 
-                setPhotoInformation={props.setPhotoInformation}  
+            {props?.photoInformation?.content?.map((item, index) => {
+                return(
+                    <BodyContainer key={index}>
+                        <Description font={props.photoInformation.font}>{item}</Description>
+                        <BodyImageContainer>
+                            {props?.photoInformation?.images[index]?.map((image, i)=> {
+                                return(
+                                    <BodyImage margin={props.photoInformation.photoBodyMap[index].length > 1 ? '0 .5%' : '0%'} width={props.photoInformation.photoBodyMap[index].length > 1 ? `${65 * props.photoInformation.photoBodyMap[index][i]}vw` : 'auto'} src={image} key={i}></BodyImage>
+                                )
+                            })}
+                        </BodyImageContainer>
+                    </BodyContainer>
+                )
+            })}
+            <HorizontalGallery 
+            history={props.history}
+            setCollectionsList={setCollectionsList}
+            getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
+            getPost={getPost}
+            getCountries={getCities} 
+            setHomePhotoInformation={props.setHomePhotoInformation} 
+            placeName={props?.city} 
+            place={'city'} 
+            title={props.photoInformation?.city} 
+            photoInformation={props.photoInformation} 
+            photos={cityPhotos} 
+            setPhotoInformation={props.setPhotoInformation}  
             />
             <HorizontalGallery 
                 history={props.history}

@@ -29,12 +29,12 @@ const GetPhotos = (props) => {
         let finalWidth
         if (height >= width) {
             ratio = width / height
-            finalHeight = 1000
-            finalWidth = Math.round(ratio * 1000)
+            finalHeight = 850
+            finalWidth = Math.round(ratio * 850)
         }else {
             ratio = height / width
-            finalWidth = 1000
-            finalHeight = Math.round(ratio * 1000)
+            finalWidth = 850
+            finalHeight = Math.round(ratio * 850)
         }
         console.log(ratio, finalHeight, finalWidth)
         let canvas = document.createElement('canvas'),

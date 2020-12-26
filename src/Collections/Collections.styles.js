@@ -55,6 +55,8 @@ export const Container = styled.div`
 `
 
 export const ImageTitleContainer = styled.div`
+    opacity: ${props=>props.opacity};
+    transition: opacity 500ms ease-in-out;
     /* margin: 0 20px 20px 20px; */
     /* display: inline-block; */
     /* max-width: 100%; */

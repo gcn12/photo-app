@@ -52,6 +52,8 @@ export const PostContainer = styled.div`
     flex-direction: column;
     /* justify-content: center; */
     align-items: center;
+    opacity: ${props=> props.opacity};
+    transition: opacity 500ms ease-in-out;
     ${props => props.shouldHover 
         ? `&:hover ${GearIcon} {
             visibility: visible;

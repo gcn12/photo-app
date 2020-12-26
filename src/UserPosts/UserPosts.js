@@ -20,6 +20,7 @@ export const DisplayPosts = (props) => {
     const [showDelete, setShowDelete] = useState(false)
     const [showEdit, setShowEdit] = useState(false)
     const [postData, setPostData] = useState([])
+    const [isVisible, setIsVisible] = useState(false)
 
     const selectPhoto = () => {
         props.getFeaturedPhotoInfo(props.post.url, props.post.username)
@@ -47,7 +48,7 @@ export const DisplayPosts = (props) => {
     } 
 
     return(
-        <PostContainer shouldHover={!props.showGear}>
+        <PostContainer opacity={isVisible ? 1 : 0} shouldHover={!props.showGear}>
             {showEdit ? 
             <EditPost user={props.user} setShowEdit={setShowEdit} postData={postData}/>
             :
@@ -66,7 +67,7 @@ export const DisplayPosts = (props) => {
                 null
                 }
             </div>
-            <Photo onClick={selectPhoto} src={props.post.smallImage} alt='display'></Photo>
+            <Photo onLoad={()=> setIsVisible(true)} onClick={selectPhoto} src={props.post.smallImage} alt='display'></Photo>
             <PostTitle onClick={selectPhoto}>{props.post.title}</PostTitle>
         </PostContainer>
     )
