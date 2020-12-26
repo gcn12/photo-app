@@ -222,7 +222,7 @@ const AddContent = (props) => {
     const [bodyContent, setBodyContent] = useState([])
     const [bodyImages, setBodyImages] = useState([])
     const [imageSizeRatio, setImageSizeRatio] = useState({})
-    const [uploadCount, setUploadCount] = useState(5)
+    const [uploadCount, setUploadCount] = useState(11)
     const [uploadProgress, setUploadProgress] = useState(0)
     const [uploadProgressColor, setUploadProgressColor] = useState(false)
     const [paragraph, setParagraph] = useState('')
@@ -260,7 +260,11 @@ const AddContent = (props) => {
         if (document.getElementById('post-description-input').value.length > 0) {
             previewDescription = document.getElementById('post-description-input').value
         }else{
-            previewDescription = descriptionArray[0].substring(0, 150)
+            let descriptionNoEllipsis = descriptionArray[0].substring(0, 150)
+            if (descriptionNoEllipsis[descriptionNoEllipsis.length-1] !== '.') {
+                descriptionNoEllipsis += '...'
+            }
+            previewDescription = descriptionNoEllipsis
         }
     
         let mainImage = ''
@@ -291,6 +295,7 @@ const AddContent = (props) => {
             .doc(props.user)
             .get()
             .then(data=> {
+                setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
                 const username = data.data()['username']
                 db.collection('continents-countries').doc('map').collection(country)
                 .where(country, 'in', ['North America', 'South America', 'Asia', 'Europe', 'Oceania', 'Africa'])
@@ -386,6 +391,7 @@ const AddContent = (props) => {
         }
 
         const resizeFile = (loadedData, preview, fileName) => { 
+            setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
             const height = loadedData.height
             const width = loadedData.width
             let ratio
@@ -410,19 +416,23 @@ const AddContent = (props) => {
         }
 
         const fileUpload = (imageData, fileName) => {
+            setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
             var dataURL = imageData.toDataURL('image/jpeg', 1)
             const random = Math.round(Math.random()*1000000)
             db.collection('users')
             .doc(props.user)
             .get()
             .then(userData=> {
+                setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                 const username = userData.data().username
                 firebase.storage().ref()
                 .child(`${username}/${url}/${fileName}${random}`)
                 .putString(dataURL, 'data_url')
                 .then((snapshot) => {
+                    setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
                     snapshot.ref.getDownloadURL()
                     .then(miniImageUrl=> {
+                        setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                         smallImageUrl = miniImageUrl
 
                         let photoIndexes = []
@@ -458,6 +468,7 @@ const AddContent = (props) => {
                                 .child(`${username}/${url}/${file.name}${random}`)
                                 .put(file, metadata)
                                 .then(snapshot => {
+                                    setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
                                     snapshot.ref.getDownloadURL()
                                     .then(downloadURL => {
                                         urlArray.push(downloadURL)  
@@ -592,7 +603,7 @@ const AddContent = (props) => {
                 setPreviewProps('transitionEnd')
                 fileUpload(props.user, imageSizeRatio)
                 setUploadStatusProps('transitionStart')
-                setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
+                // setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
                 setSwitchValue(7)
                 break
             default: 

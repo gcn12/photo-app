@@ -208,64 +208,84 @@ const App = (props) => {
 
     const queries = [] 
 
-    if(resultCriteria === 'posts' || resultCriteria === 'all results') {
+    // if(resultCriteria === 'posts' || resultCriteria === 'all results') {
+    //   queries.push(postsQuery)
+    // }
+    if(resultCriteria === 'all results') {
+      queries.push(postsQuery)
+    }else if (resultCriteria === 'posts') {
+      postsQuery.params.hitsPerPage = 12
       queries.push(postsQuery)
     }
-    if(resultCriteria === 'people' || resultCriteria === 'all results') {
+    if(resultCriteria === 'all results') {
+      queries.push(usersQuery)
+    }else if (resultCriteria === 'people') {
+      usersQuery.params.hitsPerPage = 12
       queries.push(usersQuery)
     }
-    if(resultCriteria === 'places' || resultCriteria === 'all results') {
+    if(resultCriteria === 'all results') {
+      queries.push(countriesQuery)
+      queries.push(citiesQuery)
+    }else if (resultCriteria === 'places') {
+      countriesQuery.params.hitsPerPage = 5
+      citiesQuery.params.hitsPerPage = 7
       queries.push(countriesQuery)
       queries.push(citiesQuery)
     }
 
     let resultsArray = []
     if(query.length > 0) {
-    searchClient.multipleQueries(queries).then(({ results }) => {
-      if(resultCriteria==='all results'){
-        if(results[0]?.hits.length>0) {
-          resultsArray.push([...results[0].hits])
-        }else{
-          resultsArray.push([])
-        }
-        if(results[1]?.hits?.length>0) {
-          resultsArray.push([...results[1].hits])
-        }else{
-          resultsArray.push([])
-        }
-        if(results[2]?.hits?.length>0||results[3]?.hits?.length>0) {
-          resultsArray.push([...results[2].hits, ...results[3].hits])
-        }else{
-          resultsArray.push([])
-        }
-        // if(results[3]?.hits?.length>0) {
-        //   resultsArray.push([...results[3].hits])
-        // }else{
-        //   resultsArray.push([])
-        // }
+      searchClient.multipleQueries(queries).then(({ results }) => {
+        if(resultCriteria==='all results'){
+          if(results[0]?.hits.length>0) {
+            resultsArray.push([...results[0].hits])
+          }else{
+            resultsArray.push([])
+          }
+          if(results[1]?.hits?.length>0) {
+            resultsArray.push([...results[1].hits])
+          }else{
+            resultsArray.push([])
+          }
+          if(results[2]?.hits?.length>0||results[3]?.hits?.length>0) {
+            resultsArray.push([...results[2].hits, ...results[3].hits])
+          }else{
+            resultsArray.push([])
+          }
+          // if(results[3]?.hits?.length>0) {
+          //   resultsArray.push([...results[3].hits])
+          // }else{
+          //   resultsArray.push([])
+          // }
 
-      }else if(resultCriteria==='posts'){
-        if(results[0]?.hits.length>0) {
-          resultsArray = [results[0].hits, [], []]
+        }else if(resultCriteria==='posts'){
+          if(results[0]?.hits.length>0) {
+            resultsArray = [results[0].hits, [], []]
+          }
+        }else if(resultCriteria==='people'){
+          if(results[0]?.hits.length>0) {
+            resultsArray = [[], results[0].hits, []]
+          }
+        }else if(resultCriteria==='places'){
+          if(results[0]?.hits.length>0 || results[1]?.hits.length>0) {
+            resultsArray = [[], [], [...results[0].hits, ...results[1].hits]]
+          }
         }
-      }else if(resultCriteria==='people'){
-        if(results[0]?.hits.length>0) {
-          resultsArray = [[], results[0].hits, []]
+        // if(resultsArray.length > 0){
+        //   setSearchResults(resultsArray)
+        // }else{
+        //   setSearchResults('No results')
+        // }
+        if(resultsArray === [[], [], []] || resultsArray.length === 0){
+          setSearchResults('No results')
+        }else{
+          setSearchResults('No results')
         }
-      }else if(resultCriteria==='places'){
-        if(results[0]?.hits.length>0 || results[1]?.hits.length>0) {
-          resultsArray = [[], [], [...results[0].hits, ...results[1].hits]]
-        }
-      }
-      if(resultsArray.length> 0){
-        setSearchResults([...resultsArray])
-      }else{
-        setSearchResults('No results')
-      }
-    });
-    }else{
-      setSearchResults([])
+      });
     }
+    // else{
+    //   setSearchResults([])
+    // }
   }
 
   const getUserProfile = (username) => {
@@ -328,7 +348,7 @@ const App = (props) => {
       <Switch>
 
         <Route exact path='/photo-app/search' render={(props) => (
-          <SearchPage {...props} setHomePhotoInformation={setHomePhotoInformation} sort={sort} sortCriteria={sortCriteria} setSortCriteria={setSortCriteria} searchResults={searchResults} />
+          <SearchPage {...props} search={search} setSearchQueries={setSearchQueries} searchQueries={searchQueries} getFeaturedPhotoInfo={getFeaturedPhotoInfo} setPhotoInformation={setPhotoInformation} setHomePhotoInformation={setHomePhotoInformation} sort={sort} sortCriteria={sortCriteria} setSortCriteria={setSortCriteria} searchResults={searchResults} />
         )} />
 
         <Route exact path='/photo-app/signup/' render={(props)=> (

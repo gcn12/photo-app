@@ -39,6 +39,7 @@ const EditPost = (props) => {
     const [postData, setPostData] = useState({})
     const [remainingCharacters, setRemainingCharacters] = useState(150)
     const [isTooManyImages, setIsTooManyImages] = useState(false)
+    const [isVisible, setIsVisible] = useState(false)
 
     const newImage = () => {
         const filesArrayCopy = filesArray
@@ -270,9 +271,6 @@ const EditPost = (props) => {
             image.src = e.target.result;
             image.onload = function () {
                 resizeFile(image, image, fileName);
-                const height = this.height;
-                const width = this.width;
-                console.log(height, width, fileName)
             };
         }
 
@@ -291,7 +289,6 @@ const EditPost = (props) => {
                 finalWidth = 850
                 finalHeight = Math.round(ratio * 850)
             }
-            console.log(ratio, finalHeight, finalWidth)
             let canvas = document.createElement('canvas'),
             ctx;
             canvas.width = finalWidth;
@@ -305,7 +302,6 @@ const EditPost = (props) => {
 
             var dataURL = imageData.toDataURL('image/jpeg', 1)
             const random = Math.round(Math.random()*1000000)
-            console.log(props.user)
             db.collection('users')
             .doc(props.user)
             .get()
@@ -315,12 +311,9 @@ const EditPost = (props) => {
                 .child(`${username}/${postData.url}/${fileName}${random}`)
                 .putString(dataURL, 'data_url')
                 .then((snapshot) => {
-                    console.log('Uploaded a blob or file!')
                     snapshot.ref.getDownloadURL()
                     .then(miniImageUrl=> {
-                        console.log(miniImageUrl)
                         smallImageUrl = miniImageUrl
-                        console.log(filesArray)
                         let index = 0
                         let j = 0
                         let finalArray = []
@@ -339,10 +332,8 @@ const EditPost = (props) => {
                                     const file = filesArray[index][j]
                                     picRef.put(file, metadata)
                                     .then((snapshot)=> {
-                                        console.log('Uploaded file');
                                         snapshot.ref.getDownloadURL()
                                         .then((url)=> {
-                                            console.log(url)
                                             finalArray[index].push(url)
                                             j++
                                             if(index === filesArray.length -1 && j===filesArray[index].length){
@@ -394,12 +385,17 @@ const EditPost = (props) => {
                 allImages[i-1] = images[i]
             }
         }
-        console.log(allImages)
         const title = document.getElementById('edit-post-title').value
-        const previewDescription = document.getElementById('edit-post-description').value
+        let previewDescription 
         const location = document.getElementById('autocomplete').value
         let country 
         let city
+
+        let previewDescriptionNoEllipsis = document.getElementById('edit-post-description').value
+        if(previewDescriptionNoEllipsis[previewDescriptionNoEllipsis.length-1]!== '.') {
+            previewDescriptionNoEllipsis += '...'
+        }
+        previewDescription = previewDescriptionNoEllipsis
         
         const category = document.getElementById('category').value
         const descriptionArray = []
@@ -472,6 +468,7 @@ const EditPost = (props) => {
                         ...previewPostUpdate
                     })
                     .then(()=>{
+                        props.getPosts(props.user)
                         console.log('uploaded')
                         alert('uploaded')
                     })
@@ -491,7 +488,7 @@ const EditPost = (props) => {
     // }
 
     return(
-        <Container>
+        <Container opacity={isVisible ? 1 : 0}>
             {/* <button onClick={test}>eee</button> */}
             <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                 <X onClick={()=>props.setShowEdit(false)}>&times;</X>
@@ -502,7 +499,7 @@ const EditPost = (props) => {
                         <div id='edit-area'>
                             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                                 <Title id='edit-post-title' font={font} onChange={null} defaultValue={props?.postData[0]?.title}></Title>
-                                <MainImage src={postData?.image}></MainImage>
+                                <MainImage onLoad={()=>setIsVisible(true)} src={postData?.image}></MainImage>
                                 <label htmlFor='main-image-input' className='upload-button-label'>Change main image</label>
                                 <input onChange={changeMainPhoto} hidden id='main-image-input' type='file'></input>
                             </div>
@@ -550,7 +547,7 @@ const EditPost = (props) => {
                         </BodyButtonContainer>
                         <Label>Post description</Label>
                         <PostDescriptionInput font={font} onChange={calculateRemainingCharacters} id='edit-post-description'></PostDescriptionInput>
-                        <div>Remaining characters: {remainingCharacters}</div>
+                        <div style={{marginBottom: '15px'}}>Remaining characters: {remainingCharacters}</div>
                         <Label>Font:</Label>
                         <FontSelect onChange={getFont} id='font-select'>
                             <FontOption value="'Castoro', serif;" font="'Castoro', serif;">Castoro</FontOption>

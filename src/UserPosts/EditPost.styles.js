@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+    transition: opacity 350ms ease-in-out;
+    opacity: ${props=>props.opacity};
     position: fixed;
     left: 50%;
     top: 50%;
@@ -33,6 +35,7 @@ export const MainImage = styled.img`
     width: 40vw;
     height: auto;
     background-color: blue;
+    margin-bottom: 15px;
 `
 
 export const Title = styled.input`

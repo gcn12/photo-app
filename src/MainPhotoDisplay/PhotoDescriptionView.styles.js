@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Container = styled.div`
     overflow: none;
     opacity: ${props=> props.opacity ? 1 : 0};
-    transition: opacity 700ms ease-in-out;
+    transition: opacity 350ms ease-in-out;
     margin-bottom: 25px;
 `
  

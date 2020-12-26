@@ -57,3 +57,8 @@ export const SeeMore = styled.div`
     font-size: 20px;
     cursor: pointer;
 `
+
+export const NoResults = styled.div`
+    font-size: 30px;
+    cursor: pointer;
+`

@@ -10,10 +10,12 @@ import {
 const Search = (props) => {
 
     const enterQuery = (e) => {
-        if(e.code==='Enter') {
+        if(e.code==='Enter' && props.query.length > 0) {
             if(props.location.pathname !== '/photo-app/search'){
                 props.history.push('/photo-app/search')
             }
+            const results = []
+            props.setSearchResults([...results])
             props.search(props.searchQueries)
         }
     }

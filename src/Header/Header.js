@@ -141,7 +141,7 @@ const Header = (props) => {
                             <LI>Discover</LI>
                         </Link>
                     </UL>
-                    <Search setQuery={props.setQuery} search={props.search} searchQueries={props.searchQueries} history={props.history} location={props.location} setSearchResults={props.setSearchResults} />
+                    <Search query={props.query} setQuery={props.setQuery} search={props.search} searchQueries={props.searchQueries} history={props.history} location={props.location} setSearchResults={props.setSearchResults} />
                     <IconContainer>
                         <SearchIcon onClick={startSearchTransition} style={{transform: 'scale(1)'}}></SearchIcon>
                     </IconContainer>

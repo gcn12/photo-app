@@ -9,9 +9,16 @@ import {
     ResultTitle,
     TitleContainer, 
     SeeMore,
+    NoResults,
 } from './SearchPage.styles'
 
 const SearchPage = (props) => {
+
+    const seeMore = (type) => {
+        props.setSearchQueries(type)
+        props.search(type)
+    }
+
     return(
         <div style={{margin: '100px 5% 0 5%'}}>
             {props?.searchResults !== 'No results' ? 
@@ -21,7 +28,11 @@ const SearchPage = (props) => {
                 <div>
                     <TitleContainer>
                         <ResultTitle>Places</ResultTitle>
-                        <SeeMore>See more</SeeMore>
+                        {props.searchQueries === 'all results' && props?.searchResults[2]?.length === 8 ? 
+                        <SeeMore onClick={()=>seeMore('places')}>See more</SeeMore>
+                        :
+                        null
+                        }
                     </TitleContainer>
                     <CitiesDisplayContainer quantity={props?.searchResults[2]?.length < 4 ? 'center' : 'center'}>
                         {/* {props?.searchResults[3]?.map((item, index)=> {
@@ -43,12 +54,16 @@ const SearchPage = (props) => {
                 <div>
                     <TitleContainer>
                         <ResultTitle>Posts</ResultTitle>
-                        <SeeMore>See more</SeeMore>
+                        {props.searchQueries === 'all results' && props?.searchResults[0]?.length === 6 ? 
+                        <SeeMore onClick={()=>seeMore('posts')}>See more</SeeMore>
+                        :
+                        null
+                        }
                     </TitleContainer>
                     <PostsDisplayContainer quantity={props?.searchResults[3]?.length < 4 ? 'center' : 'center'} >
                         {props?.searchResults[0]?.map((item, index)=> {
                             return (
-                                <PhotoDescriptionView photoInfo={item} key={index} />
+                                <PhotoDescriptionView history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} setPhotoInformation={props.setPhotoInformation} photoInfo={item} key={index} />
                             )
                         })}
                     </PostsDisplayContainer>
@@ -60,7 +75,11 @@ const SearchPage = (props) => {
                 <div>
                     <TitleContainer>
                         <ResultTitle>People</ResultTitle>
-                        <SeeMore>See more</SeeMore>
+                        {props.searchQueries === 'all results' && props?.searchResults[1]?.length === 10 ? 
+                        <SeeMore onClick={()=>seeMore('people')}>See more</SeeMore>
+                        :
+                        null
+                        }
                     </TitleContainer>
                     <UsersContainer quantity={props?.searchResults[1]?.length < 4 ? 'center' : 'center'}>
                         {props?.searchResults[1]?.map((item, index)=> {
@@ -76,8 +95,8 @@ const SearchPage = (props) => {
             </div>
 
             :
-            <div>
-                <div>No results</div>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+                <NoResults>No results</NoResults>
             </div>
             }
         </div>

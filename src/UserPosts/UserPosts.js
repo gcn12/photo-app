@@ -50,7 +50,7 @@ export const DisplayPosts = (props) => {
     return(
         <PostContainer opacity={isVisible ? 1 : 0} shouldHover={!props.showGear}>
             {showEdit ? 
-            <EditPost user={props.user} setShowEdit={setShowEdit} postData={postData}/>
+            <EditPost getPosts={props.getPosts} user={props.user} setShowEdit={setShowEdit} postData={postData}/>
             :
             null
             }
@@ -77,8 +77,6 @@ const UserPosts = (props) => {
 
     const [posts, setPosts] = useState([])
     const [showGear, setShowGear] = useState(false)
-    
-    useEffect(()=>  {
         const getPosts = (user) => {
             if (props.user) {
                 db.collection('users').doc(props.user)
@@ -99,7 +97,10 @@ const UserPosts = (props) => {
             }
             console.log('running')
         }
-        getPosts(props.user)
+        
+        useEffect(()=>  {
+            getPosts(props.user)
+            // eslint-disable-next-line
     }, [props.user])
 
     const removePostFromPosts = (postIndex) => {
@@ -115,6 +116,7 @@ const UserPosts = (props) => {
                 {posts?.map((post, index)=> {
                     return(
                         <DisplayPosts 
+                            getPosts={getPosts}
                             user={props.user}
                             setShowGear={setShowGear}
                             showGear={showGear}

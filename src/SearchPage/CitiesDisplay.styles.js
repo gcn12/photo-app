@@ -12,7 +12,7 @@ export const ImageContainer = styled.div`
         border-radius: 15px;
         display: block;
         position: relative;
-        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, .9) 100%);
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, .8) 100%);
         margin-top: -190px;
         height: 185px;
         width: 100%;
