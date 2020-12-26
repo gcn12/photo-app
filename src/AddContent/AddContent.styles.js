@@ -81,6 +81,8 @@ export const PreviewImage = styled.img`
     /* height: 450px; */
     height: 45vh;
     width: auto;
+    opacity: ${props => props.opacity};
+    transition: 500ms ease-in-out;
 `
 
 export const SubmitButton = styled.button`

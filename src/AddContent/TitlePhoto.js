@@ -9,7 +9,7 @@ import {
 
 const TitlePhoto = (props) => {
 
-    const [isImage, setIsImage] = useState(false)
+    const [isVisible, setIsVisible] = useState(false)
 
     const displayImage = () => {
         checkProceed()
@@ -29,7 +29,7 @@ const TitlePhoto = (props) => {
             props.setMainImage(e.target.result)
         }
         viewFile.readAsDataURL(file)
-        setIsImage(true)
+        // setIsImage(true)
     }
 
     const checkProceed = () => {
@@ -56,11 +56,8 @@ const TitlePhoto = (props) => {
                 <input hidden onChange={displayImage} id='photo-input' type='file' className='photo-input'></input>
                 <FileUpload htmlFor='photo-input'>Select image</FileUpload>
                 <br></br>
-                {isImage ? 
-                <PreviewImage alt='preview' id='previewImage'></PreviewImage>
-                :
-                null
-                }
+                <PreviewImage onLoad={()=>setIsVisible(true)} opacity={isVisible ? 1 : 0} alt='preview' id='previewImage'></PreviewImage>
+                
                 <br></br>
             </Container>
         </div>
