@@ -2,6 +2,8 @@ import React, {
   useState, 
   useEffect,
 } from 'react'
+import { connect } from 'react-redux'
+import { doSomething } from './Redux/Actions/appActions'
 import Header from './Header/Header'
 // import VerticalScroll from './VeritcalScroll/VerticalScroll'
 import Discover from './Discover/Discover'
@@ -414,10 +416,15 @@ const App = (props) => {
         {/* <div style={{display: 'flex', justifyContent: 'center'}}>
             <SubmitButton onClick={null}>Load more</SubmitButton>
         </div> */}
-      {/* <button onClick={test}>Delete</button> */}
+      <button onClick={()=>console.log(props.item)}>Press</button>
+      <button onClick={()=>props.dispatch(doSomething(54))}>change state</button>
       {/* <TestFile user={user} homePhotoInformation={homePhotoInformation}  setHomePhotoInformation={setHomePhotoInformation}  />  */}
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => ({
+  item: state.app.item
+})
+
+export default connect(mapStateToProps)(App);

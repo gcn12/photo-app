@@ -516,11 +516,6 @@ const EditPost = (props) => {
             }
         }
     }
-
-    const contentLoaded = () => {
-        setIsUploading(false)
-        // setIsVisible(true)
-    }
      
     // const test = () => {
     //     setIsUploading(true)
@@ -544,7 +539,7 @@ const EditPost = (props) => {
                             <div id='edit-area'>
                                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                                     <Title id='edit-post-title' font={font} onChange={null} defaultValue={props?.postData[0]?.title}></Title>
-                                    <MainImage onLoad={contentLoaded} src={postData?.image}></MainImage>
+                                    <MainImage onLoad={()=>setIsUploading(false)} src={postData?.image}></MainImage>
                                     <label htmlFor='main-image-input' className='upload-button-label'>Change main image</label>
                                     <input onChange={changeMainPhoto} hidden id='main-image-input' type='file'></input>
                                 </div>
