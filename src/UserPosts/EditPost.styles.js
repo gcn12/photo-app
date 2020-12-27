@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    transition: opacity 350ms ease-in-out;
     opacity: ${props=>props.opacity};
     position: fixed;
     left: 50%;
@@ -11,7 +10,7 @@ export const Container = styled.div`
     height: 100vh; */
     width: ${props=>props.width};
     height: ${props=>props.height};
-    transition: width 400ms ease-in-out, height 400ms ease-in-out;
+    transition: opacity 350ms ease-in-out, width 400ms ease-in-out, height 400ms ease-in-out;
     background-color: #fafafa;
     display: flex;
     flex-direction: column;

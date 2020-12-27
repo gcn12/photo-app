@@ -271,21 +271,13 @@ const App = (props) => {
             resultsArray = [[], [], [...results[0].hits, ...results[1].hits]]
           }
         }
-        // if(resultsArray.length > 0){
-        //   setSearchResults(resultsArray)
-        // }else{
-        //   setSearchResults('No results')
-        // }
         if(resultsArray === [[], [], []] || resultsArray.length === 0){
           setSearchResults('No results')
         }else{
-          setSearchResults('No results')
+          setSearchResults(resultsArray)
         }
       });
     }
-    // else{
-    //   setSearchResults([])
-    // }
   }
 
   const getUserProfile = (username) => {

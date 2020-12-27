@@ -42,9 +42,12 @@ const EditPost = (props) => {
     const [postData, setPostData] = useState({})
     const [remainingCharacters, setRemainingCharacters] = useState(150)
     const [isTooManyImages, setIsTooManyImages] = useState(false)
-    const [isVisible, setIsVisible] = useState(false)
-    const [isUploading, setIsUploading] = useState(false)
+    // eslint-disable-next-line
+    const [isVisible, setIsVisible] = useState(true)
+    // eslint-disable-next-line
     const [uploadCount, setUploadCount] = useState(4)
+    const [isUploading, setIsUploading] = useState(true)
+    const [showCancel, setShowCancel] = useState(true)
     const [uploadProgress, setUploadProgress] = useState(0)
     const [uploadProgressColor, setUploadProgressColor] = useState(false)
     const [uploadStatusProps, setUploadStatusProps] = useState('initial')
@@ -263,6 +266,7 @@ const EditPost = (props) => {
 
     const fileUpload = () => {
         setIsUploading(true)
+        setShowCancel(false)
         setTimeout(()=>setUploadStatusProps('transitionStart'), 400)
         setTimeout(()=>setUploadProgress(previousUploadProgress=> previousUploadProgress + 1), 200)
         let smallImageUrl
@@ -512,6 +516,11 @@ const EditPost = (props) => {
             }
         }
     }
+
+    const contentLoaded = () => {
+        setIsUploading(false)
+        // setIsVisible(true)
+    }
      
     // const test = () => {
     //     setIsUploading(true)
@@ -526,7 +535,7 @@ const EditPost = (props) => {
                 <UploadProgress uploadProgressColor={uploadProgressColor} animate={uploadStatusProps} variants={animationMap.uploadStatus} uploadCount={uploadCount} uploadProgress={uploadProgress} />
             </CenterUploadProgress>
                 <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                    <X visibility={isUploading ? 'hidden' : 'visible'} display={isUploading ? 'none' : 'initial'} onClick={()=>props.setShowEdit(false)}>&times;</X>
+                    <X visibility={showCancel ? 'visible' : 'hidden'} display={showCancel ? 'initial' : 'none'} onClick={()=>props.setShowEdit(false)}>&times;</X>
                 </div>
                 <VerticalScroll height='10vh'>
             <HideContent visibility={isUploading ? 'hidden' : 'visible'} display={isUploading ? 'none' : 'initial'}>
@@ -535,7 +544,7 @@ const EditPost = (props) => {
                             <div id='edit-area'>
                                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                                     <Title id='edit-post-title' font={font} onChange={null} defaultValue={props?.postData[0]?.title}></Title>
-                                    <MainImage onLoad={()=>setIsVisible(true)} src={postData?.image}></MainImage>
+                                    <MainImage onLoad={contentLoaded} src={postData?.image}></MainImage>
                                     <label htmlFor='main-image-input' className='upload-button-label'>Change main image</label>
                                     <input onChange={changeMainPhoto} hidden id='main-image-input' type='file'></input>
                                 </div>
