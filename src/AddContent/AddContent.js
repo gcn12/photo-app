@@ -8,6 +8,7 @@ import SelectFont from './SelectFont'
 import { db } from '../Firebase'
 import firebase from 'firebase'
 import UploadProgress from './UploadProgress'
+import { connect } from 'react-redux'
 import React, { 
     useState 
 } from 'react'
@@ -15,6 +16,7 @@ import {
     NextButton,
     ButtonContainer,
 } from './AddContent.styles'
+import { photoInformation } from '../Redux/Actions/appActions'
 
 const animationMap = {
     titlePhoto: {
@@ -390,7 +392,7 @@ const AddContent = (props) => {
             };
         }
 
-        const resizeFile = (loadedData, preview, fileName) => { 
+        const resizeFile = (loadedData, fileName) => { 
             setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
             const height = loadedData.height
             const width = loadedData.width
@@ -411,7 +413,7 @@ const AddContent = (props) => {
             canvas.width = finalWidth;
             canvas.height = finalHeight;
             ctx = canvas.getContext('2d');
-            ctx.drawImage(preview, 0, 0, canvas.width, canvas.height);
+            ctx.drawImage(loadedData, 0, 0, canvas.width, canvas.height);
             fileUpload(canvas, fileName)
         }
 
@@ -597,7 +599,7 @@ const AddContent = (props) => {
                 getBodyContent()
                 getBodyImages()
                 setSwitchValue(6)
-                props.setPhotoInformation([])
+                props.dispatch(photoInformation([]))
             break
                 case 6: 
                 setPreviewProps('transitionEnd')
@@ -710,4 +712,8 @@ const AddContent = (props) => {
     )
 }
 
-export default AddContent
+const mapStateToProps = state => ({
+    user: state.app.user,
+})
+
+export default connect(mapStateToProps)(AddContent)

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { db } from '../Firebase'
 import { incrementViewCount } from '../Functions' 
+import { photoInformation } from '../Redux/Actions/appActions'
+import { connect } from 'react-redux'
 // import fitty from 'fitty'
 import {
     Image,
@@ -23,7 +25,7 @@ const PhotoDescriptionView = (props) => {
     }, [])
 
     const goToPost = () => {
-        props.setPhotoInformation(props.photoInfo)
+        props.dispatch(photoInformation(props.photoInfo))
         props.getFeaturedPhotoInfo(props.photoInfo.url, props.photoInfo.username)
         props.history.push(`/photo-app/post/${props.photoInfo.username}/${props.photoInfo.url}`)
         db.collection('preview-posts').where('image', '==', props.photoInfo.image)
@@ -33,20 +35,11 @@ const PhotoDescriptionView = (props) => {
         })
     } 
 
-    const imageLoaded = () => {
-        if (props.index === props.photoLength - 1){
-            // setTimeout(()=>this.props.setIsMainPhotosVisible(true), 1200)
-            props.setIsMainPhotosVisible(true)
-            props.setObserverVisible(true)
-        }
-        setShowPost(true)
-    }
-
 
     return(
         <Container opacity={showPost ? 1 : 0}>
             <Card>
-                <Image onClick={goToPost} onLoad={imageLoaded} src={props.photoInfo.smallImage}></Image>
+                <Image onClick={goToPost} onLoad={()=> setShowPost(true)} src={props.photoInfo.smallImage}></Image>
                 <Location>{`${props.photoInfo.city}, ${props.photoInfo.country}`}</Location>
                 {/* <Name>{props.photoInfo.author}</Name> */}
                 <Title onClick={goToPost} id={`description-view-title-${props.index}`}>{props.photoInfo.title}</Title>
@@ -57,4 +50,6 @@ const PhotoDescriptionView = (props) => {
     )
 }
 
-export default PhotoDescriptionView
+const mapStateToProps = state => ({})
+
+export default connect(mapStateToProps)(PhotoDescriptionView)

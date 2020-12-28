@@ -3,6 +3,8 @@ import { db } from '../Firebase'
 import DropdownDelete from './DropdownDelete'
 import Rename from './Rename'
 import Delete from './Delete'
+import { connect } from 'react-redux'
+import { homePhotoInformation } from '../Redux/Actions/appActions'
 import { 
     Title
 } from '../UserPosts/UserPosts.styles'
@@ -31,7 +33,7 @@ const Collection = (props) => {
             data.docs.forEach(doc=> {
                 imageArray.push(doc.data())
             })
-            props.setHomePhotoInformation(imageArray)
+            props.dispatch(homePhotoInformation(imageArray))
             props.history.push('/photo-app/posts')
         })
     }
@@ -72,7 +74,7 @@ const Collection = (props) => {
                 <Ellipsis onClick={()=>setIsDeleteMenu(!isDeleteMenu)}>
                     <div className='delete-collection'>&#8942;</div>
                     {isDeleteMenu ? 
-                    <DropdownDelete setShowDelete={props.setShowDelete} setCollectionName={props.setCollectionName} setShowRename={props.setShowRename} collectionInfo={props.collectionInfo} index={props.index} setCollectionInfo={props.setCollectionInfo} user={props.user} collectionName={props.collection[0]}></DropdownDelete>
+                    <DropdownDelete setShowDelete={props.setShowDelete} setCollectionName={props.setCollectionName} setShowRename={props.setShowRename} collectionInfo={props.collectionInfo} index={props.index} setCollectionInfo={props.setCollectionInfo} collectionName={props.collection[0]}></DropdownDelete>
                     :
                     null
                     }
@@ -119,12 +121,12 @@ const Collections = (props) => {
     return(
         <div>
             { showRename ?
-            <Rename showRename={showRename} getCollections={getCollections} user={props.user} collectionName={collectionName} setShowRename={setShowRename}></Rename>
+            <Rename showRename={showRename} getCollections={getCollections} collectionName={collectionName} setShowRename={setShowRename}></Rename>
             : 
             null
             }
             {showDelete ? 
-            <Delete setCollectionInfo={setCollectionInfo} collectionInfo={collectionInfo} user={props.user} collectionName={collectionName} setShowDelete={setShowDelete} />
+            <Delete setCollectionInfo={setCollectionInfo} collectionInfo={collectionInfo} collectionName={collectionName} setShowDelete={setShowDelete} />
             :
             null
             }
@@ -139,8 +141,6 @@ const Collections = (props) => {
                             collectionInfo={collectionInfo}
                             setCollectionInfo={setCollectionInfo}
                             index={index}
-                            user={props.user} 
-                            setHomePhotoInformation={props.setHomePhotoInformation} 
                             collection={collection} 
                             key={index}
                         />
@@ -219,4 +219,8 @@ const dimensionsMap = {
     },
 }
 
-export default Collections
+const mapStateToProps = state => ({
+    user: state.app.user,
+})
+
+export default connect(mapStateToProps)(Collections)

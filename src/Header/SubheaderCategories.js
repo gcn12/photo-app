@@ -1,4 +1,6 @@
 import React from 'react'
+import { homePhotoInformation, sortCriteria } from '../Redux/Actions/appActions'
+import { connect } from 'react-redux'
 import {
     Container,
     LI,
@@ -10,11 +12,11 @@ const SubheaderCategories = (props) => {
     const getPhotos = (category) => {
         if(props.location.pathname.includes('/photo-app/posts')){
             if(category !== props.sortCriteria.category) {
-                props.setHomePhotoInformation([])
+                props.dispatch(homePhotoInformation([]))
                 props.setIsMainPhotosVisible(false)
                 let criteria = props.sortCriteria
                 criteria['category'] = category
-                props.setSortCriteria(criteria)
+                props.dispatch(sortCriteria(criteria))
                 props.sort(criteria, true)
             }
         }
@@ -22,7 +24,7 @@ const SubheaderCategories = (props) => {
             if(category !== props.sortCriteria.category) {
                 let criteria = props.sortCriteria
                 criteria['category'] = category
-                props.setSortCriteria(criteria)
+                props.dispatch(sortCriteria(criteria))
                 props.search(props.searchQueries, `category: ${category}`)
             }
         }
@@ -43,7 +45,13 @@ const SubheaderCategories = (props) => {
     )
 }
 
-export default SubheaderCategories
+const mapStateToProps = state => ({
+    homePhotoInformation: state.app.homePhotoInformation,
+    searchQueries: state.app.searchQueries,
+    sortCriteria: state.app.sortCriteria,
+})
+
+export default connect(mapStateToProps)(SubheaderCategories)
 
 
 // import React from 'react'

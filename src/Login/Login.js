@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import firebase from 'firebase'
 // import signout from './Signout'
+import { user } from '../Redux/Actions/appActions'
+import { connect } from 'react-redux'
 import { 
     TextField, 
     SubmitButton,
@@ -11,15 +13,14 @@ import {
 
 const Login = (props) => {
 
-
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
 
     const submit = () => {
         if(email?.length > 0 && password?.length > 0){
             firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(user => {
-                props.setUser(user.user.uid)
+            .then(userData => {
+                props.dispatch(user(userData.user.uid))
                 props.history.push('/photo-app/posts')
             })
             .catch(error=>console.log(error))
@@ -41,4 +42,7 @@ const Login = (props) => {
     )
 }
 
-export default Login
+const mapStateToProps = state => ({
+})
+
+export default connect(mapStateToProps)(Login)

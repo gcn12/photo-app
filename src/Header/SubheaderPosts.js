@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { ReactComponent as PhotoGrid } from '../Icons/PhotoGrid.svg'
 import { ReactComponent as DescriptionGrid } from '../Icons/DescriptionGrid.svg'
+import { homePhotoInformation, displayView, sortCriteria } from '../Redux/Actions/appActions'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import {
     Container,
     UL,
@@ -47,29 +49,28 @@ const Subheader = (props) => {
         }
     }
 
-    const changeSort = (sortCriteria) => {
-        props.setHomePhotoInformation([])
-        props.setIsMainPhotosVisible(false)
-        let criteria = props.sortCriteria 
+    const changeSort = (sortCriteriaInput) => {
+        props.dispatch(homePhotoInformation([]))
+        let criteria = props.sortCriteria
         let newCriteria = {}
-        if(sortCriteria === 'views') {
+        if(sortCriteriaInput === 'views') {
             newCriteria['views'] = true
         }else {
             newCriteria['views'] = false
         }
-        if (sortCriteria === 'timestamp') {
+        if (sortCriteriaInput === 'timestamp') {
             newCriteria['new'] = true
         }else {
             newCriteria['new'] = false
         }
-        if (sortCriteria === 'ratio') {
+        if (sortCriteriaInput === 'ratio') { 
             newCriteria['rating'] = true
         } else {
             newCriteria['rating'] = false
         }
         let finalCriteria = {...criteria, ...newCriteria}
-        props.setSelected(sortCriteria)
-        props.setSortCriteria(finalCriteria)
+        props.setSelected(sortCriteriaInput)
+        props.dispatch(sortCriteria(finalCriteria))
         props.sort(finalCriteria, true)
     }
     
@@ -98,14 +99,11 @@ const Subheader = (props) => {
                             {showCategories ? 
                             <div style={{position: 'relative'}}>
                                 <SubheaderCategories 
-                                    setHomePhotoInformation={props.setHomePhotoInformation}
                                     setIsMainPhotosVisible={props.setIsMainPhotosVisible} 
                                     getCategoryPhotos={props.getCategoryPhotos} 
                                     className='categories-dropdown' 
                                     location={props.location}
                                     sort={props.sort} 
-                                    sortCriteria={props.sortCriteria} 
-                                    setSortCriteria={props.setSortCriteria} 
                                 />
                             </div>
                             :
@@ -124,8 +122,8 @@ const Subheader = (props) => {
                         <LI onClick={openDropdownCategories}>{props.sortCriteria.category} &#x25BC;</LI>
                     </div>
                     <div style={{display: 'flex'}} >
-                        <div style={{cursor: props.displayView ? 'default' : 'pointer' }} onClick={()=>props.setDisplayView(true)} ><DescriptionGrid style={{fill: props.displayView ? 'gray' : 'black'}} /></div>
-                        <div style={{margin: '0 10px 0 15px', cursor: props.displayView ? 'pointer' : 'default'}}  onClick={()=>props.setDisplayView(false)} ><PhotoGrid style={{fill: props.displayView ? 'black' : 'gray'}}/></div>
+                        <div style={{cursor: props.displayView ? 'default' : 'pointer' }} onClick={()=>props.dispatch(displayView(true))} ><DescriptionGrid style={{fill: props.displayView ? 'gray' : 'black'}} /></div>
+                        <div style={{margin: '0 10px 0 15px', cursor: props.displayView ? 'pointer' : 'default'}}  onClick={()=>props.dispatch(displayView(false))} ><PhotoGrid style={{fill: props.displayView ? 'black' : 'gray'}}/></div>
                     </div>
                 </ULMobile>
             </Container>
@@ -133,4 +131,9 @@ const Subheader = (props) => {
     )
 }
 
-export default Subheader
+const mapStateToProps = state => ({
+    homePhotoInformation: state.app.homePhotoInformation,
+    sortCriteria: state.app.sortCriteria,
+})
+
+export default connect(mapStateToProps)(Subheader)

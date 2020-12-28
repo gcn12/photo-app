@@ -1,8 +1,8 @@
 import firebase from 'firebase'
 
-export const signout = (setUser) => {
+export const signout = () => {
     firebase.auth().signOut()
-    .then(()=>setUser())
+    .then(()=>null)
     .catch(error=>console.log(error))
 }
 

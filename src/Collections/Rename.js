@@ -1,5 +1,6 @@
 import React from 'react'
 import { db } from '../Firebase'
+import { connect } from 'react-redux'
 import {
     Container,
     CollectionName,
@@ -54,4 +55,8 @@ const Rename = (props) => {
     )
 }
 
-export default Rename
+const mapStateToProps = state => ({
+    user: state.app.user,
+})
+
+export default connect(mapStateToProps)(Rename)

@@ -1,6 +1,8 @@
 import React from 'react'
 import { db } from '../Firebase'
 import { incrementViewCount } from '../Functions'
+import { connect } from 'react-redux'
+import { homePhotoInformation } from '../Redux/Actions/appActions'
 import { 
     Title,
     OverflowX, 
@@ -42,7 +44,7 @@ const HorizontalGallery = (props) => {
             photos.docs.forEach(photo=> {
                 photosArray.push(photo.data())
             })
-            props.setHomePhotoInformation(photosArray)
+            props.dispatch(homePhotoInformation(photosArray))
             props.history.push('photo-app/posts')
         })
     }
@@ -65,8 +67,6 @@ const HorizontalGallery = (props) => {
                             getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
                             getPost={props.getPost} 
                             getCountries={props.getCountries} 
-                            setPhotoInformation={props.setPhotoInformation} 
-                            setHomePhotoInformation={props.setHomePhotoInformation} 
                             key={index} 
                             info={info} 
                             url={info.smallImage}
@@ -84,4 +84,9 @@ const HorizontalGallery = (props) => {
     )
 }
 
-export default HorizontalGallery
+const mapStateToProps = state => ({
+    user: state.app.user,
+    photoInformation: state.app.photoInformation
+})
+
+export default connect(mapStateToProps)(HorizontalGallery)

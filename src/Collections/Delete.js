@@ -1,5 +1,6 @@
 import React from 'react'
 import { db } from '../Firebase'
+import { connect } from 'react-redux'
 import {
     Container,
     Text,
@@ -56,4 +57,8 @@ const Delete = (props) => {
     )
 }
 
-export default Delete
+const mapStateToProps = state => ({
+    user: state.app.user,
+})
+
+export default connect(mapStateToProps)(Delete)

@@ -4,6 +4,7 @@ import firebase from 'firebase'
 import { db } from '../Firebase'
 import Autocomplete from '../Autocomplete/Autocomplete'
 import UploadProgress from '../AddContent/UploadProgress'
+import { connect } from 'react-redux'
 import {
     Container,
     MainImage,
@@ -170,17 +171,8 @@ const EditPost = (props) => {
         viewFile.onload = (e) => {
             const heightWidth = new Image()
             heightWidth.src=e.target.result
-            // heightWidth.onload = function () {
-            //     if(heightWidth.height / heightWidth.width > 1)  {
-            //         props.setIsImageHorizontal(false)
-            //     }
-            // }
-            // const image = document.getElementById('previewImage')
-            // props.setMainImage(e.target.result)
-            // image.src = e.target.result
             const copy = postData
             copy.image = e.target.result
-            // copy.content[3] = 'hello'
             const imagesToUploadCopy = imagesToUpload
             imagesToUploadCopy[0] = true
             setImagesToUpload([...imagesToUploadCopy])
@@ -379,13 +371,6 @@ const EditPost = (props) => {
                 })
             })
         }
-
-
-
-
-
-
-    
     }
 
     const submit = (images, smallImageUrl) => {
@@ -539,7 +524,7 @@ const EditPost = (props) => {
                             <div id='edit-area'>
                                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                                     <Title id='edit-post-title' font={font} onChange={null} defaultValue={props?.postData[0]?.title}></Title>
-                                    <MainImage onLoad={()=>setIsUploading(false)} src={postData?.image}></MainImage>
+                                    <MainImage onLoad={()=>setIsUploading(false)} src={postData?.smallImage}></MainImage>
                                     <label htmlFor='main-image-input' className='upload-button-label'>Change main image</label>
                                     <input onChange={changeMainPhoto} hidden id='main-image-input' type='file'></input>
                                 </div>
@@ -622,4 +607,8 @@ const EditPost = (props) => {
     )
 }
 
-export default EditPost
+const mapStateToProps = state => ({
+    user: state.app.user,
+})
+
+export default connect(mapStateToProps)(EditPost)

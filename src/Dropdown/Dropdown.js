@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import VerticalScroll from '../VeritcalScroll/VerticalScroll'
 import { db } from '../Firebase'
+import { connect } from 'react-redux'
 // import firebase from 'firebase'
 import { 
     Container,
@@ -180,8 +181,6 @@ const Dropdown = (props) => {
                         collectionsBoolArray={props.collectionsBoolArray} 
                         index={index} 
                         className='dropdown' 
-                        user={props.user} 
-                        photoInformation={props.photoInformation} 
                         collection={collection[0]} 
                         key={index}
                         bool={collection[1]}
@@ -204,4 +203,9 @@ const Dropdown = (props) => {
     )
 }
 
-export default Dropdown
+const mapStateToProps = state => ({
+    user: state.app.user,
+    photoInformation: state.app.photoInformation,
+})
+
+export default connect(mapStateToProps)(Dropdown)

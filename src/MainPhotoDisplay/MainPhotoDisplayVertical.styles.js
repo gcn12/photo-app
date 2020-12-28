@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import { motion } from 'framer-motion'
 
 export const DisplayContainer = styled(motion.div)`
-    opacity: ${props=> props.opacity};
     /* transition-delay: 1s; */
     transition: opacity 700ms ease-in-out;
 `

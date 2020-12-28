@@ -6,6 +6,8 @@ import CategoriesDropdown from './CategoriesDropdown'
 import SearchDropdown from './SearchDropdown'
 import SubheaderSearch from './SubheaderSearch'
 import Search from '../Search/Search'
+import { connect } from 'react-redux'
+import { homePhotoInformation } from '../Redux/Actions/appActions'
 import { ReactComponent as SearchIcon } from '../Icons/Search.svg'
 import { Link } from 'react-router-dom' 
 import {
@@ -40,8 +42,7 @@ const Header = (props) => {
             data.docs.forEach(item=> {
                 photoArray.push(item.data())
             })
-            setTimeout(()=> props.setHomePhotoInformation([...photoArray]), 700)
-            // props.setHomePhotoInformation([...photoArray])
+            setTimeout(()=> props.dispatch(homePhotoInformation([...photoArray])), 700)
         })
     }
 
@@ -76,11 +77,10 @@ const Header = (props) => {
                     snapshot.docs.forEach(doc => {
                         photosArray.push(doc.data())
                     })
-                    setTimeout(()=> props.setHomePhotoInformation([...photosArray]), 700)
-                    // props.setHomePhotoInformation(photosArray)
+                    setTimeout(()=> props.dispatch(homePhotoInformation([...photosArray])), 700)
                 })
             }else{
-                props.setHomePhotoInformation(photosArray)
+                props.dispatch(homePhotoInformation(photosArray))
             }
         })
     }
@@ -98,8 +98,7 @@ const Header = (props) => {
             snapshot.docs.forEach(doc => {
                 photosArray.push(doc.data())
             })
-            // props.setHomePhotoInformation(photosArray)
-            setTimeout(()=> props.setHomePhotoInformation([...photosArray]), 700)
+            setTimeout(()=> props.dispatch(homePhotoInformation([...photosArray])), 700)
         })
     }
 
@@ -111,8 +110,7 @@ const Header = (props) => {
     }
 
     const getAssortedAndDropOpacity = () => {
-        props.setIsMainPhotosVisible(false)
-        props.setHomePhotoInformation([])
+        props.dispatch(homePhotoInformation([]))
         let criteria = {
             city: '',
             country: '',
@@ -129,7 +127,7 @@ const Header = (props) => {
         <div style={{position: 'fixed', top: 0, width: '100%', marginBottom: '20px', zIndex:2}}>
             {!props.location.pathname.includes('/photo-app/upload') ? 
             <Border>
-                <SubheaderDropdown setIsMainPhotosVisible={props.setIsMainPhotosVisible} getAssortedPhotos={getAssortedPhotos} sort={sort} setSelected={setSelected} selected={selected} setHomePhotoInformation={props.setHomePhotoInformation} setVisibility={setVisibility} visibility={visibility} dropdownTransition={dropdownTransition} setDropdownTransition={setDropdownTransition}/>
+                <SubheaderDropdown setIsMainPhotosVisible={props.setIsMainPhotosVisible} getAssortedPhotos={getAssortedPhotos} sort={sort} setSelected={setSelected} selected={selected} setVisibility={setVisibility} visibility={visibility} dropdownTransition={dropdownTransition} setDropdownTransition={setDropdownTransition}/>
                 <CategoriesDropdown setIsMainPhotosVisible={props.setIsMainPhotosVisible} selectedCategory={selectedCategory} getCategoryPhotos={getCategoryPhotos} dropdownCategoriesTransition={dropdownCategoriesTransition} categoriesVisibility={categoriesVisibility} setCategoriesVisibility={setCategoriesVisibility} setDropdownCategoriesTransition={setDropdownCategoriesTransition}/>
                 <SearchDropdown setSearchVisibility={setSearchVisibility} searchVisibility={searchVisibility} setSearchTransition={setSearchTransition} searchTransition={searchTransition} />
                 <Container>
@@ -141,7 +139,8 @@ const Header = (props) => {
                             <LI>Discover</LI>
                         </Link>
                     </UL>
-                    <Search query={props.query} setQuery={props.setQuery} search={props.search} searchQueries={props.searchQueries} history={props.history} location={props.location} setSearchResults={props.setSearchResults} />
+                    <Search 
+                    search={props.search} history={props.history} location={props.location} />
                     <IconContainer>
                         <SearchIcon onClick={startSearchTransition} style={{transform: 'scale(1)'}}></SearchIcon>
                     </IconContainer>
@@ -171,46 +170,33 @@ const Header = (props) => {
                 <SubheaderPosts 
                     location={props.location}
                     sort={props.sort} 
-                    sortCriteria={props.sortCriteria} 
-                    setSortCriteria={props.setSortCriteria}  
                     setIsMainPhotosVisible={props.setIsMainPhotosVisible} 
                     setCategoriesVisibility={setCategoriesVisibility} 
                     setDropdownCategoriesTransition={setDropdownCategoriesTransition} 
                     getCategoryPhotos={getCategoryPhotos} 
                     getAssortedPhotos={getAssortedPhotos} 
-                    displayView={props.displayView} 
-                    setDisplayView={props.setDisplayView} 
                     setSelected={setSelected} 
                     selected={selected} 
                     setVisibility={setVisibility} 
                     setDropdownTransition={setDropdownTransition} 
-                    setHomePhotoInformation={props.setHomePhotoInformation}
                 />
                 :
                 null
                 }
                 {props.location.pathname.includes('/photo-app/search') ? 
                 <SubheaderSearch 
-                    query={props.query}
                     search={props.search}
-                    searchQueries={props.searchQueries}
-                    setSearchQueries={props.setSearchQueries}
                     location={props.location}
-                    sort={props.sort} 
-                    sortCriteria={props.sortCriteria} 
-                    setSortCriteria={props.setSortCriteria}  
+                    sort={props.sort}  
                     setIsMainPhotosVisible={props.setIsMainPhotosVisible} 
                     setCategoriesVisibility={setCategoriesVisibility} 
                     setDropdownCategoriesTransition={setDropdownCategoriesTransition} 
                     getCategoryPhotos={getCategoryPhotos} 
                     getAssortedPhotos={getAssortedPhotos} 
-                    displayView={props.displayView} 
-                    setDisplayView={props.setDisplayView} 
                     setSelected={setSelected} 
                     selected={selected} 
                     setVisibility={setVisibility} 
                     setDropdownTransition={setDropdownTransition} 
-                    setHomePhotoInformation={props.setHomePhotoInformation}
                 />
                 :
                 null
@@ -224,4 +210,8 @@ const Header = (props) => {
     )
 }
 
-export default Header
+const mapStateToProps = state => ({
+    user: state.app.user
+})
+
+export default connect(mapStateToProps)(Header)

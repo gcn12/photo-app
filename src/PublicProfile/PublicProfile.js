@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import PublicProfilePosts from './PublicProfilePosts'
+import { connect } from 'react-redux'
 import {
     ProfileImage,
     Container,
@@ -36,4 +37,9 @@ const PublicProfile = (props) => {
     )
 }
 
-export default PublicProfile
+const mapStateToProps = state => ({
+    userData: state.app.userData,
+    userPosts: state.app.userPosts,
+})
+
+export default connect(mapStateToProps)(PublicProfile)

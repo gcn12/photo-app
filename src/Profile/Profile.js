@@ -34,16 +34,16 @@ const Profile = (props) => {
                     switch (profilePage) {
                         case 'posts': 
                             return( 
-                                <UserPosts history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} setPhotoInformation={props.setPhotoInformation} user={props.user} />
+                                <UserPosts history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} />
                             )
                         case 'collections':
                             return(
-                                <Collections history={props.history} setHomePhotoInformation={props.setHomePhotoInformation} user={props.user}/>
+                                <Collections history={props.history} />
                             )
                         case 'settings':
                             return <Settings history={props.history} setUser={props.setUser} />
                         default:
-                            return <Collections history={props.history} setHomePhotoInformation={props.setHomePhotoInformation} user={props.user}/>
+                            return <Collections history={props.history} />
                     }
 
                 })()}

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { homePhotoInformation } from '../Redux/Actions/appActions'
 import {
     Image,
     Location,
@@ -11,14 +13,14 @@ const CitiesDisplay = (props) => {
     const [isVisible, setIsVisible] = useState(false)
 
     const goToPlace = (place) => {
-        props.setHomePhotoInformation([])
+        props.dispatch(homePhotoInformation([]))
         let sortCriteria = props.sortCriteria
         if(place.countryOnly) {
-            props.setSortCriteria(place.countryOnly)
+            props.dispatch(sortCriteria(place.countryOnly))
             sortCriteria['country'] = place.countryOnly
             sortCriteria['city'] = ''
         }else{
-            props.setSortCriteria(place.city)
+            props.dispatch(sortCriteria(place.city))
             sortCriteria['city'] = place.city
             sortCriteria['country'] = ''
         }
@@ -43,4 +45,10 @@ const CitiesDisplay = (props) => {
     )
 }
 
-export default CitiesDisplay
+
+const mapStateToProps = state => ({
+    homePhotoInformation: state.app.homePhotoInformation,
+    sortCriteria: state.app.sortCriteria,
+})
+
+export default connect(mapStateToProps)(CitiesDisplay)

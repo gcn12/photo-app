@@ -2,6 +2,8 @@ import React from 'react'
 import PhotoDescriptionView from '../MainPhotoDisplay/PhotoDescriptionView'
 import CitiesDisplay from './CitiesDisplay'
 import UsersDisplay from './UsersDisplay'
+import { connect } from 'react-redux'
+import { searchQueries } from '../Redux/Actions/appActions'
 import {
     CitiesDisplayContainer,
     PostsDisplayContainer,
@@ -15,7 +17,7 @@ import {
 const SearchPage = (props) => {
 
     const seeMore = (type) => {
-        props.setSearchQueries(type)
+        props.dispatch(searchQueries(type))
         props.search(type)
     }
 
@@ -42,7 +44,7 @@ const SearchPage = (props) => {
                         })} */}
                         {props?.searchResults[2]?.map((item, index)=> {
                             return (
-                                <CitiesDisplay setHomePhotoInformation={props.setHomePhotoInformation} sort={props.sort} item={item} setSortCriteria={props.setSortCriteria} sortCriteria={props.sortCriteria} key={index} />
+                                <CitiesDisplay sort={props.sort} item={item} key={index} />
                             )
                         })}
                     </CitiesDisplayContainer>
@@ -63,7 +65,7 @@ const SearchPage = (props) => {
                     <PostsDisplayContainer quantity={props?.searchResults[3]?.length < 4 ? 'center' : 'center'} >
                         {props?.searchResults[0]?.map((item, index)=> {
                             return (
-                                <PhotoDescriptionView history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} setPhotoInformation={props.setPhotoInformation} photoInfo={item} key={index} />
+                                <PhotoDescriptionView history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} photoInfo={item} key={index} />
                             )
                         })}
                     </PostsDisplayContainer>
@@ -103,4 +105,9 @@ const SearchPage = (props) => {
     )
 }
 
-export default SearchPage
+const mapStateToProps = state => ({
+    searchResults: state.app.searchResults,
+    searchQueries: state.app.searchQueries,
+})
+
+export default connect(mapStateToProps)(SearchPage)

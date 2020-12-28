@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { ReactComponent as PhotoGrid } from '../Icons/PhotoGrid.svg'
 import { ReactComponent as DescriptionGrid } from '../Icons/DescriptionGrid.svg'
+import { connect } from 'react-redux'
+import { homePhotoInformation, displayView, searchQueries } from '../Redux/Actions/appActions'
 // import SubheaderFilter from './SubheaderFilter'
 // import { Link } from 'react-router-dom'
 import {
@@ -55,32 +57,9 @@ const Subheader = (props) => {
     }
 
     const changeSort = (result) => {
-        // props.setHomePhotoInformation([])
-        // props.setIsMainPhotosVisible(false)
-        // let criteria = props.sortCriteria 
-        // let newCriteria = {}
-        // if(sortCriteria === 'views') {
-        //     newCriteria['views'] = true
-        // }else {
-        //     newCriteria['views'] = false
-        // }
-        // if (sortCriteria === 'timestamp') {
-        //     newCriteria['new'] = true
-        // }else {
-        //     newCriteria['new'] = false
-        // }
-        // if (sortCriteria === 'ratio') {
-        //     newCriteria['rating'] = true
-        // } else {
-        //     newCriteria['rating'] = false
-        // }
-        // let finalCriteria = {...criteria, ...newCriteria}
-        // props.setSelected(sortCriteria)
-        // props.sort(finalCriteria, true)
         if(result !== props.searchQueries) {
-            props.setHomePhotoInformation([])
-            // props.setIsMainPhotosVisible(false)
-            props.setSearchQueries(result)
+            props.dispatch(homePhotoInformation([]))
+            props.dispatch(searchQueries(result))
             props.search(result)
         }
     }
@@ -98,29 +77,6 @@ const Subheader = (props) => {
                     </div>
                     <div style={{display: 'flex'}} >
                         <div style={{display: 'flex'}} className='categories-dropdown'>
-                            {/* <div onClick={()=>setShowResults(!showResults)}>
-                                <CategoriesButton className='results-dropdown'>{props.searchQueries} &#x25BC;</CategoriesButton>
-                            </div>
-                            {showResults ? 
-                            <div style={{position: 'relative'}}>
-                                <SubheaderFilter 
-                                    search={props.search}
-                                    searchQueries={props.searchQueries}
-                                    setSearchQueries={props.setSearchQueries}
-                                    setHomePhotoInformation={props.setHomePhotoInformation}
-                                    result={result}
-                                    setResult={setResult}
-                                    setIsMainPhotosVisible={props.setIsMainPhotosVisible} 
-                                    className='categories-dropdown' 
-                                    location={props.location}
-                                    sort={props.sort} 
-                                    sortCriteria={props.sortCriteria} 
-                                    setSortCriteria={props.setSortCriteria} 
-                                />
-                            </div>
-                            :
-                            null
-                            } */}
                             {props.searchQueries === 'posts' ? 
                             <div>
                                 <div onClick={()=>setShowCategories(!showCategories)}>
@@ -129,11 +85,7 @@ const Subheader = (props) => {
                                 {showCategories ? 
                                 <div style={{position: 'relative'}}>
                                     <SubheaderCategories 
-                                        query={props.query}
                                         search={props.search}
-                                        searchQueries={props.searchQueries}
-                                        setSearchQueries={props.setSearchQueries}
-                                        setHomePhotoInformation={props.setHomePhotoInformation}
                                         category={category}
                                         setCategory={setCategory}
                                         setIsMainPhotosVisible={props.setIsMainPhotosVisible} 
@@ -141,8 +93,6 @@ const Subheader = (props) => {
                                         className='categories-dropdown' 
                                         location={props.location}
                                         sort={props.sort} 
-                                        sortCriteria={props.sortCriteria} 
-                                        setSortCriteria={props.setSortCriteria} 
                                     />
                                 </div>
                                 :
@@ -163,8 +113,8 @@ const Subheader = (props) => {
                         <LI onClick={openDropdownCategories}>{props.sortCriteria.category} &#x25BC;</LI>
                     </div>
                     <div style={{display: 'flex'}} >
-                        <div style={{cursor: props.displayView ? 'default' : 'pointer' }} onClick={()=>props.setDisplayView(true)} ><DescriptionGrid style={{fill: props.displayView ? 'gray' : 'black'}} /></div>
-                        <div style={{margin: '0 10px 0 15px', cursor: props.displayView ? 'pointer' : 'default'}}  onClick={()=>props.setDisplayView(false)} ><PhotoGrid style={{fill: props.displayView ? 'black' : 'gray'}}/></div>
+                        <div style={{cursor: props.displayView ? 'default' : 'pointer' }} onClick={()=>props.dispatch(displayView(true))} ><DescriptionGrid style={{fill: props.displayView ? 'gray' : 'black'}} /></div>
+                        <div style={{margin: '0 10px 0 15px', cursor: props.displayView ? 'pointer' : 'default'}}  onClick={()=>props.dispatch(displayView(false))} ><PhotoGrid style={{fill: props.displayView ? 'black' : 'gray'}}/></div>
                     </div>
                 </ULMobile>
             </Container>
@@ -172,4 +122,11 @@ const Subheader = (props) => {
     )
 }
 
-export default Subheader
+const mapStateToProps = state => ({
+    homePhotoInformation: state.app.homePhotoInformation,
+    displayView: state.app.displayView,
+    searchQueries: state.app.searchQueries,
+    sortCriteria: state.app.sortCriteria
+})
+
+export default connect(mapStateToProps)(Subheader)

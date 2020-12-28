@@ -7,6 +7,8 @@ import { ReactComponent as EmptyHeart } from '../Icons/EmptyHeart.svg'
 import { ReactComponent as FilledHeart } from '../Icons/FilledHeart.svg'
 import firebase from 'firebase'
 import { motion } from 'framer-motion'
+import { connect } from 'react-redux'
+import { photoInformation } from '../Redux/Actions/appActions'
 // import FeaturedPostGallery from '../FeaturedPostGallery/FeaturedPostGallery'
 import { SubmitButton } from '../AddContent/AddContent.styles'
 import { 
@@ -103,7 +105,7 @@ const FeaturedPost = (props) => {
             const info = arr[0]
             getImageSize(info.image)
             info['username'] = username
-            props.setPhotoInformation(info)
+            props.dispatch(photoInformation(info))
             window.scrollTo({top: 0})
             getCities(info.city, info.country, info.continent)
             firebase.auth().onAuthStateChanged((user)=> {
@@ -257,11 +259,9 @@ const FeaturedPost = (props) => {
                         </SubmitButton>
                         {showDropdown ? 
                         <Dropdown
-                            photoInformation={props.photoInformation}
                             setCollectionsBoolArray={setCollectionsBoolArray}
                             collectionsBoolArray={collectionsBoolArray} 
                             className='dropdown' 
-                            user={props.user} 
                             collectionsList={collectionsList}
                             setCollectionsList={setCollectionsList}
                         /> 
@@ -303,29 +303,28 @@ const FeaturedPost = (props) => {
             getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
             getPost={getPost}
             getCountries={getCities} 
-            setHomePhotoInformation={props.setHomePhotoInformation} 
             placeName={props?.city} 
             place={'city'} 
             title={props.photoInformation?.city} 
-            photoInformation={props.photoInformation} 
             photos={cityPhotos} 
-            setPhotoInformation={props.setPhotoInformation}  
             />
             <HorizontalGallery 
                 history={props.history}
                 setCollectionsList={setCollectionsList}
                 getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
                 getPost={getPost}
-                setHomePhotoInformation={props.setHomePhotoInformation} 
                 placeName={props.photoInformation?.country} 
                 place={'country'} 
                 title={props.photoInformation?.country} 
-                setPhotoInformation={props.setPhotoInformation} 
                 photos={countryPhotos} 
-                photoInformation={props.photoInformation} 
             />
         </motion.div>
     )
 }
 
-export default FeaturedPost
+const mapStateToProps = state => ({
+    user: state.app.user,
+    photoInformation: state.app.photoInformation
+})
+
+export default connect(mapStateToProps)(FeaturedPost)

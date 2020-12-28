@@ -13,6 +13,7 @@ import {
     GearIcon,
 } from './UserPosts.styles'
 import PostDropdown from './UserPostsDropdown'
+import { connect } from 'react-redux'
  
 export const DisplayPosts = (props) => {
 
@@ -50,12 +51,12 @@ export const DisplayPosts = (props) => {
     return(
         <PostContainer opacity={isVisible ? 1 : 0} shouldHover={!props.showGear}>
             {showEdit ? 
-            <EditPost getPosts={props.getPosts} user={props.user} setShowEdit={setShowEdit} postData={postData}/>
+            <EditPost getPosts={props.getPosts} setShowEdit={setShowEdit} postData={postData}/>
             :
             null
             }
             {showDelete ? 
-            <DeletePost user={props.user} setShowGear={props.setShowGear} removePostFromPosts={props.removePostFromPosts} index={props.index} title={props.post.title} image={props.post.image} username={props.post.username} url={props.post.url} setShowDelete={setShowDelete} />
+            <DeletePost setShowGear={props.setShowGear} removePostFromPosts={props.removePostFromPosts} index={props.index} title={props.post.title} image={props.post.image} username={props.post.username} url={props.post.url} setShowDelete={setShowDelete} />
             :
             null
             }
@@ -77,7 +78,7 @@ const UserPosts = (props) => {
 
     const [posts, setPosts] = useState([])
     const [showGear, setShowGear] = useState(false)
-        const getPosts = (user) => {
+        const getPosts = () => {
             if (props.user) {
                 db.collection('users').doc(props.user)
                 .get()
@@ -117,13 +118,11 @@ const UserPosts = (props) => {
                     return(
                         <DisplayPosts 
                             getPosts={getPosts}
-                            user={props.user}
                             setShowGear={setShowGear}
                             showGear={showGear}
                             removePostFromPosts={removePostFromPosts}
                             history={props.history}
                             getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
-                            setPhotoInformation={props.setPhotoInformation} 
                             key={index} 
                             post={post}
                             index={index}
@@ -136,4 +135,8 @@ const UserPosts = (props) => {
     )
 }
 
-export default UserPosts
+const mapStateToProps = state => ({
+    user: state.app.user,
+})
+
+export default connect(mapStateToProps)(UserPosts)

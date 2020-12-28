@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { db } from '../Firebase'
 import { ReactComponent as Add } from '../Icons/Add.svg'
 import { ReactComponent as Profile } from '../Icons/Profile.svg'
+import { connect } from 'react-redux'
 import {
     Container,
     ProfileImage,
@@ -66,4 +67,8 @@ const Footer = (props) => {
         )
 }
 
-export default Footer
+const mapStateToProps = state => ({
+    user: state.app.user
+})
+
+export default connect(mapStateToProps)(Footer)

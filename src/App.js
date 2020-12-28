@@ -1,9 +1,18 @@
 import React, { 
-  useState, 
   useEffect,
 } from 'react'
 import { connect } from 'react-redux'
-import { doSomething } from './Redux/Actions/appActions'
+import { 
+  isLoadMore, 
+  user, 
+  photoInformation, 
+  homePhotoInformation,
+  userData,
+  userPosts,
+  searchResults,
+  startAfter,
+  sortCriteria
+} from './Redux/Actions/appActions'
 import Header from './Header/Header'
 // import VerticalScroll from './VeritcalScroll/VerticalScroll'
 import Discover from './Discover/Discover'
@@ -21,36 +30,11 @@ import Signup from './SignUp/SignUp'
 import firebase from 'firebase'
 import { db } from './Firebase'
 import { Route, Switch } from 'react-router-dom'
-// import { SubmitButton, } from './AddContent/AddContent.styles'
-// import { firebaseApp } from './Firebase'
 
 const App = (props) => {
-  const [user, setUser] = useState()
-  const [homePhotoInformation, setHomePhotoInformation] = useState(null)
-  const [photoInformation, setPhotoInformation] = useState(null)
-  const [userData, setUserData] = useState([])
-  const [userPosts, setUserPosts] = useState([])
-  const [displayView, setDisplayView] = useState(true)
-  const [isMainPhotosVisible, setIsMainPhotosVisible] = useState(false)
-  const [isLoadMore, setIsLoadMore] = useState(true)
-  const [searchResults, setSearchResults] = useState([])
-  const [searchQueries, setSearchQueries] = useState('all results')
-  const [query, setQuery] = useState('')
-  
-  //search criteria:
-  const [sortCriteria, setSortCriteria] = useState({
-    city: '',
-    country: '',
-    continent: '',
-    category: 'all categories',
-    views: false,
-    new: false,
-    rating: false,
-  })
-  const [startAfter, setStartAfter] = useState('')
 
   const sort = (criteriaObject, isNewSort) => {
-    setSortCriteria(criteriaObject)
+    props.dispatch(sortCriteria(criteriaObject))
     let sortQuery = db.collection('preview-posts')
     if(criteriaObject.city.length > 0) {
       sortQuery = sortQuery.where('city', '==', criteriaObject.city)
@@ -74,7 +58,7 @@ const App = (props) => {
       sortQuery = sortQuery.orderBy('ratio', 'desc')
     }
     if(!isNewSort) {
-      sortQuery =  sortQuery.startAfter(startAfter)
+      sortQuery =  sortQuery.startAfter(props.startAfter)
     }
     const limit = 12
     sortQuery
@@ -86,38 +70,29 @@ const App = (props) => {
         dataArray.push(item.data())
       })
       if(dataArray.length === 0 || dataArray.length<limit) {
-        setIsLoadMore(false)
+        props.dispatch(isLoadMore(false))
       }else{
-        setIsLoadMore(true)
+        props.dispatch(isLoadMore(true))
       }
-      setStartAfter(data.docs[data.docs.length-1])
+      props.dispatch(startAfter(data.docs[data.docs.length-1]))
       if(isNewSort) {
-        // for (let i = 0; i < dataArray.length; i++) {
-        //   if(dataArray.id === homePhotoInformation.id && i === dataArray.length - 1) {
-        //     setIsMainPhotosVisible(true)
-        //   }else{
-        //   }
-        // }
-        setTimeout(()=>setHomePhotoInformation([...dataArray]), 0)
+        setTimeout(()=>props.dispatch(homePhotoInformation([...dataArray])), 0)
 
       }else{
-        setTimeout(()=>setHomePhotoInformation([...homePhotoInformation, ...dataArray]), 0)
+        setTimeout(()=>props.dispatch(homePhotoInformation([...props.homePhotoInformation, ...dataArray])), 0)
       }
-      // setIsMainPhotosVisible(true)
     })
   }
-  
-  // const { pathname } = props.location
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user)=> {
-      if(user) {
-        setUser(user.uid)
+    firebase.auth().onAuthStateChanged((userData)=> {
+      if(userData) {
+        props.dispatch(user(userData.uid))
       }
     })
     if(props?.location?.pathname) {
       let initialSort = db.collection('preview-posts')
-      let criteria = sortCriteria
+      let criteria = props.sortCriteria
       if(props?.location?.pathname?.includes('/posts/popular')|| props?.location?.pathname === '/photo-app/posts') {
         initialSort = initialSort.orderBy('views', 'desc')
         criteria['views'] = true
@@ -137,7 +112,7 @@ const App = (props) => {
         criteria['rating'] = false
       }
       const limit = 12
-      setSortCriteria(criteria)
+      props.dispatch(sortCriteria(criteria))
       initialSort
       .limit(limit)
       .get()
@@ -147,22 +122,19 @@ const App = (props) => {
           dataArray.push(item.data())
         })
         if(dataArray.length === 0 || dataArray.length<limit) {
-          setIsLoadMore(false)
+          props.dispatch(isLoadMore(false))
         }else{
-          setIsLoadMore(true)
+          props.dispatch(isLoadMore(true))
         }
-        setStartAfter(data.docs[data.docs.length-1])
-        setHomePhotoInformation([...dataArray])
-        // setIsMainPhotosVisible(true)
+        props.dispatch(startAfter(data.docs[data.docs.length-1]))
+        props.dispatch(homePhotoInformation([...dataArray]))
       })
     }
-    // }, [pathname])
     // eslint-disable-next-line
   }, [])
 
   
   const search = (resultCriteria, filter) => { 
-    // setSearchResults([])
     const searchClient = algoliasearch(
       'VNSU9OYWB2',
       '6478d10ccc9941fe49a73aeb6ba2e73f'
@@ -170,7 +142,7 @@ const App = (props) => {
 
     const citiesQuery = {
       indexName: 'cities',
-      query: query,
+      query: props.query,
       params: {
         hitsPerPage: 6,
         attributesToRetrieve: ['city', 'country', 'image'],
@@ -179,7 +151,7 @@ const App = (props) => {
 
     const usersQuery = {
       indexName: 'users',
-      query: query,
+      query: props.query,
       params: {
         hitsPerPage: 10,
         attributesToRetrieve: ['name', 'username', 'profileImage'],
@@ -188,7 +160,7 @@ const App = (props) => {
 
     const postsQuery = {
       indexName: 'posts',
-      query: query,
+      query: props.query,
       params: {
         hitsPerPage: 6,
         attributesToRetrieve: ['smallImage', 'category', 'title', 'country', 'image', 'username', 'url', 'city', 'previewDescription'],
@@ -201,7 +173,7 @@ const App = (props) => {
 
     const countriesQuery = {
       indexName: 'countries',
-      query: query,
+      query: props.query,
       params: {
         hitsPerPage: 2,
         attributesToRetrieve: ['countryOnly', 'image',],
@@ -236,7 +208,7 @@ const App = (props) => {
     }
 
     let resultsArray = []
-    if(query.length > 0) {
+    if(props.query.length > 0) {
       searchClient.multipleQueries(queries).then(({ results }) => {
         if(resultCriteria==='all results'){
           if(results[0]?.hits.length>0) {
@@ -274,9 +246,9 @@ const App = (props) => {
           }
         }
         if(resultsArray === [[], [], []] || resultsArray.length === 0){
-          setSearchResults('No results')
+          props.dispatch(searchResults('No results'))
         }else{
-          setSearchResults(resultsArray)
+          props.dispatch(searchResults(resultsArray))
         }
       });
     }
@@ -291,7 +263,7 @@ const App = (props) => {
       data.forEach(item=> {
           dataArray.push(item.data())
       })
-      setUserData(dataArray)
+      props.dispatch(userData(dataArray))
     })
 
     db.collection('preview-posts')
@@ -303,7 +275,7 @@ const App = (props) => {
       data.forEach(item=> {
         postArray.push(item.data())
       })
-      setUserPosts(postArray)
+      props.dispatch(userPosts(postArray))
     })
   }
 
@@ -319,7 +291,7 @@ const App = (props) => {
       })
       const info = arr[0]
       info['username'] = username
-      setPhotoInformation(info)
+      props.dispatch(photoInformation(info))
       window.scrollTo({top: 0})
     })
   }
@@ -331,18 +303,18 @@ const App = (props) => {
   return (
     <div>
       <Route path='/photo-app/' render={(props)=> (
-        <Header query={query} setQuery={setQuery} search={search} setSearchQueries={setSearchQueries} searchQueries={searchQueries} {...props} setSearchResults={setSearchResults} sort={sort} sortCriteria={sortCriteria} setSortCriteria={setSortCriteria} setIsMainPhotosVisible={setIsMainPhotosVisible} displayView={displayView} setDisplayView={setDisplayView} setHomePhotoInformation={setHomePhotoInformation} user={user}/>
+        <Header search={search} {...props} sort={sort} />
       )} />
 
 
       <Route path='/photo-app/' render={(props)=> (
-        <Footer {...props} user={user} />
+        <Footer {...props} />
       )} />
         
       <Switch>
 
         <Route exact path='/photo-app/search' render={(props) => (
-          <SearchPage {...props} search={search} setSearchQueries={setSearchQueries} searchQueries={searchQueries} getFeaturedPhotoInfo={getFeaturedPhotoInfo} setPhotoInformation={setPhotoInformation} setHomePhotoInformation={setHomePhotoInformation} sort={sort} sortCriteria={sortCriteria} setSortCriteria={setSortCriteria} searchResults={searchResults} />
+          <SearchPage {...props} search={search} getFeaturedPhotoInfo={getFeaturedPhotoInfo} sort={sort} />
         )} />
 
         <Route exact path='/photo-app/signup/' render={(props)=> (
@@ -350,31 +322,23 @@ const App = (props) => {
         )} />
 
         <Route exact path='/photo-app/login' render={(props)=> (
-          <Login setUser={setUser} {...props}/>
+          <Login 
+          {...props}/>
         )} />
  
         <Route path='/photo-app/profile/:route?' render={(props)=>( <Profile 
-          setUser={setUser}
           getFeaturedPhotoInfo={getFeaturedPhotoInfo}
-          setHomePhotoInformation={setHomePhotoInformation} 
-          setPhotoInformation={setPhotoInformation} 
-          user={user} 
           {...props}
         />)} />
 
         <Route exact path='/photo-app/upload' render={(props)=> (<AddContent 
           getFeaturedPhotoInfo={getFeaturedPhotoInfo}
-          setPhotoInformation={setPhotoInformation}
-          user={user} 
           {...props}
           /> 
         )} />
 
         <Route path='/photo-app/profiles/:username' render={(props)=>(<PublicProfile 
           getUserProfile={getUserProfile}
-          userPosts={userPosts} 
-          userData={userData} 
-          user={user} 
           getFeaturedPhotoInfo={getFeaturedPhotoInfo}
           {...props}
           />
@@ -384,10 +348,6 @@ const App = (props) => {
           <FeaturedPost 
           getUserProfile={getUserProfile}
           getFeaturedPhotoInfo={getFeaturedPhotoInfo}
-          user={user} 
-          setHomePhotoInformation={setHomePhotoInformation} 
-          setPhotoInformation={setPhotoInformation} 
-          photoInformation={photoInformation} 
           {...props}
         />
         )} />
@@ -398,17 +358,8 @@ const App = (props) => {
 
         <Route exact path='/photo-app/posts/:sort?' render={(props)=> (
             <MainPhotoDisplay 
-              isLoadMore={isLoadMore}
-              setSortCriteria={setSortCriteria}
-              sortCriteria={sortCriteria}
               sort={sort}
-              isMainPhotosVisible={isMainPhotosVisible}
-              setIsMainPhotosVisible={setIsMainPhotosVisible}
-              displayView={displayView}
               getFeaturedPhotoInfo={getFeaturedPhotoInfo}
-              homePhotoInformation={homePhotoInformation} 
-              setHomePhotoInformation={setHomePhotoInformation} 
-              setPhotoInformation={setPhotoInformation} 
               {...props}
             />
         )} />
@@ -416,15 +367,20 @@ const App = (props) => {
         {/* <div style={{display: 'flex', justifyContent: 'center'}}>
             <SubmitButton onClick={null}>Load more</SubmitButton>
         </div> */}
-      <button onClick={()=>console.log(props.item)}>Press</button>
-      <button onClick={()=>props.dispatch(doSomething(54))}>change state</button>
-      {/* <TestFile user={user} homePhotoInformation={homePhotoInformation}  setHomePhotoInformation={setHomePhotoInformation}  />  */}
+      <button onClick={()=>console.log(props.user)}>Press</button>
+      {/* <TestFile user={user}  />  */}
     </div>
   );
 }
 
 const mapStateToProps = state => ({
-  item: state.app.item
+  isLoadMore: state.app.isLoadMore,
+  query: state.app.query,
+  user: state.app.user,
+  photoInformation: state.app.photoInformation,
+  homePhotoInformation: state.app.homePhotoInformation,
+  startAfter: state.app.startAfter,
+  sortCriteria: state.app.sortCriteria,
 })
 
 export default connect(mapStateToProps)(App);

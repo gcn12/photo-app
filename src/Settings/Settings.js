@@ -1,13 +1,19 @@
 import React from 'react'
-import { signout } from '../Login/Signout'
+// import { signout } from '../Login/Signout'
 import { SubmitButton } from '../Login/Login.styles'
 import { Container } from './Settings.styles'
+import { user } from '../Redux/Actions/appActions'
+import firebase from 'firebase'
+import { connect } from 'react-redux'
 
 const Settings = (props) => {
 
     const signoutWithRoute = () => {
         props.history.push('/photo-app/posts')
-        signout(props.setUser)
+        firebase.auth().signOut()
+        .then(()=>props.dispatch(user('')))
+        .catch(error=>console.log(error))
+        // signout()
     }
     
     return(
@@ -17,4 +23,8 @@ const Settings = (props) => {
     )
 }
 
-export default Settings
+const mapStateToProps = state => ({
+
+})
+
+export default connect(mapStateToProps)(Settings)
