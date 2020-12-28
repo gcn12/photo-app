@@ -14,7 +14,7 @@ const PublicProfilesPosts = (props) => {
 
     return(
         <Container onClick={selectPhoto}>
-            <Image src={props.post.image} alt=''></Image>
+            <Image src={props.post.smallImage} alt=''></Image>
             <Title>{props.post.title}</Title>
             <Title>{`${props.post.city}, ${props.post.country}`}</Title>
             {/* <Title>{props.post.previewDescription}</Title> */}

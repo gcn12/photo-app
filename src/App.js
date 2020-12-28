@@ -367,7 +367,7 @@ const App = (props) => {
         {/* <div style={{display: 'flex', justifyContent: 'center'}}>
             <SubmitButton onClick={null}>Load more</SubmitButton>
         </div> */}
-      <button onClick={()=>console.log(props.user)}>Press</button>
+      {/* <button onClick={()=>console.log(props.user)}>Press</button> */}
       {/* <TestFile user={user}  />  */}
     </div>
   );
