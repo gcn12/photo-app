@@ -245,42 +245,45 @@ const FeaturedPost = (props) => {
     }
 
     return(
-        <motion.div style={{marginTop: '55px'}} variants={variants} initial='initial' animate={animateLoad}>
-            <SubmitButton onClick={()=>props.history.goBack()}>Back</SubmitButton>
-            <Container >
-                <Title font={props?.photoInformation?.font}>{props?.photoInformation?.title}</Title>
+        <motion.div style={{marginTop: '75px'}} variants={variants} initial='initial' animate={animateLoad}>
+            {/* <SubmitButton onClick={()=>props.history.goBack()}>Back</SubmitButton> */}
+            <Container>
                 <div>
-                <MainImage onLoad={null} width={isImageHorizontal ? '80vw' : 'auto'} height={isImageHorizontal ? 'auto' : '80vh'} id='featured-main-image' alt='display' src={props?.photoInformation?.image}></MainImage>
-                <InfoContainer>
-                    {props?.user ? 
-                    <AddCollectionHeartContainer>
-                        <SubmitButton className='dropdown' onClick={showDropdownAndGetList}>
-                            <div className='dropdown'>Add to collection &#x25BC;</div>
-                        </SubmitButton>
-                        {showDropdown ? 
-                        <Dropdown
-                            setCollectionsBoolArray={setCollectionsBoolArray}
-                            collectionsBoolArray={collectionsBoolArray} 
-                            className='dropdown' 
-                            collectionsList={collectionsList}
-                            setCollectionsList={setCollectionsList}
-                        /> 
-                        : 
-                        null}  
-                        {isHeart ? 
-                        <FilledHeart onClick={unheartImage} style={{marginLeft: '10px', cursor: 'pointer'}} />
+                    <MainImage onLoad={null} width={isImageHorizontal ? '80vw' : 'auto'} height={isImageHorizontal ? 'auto' : '80vh'} id='featured-main-image' alt='display' src={props?.photoInformation?.image}></MainImage>
+                    <InfoContainer justify='space-between'>
+                        {props?.user ? 
+                        <AddCollectionHeartContainer>
+                            <SubmitButton className='dropdown' onClick={showDropdownAndGetList}>
+                                <div className='dropdown'>Add to collection &#x25BC;</div>
+                            </SubmitButton>
+                            {showDropdown ? 
+                            <Dropdown
+                                setCollectionsBoolArray={setCollectionsBoolArray}
+                                collectionsBoolArray={collectionsBoolArray} 
+                                className='dropdown' 
+                                collectionsList={collectionsList}
+                                setCollectionsList={setCollectionsList}
+                            /> 
+                            : 
+                            null}  
+                            {isHeart ? 
+                            <FilledHeart onClick={unheartImage} style={{marginLeft: '10px', cursor: 'pointer'}} />
+                            :
+                            <EmptyHeart onClick={heartImage} style={{marginLeft: '10px', cursor: 'pointer'}} />
+                            }
+                        </AddCollectionHeartContainer>
                         :
-                        <EmptyHeart onClick={heartImage} style={{marginLeft: '10px', cursor: 'pointer'}} />
-                        }
-                    </AddCollectionHeartContainer>
-                    :
-                    null}
-                    <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} style={{textDecoration: 'none'}}>
-                    <Author font={props?.photoInformation?.font}>{props?.photoInformation?.author} | {props?.photoInformation?.username}</Author>
-                    {/* <Author onClick={()=>props.getUserProfile(props.photoInformation.username)} font={props.photoInformation.font}>{props.photoInformation?.author}</Author> */}
-                    </Link>
-                    <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</DateStyle>
-                </InfoContainer>
+                        null}
+                        <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</DateStyle>
+                    </InfoContainer>
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                        <Title font={props?.photoInformation?.font}>{props?.photoInformation?.title}</Title>
+                    </div>
+                    <InfoContainer justify='center'>
+                        <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} style={{textDecoration: 'none'}}>
+                            <Author font={props?.photoInformation?.font}>{props?.photoInformation?.author} | {props?.photoInformation?.username}</Author>
+                        </Link>
+                    </InfoContainer>
                 </div>
             </Container>
             {props?.photoInformation?.content?.map((item, index) => {

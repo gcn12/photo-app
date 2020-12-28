@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import UserPosts from '../UserPosts/UserPosts'
-import { SubmitButton } from '../AddContent/AddContent.styles'
+// import { SubmitButton } from '../AddContent/AddContent.styles'
 import Collections from '../Collections/Collections'
 import Settings from '../Settings/Settings'
 import { Link } from 'react-router-dom'
@@ -14,8 +14,8 @@ import {
 const Profile = (props) => {
     const [profilePage, setProfilePage] = useState(props.match.params.route)
     return(
-        <div style={{marginTop: '55px'}}>
-            <SubmitButton onClick={()=>props.history.goBack()}>Back</SubmitButton>
+        <div style={{marginTop: '85px'}}>
+            {/* <SubmitButton onClick={()=>props.history.goBack()}>Back</SubmitButton> */}
             <Container>
                 <HeaderContainer>
                     <UL>

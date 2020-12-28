@@ -10,14 +10,15 @@ export const Container = styled.div`
 export const InfoContainer = styled.div`
     /* width: 80%; */
     display: flex;
-    justify-content: space-between;
+    justify-content: ${props=> props.justify};
     align-items: center;
 `
 
 export const Title = styled.div`
     /* color: #242424; */
-    font-size: 40px;
+    font-size: 60px;
     font-family: ${props=> props.font};
+    margin-top: 20px;
 `
 
 export const MainImage = styled.img`
@@ -32,11 +33,12 @@ export const MainImage = styled.img`
 `
 
 export const Author = styled.div`
-    color: #242424;
+    color: #595959;
     font-size: 20px;
     /* color: #242424; */
     cursor: pointer;
     font-family: ${props=> props.font};
+    margin: 15px 0 40px 0;
 `
 
 export const DateStyle = styled.div`
@@ -48,10 +50,11 @@ export const DateStyle = styled.div`
 export const Description = styled.div`
     font-family: ${props=> props.font};
     /* color: white; */
-    width: 45vw;
+    width: 50vw;
     margin: 20px 0;
     font-size: 20px;
     white-space: pre-wrap;
+    line-height: 35px;
     /* text-align: justify; */
     text-justify: inter-word;
     @media (max-width: 950px) {
@@ -72,7 +75,7 @@ export const AddCollectionHeartContainer = styled.div`
 
 export const BodyImage = styled.img`
     width: ${props=> `${props.width}`};
-    margin: ${props=> props.margin};
+    margin:  ${props=>  props.margin};
     max-height: 90vh;
     max-width: 65vw;
     display: block;
@@ -92,5 +95,6 @@ export const BodyImageContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 35px 0;
 `
 

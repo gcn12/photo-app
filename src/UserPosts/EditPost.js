@@ -259,130 +259,142 @@ const EditPost = (props) => {
     const fileUpload = () => {
         setIsUploading(true)
         setShowCancel(false)
+        filesArray.forEach(files=> {
+            console.log(files)
+            if(files.length > 0) {
+                setUploadCount(uploadCount => uploadCount + files.length)
+            }
+        })
         setTimeout(()=>setUploadStatusProps('transitionStart'), 400)
         setTimeout(()=>setUploadProgress(previousUploadProgress=> previousUploadProgress + 1), 200)
-        let smallImageUrl
+        // let smallImageUrl
 
         // const title = document.getElementById('edit-post-title').value
         // let url = title.split(' ')
         // url = url.join('-')
         // url = url.toLowerCase()
 
-        const file = document.getElementById('main-image-input').files[0]
-        const reader2 = new FileReader()
-        reader2.readAsDataURL(file);
-        reader2.onload = (e) => {
-            const fileName = file.name
-            const image = document.createElement('img')
-            image.src = e.target.result;
-            image.onload = function () {
-                resizeFile(image, image, fileName);
-            };
-        }
-
-        const resizeFile = (loadedData, preview, fileName) => { 
-            const height = loadedData.height
-            const width = loadedData.width
-            let ratio
-            let finalHeight
-            let finalWidth
-            if (height >= width) {
-                ratio = width / height
-                finalHeight = 850
-                finalWidth = Math.round(ratio * 850)
-            }else {
-                ratio = height / width
-                finalWidth = 850
-                finalHeight = Math.round(ratio * 850)
+        if(document.getElementById('main-image-input').files[0]){
+            const file = document.getElementById('main-image-input').files[0]
+            const reader2 = new FileReader()
+            reader2.readAsDataURL(file);
+            reader2.onload = (e) => {
+                const fileName = file.name
+                const image = document.createElement('img')
+                image.src = e.target.result;
+                image.onload = function () {
+                    resizeFile(image, image, fileName);
+                };
             }
-            let canvas = document.createElement('canvas'),
-            ctx;
-            canvas.width = finalWidth;
-            canvas.height = finalHeight;
-            ctx = canvas.getContext('2d');
-            ctx.drawImage(preview, 0, 0, canvas.width, canvas.height);
-            fileUpload(canvas, fileName)
-        }
-
-        const fileUpload = (imageData, fileName) => {
-
-            var dataURL = imageData.toDataURL('image/jpeg', 1)
-            const random = Math.round(Math.random()*1000000)
-            db.collection('users')
-            .doc(props.user)
-            .get()
-            .then(userData=> {
-                const username = userData.data().username
-                firebase.storage().ref()
-                .child(`${username}/${postData.url}/${fileName}${random}`)
-                .putString(dataURL, 'data_url')
-                .then((snapshot) => {
-                    snapshot.ref.getDownloadURL()
-                    .then(miniImageUrl=> {
-                        smallImageUrl = miniImageUrl
-                        let index = 0
-                        let j = 0
-                        let finalArray = []
-                        const upload = () => {
-                            if(index < filesArray.length){
-                                if(filesArray[index].length > 0) {
-                                    const random = Math.round(Math.random()*1000000)
-                                    if(j===0) {
-                                        finalArray.push([])
-                                    }
-                                    const metadata = {
-                                        contentType: filesArray[index][j].type,
-                                    }
-                                    const storageRef = firebase.storage().ref()
-                                    const picRef = storageRef.child(`${postData.username}/${postData.url}/${filesArray[index][j].name}${random}`)
-                                    const file = filesArray[index][j]
-                                    picRef.put(file, metadata)
-                                    .then((snapshot)=> {
-                                        snapshot.ref.getDownloadURL()
-                                        .then((url)=> {
-                                            finalArray[index].push(url)
-                                            j++
-                                            if(index === filesArray.length -1 && j===filesArray[index].length){
-                                                // console.log(finalArray)
-                                                submit(finalArray, smallImageUrl)
-                                            }
-                                            if(j === filesArray[index].length){
-                                                j = 0
-                                                index++
-                                            }
-                                            upload()
-                                        })
-                                    })
-                                }else{
-                                    if(index === filesArray.length -1 && j===filesArray[index].length){
-                                        submit(finalArray)
-                                        // console.log(finalArray)
-                                    }else{
-                                        finalArray.push([])
-                                        index++
-                                        upload()
-                                    }
-                                }
-                            }
-                        }
-                        upload()
-                    })
     
+            const resizeFile = (loadedData, preview, fileName) => { 
+                const height = loadedData.height
+                const width = loadedData.width
+                let ratio
+                let finalHeight
+                let finalWidth
+                if (height >= width) {
+                    ratio = width / height
+                    finalHeight = 850
+                    finalWidth = Math.round(ratio * 850)
+                }else {
+                    ratio = height / width
+                    finalWidth = 850
+                    finalHeight = Math.round(ratio * 850)
+                }
+                let canvas = document.createElement('canvas'),
+                ctx;
+                canvas.width = finalWidth;
+                canvas.height = finalHeight;
+                ctx = canvas.getContext('2d');
+                ctx.drawImage(preview, 0, 0, canvas.width, canvas.height);
+                fileUpload(canvas, fileName)
+            }
+            const fileUpload = (imageData, fileName) => {
+                var dataURL = imageData.toDataURL('image/jpeg', 1)
+                const random = Math.round(Math.random()*1000000)
+                db.collection('users')
+                .doc(props.user)
+                .get()
+                .then(userData=> {
+                    const username = userData.data().username
+                    firebase.storage().ref()
+                    .child(`${username}/${postData.url}/${fileName}${random}`)
+                    .putString(dataURL, 'data_url')
+                    .then((snapshot) => {
+                        snapshot.ref.getDownloadURL()
+                        .then(miniImageUrl=> {
+                            upload2(miniImageUrl)
+                        })
+                    })
                 })
-            })
+            }
+        }else{
+            upload2()
         }
+    }
+
+    const upload2 = (miniImageUrl) => {
+        let index = 0
+        let j = 0
+        let finalArray = []
+        const upload = () => {
+            if(index < filesArray.length){
+                if(filesArray[index].length > 0) {
+                    const random = Math.round(Math.random()*1000000)
+                    if(j===0) {
+                        finalArray.push([])
+                    }
+                    const metadata = {
+                        contentType: filesArray[index][j].type,
+                    }
+                    const storageRef = firebase.storage().ref()
+                    const picRef = storageRef.child(`${postData.username}/${postData.url}/${filesArray[index][j].name}${random}`)
+                    const file = filesArray[index][j]
+                    setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+                    picRef.put(file, metadata)
+                    .then((snapshot)=> {
+                        snapshot.ref.getDownloadURL()
+                        .then((url)=> {
+                            finalArray[index].push(url)
+                            j++
+                            if(index === filesArray.length -1 && j===filesArray[index].length){
+                                // console.log(finalArray)
+                                submit(finalArray, miniImageUrl)
+                            }
+                            if(j === filesArray[index].length){
+                                j = 0
+                                index++
+                            }
+                            upload()
+                        })
+                    })
+                }else{
+                    if(index === filesArray.length -1 && j===filesArray[index].length){
+                        submit(finalArray, miniImageUrl)
+                        // console.log(finalArray)
+                    }else{
+                        finalArray.push([])
+                        index++
+                        upload()
+                    }
+                }
+            }
+        }
+        upload()
     }
 
     const submit = (images, smallImageUrl) => {
         // setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
         let mainImage = postData.image
-        
+        let imagesAdded = false
         const allImages = postData.images
         for (let i = 0; i<images.length; i++) {
             if(i===0 && images[i].length === 1) {
                 mainImage = images[i][0]
             }else if (images[i].length > 0) {
                 allImages[i-1] = images[i]
+                imagesAdded = true
             }
         }
         const title = document.getElementById('edit-post-title').value
@@ -435,14 +447,30 @@ const EditPost = (props) => {
             fullPostUpdate['font'] = font
         }
         if(mainImage!==postData.image) {
-            fullPostUpdate['smallImage'] = smallImageUrl
-            previewPostUpdate['smallImage'] = smallImageUrl
+            if(smallImageUrl) {
+                fullPostUpdate['smallImage'] = smallImageUrl
+                previewPostUpdate['smallImage'] = smallImageUrl
+            }
             fullPostUpdate['image'] = mainImage
             previewPostUpdate['image'] = mainImage
         }
-        fullPostUpdate['photoBodyMap'] = postData.photoBodyMap
-        fullPostUpdate['content'] = descriptionArray
-        fullPostUpdate['images'] = allImages
+        if(postData.length !== descriptionArray.length) {
+            fullPostUpdate['content'] = descriptionArray
+        }else{
+            let checkSame = true
+            postData.content.forEach((item, index)=> {
+                if(item !== descriptionArray[index]){
+                    checkSame = false
+                }
+            })
+            if(checkSame) {
+                fullPostUpdate['content'] = descriptionArray
+            }
+        }
+        if(imagesAdded){
+            fullPostUpdate['photoBodyMap'] = postData.photoBodyMap
+            fullPostUpdate['images'] = allImages
+        }
 
 
         db.collection('posts')
@@ -523,7 +551,7 @@ const EditPost = (props) => {
                         <Container2>
                             <div id='edit-area'>
                                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                                    <Title id='edit-post-title' font={font} onChange={null} defaultValue={props?.postData[0]?.title}></Title>
+                                    <Title autoComplete='off' id='edit-post-title' font={font} onChange={null} defaultValue={props?.postData[0]?.title}></Title>
                                     <MainImage onLoad={()=>setIsUploading(false)} src={postData?.smallImage}></MainImage>
                                     <label htmlFor='main-image-input' className='upload-button-label'>Change main image</label>
                                     <input onChange={changeMainPhoto} hidden id='main-image-input' type='file'></input>
@@ -575,7 +603,11 @@ const EditPost = (props) => {
                             <div style={{marginBottom: '15px'}}>Remaining characters: {remainingCharacters}</div>
                             <Label>Font:</Label>
                             <FontSelect onChange={getFont} id='font-select'>
-                                <FontOption value="'Castoro', serif;" font="'Castoro', serif;">Castoro</FontOption>
+                                {/* <FontOption value="'Castoro', serif;" font="'Castoro', serif;">Castoro</FontOption> */}
+                                <FontOption value="'Montserrat', sans-serif;" font="'Montserrat', sans-serif;">Montserrat</FontOption>
+                                <FontOption value="'Work Sans', sans-serif;" font="'Work Sans', sans-serif;">Work Sans</FontOption>
+                                <FontOption value="'Quick Sand', sans-serif;" font="'Quick Sand', sans-serif;">Quick Sand</FontOption>
+                                <FontOption value="'Heebo', sans-serif;" font="'Heebo', sans-serif;">Heebo</FontOption>
                                 <FontOption value="'Roboto', sans-serif;" font="'Roboto', sans-serif;">Roboto</FontOption>
                                 <FontOption value="'Raleway', sans-serif;" font="'Raleway', sans-serif;">Raleway</FontOption>
                                 <FontOption value="'Zilla Slab', serif;" font="'Zilla Slab', serif;">Zilla Slab</FontOption>

@@ -229,7 +229,7 @@ const AddContent = (props) => {
     const [uploadProgressColor, setUploadProgressColor] = useState(false)
     const [paragraph, setParagraph] = useState('')
     const [isImageHorizontal, setIsImageHorizontal] = useState(true)
-    const [font, setFont] = useState("'Castoro', serif;")
+    const [font, setFont] = useState("'Montserrat', sans-serif;")
     const [titlePhotoProceed, setTitlePhotoProceed] = useState(false)
     const [categoryLocationProceed, setCategoryLocationProceed] = useState(false)
     const [bodyProceed, setBodyProceed] = useState(false)
