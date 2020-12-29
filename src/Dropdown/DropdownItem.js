@@ -120,7 +120,9 @@ const DropdownItem = (props) => {
 }
 
 const mapStateToProps = state => ({
-    collectionsList: state.featuredPost.collectionsList
+    collectionsList: state.featuredPost.collectionsList,
+    user: state.app.user,
+    photoInformation: state.app.photoInformation,
 })
 
 export default connect(mapStateToProps)(DropdownItem)

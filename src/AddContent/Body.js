@@ -110,6 +110,7 @@ const Body = (props) => {
         checkAdditionalElement()
         image.onchange = ()=> {
             getImageMap(`image-input-${numberInputs}`, `image-div-${numberInputs}`)
+            // const imageDivParent =  document.getElementById(`image-div-${numberInputs}`)
             const buttons = document.getElementById('body-scroll-here');
             buttons.scrollIntoView();
         }
