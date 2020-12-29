@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { db } from '../Firebase'
 import SubheaderPosts from './SubheaderPosts'
 import SubheaderDropdown from './SubheaderDropdown'
@@ -8,6 +8,7 @@ import SubheaderSearch from './SubheaderSearch'
 import Search from '../Search/Search'
 import { connect } from 'react-redux'
 import { homePhotoInformation } from '../Redux/Actions/appActions'
+import { searchTransition, searchVisibility, selected, selectedCategory } from '../Redux/Actions/headerActions'
 import { ReactComponent as SearchIcon } from '../Icons/Search.svg'
 import { Link } from 'react-router-dom' 
 import {
@@ -22,17 +23,8 @@ import {
 
 const Header = (props) => {
 
-    const [dropdownTransition, setDropdownTransition] = useState('initial')
-    const [visibility, setVisibility] = useState(false)
-    const [dropdownCategoriesTransition, setDropdownCategoriesTransition] = useState('initial')
-    const [categoriesVisibility, setCategoriesVisibility] = useState(false)
-    const [searchTransition, setSearchTransition] = useState('initial')
-    const [searchVisibility, setSearchVisibility] = useState(false)
-    const [selected, setSelected] = useState('')
-    const [selectedCategory, setSelectedCategory] = useState('')
-
     const sort = (value) => {
-        setSelected(value)
+        props.dispatch(selected(value))
         db.collection('preview-posts')
         .orderBy(value, 'desc')
         .limit(10)
@@ -47,7 +39,7 @@ const Header = (props) => {
     }
 
     const getAssortedPhotos = () => {
-        setSelected('assorted')
+        props.dispatch(selected('assorted'))
         let randomString = ''
         const values = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789'
         for (let i = 0; i < 8; i++) {
@@ -86,7 +78,7 @@ const Header = (props) => {
     }
 
     const getCategoryPhotos = (category) => {
-        setSelectedCategory(category)
+        props.dispatch(selectedCategory(category))
         window.scrollTo({top: 0})
         db.collection('preview-posts')
         .where('category', '==', category)
@@ -103,8 +95,8 @@ const Header = (props) => {
     }
 
     const startSearchTransition = () => {
-        setSearchVisibility(true)
-        setSearchTransition('transitionStart')
+        props.dispatch(searchVisibility(true))
+        props.dispatch(searchTransition('transitionStart'))
         document.body.style.overflowY = 'hidden'
         // document.body.style.position = 'fixed'
     }
@@ -127,9 +119,9 @@ const Header = (props) => {
         <div style={{position: 'fixed', top: 0, width: '100%', marginBottom: '20px', zIndex:2}}>
             {!props.location.pathname.includes('/photo-app/upload') ? 
             <Border>
-                <SubheaderDropdown setIsMainPhotosVisible={props.setIsMainPhotosVisible} getAssortedPhotos={getAssortedPhotos} sort={sort} setSelected={setSelected} selected={selected} setVisibility={setVisibility} visibility={visibility} dropdownTransition={dropdownTransition} setDropdownTransition={setDropdownTransition}/>
-                <CategoriesDropdown setIsMainPhotosVisible={props.setIsMainPhotosVisible} selectedCategory={selectedCategory} getCategoryPhotos={getCategoryPhotos} dropdownCategoriesTransition={dropdownCategoriesTransition} categoriesVisibility={categoriesVisibility} setCategoriesVisibility={setCategoriesVisibility} setDropdownCategoriesTransition={setDropdownCategoriesTransition}/>
-                <SearchDropdown setSearchVisibility={setSearchVisibility} searchVisibility={searchVisibility} setSearchTransition={setSearchTransition} searchTransition={searchTransition} />
+                <SubheaderDropdown setIsMainPhotosVisible={props.setIsMainPhotosVisible} getAssortedPhotos={getAssortedPhotos} sort={sort}  />
+                <CategoriesDropdown setIsMainPhotosVisible={props.setIsMainPhotosVisible} getCategoryPhotos={getCategoryPhotos} />
+                <SearchDropdown  />
                 <Container>
                     <UL>
                         <Link onClick={getAssortedAndDropOpacity} to='/photo-app/posts/popular' style={{ textDecoration: 'none' }}>
@@ -171,14 +163,8 @@ const Header = (props) => {
                     location={props.location}
                     sort={props.sort} 
                     setIsMainPhotosVisible={props.setIsMainPhotosVisible} 
-                    setCategoriesVisibility={setCategoriesVisibility} 
-                    setDropdownCategoriesTransition={setDropdownCategoriesTransition} 
                     getCategoryPhotos={getCategoryPhotos} 
                     getAssortedPhotos={getAssortedPhotos} 
-                    setSelected={setSelected} 
-                    selected={selected} 
-                    setVisibility={setVisibility} 
-                    setDropdownTransition={setDropdownTransition} 
                 />
                 :
                 null
@@ -189,14 +175,8 @@ const Header = (props) => {
                     location={props.location}
                     sort={props.sort}  
                     setIsMainPhotosVisible={props.setIsMainPhotosVisible} 
-                    setCategoriesVisibility={setCategoriesVisibility} 
-                    setDropdownCategoriesTransition={setDropdownCategoriesTransition} 
                     getCategoryPhotos={getCategoryPhotos} 
                     getAssortedPhotos={getAssortedPhotos} 
-                    setSelected={setSelected} 
-                    selected={selected} 
-                    setVisibility={setVisibility} 
-                    setDropdownTransition={setDropdownTransition} 
                 />
                 :
                 null
@@ -211,7 +191,9 @@ const Header = (props) => {
 }
 
 const mapStateToProps = state => ({
-    user: state.app.user
+    user: state.app.user,
+    dropdownTransition: state.header.dropdownTransition,
+    visibility: state.header.visibility,
 })
 
 export default connect(mapStateToProps)(Header)

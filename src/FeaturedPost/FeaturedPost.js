@@ -9,6 +9,7 @@ import firebase from 'firebase'
 import { motion } from 'framer-motion'
 import { connect } from 'react-redux'
 import { photoInformation } from '../Redux/Actions/appActions'
+import { collectionsList } from '../Redux/Actions/featuredPostActions'
 // import FeaturedPostGallery from '../FeaturedPostGallery/FeaturedPostGallery'
 import { SubmitButton } from '../AddContent/AddContent.styles'
 import { 
@@ -35,8 +36,6 @@ import {
 
 const FeaturedPost = (props) => {
 
-    const [collectionsList, setCollectionsList] = useState([])
-    const [collectionsBoolArray, setCollectionsBoolArray] = useState(null)
     const [showDropdown, setShowDropdown] = useState(null)
     const [countryPhotos, setCountryPhotos] = useState([])
     const [cityPhotos, setCityPhotos] = useState([])
@@ -170,7 +169,7 @@ const FeaturedPost = (props) => {
                         }
                         collectionsArray.push(mapArray)
                         if (index+1 === collections.docs.length) {
-                            setCollectionsList(collectionsArray)
+                            props.dispatch(collectionsList(collectionsArray))
                             setShowDropdown(!showDropdown)
                         }
                     })
@@ -222,7 +221,7 @@ const FeaturedPost = (props) => {
     }
 
     const showDropdownAndGetList = () => {
-        if(collectionsList?.length === 0) {
+        if(props.collectionsList?.length === 0) {
             getCollectionsList()
         }else{
             setShowDropdown(!showDropdown)
@@ -257,13 +256,7 @@ const FeaturedPost = (props) => {
                                 <div className='dropdown'>Add to collection &#x25BC;</div>
                             </SubmitButton>
                             {showDropdown ? 
-                            <Dropdown
-                                setCollectionsBoolArray={setCollectionsBoolArray}
-                                collectionsBoolArray={collectionsBoolArray} 
-                                className='dropdown' 
-                                collectionsList={collectionsList}
-                                setCollectionsList={setCollectionsList}
-                            /> 
+                            <Dropdown className='dropdown' /> 
                             : 
                             null}  
                             {isHeart ? 
@@ -302,7 +295,6 @@ const FeaturedPost = (props) => {
             })}
             <HorizontalGallery 
             history={props.history}
-            setCollectionsList={setCollectionsList}
             getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
             getPost={getPost}
             getCountries={getCities} 
@@ -313,7 +305,6 @@ const FeaturedPost = (props) => {
             />
             <HorizontalGallery 
                 history={props.history}
-                setCollectionsList={setCollectionsList}
                 getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
                 getPost={getPost}
                 placeName={props.photoInformation?.country} 
@@ -327,7 +318,8 @@ const FeaturedPost = (props) => {
 
 const mapStateToProps = state => ({
     user: state.app.user,
-    photoInformation: state.app.photoInformation
+    photoInformation: state.app.photoInformation,
+    collectionsList: state.featuredPost.collectionsList,
 })
 
 export default connect(mapStateToProps)(FeaturedPost)

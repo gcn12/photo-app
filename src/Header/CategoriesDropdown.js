@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { dropdownCategoriesTransition, categoriesVisibility } from '../Redux/Actions/headerActions'
 import {
     Container,
     CenterList,
@@ -33,8 +35,8 @@ const variants = {
 const CategoriesDropdown = (props) => {
 
     const closeDropdown = () => {
-        props.setDropdownCategoriesTransition('transitionEnd')
-        setTimeout(()=> props.setCategoriesVisibility(false), 300)
+        props.dispatch(dropdownCategoriesTransition('transitionEnd'))
+        setTimeout(()=> props.dispatch(categoriesVisibility(false)), 300)
         document.body.style.overflowY = 'auto'
         document.body.style.position = 'initial'
     }
@@ -66,4 +68,10 @@ const CategoriesDropdown = (props) => {
     )
 }
 
-export default CategoriesDropdown
+const mapStateToProps = state => ({
+    dropdownCategoriesTransition: state.header.dropdownCategoriesTransition,
+    categoriesVisibility: state.header.categoriesVisibility,
+    selectedCategory: state.header.selectedCategory,
+})
+
+export default connect(mapStateToProps)(CategoriesDropdown)

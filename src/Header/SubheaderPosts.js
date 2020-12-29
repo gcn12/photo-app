@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { ReactComponent as PhotoGrid } from '../Icons/PhotoGrid.svg'
 import { ReactComponent as DescriptionGrid } from '../Icons/DescriptionGrid.svg'
 import { homePhotoInformation, displayView, sortCriteria } from '../Redux/Actions/appActions'
+import { dropdownTransition, visibility, dropdownCategoriesTransition, categoriesVisibility, selected } from '../Redux/Actions/headerActions'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
@@ -17,28 +18,28 @@ import SubheaderCategories from './SubheaderCategories'
 const Subheader = (props) => {
     const [showCategories, setShowCategories] = useState(false)
     const openDropdown = () => {
-        props.setDropdownTransition('transitionStart')
-        props.setVisibility(true)
+        props.dispatch(dropdownTransition('transitionStart'))
+        props.dispatch(visibility(true))
         document.body.style.overflowY = 'hidden'
         // document.body.style.position = 'fixed'
     }
 
     useEffect(()=> {
         if (props?.location?.pathname.includes('new')) {
-            props.setSelected('timestamp')
+            props.dispatch(selected('timestamp'))
         }else if (props?.location?.pathname.includes('rating')) {
-            props.setSelected('ratio')
+            props.dispatch(selected('ratio'))
         }else if (props?.location?.pathname.includes('popular')) {
-            props.setSelected('views')
+            props.dispatch(selected('views'))
         }else{
-            props.setSelected('views')
+            props.dispatch(selected('views'))
         }
         // eslint-disable-next-line
     }, [])
 
     const openDropdownCategories = () => {
-        props.setDropdownCategoriesTransition('transitionStart')
-        props.setCategoriesVisibility(true)
+        props.dispatch(dropdownCategoriesTransition('transitionStart'))
+        props.dispatch(categoriesVisibility(true))
         document.body.style.overflowY = 'hidden'
         // document.body.style.position = 'fixed'
     }
@@ -69,7 +70,7 @@ const Subheader = (props) => {
             newCriteria['rating'] = false
         }
         let finalCriteria = {...criteria, ...newCriteria}
-        props.setSelected(sortCriteriaInput)
+        props.dispatch(selected(sortCriteriaInput))
         props.dispatch(sortCriteria(finalCriteria))
         props.sort(finalCriteria, true)
     }

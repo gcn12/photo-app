@@ -326,21 +326,24 @@ const App = (props) => {
           {...props}/>
         )} />
  
-        <Route path='/photo-app/profile/:route?' render={(props)=>( <Profile 
-          getFeaturedPhotoInfo={getFeaturedPhotoInfo}
-          {...props}
+        <Route path='/photo-app/profile/:route?' render={(props)=>( 
+          <Profile 
+            getFeaturedPhotoInfo={getFeaturedPhotoInfo}
+            {...props}
         />)} />
 
-        <Route exact path='/photo-app/upload' render={(props)=> (<AddContent 
-          getFeaturedPhotoInfo={getFeaturedPhotoInfo}
-          {...props}
+        <Route exact path='/photo-app/upload' render={(props)=> (
+          <AddContent 
+            getFeaturedPhotoInfo={getFeaturedPhotoInfo}
+            {...props}
           /> 
         )} />
 
-        <Route path='/photo-app/profiles/:username' render={(props)=>(<PublicProfile 
-          getUserProfile={getUserProfile}
-          getFeaturedPhotoInfo={getFeaturedPhotoInfo}
-          {...props}
+        <Route path='/photo-app/profiles/:username' render={(props)=>(
+          <PublicProfile 
+            getUserProfile={getUserProfile}
+            getFeaturedPhotoInfo={getFeaturedPhotoInfo}
+            {...props}
           />
         )} />
 
@@ -364,9 +367,6 @@ const App = (props) => {
             />
         )} />
       </Switch>
-        {/* <div style={{display: 'flex', justifyContent: 'center'}}>
-            <SubmitButton onClick={null}>Load more</SubmitButton>
-        </div> */}
       {/* <button onClick={()=>console.log(props.user)}>Press</button> */}
       {/* <TestFile user={user}  />  */}
     </div>

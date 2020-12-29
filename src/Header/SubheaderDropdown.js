@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { dropdownTransition, visibility } from '../Redux/Actions/headerActions'
 import {
     Container,
     CenterList,
@@ -37,8 +39,9 @@ const SubheaderDropdown = (props) => {
         if(!isCancel) {
             props.setIsMainPhotosVisible(false)
         }
-        props.setDropdownTransition('transitionEnd')
-        setTimeout(()=> props.setVisibility(false), 300)
+        props.dispatch(dropdownTransition('transitionEnd'))
+        // props.setDropdownTransition('transitionEnd')
+        setTimeout(()=> props.dispatch(visibility(false)), 300)
         document.body.style.overflowY = 'auto'
         document.body.style.position = 'initial'
     }
@@ -73,4 +76,10 @@ const SubheaderDropdown = (props) => {
     )
 }
 
-export default SubheaderDropdown
+const mapStateToProps = state => ({
+    dropdownTransition: state.header.dropdownTransition,
+    visibility: state.header.visibility,    
+    selected: state.header.selected
+})
+
+export default connect(mapStateToProps)(SubheaderDropdown)

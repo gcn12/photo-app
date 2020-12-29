@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import algoliasearch from 'algoliasearch'
+import { connect } from 'react-redux'
+import { searchTransition, searchVisibility } from '../Redux/Actions/headerActions'
 import {
     Container,
     Cancel,
@@ -122,8 +124,8 @@ const SearchDropdown = (props) => {
     }
 
     const closeDropdown = () => {
-        props.setSearchTransition('transitionEnd')
-        setTimeout(()=> props.setSearchVisibility(false), 300)
+        props.dispatch(searchTransition('transitionEnd'))
+        setTimeout(()=> props.dispatch(searchVisibility(false)), 300)
         document.body.style.overflowY = 'auto'
         document.body.style.position = 'initial'
         clearResults()
@@ -180,4 +182,9 @@ const SearchDropdown = (props) => {
     )
 }
 
-export default SearchDropdown
+const mapStateToProps = state => ({
+    searchTransition: state.header.searchTransition,
+    searchVisibility: state.header.searchVisibility,
+})
+
+export default connect(mapStateToProps)(SearchDropdown)
