@@ -30,8 +30,6 @@ import {
     DateStyle,
     AddCollectionHeartContainer,
     BodyImage,
-    Header,
-    Caption,
 } from './FeaturedPost.styles'
 
 
@@ -281,43 +279,21 @@ const FeaturedPost = (props) => {
                     </InfoContainer>
                 </div>
             </Container>
-            {/* {console.log(props?.photoInformation)} */}
-            {props?.photoInformation?.dataObj ? 
-            Object.keys(props?.photoInformation?.dataObj)?.map((item, index) => {
+            {props?.photoInformation?.content?.map((item, index) => {
                 return(
                     <BodyContainer key={index}>
-                        {Object.values(props?.photoInformation?.dataObj)[item][0]==='caption' ? 
-                        <Caption font={props.photoInformation.font}>{Object.values(props?.photoInformation?.dataObj)[item][1]}</Caption>
-                        :
-                        null
-                        }
-                        {Object.values(props?.photoInformation?.dataObj)[item][0]==='paragraph' ? 
-                        <Description font={props.photoInformation.font}>{Object.values(props?.photoInformation?.dataObj)[item][1]}</Description>
-                        :
-                        null
-                        }
-                        {Object.values(props?.photoInformation?.dataObj)[item][0]==='header' ? 
-                        <Header font={props.photoInformation.font}>{Object.values(props?.photoInformation?.dataObj)[item][1]}</Header>
-                        :
-                        null
-                        }
-                        {Object.values(props?.photoInformation?.dataObj)[item][0]==='images' ? 
+                        <Description font={props.photoInformation.font}>{item}</Description>
                         <BodyImageContainer>
-                            {props?.photoInformation?.imagesSmall[item]?.map((image, i)=> {
+                            {props?.photoInformation?.imagesLarge[index]?.map((image, i)=> {
+
                                 return(
-                                    <BodyImage margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 .5%' : '0%'} width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} src={image} key={i}></BodyImage>
-                                    // <BodyImage margin={'0 .5%'} width={'auto'} src={image} key={i}></BodyImage>
+                                    <BodyImage margin={props.photoInformation.photoBodyMap[index].length > 1 ? '0 .5%' : '0%'} width={props.photoInformation.photoBodyMap[index].length > 1 ? `${65 * props.photoInformation.photoBodyMap[index][i]}vw` : 'auto'} src={image} key={i}></BodyImage>
                                 )
                             })}
                         </BodyImageContainer>
-                        :
-                        null
-                        }
                     </BodyContainer>
                 )
-            })
-            :
-            null}
+            })}
             <HorizontalGallery 
             history={props.history}
             getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}

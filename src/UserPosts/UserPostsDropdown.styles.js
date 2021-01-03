@@ -7,7 +7,7 @@ export const Container = styled.div`
     background-color: white;
     font-size: 20px;
     transform: translate(-20%, 40%);
-    color: black;
+    color: #242424;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,6 +23,5 @@ export const Options = styled.div`
 export const Option = styled.div`
     &:hover {
         background-color: #dedede;
-        /* color: white; */
     }
 `

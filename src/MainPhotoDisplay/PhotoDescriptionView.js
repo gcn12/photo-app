@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { db } from '../Firebase'
 import { incrementViewCount } from '../Functions' 
 import { photoInformation } from '../Redux/Actions/appActions'
+import { ReactComponent as FilledBookmark } from '../Icons/FilledBookmark.svg'
+import { ReactComponent as EmptyBookmark } from '../Icons/EmptyBookmark.svg'
 import { connect } from 'react-redux'
 // import fitty from 'fitty'
 import {
@@ -11,6 +13,7 @@ import {
     Container,
     Location,
     Title,
+    BookmarkLocationContainer,
     // Name,
     // LocationNameContainer,
 } from './PhotoDescriptionView.styles'
@@ -18,6 +21,7 @@ import {
 const PhotoDescriptionView = (props) => {
 
     const [showPost, setShowPost] = useState(false)
+    const [isSaved, setIsSaved] = useState(false)
 
     useEffect(()=> {
         // fitty(`#description-view-title-${props.index}`, {maxSize: 30})
@@ -40,7 +44,16 @@ const PhotoDescriptionView = (props) => {
         <Container opacity={showPost ? 1 : 0}>
             <Card>
                 <Image onClick={goToPost} onLoad={()=> setShowPost(true)} src={props.photoInfo.smallImage}></Image>
-                <Location>{`${props.photoInfo.city}, ${props.photoInfo.country}`}</Location>
+                <BookmarkLocationContainer>
+                    <Location>{`${props.photoInfo.city}, ${props.photoInfo.country}`}</Location>
+                    <div onClick={()=>setIsSaved(!isSaved)}>
+                        {isSaved ? 
+                        <FilledBookmark />
+                        :
+                        <EmptyBookmark />
+                        }
+                    </div>
+                </BookmarkLocationContainer>
                 {/* <Name>{props.photoInfo.author}</Name> */}
                 <Title onClick={goToPost} id={`description-view-title-${props.index}`}>{props.photoInfo.title}</Title>
                 <Location>{props.photoInfo.category}</Location>

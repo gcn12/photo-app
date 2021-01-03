@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { homePhotoInformation } from '../Redux/Actions/appActions'
+import { homePhotoInformation, sortCriteria } from '../Redux/Actions/appActions'
 import {
     Image,
     Location,
@@ -14,17 +14,17 @@ const CitiesDisplay = (props) => {
 
     const goToPlace = (place) => {
         props.dispatch(homePhotoInformation([]))
-        let sortCriteria = props.sortCriteria
+        let sortCriteriaCopy = props.sortCriteria
         if(place.countryOnly) {
             props.dispatch(sortCriteria(place.countryOnly))
-            sortCriteria['country'] = place.countryOnly
-            sortCriteria['city'] = ''
+            sortCriteriaCopy['country'] = place.countryOnly
+            sortCriteriaCopy['city'] = ''
         }else{
             props.dispatch(sortCriteria(place.city))
-            sortCriteria['city'] = place.city
-            sortCriteria['country'] = ''
+            sortCriteriaCopy['city'] = place.city
+            sortCriteriaCopy['country'] = ''
         }
-        props.sort(sortCriteria, true)
+        props.sort(sortCriteriaCopy, true)
     }
 
     return(

@@ -212,7 +212,8 @@ const animationMap = {
 
 
 const AddContent = (props) => {
-    const [mainImage, setMainImage] = useState(null)
+    // const [mainImage, setMainImage] = useState(null)
+    // const [mainImageSmall, setMainImageSmall] = useState(null)
     const [titlePhotoProps, setTitlePhotoProps] = useState('initial')
     const [categoryLocationProps, setCategoryLocationProps] = useState('initial')
     const [bodyProps, setBody] = useState('initial')
@@ -236,8 +237,16 @@ const AddContent = (props) => {
     const [fontProceed, setFontProceed] = useState(true)
     const [isDuplicate, setIsDuplicate] = useState(false)
     const [numberCharacters, setNumberCharacters] = useState(150)
+    const [filesSmall, setFilesSmall] = useState([])
+    const [filesLarge, setFilesLarge] = useState([])
+    const [fileNames, setFileNames] = useState([])
+    const [itemsToUploadData, setItemsToUploadData] = useState({})
+    const [filesIndex, setFilesIndex] = useState([])
+    const [previewImages, setPreviewImages] = useState({})
+    const [previewImageSizeRatio, setPreviewImageSizeRatio] = useState({})
 
-    const submit = (imagesEmptyArrays, unsortedImages, imageMap, imageSizeArray, smallImageUrl) => {
+    const submit = (imagesEmptyArraysSmall, imagesEmptyArraysLarge, unsortedImages, imageMap, imageSizeArray, dataObj, filesIndex) => {
+
         const title = document.getElementById('add-content-title').value
         const location = document.getElementById('autocomplete').value
         const splitLocation = location.split(',')
@@ -251,7 +260,6 @@ const AddContent = (props) => {
         let titleNoBlankSpace = title.trim()
         let url = titleNoBlankSpace.split(' ')
         url = url.join('-')
-        // let url = titleNoBlankSpace.replaceAll(' ', '-')
         url = url.toLowerCase()
     
         for (let i=0; i<content.length; i++) {
@@ -264,30 +272,44 @@ const AddContent = (props) => {
         }else{
             let descriptionNoEllipsis = descriptionArray[0].substring(0, 150)
             if (descriptionNoEllipsis[descriptionNoEllipsis.length-1] !== '.') {
-                descriptionNoEllipsis += '...'
+                descriptionNoEllipsis = descriptionNoEllipsis.slice(0, -3)
+                if(descriptionNoEllipsis[descriptionNoEllipsis.length-1] !== '.'){
+                    descriptionNoEllipsis += '...'
+                }
             }
             previewDescription = descriptionNoEllipsis
         }
     
-        let mainImage = ''
+        let mainImage
+        let mainImageSmall
     
-        let imagesEmptyArraysCopy = imagesEmptyArrays
-        let imageMapCopy = imageMap
-    
-        for(let i=0; i<unsortedImages.length; i++) {
+        let unsortedImagesLarge = unsortedImages.slice(0, unsortedImages.length/2)
+        let unsortedImagesSmall = unsortedImages.slice(unsortedImages.length / 2)
+
+        for(let i=0; i<unsortedImagesLarge.length; i++) {
             if(i === 0) {
-                mainImage = unsortedImages[i]
+                mainImage = unsortedImagesLarge[i]
+                mainImageSmall = unsortedImagesSmall[i]
             }else{
-                if(i<imageMapCopy.length+1) {
-                    imagesEmptyArraysCopy[imageMapCopy[i-1]].push(unsortedImages[i])
+                if(i<imageMap.length+1) {
+                // if(i<imageMapCopy.length) {
+                    imagesEmptyArraysLarge[imageMap[i-1]].push(unsortedImagesLarge[i])
+                    imagesEmptyArraysSmall[imageMap[i-1]].push(unsortedImagesSmall[i])
                 }
             }
         }
-    
-        const urlObject = {}
-        
-        for (let i=0; i<imagesEmptyArraysCopy.length; i++) {
-            urlObject[i] = imagesEmptyArraysCopy[i]
+
+
+        const imageSizeArrayValues = Object.values(imageSizeArray)
+        const urlObjectLarge = {}
+        const urlObjectSmall = {}
+        const imageSizeArrayWithIndex = {}
+        for (let i=0; i<imagesEmptyArraysLarge.length; i++) {
+            urlObjectLarge[filesIndex[i]] = imagesEmptyArraysLarge[i]
+            urlObjectSmall[filesIndex[i]] = imagesEmptyArraysSmall[i]
+            imageSizeArrayWithIndex[filesIndex[i]] = imageSizeArrayValues[i]
+            // urlObjectLarge[i] = imagesEmptyArraysLarge[i]
+            // urlObjectSmall[i] = imagesEmptyArraysSmall[i]
         }
         db.collection('users').doc(props.user)
         .get()
@@ -307,13 +329,14 @@ const AddContent = (props) => {
                     const continent = data.docs[0].data()[country]
                     db.collection('posts').add({
                         font,
-                        photoBodyMap: imageSizeArray,
-                        content: descriptionArray,
-                        images: urlObject,
+                        photoBodyMap: imageSizeArrayWithIndex,
+                        // content: descriptionArray,
+                        imagesLarge: urlObjectLarge,
+                        imagesSmall: urlObjectSmall,
                         title,
                         timestamp,
                         previewDescription,
-                        smallImage: smallImageUrl,
+                        smallImage: mainImageSmall,
                         image: mainImage,
                         category,
                         city,
@@ -321,6 +344,7 @@ const AddContent = (props) => {
                         continent,
                         author: name,
                         location,
+                        dataObj,
                         // views: 0, change back later
                         url,
                         username
@@ -341,7 +365,7 @@ const AddContent = (props) => {
                                 id: docRef.id,
                                 author: name,
                                 previewDescription,
-                                smallImage: smallImageUrl,
+                                smallImage: mainImageSmall,
                                 title,
                                 image: mainImage,
                                 category,
@@ -373,133 +397,127 @@ const AddContent = (props) => {
         })
     }
     
-    const fileUpload = (user, imageSizeArray) => {
-        let smallImageUrl
+    const fileUpload1 = (imageSizeArray) => {
         const title = document.getElementById('add-content-title').value
         let url = title.split(' ')
         url = url.join('-')
         url = url.toLowerCase()
-
-        const file = document.getElementsByClassName('photo-input')[0].files[0]
-        const reader2 = new FileReader()
-        reader2.readAsDataURL(file);
-        reader2.onload = (e) => {
-            const fileName = file.name
-            const image = document.createElement('img')
-            image.src = e.target.result;
-            image.onload = function () {
-                resizeFile(image, image, fileName);
-            };
-        }
-
-        const resizeFile = (loadedData, fileName) => { 
+        setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+        // const random = Math.round(Math.random()*1000000)
+        db.collection('users')
+        .doc(props.user)
+        .get()
+        .then(userData=> {
             setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-            const height = loadedData.height
-            const width = loadedData.width
-            let ratio
-            let finalHeight
-            let finalWidth
-            if (height >= width) {
-                ratio = width / height
-                finalHeight = 850
-                finalWidth = Math.round(ratio * 850)
-            }else {
-                ratio = height / width
-                finalWidth = 850
-                finalHeight = Math.round(ratio * 850)
+            const username = userData.data().username
+            setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
+            setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+
+            let photoIndexes = []
+            let fileArray = []
+            const photoUrlArraySortedSmall = []
+            const photoUrlArraySortedLarge = []
+            // const photoFiles = [...filesLarge, ...filesSmall]
+            for (let i = 0; i < filesLarge.length; i++) {
+                fileArray = [...fileArray, ...filesLarge[i]]
+                // if(filesLarge[i].length > 0) {
+                    if(i !== 0){
+                        photoUrlArraySortedSmall.push([])
+                        photoUrlArraySortedLarge.push([])
+                        for(let j = 0; j<filesLarge[i].length; j++) {
+                            photoIndexes.push(i-1)
+                        }
+                    }
+                // }
+                // else{
+                //     if(i!==0) {
+                //         photoIndexes.push(i-1)
+                //         photoUrlArraySortedSmall.push([])
+                //         photoUrlArraySortedLarge.push([])
+                //     }
+                // }
             }
-            let canvas = document.createElement('canvas'),
-            ctx;
-            canvas.width = finalWidth;
-            canvas.height = finalHeight;
-            ctx = canvas.getContext('2d');
-            ctx.drawImage(loadedData, 0, 0, canvas.width, canvas.height);
-            fileUpload(canvas, fileName)
-        }
-
-        const fileUpload = (imageData, fileName) => {
-            setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-            var dataURL = imageData.toDataURL('image/jpeg', 1)
-            const random = Math.round(Math.random()*1000000)
-            db.collection('users')
-            .doc(props.user)
-            .get()
-            .then(userData=> {
-                setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-                const username = userData.data().username
-                firebase.storage().ref()
-                .child(`${username}/${url}/${fileName}${random}`)
-                .putString(dataURL, 'data_url')
-                .then((snapshot) => {
-                    setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
-                    snapshot.ref.getDownloadURL()
-                    .then(miniImageUrl=> {
-                        setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-                        smallImageUrl = miniImageUrl
-
-                        let photoIndexes = []
-                        let fileArray = []
-                        const photoUrlArraySorted = []
-                        // const urlArray = []
-                        const photoFiles = document.getElementsByClassName('photo-input')
-                        for (let i = 0; i < photoFiles.length; i++) {
-                            fileArray = [...fileArray, ...photoFiles[i].files]
-                            if(photoFiles[i].files.length > 1) {
-                                photoUrlArraySorted.push([])
-                                for(let j = 0; j<photoFiles[i].files.length; j++) {
-                                    photoIndexes.push(i-1)
-                                }
+            for (let i = 0; i < filesLarge.length; i++) {
+                fileArray = [...fileArray, ...filesSmall[i]]
+            }
+            const urlArray = []
+            let index = []
+            let indexNum = 0
+            const upload = () => {
+                if(indexNum<fileArray.length) {
+                    const random = Math.round(Math.random()*1000000)
+                    const file = fileArray[indexNum]
+                    firebase.storage().ref()
+                    .child(`${username}/${url}/${fileNames[indexNum]}${random}`)
+                    .putString(file, 'data_url')
+                    .then(snapshot => {
+                        setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
+                        snapshot.ref.getDownloadURL()
+                        .then(downloadURL => {
+                            urlArray.push(downloadURL)  
+                            indexNum++ 
+                            index.push(downloadURL) 
+                        }).then((downloadURL)=> {
+                            setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+                            if(urlArray.length===fileArray.length) {
+                                submit(photoUrlArraySortedSmall, photoUrlArraySortedLarge, [...urlArray], photoIndexes, imageSizeArray, itemsToUploadData, filesIndex)
                             }else{
-                                if(i!==0) {
-                                    photoIndexes.push(i-1)
-                                    photoUrlArraySorted.push([])
-                                }
+                                upload()
                             }
-                        }
-                        const urlArray = []
-                        let index = []
-                        let indexNum = 0
-                        const upload = () => {
-                            if(indexNum<fileArray.length) {
-                                const random = Math.round(Math.random()*1000000)
-                                const file = fileArray[indexNum]
-                                const metadata = {
-                                    contentType: file.type
-                                }
-                                firebase.storage().ref()
-                                .child(`${username}/${url}/${file.name}${random}`)
-                                .put(file, metadata)
-                                .then(snapshot => {
-                                    setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
-                                    snapshot.ref.getDownloadURL()
-                                    .then(downloadURL => {
-                                        urlArray.push(downloadURL)  
-                                        indexNum++ 
-                                        index.push(downloadURL) 
-                                    }).then((downloadURL)=> {
-                                        setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-                                        if(urlArray.length===fileArray.length) {
-                                            submit(photoUrlArraySorted, [...urlArray, downloadURL], photoIndexes, imageSizeArray, smallImageUrl)
-                                        }else{
-                                            upload()
-                                        }
-                                    })
-                                    .catch(error => console.log(error))
-                                });
-                            }else{
-                                return
-                            }
-                        }
-                        upload()
-                    })
-                }).catch((error) => {
-                    console.log(error)
-                })
-            })
+                        })
+                        .catch(error => console.log(error))
+                    });
+                }else{
+                    return
+                }
+            }
+            upload()
+        })
+    }
+
+
+    const getItemsToUploadData = () => {
+        const data = document.getElementsByClassName('item-to-upload')
+        let dataObj = {}
+        let filesIndexArr = []
+        let index = 0
+        let previewImageIndex = 1
+        let previewImageSizeRatioIndex = 0
+        let previewImagesObj = {}
+        let previewImageSizeRatioObj = {}
+        for (let i = 0; i<data.length; i++){
+            if(data[i].className.includes('add-content-description-input') || data[i].className.includes('content-paragraph')){
+                if(data[i].value.length > 0) {
+                    dataObj[index] = ['paragraph', data[i].value]
+                    index++
+                }
+            }
+            if(data[i].className.includes('new-header-input')){
+                if(data[i].value.length > 0) {
+                    dataObj[index] = ['header', data[i].value]
+                    index++
+                }
+            }
+            if(data[i].className.includes('image-caption-input')){
+                if(data[i].value.length > 0) {
+                    dataObj[index] = ['caption', data[i].value]
+                    index++
+                }
+            }
+            if(data[i].className.includes('body-photos')){
+                previewImageSizeRatioObj[index] = imageSizeRatio[previewImageSizeRatioIndex]
+                previewImagesObj[index] = filesSmall[previewImageIndex]
+                previewImageIndex++
+                previewImageSizeRatioIndex++
+                dataObj[index] = ['images', i]
+                filesIndexArr.push(index)
+                index++
+            }
         }
-
-
-
+        setPreviewImageSizeRatio(previewImageSizeRatioObj)
+        setPreviewImages(previewImagesObj)
+        setItemsToUploadData(dataObj)
+        setFilesIndex(filesIndexArr)
     }
 
     const getBodyContent = () => {
@@ -514,7 +532,12 @@ const AddContent = (props) => {
     const getParagraphSample = () => {
         let paragraphArr = []
         const paragraph = document.getElementById('content-paragraph-original').value
-        paragraphArr.push(paragraph)
+        const splitParagraph = paragraph.split('\n')
+        let finalParagraph = splitParagraph[0].slice(0, 400)
+        if(finalParagraph[finalParagraph.length-1]!=='.'){
+            finalParagraph += '...'
+        }
+        paragraphArr.push(finalParagraph)
         setParagraph(paragraphArr)
     }
 
@@ -566,9 +589,6 @@ const AddContent = (props) => {
             case 1:
                 if(titlePhotoProceed) {
                     checkTitleDuplicates()
-                    // setTitlePhotoProps('transitionEnd')
-                    // setCategoryLocationProps('transitionStart')
-                    // setSwitchValue(2)
                 }
                 break
             case 2:
@@ -587,6 +607,7 @@ const AddContent = (props) => {
                 break
             case 4:
                 if(bodyProceed) {
+                    getItemsToUploadData()
                     setBody('transitionEnd')
                     setSelectFontProps('transitionStart')
                     getParagraphSample()
@@ -603,7 +624,7 @@ const AddContent = (props) => {
             break
                 case 6: 
                 setPreviewProps('transitionEnd')
-                fileUpload(props.user, imageSizeRatio)
+                fileUpload1(imageSizeRatio)
                 setUploadStatusProps('transitionStart')
                 // setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
                 setSwitchValue(7)
@@ -622,10 +643,11 @@ const AddContent = (props) => {
                 break
             case 3:
                 setCategoryLocationProps('transitionBack')
+                setCreateDescriptionProps('initial')
                 setSwitchValue(2)
                 break
             case 4: 
-            setCreateDescriptionProps('transitionBack')
+                setCreateDescriptionProps('transitionBack')
                 setBody('initial')
                 setSwitchValue(3)
                 break
@@ -645,9 +667,9 @@ const AddContent = (props) => {
     }
 
 
-
     return(
         <div>
+            {/* <button onClick={()=>console.log(filesSmall, filesLarge, fileNames)}>Upload test</button> */}
             <UploadProgress uploadProgressColor={uploadProgressColor} animate={uploadStatusProps} variants={animationMap.uploadStatus} uploadCount={uploadCount} uploadProgress={uploadProgress}/>
             {switchValue === 7 ? 
             null
@@ -656,18 +678,18 @@ const AddContent = (props) => {
 
             <NextButton proceed={1} width='130px' onClick={()=>props.history.goBack()}>Back</NextButton>
             <Scroll scrollHeight='90vh' visibility={animationMap.preview[previewProps].opacity}>
-                <Preview font={font} isImageHorizontal={isImageHorizontal} imageSizeRatio={imageSizeRatio} bodyImages={bodyImages} bodyContent={bodyContent} mainImage={mainImage} previewProps={previewProps} animationMap={animationMap}></Preview>
+                <Preview previewImageSizeRatio={previewImageSizeRatio} previewImages={previewImages} filesSmall={filesSmall} itemsToUploadData={itemsToUploadData} font={font} isImageHorizontal={isImageHorizontal} imageSizeRatio={imageSizeRatio} bodyImages={bodyImages} bodyContent={bodyContent} filesLarge={filesLarge} previewProps={previewProps} animationMap={animationMap}></Preview>
             </Scroll>
             </div>
             }
             <Scroll scrollHeight='90vh' visibility={animationMap.titlePhoto[titlePhotoProps].opacity}>
-                <TitlePhoto isDuplicate={isDuplicate} setTitlePhotoProceed={setTitlePhotoProceed} setIsImageHorizontal={setIsImageHorizontal} setMainImage={setMainImage} animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} titlePhotoProps={titlePhotoProps}/>
+                <TitlePhoto fileNames={fileNames} setFileNames={setFileNames}  filesLarge={filesLarge} filesSmall={filesSmall} setFilesLarge={setFilesLarge} setFilesSmall={setFilesSmall} isDuplicate={isDuplicate} setTitlePhotoProceed={setTitlePhotoProceed} setIsImageHorizontal={setIsImageHorizontal} animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} titlePhotoProps={titlePhotoProps}/>
             </Scroll>
             <Scroll scrollHeight='90vh' visibility={animationMap.categoryLocation[categoryLocationProps].opacity}>
                 <CategoryLocation setCategoryLocationProceed={setCategoryLocationProceed} animationMap={animationMap} categoryLocation={categoryLocationProps}/>
             </Scroll>
             <Scroll scrollHeight='90vh' visibility={animationMap.body[bodyProps].opacity}>
-                <Body setBodyProceed={setBodyProceed} imageSizeRatio={imageSizeRatio} setImageSizeRatio={setImageSizeRatio} setBody={setBody} animationMap={animationMap} bodyProps={bodyProps}></Body>
+                <Body fileNames={fileNames} setFileNames={setFileNames} filesSmall={filesSmall} filesLarge={filesLarge} setFilesSmall={setFilesSmall} setFilesLarge={setFilesLarge} setBodyProceed={setBodyProceed} imageSizeRatio={imageSizeRatio} setImageSizeRatio={setImageSizeRatio} setBody={setBody} animationMap={animationMap} bodyProps={bodyProps}></Body>
             </Scroll>
             <Scroll scrollHeight='90vh' visibility={animationMap.selectFont[selectFontProps].opacity}>
                 <SelectFont setFontProceed={setFontProceed} font={font} setFont={setFont} paragraph={paragraph} animationMap={animationMap} selectFontProps={selectFontProps}/>
@@ -677,7 +699,6 @@ const AddContent = (props) => {
             <Scroll scrollHeight='90vh' visibility={animationMap.createDescription[createDescriptionProps].opacity}>
                 <PostDescription setNumberCharacters={setNumberCharacters} animationMap={animationMap} createDescriptionProps={createDescriptionProps} />
             </Scroll>
-
 
             {switchValue === 7 ? 
             null
@@ -707,7 +728,7 @@ const AddContent = (props) => {
                     }
                 })()}
             </ButtonContainer>
-            }
+            }     
         </div>
     )
 }

@@ -105,7 +105,8 @@ export const NewItemButton = styled.button`
     color: white;
     background-color: #141414;
     border: none;
-    width: ${props=> props.long ? '60vw ': '40vw'};
+    width: ${props=> props.long ? '30vw ': '24vw'};
+    border-left: ${props=> props.border};
     /* width: 40vw; */
     height: 50px;
     cursor: pointer;
@@ -120,7 +121,7 @@ export const RemoveLastElement = styled.button`
     color: white;
     background-color: #ff6257;
     border: none;
-    width: 20vw;
+    width: 12vw;
     height: 50px;
     cursor: pointer;
     transition: background-color 400ms;
@@ -148,7 +149,7 @@ export const DescriptionInput = styled.textarea`
     width: 60vw;
     height: 150px;
     font-size: 20px;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 `
 
 export const SelectInput = styled.select`
@@ -176,7 +177,8 @@ export const Label = styled.label`
 export const BodyButtonContainer = styled.div`
     display: flex;
     align-items: center;
-    margin-bottom: 50px;
+    justify-content: center;
+    margin: 20px 0 70px 0;
 `
 
 export const PostDescriptionContainer = styled(motion.div)`
@@ -191,4 +193,10 @@ export const PostDescriptionInput = styled.textarea`
     width: 600px;
     height: 150px;
     font-size: 20px;
+`
+
+export const ButtonIconContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `

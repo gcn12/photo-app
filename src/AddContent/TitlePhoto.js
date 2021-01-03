@@ -13,21 +13,77 @@ const TitlePhoto = (props) => {
 
     const displayImage = () => {
         checkProceed()
-        props.setTitlePhotoProps('shiftUp')
         const file = document.getElementById('photo-input').files[0]
         const viewFile = new FileReader()
+        const fileName = file.name
         viewFile.onload = (e) => {
-            const heightWidth = new Image()
-            heightWidth.src=e.target.result
-            heightWidth.onload = function () {
-                if(heightWidth.height / heightWidth.width > 1)  {
+            const uploadedImage = document.createElement('img')
+            uploadedImage.src=e.target.result
+            props.setTitlePhotoProps('shiftUp')
+            uploadedImage.onload = function () {
+                const height = this.height;
+                const width = this.width;
+                if(height / width > 1)  {
                     props.setIsImageHorizontal(false)
                 }
+                const image = document.getElementById('previewImage')
+                let ratio = height / width
+                let finalHeightLarge
+                let finalWidthLarge
+                let finalHeightSmall
+                let finalWidthSmall
+                if(height > 850 || width > 850) {
+                    if (height >= width) {
+                        finalHeightSmall = Math.round(ratio * 850)
+                        finalWidthSmall = 850
+                    }else {
+                        finalWidthSmall =  850
+                        finalHeightSmall = Math.round(ratio * 850)
+                    }
+                }else{
+                    finalHeightSmall = height
+                    finalWidthSmall = width
+                }
+                let canvasSmall = document.createElement('canvas'), ctx2;
+                canvasSmall.width = finalWidthSmall;
+                canvasSmall.height = finalHeightSmall;
+                ctx2 = canvasSmall.getContext('2d');
+                ctx2.drawImage(uploadedImage, 0, 0, canvasSmall.width, canvasSmall.height);
+                const imageSrcSmall = canvasSmall.toDataURL('image/jpeg', 1)
+                image.src = imageSrcSmall
+                const filesSmallCopy = props.filesSmall
+                filesSmallCopy[0] = [imageSrcSmall]
+                props.setFilesSmall(filesSmallCopy)
+
+
+                if(height > 2500 || width > 2500) {
+                    if (height >= width) {
+                        finalHeightLarge = 2500
+                        finalWidthLarge = Math.round(ratio * 2500)
+                    }else {
+                        finalWidthLarge = 2500
+                        finalHeightLarge = Math.round(ratio * 2500)
+                    }
+                }else{
+                    finalHeightLarge = height
+                    finalWidthLarge = width
+                }
+                let canvasLarge = document.createElement('canvas'), ctx;
+                canvasLarge.width = finalWidthLarge;
+                canvasLarge.height = finalHeightLarge;
+                ctx = canvasLarge.getContext('2d');
+                ctx.drawImage(uploadedImage, 0, 0, canvasLarge.width, canvasLarge.height);
+                const imageSrcLarge = canvasLarge.toDataURL('image/jpeg', 1)
+
+                props.setFileNames(fileName)
+
+                const filesLargeCopy = props.filesLarge
+                filesLargeCopy[0] = [imageSrcLarge]
+                props.setFilesLarge(filesLargeCopy)
             }
 
-            const image = document.getElementById('previewImage')
-            image.src = e.target.result
-            props.setMainImage(e.target.result)
+
+
         }
         viewFile.readAsDataURL(file)
 

@@ -71,6 +71,22 @@ export const Paragraphs = styled.textarea`
     margin-bottom: 30px;
 `
 
+export const EditCaption = styled.input`
+    font-family: ${props=> props.font};
+    font-size: 20px;
+    height: 30px;
+    width: 40vw;
+    margin-bottom: 40px;
+`
+
+export const EditHeader = styled.input`
+    font-family: ${props=> props.font};
+    font-size: 20px;
+    height: 30px;
+    width: 60vw;
+    margin-bottom: 15px;
+`
+
 export const Images = styled.img`
     width: 200px;
     height: auto;
@@ -136,7 +152,9 @@ export const Masonry = styled.div`
 
 export const ImageNew = styled.img`
     height: 200px;
-    line-height: 150px;
+    width: auto;
+    padding: 0 10px;
+    /* line-height: 150px;
     background: #EC985A;
     color: white;
     margin: 0 1rem 1rem 0;
@@ -144,7 +162,7 @@ export const ImageNew = styled.img`
     font-family: system-ui;
     font-weight: 900;
     font-size: 2rem;
-    flex: 1 0 auto;
+    flex: 1 0 auto; */
 `
 
 export const BodyButtonContainer = styled.div`
@@ -187,7 +205,7 @@ export const UploadLabel = styled.label`
     margin: 5px 0 10px 0;
     border: 1px solid black;
     padding: 5px;
-    color: black;
+    color: #242424;
     cursor: pointer;
     font-size: 18px;
 `

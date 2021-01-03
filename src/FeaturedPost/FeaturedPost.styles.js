@@ -51,7 +51,7 @@ export const Description = styled.div`
     font-family: ${props=> props.font};
     /* color: white; */
     width: 50vw;
-    margin: 20px 0;
+    margin: 10px 0 20px 0;
     font-size: 20px;
     white-space: pre-wrap;
     line-height: 35px;
@@ -95,6 +95,18 @@ export const BodyImageContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 35px 0;
+    margin: 5px 0 5px 0;
 `
 
+export const Header = styled.div`
+    font-size: 40px;
+    font-family: ${props=> props.font};
+    font-weight: 500;
+    width: 50vw;
+`
+
+export const Caption = styled.div`
+    font-size: 17px;
+    font-family: ${props=> props.font};
+    margin: 0 0 30px 0;
+`
