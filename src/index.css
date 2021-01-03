@@ -3,7 +3,6 @@ body {
   /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif; */
-  /* font-family: 'Montserrat', serif; */
   font-family: 'Prata', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -43,4 +42,12 @@ html {
 
 label {
   color: white;
+}
+
+input {
+  font-family: 'Prata', serif;
+}
+
+textarea {
+  font-family: 'Prata', serif;
 }

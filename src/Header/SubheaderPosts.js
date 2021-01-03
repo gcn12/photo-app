@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { ReactComponent as PhotoGrid } from '../Icons/PhotoGrid.svg'
 import { ReactComponent as DescriptionGrid } from '../Icons/DescriptionGrid.svg'
 import { homePhotoInformation, displayView, sortCriteria } from '../Redux/Actions/appActions'
@@ -16,7 +16,7 @@ import SubheaderCategories from './SubheaderCategories'
 
 
 const Subheader = (props) => {
-    const [showCategories, setShowCategories] = useState(false)
+    // const [showCategories, setShowCategories] = useState(false)
     const openDropdown = () => {
         props.dispatch(dropdownTransition('transitionStart'))
         props.dispatch(visibility(true))
@@ -44,11 +44,11 @@ const Subheader = (props) => {
         // document.body.style.position = 'fixed'
     }
 
-    window.onclick = (e) => {
-        if (!e.target.matches('.categories-dropdown')) {
-            setShowCategories(false)
-        }
-    }
+    // window.onclick = (e) => {
+    //     if (!e.target.matches('.categories-dropdown')) {
+    //         setShowCategories(false)
+    //     }
+    // }
 
     const changeSort = (sortCriteriaInput) => {
         props.dispatch(homePhotoInformation([]))
@@ -94,10 +94,10 @@ const Subheader = (props) => {
                     </div>
                     <div style={{display: 'flex'}} >
                         <div className='categories-dropdown'>
-                            <div onClick={()=>setShowCategories(!showCategories)}>
+                            <div onClick={()=>props.setShowCategories(!props.showCategories)}>
                                 <CategoriesButton className='categories-dropdown'>{props.sortCriteria.category} &#x25BC;</CategoriesButton>
                             </div>
-                            {showCategories ? 
+                            {props.showCategories ? 
                             <div style={{position: 'relative'}}>
                                 <SubheaderCategories 
                                     setIsMainPhotosVisible={props.setIsMainPhotosVisible} 

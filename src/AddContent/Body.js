@@ -128,21 +128,6 @@ const Body = (props) => {
                 }
                 loopProcessImages()
             }
-            // else{
-            //     const index = inputID[inputID.length-1]
-            //     const imageSizeRatioCopy = props.imageSizeRatio 
-            //     imageSizeRatioCopy[index] = [1]
-            //     props.setImageSizeRatio(imageSizeRatioCopy)
-            //     const file = images.files[0];
-            //     const fileReader  = new FileReader();
-            //     fileReader.onload = function(e)  {
-            //         const displayImage = document.createElement("img");
-            //         displayImage.src = e.target.result;
-            //         displayImage.className = `upload-gallery-image upload-gallery-image-${inputDiv}`
-            //         document.getElementById(inputDiv).appendChild(displayImage);
-            //     }
-            //     fileReader.readAsDataURL(file);
-            // }
         }else{
             setIsTooManyImages(true)
         }

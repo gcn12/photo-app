@@ -57,8 +57,8 @@ export const Description = styled.div`
     line-height: 35px;
     /* text-align: justify; */
     text-justify: inter-word;
-    @media (max-width: 950px) {
-        width: 60vw;
+    @media (max-width: 1000px) {
+        width: 85vw;
         margin: 0px;
     }
     @media (max-width: 500px) {
@@ -74,14 +74,17 @@ export const AddCollectionHeartContainer = styled.div`
 `
 
 export const BodyImage = styled.img`
-    width: ${props=> `${props.width}`};
+    /* width: ${props=> `${props.width}`}; */
+    width: ${props=> props.imageQuantity > 1 ? `calc(${props.width} * 65vw)` : 'auto'};
+    /* width: calc(5 * 65)vw; */
     margin:  ${props=>  props.margin};
     max-height: 90vh;
     max-width: 65vw;
     display: block;
-    /* @media (max-width: 950px) {
-        margin: 0;
-    } */
+    @media (max-width: 1000px) {
+        /* margin: 0; */
+        width: ${props=> props.imageQuantity > 1 ? `calc(${props.width} * 90vw)` : 'auto'};
+    }
 `
 
 export const BodyContainer = styled.div`
@@ -103,10 +106,28 @@ export const Header = styled.div`
     font-family: ${props=> props.font};
     font-weight: 500;
     width: 50vw;
+    @media (max-width: 1000px) {
+        width: 85vw;
+    }
+    @media (max-width: 500px) {
+        width: 90vw;
+    }
 `
 
 export const Caption = styled.div`
     font-size: 17px;
     font-family: ${props=> props.font};
     margin: 0 0 30px 0;
+    @media (max-width: 1000px) {
+        width: 85vw;
+    }
+    @media (max-width: 500px) {
+        width: 90vw;
+    }
+`
+
+export const PostFooterContainer = styled.div`
+    display: flex;
+    justify-content: space-evenly;
+    margin: 100px 0;
 `

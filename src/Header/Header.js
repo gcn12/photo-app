@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { db } from '../Firebase'
 import SubheaderPosts from './SubheaderPosts'
 import SubheaderDropdown from './SubheaderDropdown'
@@ -6,6 +6,7 @@ import CategoriesDropdown from './CategoriesDropdown'
 import SearchDropdown from './SearchDropdown'
 import SubheaderSearch from './SubheaderSearch'
 import Search from '../Search/Search'
+import ProfileDropdown from './ProfileDropdown'
 import { connect } from 'react-redux'
 import { homePhotoInformation } from '../Redux/Actions/appActions'
 import { searchTransition, searchVisibility, selected, selectedCategory } from '../Redux/Actions/headerActions'
@@ -22,6 +23,8 @@ import {
 } from './Header.styles'
 
 const Header = (props) => {
+    const [showProfileDropdown, setShowProfileDropdown] = useState(false)
+    const [showCategories, setShowCategories] = useState(false)
 
     const sort = (value) => {
         props.dispatch(selected(value))
@@ -115,6 +118,15 @@ const Header = (props) => {
         props.sort(criteria, true)
     }
 
+    window.onclick = (e) => {
+        if (!e.target.matches('.profile-dropdown')) {
+            setShowProfileDropdown(false)
+        }
+        if (!e.target.matches('.categories-dropdown')) {
+            setShowCategories(false)
+        }
+    } 
+
     return(
         <div style={{position: 'fixed', top: 0, width: '100%', marginBottom: '20px', zIndex:2}}>
             {!props.location.pathname.includes('/photo-app/upload') ? 
@@ -148,9 +160,16 @@ const Header = (props) => {
                         }
                         <Navigation>|</Navigation>
                         {props.user ? 
-                        <Link to='/photo-app/profile' style={{ textDecoration: 'none' }}>
-                            <Navigation cursor='pointer'>Profile</Navigation>
-                        </Link>
+                        <div style={{position: 'relative'}}>
+                        {/* <Link to='/photo-app/profile' style={{ textDecoration: 'none' }}> */}
+                            <Navigation className='profile-dropdown' onClick={()=> setShowProfileDropdown(!showProfileDropdown)} cursor='pointer'>Profile</Navigation>
+                            {showProfileDropdown ? 
+                            <ProfileDropdown setShowProfileDropdown={setShowProfileDropdown} history={props.history} />
+                            :
+                            null
+                            }
+                        {/* </Link> */}
+                        </div>
                         :
                         <Link to='/photo-app/login' style={{ textDecoration: 'none' }}>
                             <Navigation cursor='pointer'>Log in</Navigation>
@@ -160,6 +179,8 @@ const Header = (props) => {
                 </Container>
                 {props.location.pathname.includes('/photo-app/posts') ? 
                 <SubheaderPosts 
+                    setShowCategories={setShowCategories}
+                    showCategories={showCategories}
                     location={props.location}
                     sort={props.sort} 
                     setIsMainPhotosVisible={props.setIsMainPhotosVisible} 
@@ -171,6 +192,8 @@ const Header = (props) => {
                 }
                 {props.location.pathname.includes('/photo-app/search') ? 
                 <SubheaderSearch 
+                    setShowCategories={setShowCategories}
+                    showCategories={showCategories}
                     search={props.search}
                     location={props.location}
                     sort={props.sort}  

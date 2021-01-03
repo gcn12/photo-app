@@ -487,22 +487,16 @@ const AddContent = (props) => {
         let previewImageSizeRatioObj = {}
         for (let i = 0; i<data.length; i++){
             if(data[i].className.includes('add-content-description-input') || data[i].className.includes('content-paragraph')){
-                if(data[i].value.length > 0) {
-                    dataObj[index] = ['paragraph', data[i].value]
-                    index++
-                }
+                dataObj[index] = ['paragraph', data[i].value]
+                index++
             }
             if(data[i].className.includes('new-header-input')){
-                if(data[i].value.length > 0) {
-                    dataObj[index] = ['header', data[i].value]
-                    index++
-                }
+                dataObj[index] = ['header', data[i].value]
+                index++
             }
             if(data[i].className.includes('image-caption-input')){
-                if(data[i].value.length > 0) {
-                    dataObj[index] = ['caption', data[i].value]
-                    index++
-                }
+                dataObj[index] = ['caption', data[i].value]
+                index++
             }
             if(data[i].className.includes('body-photos')){
                 previewImageSizeRatioObj[index] = imageSizeRatio[previewImageSizeRatioIndex]

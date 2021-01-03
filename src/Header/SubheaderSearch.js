@@ -19,7 +19,7 @@ import SubheaderCategories from './SubheaderCategories'
 const Subheader = (props) => {
     const [category, setCategory] = useState('all categories')
     // const [result, setResult] = useState('all results')
-    const [showCategories, setShowCategories] = useState(false)
+    // const [showCategories, setShowCategories] = useState(false)
     // const [showResults, setShowResults] = useState(false)
     const openDropdown = () => {
         props.dispatch(dropdownTransition('transitionStart'))
@@ -48,14 +48,11 @@ const Subheader = (props) => {
         // document.body.style.position = 'fixed'
     }
 
-    window.onclick = (e) => {
-        if (!e.target.matches('.categories-dropdown')) {
-            setShowCategories(false)
-        }
-        // if (!e.target.matches('.results-dropdown')) {
-            // setShowResults(false)
-        // }
-    }
+    // window.onclick = (e) => {
+    //     if (!e.target.matches('.categories-dropdown')) {
+    //         props.setShowCategories(false)
+    //     }
+    // }
 
     const changeSort = (result) => {
         if(result !== props.searchQueries) {
@@ -80,10 +77,10 @@ const Subheader = (props) => {
                         <div style={{display: 'flex'}} className='categories-dropdown'>
                             {props.searchQueries === 'posts' ? 
                             <div>
-                                <div onClick={()=>setShowCategories(!showCategories)}>
+                                <div onClick={()=>props.setShowCategories(!props.showCategories)}>
                                     <CategoriesButton className='categories-dropdown'>{props.sortCriteria.category} &#x25BC;</CategoriesButton>
                                 </div>
-                                {showCategories ? 
+                                {props.showCategories ? 
                                 <div style={{position: 'relative'}}>
                                     <SubheaderCategories 
                                         search={props.search}

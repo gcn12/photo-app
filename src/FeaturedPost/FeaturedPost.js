@@ -5,12 +5,16 @@ import { db } from '../Firebase'
 import { Link } from 'react-router-dom'
 import { ReactComponent as EmptyHeart } from '../Icons/EmptyHeart.svg'
 import { ReactComponent as FilledHeart } from '../Icons/FilledHeart.svg'
+import { ReactComponent as Add } from '../Icons/Add.svg'
+import { ReactComponent as EmptyBookmark } from '../Icons/EmptyBookmark.svg'
+import { ReactComponent as FilledBookmark } from '../Icons/FilledBookmark.svg'
 import firebase from 'firebase'
 import { motion } from 'framer-motion'
 import { connect } from 'react-redux'
 import { photoInformation } from '../Redux/Actions/appActions'
 import { collectionsList } from '../Redux/Actions/featuredPostActions'
-// import FeaturedPostGallery from '../FeaturedPostGallery/FeaturedPostGallery'
+import AddToCollection from './AddToCollection'
+import FeaturedPostGallery from '../FeaturedPostGallery/FeaturedPostGallery'
 import { SubmitButton } from '../AddContent/AddContent.styles'
 import { 
     incrementHeartCount, 
@@ -27,11 +31,12 @@ import {
     InfoContainer,
     BodyContainer,
     BodyImageContainer,
-    DateStyle,
-    AddCollectionHeartContainer,
     BodyImage,
     Header,
     Caption,
+    PostFooterContainer,
+    DateStyle,
+    AddCollectionHeartContainer,
 } from './FeaturedPost.styles'
 
 
@@ -43,6 +48,8 @@ const FeaturedPost = (props) => {
     const [cityPhotos, setCityPhotos] = useState([])
     const [isImageHorizontal, setIsImageHorizontal] = useState(true)
     const [isHeart, setIsHeart] = useState(false)
+    const [isBookmark, setIsBookmark] = useState(false)
+    const [isAddToCollection, setIsAddToCollection] = useState(false)
     const [animateLoad, setAnimateLoad] = useState('initial')
 
     
@@ -248,6 +255,11 @@ const FeaturedPost = (props) => {
     return(
         <motion.div style={{marginTop: '75px'}} variants={variants} initial='initial' animate={animateLoad}>
             {/* <SubmitButton onClick={()=>props.history.goBack()}>Back</SubmitButton> */}
+            {isAddToCollection ? 
+            <AddToCollection setIsAddToCollection={setIsAddToCollection} />
+            :
+            null
+            }
             <Container>
                 <div>
                     <MainImage onLoad={null} width={isImageHorizontal ? '80vw' : 'auto'} height={isImageHorizontal ? 'auto' : '80vh'} id='featured-main-image' alt='display' src={props?.photoInformation?.image}></MainImage>
@@ -305,7 +317,14 @@ const FeaturedPost = (props) => {
                         <BodyImageContainer>
                             {props?.photoInformation?.imagesSmall[item]?.map((image, i)=> {
                                 return(
-                                    <BodyImage margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 .5%' : '0%'} width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} src={image} key={i}></BodyImage>
+                                    // <BodyImage length={props?.photoInformation?.photoBodyMap[item].length} margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 .5%' : '0%'} width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} src={image} key={i}></BodyImage>
+                                    <BodyImage 
+                                    imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
+                                    margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 5px' : '0%'} 
+                                    imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
+                                    // width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} 
+                                    width={props?.photoInformation?.photoBodyMap[item][i]} 
+                                    src={image} key={i} />
                                     // <BodyImage margin={'0 .5%'} width={'auto'} src={image} key={i}></BodyImage>
                                 )
                             })}
@@ -318,6 +337,24 @@ const FeaturedPost = (props) => {
             })
             :
             null}
+
+
+            <PostFooterContainer>
+                {isHeart ? 
+                <FilledHeart onClick={unheartImage} style={{cursor: 'pointer'}} />
+                :
+                <EmptyHeart onClick={heartImage} style={{cursor: 'pointer'}} />
+                }
+                <Add onClick={()=> setIsAddToCollection(true)} style={{cursor: 'pointer'}} />
+                {isBookmark ? 
+                <FilledBookmark style={{cursor: 'pointer'}} />
+                :
+                <EmptyBookmark style={{cursor: 'pointer'}} />
+                }
+            </PostFooterContainer>
+
+
+
             <HorizontalGallery 
             history={props.history}
             getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}

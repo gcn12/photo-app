@@ -427,24 +427,11 @@ const EditPost = (props) => {
             fullPostUpdate['dataObj'] = postData.dataObj
         }else{
             originalDataValues.forEach((item, index) => {
-                console.log(item[1])
-                console.log(postDataValues[index][1])
                 if (item[1] !== postDataValues[index][1]) {
-                    console.log('hi')
                     fullPostUpdate['dataObj'] = postData.dataObj
                 }
             })
         }
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
         if(Object.keys(imagesSmallObj)?.length > 0) {
             const imagesFinalSmall = {...postData.imagesSmall, ...imagesSmallObj}
             const imagesFinalLarge = {...postData.imagesLarge, ...imagesLargeObj}
@@ -571,43 +558,42 @@ const EditPost = (props) => {
                                 return(
                                     <div key={index}>
                                         {postData.dataObj[item][0] === 'paragraph' ? 
-                                        <Paragraphs className='content-paragraph' font={font} defaultValue={postData.dataObj[item][1]}></Paragraphs>
+                                        <Paragraphs onChange={(e)=>setPostData({...postData, dataObj: {...postData.dataObj, [index]: ['paragraph', e.target.value]}})} className='content-paragraph' font={font} defaultValue={postData.dataObj[item][1]}></Paragraphs>
                                         :
                                         null
                                         }
                                         {postData.dataObj[item][0] === 'caption' ? 
-                                        <EditCaption placeholder='caption (optional)' className='content-paragraph' font={font} defaultValue={postData.dataObj[item][1]}></EditCaption>
+                                        <EditCaption onChange={(e)=> setPostData({...postData, dataObj: {...postData.dataObj, [index]: ['caption', e.target.value]}})} placeholder='caption (optional)' className='content-paragraph' font={font} defaultValue={postData.dataObj[item][1]}></EditCaption>
                                         :
                                         null
                                         }
                                         {postData.dataObj[item][0] === 'header' ? 
-                                        <EditHeader placeholder='paragraph header (optional)' className='content-paragraph' font={font} defaultValue={postData.dataObj[item][1]}></EditHeader>
+                                        <EditHeader onChange={(e)=> setPostData({...postData, dataObj: {...postData.dataObj, [index]: ['header', e.target.value]}})} placeholder='paragraph header (optional)' className='content-paragraph' font={font} defaultValue={postData.dataObj[item][1]}></EditHeader>
                                         :
                                         null
                                         }
                                         {postData.dataObj[item][0] === 'images' ? 
                                         <div>
-
-                                        <Masonry>
-                                        {postData?.imagesSmall[item]?.map((image, i)=> {
-                                            return(
-                                                <ImageNew key={i} src={image}></ImageNew>
-                                                )
-                                            })}
-                                        </Masonry>
-                                        {postData?.imagesSmall[item] || showUpload || postData.content.length > index + 1 ? 
-                                        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                                            <UploadLabel htmlFor={`edit-body-photos${item}`}>Select photos (max. 3)</UploadLabel>
-                                            <input multiple id={`edit-body-photos${item}`} onChange={()=> changeBodyPhotos(item)} hidden  type='file'></input>
-                                            {isTooManyImages ? 
-                                            <TooManyImages>Exceeded image limit of three</TooManyImages>
+                                            <Masonry>
+                                            {postData?.imagesSmall[item]?.map((image, i)=> {
+                                                return(
+                                                    <ImageNew key={i} src={image}></ImageNew>
+                                                    )
+                                                })}
+                                            </Masonry>
+                                            {postData?.imagesSmall[item] || showUpload || postData.content.length > index + 1 ? 
+                                            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                                <UploadLabel htmlFor={`edit-body-photos${item}`}>Select photos (max. 3)</UploadLabel>
+                                                <input multiple id={`edit-body-photos${item}`} onChange={()=> changeBodyPhotos(item)} hidden  type='file'></input>
+                                                {isTooManyImages ? 
+                                                <TooManyImages>Exceeded image limit of three</TooManyImages>
+                                                :
+                                                null
+                                                }
+                                            </div>    
                                             :
                                             null
                                             }
-                                        </div>    
-                                        :
-                                        null
-                                        }
                                         </div>
                                         :
                                         null
@@ -650,7 +636,7 @@ const EditPost = (props) => {
                             <PostDescriptionInput defaultValue={props?.postData[0]?.previewDescription} font={font} onChange={calculateRemainingCharacters} id='edit-post-description'></PostDescriptionInput>
                             <div style={{marginBottom: '15px'}}>Remaining characters: {remainingCharacters}</div>
                             <Label>Font:</Label>
-                            <FontSelect onChange={getFont} defaultValue={font} id='font-select'>
+                            <FontSelect onChange={getFont} value={font} id='font-select'>
                                 <FontOption value="'Montserrat', sans-serif;" font="'Montserrat', sans-serif;">Montserrat</FontOption>
                                 <FontOption value="'Work Sans', sans-serif;" font="'Work Sans', sans-serif;">Work Sans</FontOption>
                                 <FontOption value="'Heebo', sans-serif;" font="'Heebo', sans-serif;">Heebo</FontOption>
