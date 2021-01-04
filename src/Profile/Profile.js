@@ -3,6 +3,7 @@ import UserPosts from '../UserPosts/UserPosts'
 // import { SubmitButton } from '../AddContent/AddContent.styles'
 import Collections from '../Collections/Collections'
 import Settings from '../Settings/Settings'
+import SavedPosts from '../SavedPosts/SavedPosts'
 import { Link } from 'react-router-dom'
 import { 
     UL, 
@@ -19,8 +20,11 @@ const Profile = (props) => {
             <Container>
                 <HeaderContainer>
                     <UL>
+                        <Link to='/photo-app/profile/saved' style={{textDecoration: 'none'}}>
+                            <LI style={{borderBottom: profilePage==='saved'  ? '1px solid #242424' : null}} onClick={()=>setProfilePage('saved')}>Saved</LI>
+                        </Link>
                         <Link to='/photo-app/profile/collections' style={{textDecoration: 'none'}}>
-                            <LI style={{borderBottom: profilePage!=='posts' && profilePage!=='settings'  ? '1px solid #242424' : null}} onClick={()=>setProfilePage('collections')}>Collections</LI>
+                            <LI style={{borderBottom: profilePage==='collections'  ? '1px solid #242424' : null}} onClick={()=>setProfilePage('collections')}>Collections</LI>
                         </Link>
                         <Link to='/photo-app/profile/posts' style={{textDecoration: 'none'}}>
                             <LI style={{borderBottom: profilePage==='posts' ? '1px solid #242424' : null}} onClick={()=>setProfilePage('posts')}>Posts</LI>
@@ -32,6 +36,10 @@ const Profile = (props) => {
                 </HeaderContainer>
                 {(()=> {
                     switch (profilePage) {
+                        case 'saved':
+                            return( 
+                                <SavedPosts history={props.history} />
+                            )
                         case 'posts': 
                             return( 
                                 <UserPosts history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} />

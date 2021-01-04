@@ -359,7 +359,6 @@ const AddContent = (props) => {
                             const ratio = hearts / views
                             setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                             db.collection('preview-posts').add({
-                                reference: `/posts/${docRef.id}`,
                                 username,
                                 timestamp,
                                 id: docRef.id,

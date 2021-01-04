@@ -1,14 +1,14 @@
 import React from 'react'
 import { db } from '../Firebase'
 import { connect } from 'react-redux'
-import { collectionsList } from '../Redux/Actions/featuredPostActions'
+// import { collectionsList } from '../Redux/Actions/featuredPostActions'
 import { 
     Collection, 
     CollectionName,
     RemoveAdd,
-} from './Dropdown.styles'
+} from '../Dropdown/Dropdown.styles'
 
-const DropdownItem = (props) => {
+const AddToCollectionItem = (props) => {
 
     const addToCollection = () => {
         const addRef = db.collection('users').doc(props.user).collection('collections')
@@ -81,14 +81,14 @@ const DropdownItem = (props) => {
     const add = () => {
         const arrayCopy = props.collectionsList
         arrayCopy[props.index][1] = true
-        props.dispatch(collectionsList([...arrayCopy]))
+        props.setCollectionsList([...arrayCopy])
 
     }
 
     const remove = () => {
         const arrayCopy = props.collectionsList
         arrayCopy[props.index][1] = false
-        props.dispatch(collectionsList([...arrayCopy]))
+        props.setCollectionsList([...arrayCopy])
     }
 
     return(
@@ -107,9 +107,9 @@ const DropdownItem = (props) => {
 }
 
 const mapStateToProps = state => ({
-    collectionsList: state.featuredPost.collectionsList,
+    // collectionsList: state.featuredPost.collectionsList,
     user: state.app.user,
-    photoInformation: state.app.photoInformation,
+    // photoInformation: state.app.photoInformation,
 })
 
-export default connect(mapStateToProps)(DropdownItem)
+export default connect(mapStateToProps)(AddToCollectionItem)

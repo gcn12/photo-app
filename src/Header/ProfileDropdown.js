@@ -25,14 +25,14 @@ const ProfileDropdown = (props) => {
 
     return(
         <Container className='profile-dropdown'>
+            <Link to='/photo-app/profile/saved' style={{ textDecoration: 'none' }}>
+                <Item>Saved</Item>
+            </Link>
             <Link to='/photo-app/profile/collections' style={{ textDecoration: 'none' }}>
                 <Item>Collections</Item>
             </Link>
             <Link to='/photo-app/profile/posts' style={{ textDecoration: 'none' }}>
                 <Item>My posts</Item>
-            </Link>
-            <Link to='/photo-app/profile/collections' style={{ textDecoration: 'none' }}>
-                <Item>Saved</Item>
             </Link>
             <Link to='/photo-app/profile/settings' style={{ textDecoration: 'none' }}>
                 <Item>Settings</Item>

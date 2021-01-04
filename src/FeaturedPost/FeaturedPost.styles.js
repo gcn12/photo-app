@@ -84,7 +84,7 @@ export const AddCollectionHeartContainer = styled.div`
 
 export const BodyImage = styled.img`
     /* width: ${props=> `${props.width}`}; */
-    width: ${props=> props.imageQuantity > 1 ? `calc(${props.width} * 65vw)` : 'auto'};
+    width: ${props=> props.imageQuantity > 1 ? `calc(${props.width} * 65vw - ${props.imageGap} *${props.width})` : 'auto'};
     /* width: calc(5 * 65)vw; */
     margin:  ${props=>  props.margin};
     max-height: 90vh;

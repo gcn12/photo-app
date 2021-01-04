@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {
     Container,
-    Placeholder,
+    // Placeholder,
     Image,
     Close,
 } from './EnlargeImage.styles'

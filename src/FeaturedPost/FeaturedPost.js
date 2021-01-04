@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import HorizontalGallery from '../HorizontalGallery/HorizontalGallery'
-import Dropdown from '../Dropdown/Dropdown'
+// import Dropdown from '../Dropdown/Dropdown'
 import { db } from '../Firebase'
 import { Link } from 'react-router-dom'
 import { ReactComponent as EmptyHeart } from '../Icons/EmptyHeart.svg'
@@ -12,11 +12,11 @@ import firebase from 'firebase'
 import { motion } from 'framer-motion'
 import { connect } from 'react-redux'
 import { photoInformation } from '../Redux/Actions/appActions'
-import { collectionsList } from '../Redux/Actions/featuredPostActions'
+// import { collectionsList } from '../Redux/Actions/featuredPostActions'
 import AddToCollection from './AddToCollection'
 import EnlargeImage from './EnlargeImage'
 // import FeaturedPostGallery from '../FeaturedPostGallery/FeaturedPostGallery'
-import { SubmitButton } from '../AddContent/AddContent.styles'
+// import { SubmitButton } from '../AddContent/AddContent.styles'
 import { 
     incrementHeartCount, 
     decrementHeartCount,
@@ -37,7 +37,7 @@ import {
     Caption,
     PostFooterContainer,
     DateStyle,
-    AddCollectionHeartContainer,
+    // AddCollectionHeartContainer,
 } from './FeaturedPost.styles'
 
 
@@ -49,13 +49,37 @@ const FeaturedPost = (props) => {
     const [cityPhotos, setCityPhotos] = useState([])
     const [isImageHorizontal, setIsImageHorizontal] = useState(true)
     const [isHeart, setIsHeart] = useState(false)
-    // eslint-disable-next-line 
     const [isBookmark, setIsBookmark] = useState(false)
     const [isAddToCollection, setIsAddToCollection] = useState(false)
     const [animateLoad, setAnimateLoad] = useState('initial')
     const [showImageEnlarged, setShowImageEnlarged] = useState(false)
     const [imageToEnlarge, setImageToEnlarge] = useState('')
+    const [collectionsList, setCollectionsList] = useState([])
 
+    const bookmark = () => {
+        const {views, hearts, ratio, dataObj, font, imagesLarge, imagesSmall, photoBodyMap, ...data } = props.photoInformation
+        db.collection('users')
+        .doc(props.user)
+        .collection('bookmarked')
+        .add({
+            ...data
+        })
+        .then(()=>setIsBookmark(true))
+        .catch(err =>console.log(err))
+    }
+
+    const unbookmark = () => {
+        db.collection('users')
+        .doc(props.user)
+        .collection('bookmarked')
+        .where('username', '==', props.photoInformation.username)
+        .where('url', '==', props.photoInformation.url)
+        .get()
+        .then(data=> {
+            data.docs[0].ref.delete()
+            setIsBookmark(false)
+        })
+    }
     
     const getCities = (city, country, continent) => {
         const ref = db.collection('preview-posts')
@@ -82,8 +106,6 @@ const FeaturedPost = (props) => {
         window.scrollTo({top: 0})
     }
 
-    
-
     const getPost = (docID) => {
         db.collection('posts')
         .doc(docID)
@@ -92,13 +114,23 @@ const FeaturedPost = (props) => {
             getCities(data.data())
         })
     }
-    
-    // eslint-disable-next-line
-    // useEffect(()=>getCities(props?.photoInformation?.id), [])
-    // eslint-disable-next-line
-    // useEffect(()=>getImageSize(), [])
+
     
     useEffect(()=>{
+        if(props.user) {
+            db.collection('users')
+            .doc(props?.user)
+            .collection('bookmarked')
+            .where('username', '==', props?.photoInformation?.username)
+            .where('url', '==', props?.photoInformation?.url)
+            .get()
+            .then(data=> {
+                if(data.docs[0]) {
+                    setIsBookmark(true)
+                }
+                setShowDropdown(!showDropdown)
+            })
+        }
         // eslint-disable-next-line
         getFeaturedPhotoInfo2(props?.match?.params?.url, props?.match?.params?.username)
         // eslint-disable-next-line
@@ -182,13 +214,14 @@ const FeaturedPost = (props) => {
                         }
                         collectionsArray.push(mapArray)
                         if (index+1 === collections.docs.length) {
-                            props.dispatch(collectionsList(collectionsArray))
-                            setShowDropdown(!showDropdown)
+                            setCollectionsList(collectionsArray)
+                            // props.dispatch(collectionsList(collectionsArray))
+                            setIsAddToCollection(true)
                         }
                     })
                 })
             }else{
-                setShowDropdown(!showDropdown)
+                setIsAddToCollection(true)
             }
         }) 
     }
@@ -233,13 +266,13 @@ const FeaturedPost = (props) => {
         })
     }
 
-    const showDropdownAndGetList = () => {
-        if(props.collectionsList?.length === 0) {
-            getCollectionsList()
-        }else{
-            setShowDropdown(!showDropdown)
-        }
-    }
+    // const showDropdownAndGetList = () => {
+    //     if(props.collectionsList?.length === 0) {
+    //         getCollectionsList()
+    //     }else{
+    //         setShowDropdown(!showDropdown)
+    //     }
+    // }
 
     window.onclick = (e) => {
         if (!e.target.matches('.dropdown')) {
@@ -261,6 +294,15 @@ const FeaturedPost = (props) => {
         setShowImageEnlarged(true)
     }
 
+    const openCollections = () => {
+        setIsAddToCollection(true)
+        if(props.collectionsList?.length === 0) {
+            getCollectionsList()
+        }else{
+            setIsAddToCollection(true)
+        }
+    }
+
     return(
         <motion.div style={{marginTop: '75px'}} variants={variants} initial='initial' animate={animateLoad}>
             {showImageEnlarged ? 
@@ -270,14 +312,18 @@ const FeaturedPost = (props) => {
             }
             {/* <SubmitButton onClick={()=>props.history.goBack()}>Back</SubmitButton> */}
             {isAddToCollection ? 
-            <AddToCollection setIsAddToCollection={setIsAddToCollection} />
+            <AddToCollection photoInfo={props.photoInformation} setCollectionsList={setCollectionsList} collectionsList={collectionsList} setIsAddToCollection={setIsAddToCollection} />
             :
             null
             }
             <Container>
                 <div>
                     <MainImage onLoad={null} width={isImageHorizontal ? '80vw' : 'auto'} height={isImageHorizontal ? 'auto' : '80vh'} id='featured-main-image' alt='display' src={props?.photoInformation?.image}></MainImage>
-                    <InfoContainer justify='space-between'>
+                    {/* <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</DateStyle> */}
+                    <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                        <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MM DD YY')}</DateStyle>
+                    </div>
+                    {/* <InfoContainer justify='space-between'>
                         {props?.user ? 
                         <AddCollectionHeartContainer>
                             <SubmitButton className='dropdown' onClick={showDropdownAndGetList}>
@@ -296,7 +342,7 @@ const FeaturedPost = (props) => {
                         :
                         null}
                         <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</DateStyle>
-                    </InfoContainer>
+                    </InfoContainer> */}
                     <div style={{display: 'flex', justifyContent: 'center'}}>
                         <Title font={props?.photoInformation?.font}>{props?.photoInformation?.title}</Title>
                     </div>
@@ -312,17 +358,17 @@ const FeaturedPost = (props) => {
             Object.keys(props?.photoInformation?.dataObj)?.map((item, index) => {
                 return(
                     <BodyContainer key={index}>
-                        {Object.values(props?.photoInformation?.dataObj)[item][0]==='caption' ? 
+                        {Object.values(props?.photoInformation?.dataObj)[item][0]==='caption' && Object.values(props?.photoInformation?.dataObj)[item][1].length>0 ? 
                         <Caption font={props.photoInformation.font}>{Object.values(props?.photoInformation?.dataObj)[item][1]}</Caption>
                         :
                         null
                         }
-                        {Object.values(props?.photoInformation?.dataObj)[item][0]==='paragraph' ? 
+                        {Object.values(props?.photoInformation?.dataObj)[item][0]==='paragraph' && Object.values(props?.photoInformation?.dataObj)[item][1].length>0 ? 
                         <Description font={props.photoInformation.font}>{Object.values(props?.photoInformation?.dataObj)[item][1]}</Description>
                         :
                         null
                         }
-                        {Object.values(props?.photoInformation?.dataObj)[item][0]==='header' ? 
+                        {Object.values(props?.photoInformation?.dataObj)[item][0]==='header' && Object.values(props?.photoInformation?.dataObj)[item][1].length>0 ? 
                         <Header font={props.photoInformation.font}>{Object.values(props?.photoInformation?.dataObj)[item][1]}</Header>
                         :
                         null
@@ -331,17 +377,55 @@ const FeaturedPost = (props) => {
                         <BodyImageContainer>
                             {props?.photoInformation?.imagesSmall[item]?.map((image, i)=> {
                                 return(
-                                    // <BodyImage length={props?.photoInformation?.photoBodyMap[item].length} margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 .5%' : '0%'} width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} src={image} key={i}></BodyImage>
-                                    <div>
-                                        <BodyImage 
-                                        onClick={()=>enlarge(props?.photoInformation?.imagesLarge[item][i])}
-                                        imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
-                                        margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 5px' : '0%'} 
-                                        imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
-                                        // width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} 
-                                        width={props?.photoInformation?.photoBodyMap[item][i]} 
-                                        src={image} key={i} />
-                                        {/* <BodyImage margin={'0 .5%'} width={'auto'} src={image} key={i}></BodyImage> */}
+                                    <div key={i}>
+                                        {/* <BodyImage length={props?.photoInformation?.photoBodyMap[item].length} margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 .5%' : '0%'} width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} src={image} key={i}></BodyImage> */}
+                                        {props.photoInformation.photoBodyMap[item].length === 1 ? 
+                                        <div>
+                                            <BodyImage 
+                                            onClick={()=>enlarge(props?.photoInformation?.imagesLarge[item][i])}
+                                            imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
+                                            margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 5px' : '0%'} 
+                                            imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
+                                            // width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} 
+                                            width={props?.photoInformation?.photoBodyMap[item][i]} 
+                                            imageGap='0px'
+                                            src={image} key={i} 
+                                            />
+                                        </div>
+                                        :
+                                        null}
+    
+                                        {props.photoInformation.photoBodyMap[item].length === 2 ? 
+                                        <div>
+                                            <BodyImage 
+                                            onClick={()=>enlarge(props?.photoInformation?.imagesLarge[item][i])}
+                                            imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
+                                            margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 5px' : '0%'} 
+                                            imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
+                                            // width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} 
+                                            width={props?.photoInformation?.photoBodyMap[item][i]} 
+                                            imageGap='10px'
+                                            src={image} key={i} 
+                                            />
+                                        </div>
+                                        :
+                                        null}
+    
+                                        {props.photoInformation.photoBodyMap[item].length === 3 ? 
+                                        <div>
+                                            <BodyImage 
+                                            onClick={()=>enlarge(props?.photoInformation?.imagesLarge[item][i])}
+                                            imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
+                                            margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 5px' : '0%'} 
+                                            imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
+                                            // width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} 
+                                            width={props?.photoInformation?.photoBodyMap[item][i]} 
+                                            imageGap='20px'
+                                            src={image} key={i} 
+                                            />
+                                        </div>
+                                        :
+                                        null}
                                     </div>
                                 )
                             })}
@@ -362,16 +446,16 @@ const FeaturedPost = (props) => {
                 :
                 <EmptyHeart onClick={heartImage} style={{cursor: 'pointer'}} />
                 }
-                <Add onClick={()=> setIsAddToCollection(true)} style={{cursor: 'pointer'}} />
+                <Add onClick={openCollections} style={{cursor: 'pointer'}} />
                 {isBookmark ? 
-                <FilledBookmark style={{cursor: 'pointer'}} />
+                <FilledBookmark onClick={unbookmark} style={{cursor: 'pointer'}} />
                 :
-                <EmptyBookmark style={{cursor: 'pointer'}} />
+                <EmptyBookmark onClick={bookmark} style={{cursor: 'pointer'}} />
                 }
             </PostFooterContainer>
 
 
-
+            
             <HorizontalGallery 
             history={props.history}
             getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
