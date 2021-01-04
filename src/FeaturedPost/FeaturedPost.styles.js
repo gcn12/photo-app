@@ -19,6 +19,15 @@ export const Title = styled.div`
     font-size: 60px;
     font-family: ${props=> props.font};
     margin-top: 20px;
+    @media (max-width: 1000px) {
+        /* width: 85vw; */
+        font-size: 50px;
+    }
+    @media (max-width: 500px) {
+        /* width: 90vw; */
+        font-size: 40px;
+    }
+    
 `
 
 export const MainImage = styled.img`
@@ -81,9 +90,11 @@ export const BodyImage = styled.img`
     max-height: 90vh;
     max-width: 65vw;
     display: block;
+    cursor: pointer;
     @media (max-width: 1000px) {
         /* margin: 0; */
         width: ${props=> props.imageQuantity > 1 ? `calc(${props.width} * 90vw)` : 'auto'};
+        max-width: 90vw;
     }
 `
 

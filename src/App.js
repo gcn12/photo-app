@@ -245,7 +245,13 @@ const App = (props) => {
             resultsArray = [[], [], [...results[0].hits, ...results[1].hits]]
           }
         }
-        if(resultsArray === [[], [], []] || resultsArray.length === 0){
+        let isNoResults = false
+        for (let arr of resultsArray) {
+          if (arr.length > 0) {
+            isNoResults = true
+          }
+        }
+        if(!isNoResults || resultsArray.length === 0){
           props.dispatch(searchResults('No results'))
         }else{
           props.dispatch(searchResults(resultsArray))

@@ -14,7 +14,8 @@ import { connect } from 'react-redux'
 import { photoInformation } from '../Redux/Actions/appActions'
 import { collectionsList } from '../Redux/Actions/featuredPostActions'
 import AddToCollection from './AddToCollection'
-import FeaturedPostGallery from '../FeaturedPostGallery/FeaturedPostGallery'
+import EnlargeImage from './EnlargeImage'
+// import FeaturedPostGallery from '../FeaturedPostGallery/FeaturedPostGallery'
 import { SubmitButton } from '../AddContent/AddContent.styles'
 import { 
     incrementHeartCount, 
@@ -48,9 +49,12 @@ const FeaturedPost = (props) => {
     const [cityPhotos, setCityPhotos] = useState([])
     const [isImageHorizontal, setIsImageHorizontal] = useState(true)
     const [isHeart, setIsHeart] = useState(false)
+    // eslint-disable-next-line 
     const [isBookmark, setIsBookmark] = useState(false)
     const [isAddToCollection, setIsAddToCollection] = useState(false)
     const [animateLoad, setAnimateLoad] = useState('initial')
+    const [showImageEnlarged, setShowImageEnlarged] = useState(false)
+    const [imageToEnlarge, setImageToEnlarge] = useState('')
 
     
     const getCities = (city, country, continent) => {
@@ -252,8 +256,18 @@ const FeaturedPost = (props) => {
         }
     }
 
+    const enlarge = (imageURL) => {
+        setImageToEnlarge(imageURL)
+        setShowImageEnlarged(true)
+    }
+
     return(
         <motion.div style={{marginTop: '75px'}} variants={variants} initial='initial' animate={animateLoad}>
+            {showImageEnlarged ? 
+            <EnlargeImage setShowImageEnlarged={setShowImageEnlarged} image={imageToEnlarge} />
+            :
+            null
+            }
             {/* <SubmitButton onClick={()=>props.history.goBack()}>Back</SubmitButton> */}
             {isAddToCollection ? 
             <AddToCollection setIsAddToCollection={setIsAddToCollection} />
@@ -318,14 +332,17 @@ const FeaturedPost = (props) => {
                             {props?.photoInformation?.imagesSmall[item]?.map((image, i)=> {
                                 return(
                                     // <BodyImage length={props?.photoInformation?.photoBodyMap[item].length} margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 .5%' : '0%'} width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} src={image} key={i}></BodyImage>
-                                    <BodyImage 
-                                    imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
-                                    margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 5px' : '0%'} 
-                                    imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
-                                    // width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} 
-                                    width={props?.photoInformation?.photoBodyMap[item][i]} 
-                                    src={image} key={i} />
-                                    // <BodyImage margin={'0 .5%'} width={'auto'} src={image} key={i}></BodyImage>
+                                    <div>
+                                        <BodyImage 
+                                        onClick={()=>enlarge(props?.photoInformation?.imagesLarge[item][i])}
+                                        imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
+                                        margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 5px' : '0%'} 
+                                        imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
+                                        // width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} 
+                                        width={props?.photoInformation?.photoBodyMap[item][i]} 
+                                        src={image} key={i} />
+                                        {/* <BodyImage margin={'0 .5%'} width={'auto'} src={image} key={i}></BodyImage> */}
+                                    </div>
                                 )
                             })}
                         </BodyImageContainer>
