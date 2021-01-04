@@ -27,7 +27,14 @@ const AddToCollection = (props) => {
         .then(data=> {
             if(data.docs.length === 0) {
                 addRef.add({
-                    ...props.photoInfo,
+                    id: props.photoInfo.id,
+                    image: props.photoInfo.image,
+                    smallImage: props.photoInfo.smallImage,
+                    country: props.photoInfo.country,
+                    city: props.photoInfo.city,
+                    title: props.photoInfo.title,
+                    url: props.photoInfo.url,
+                    username: props.photoInfo.username,
                     collection: name,
                     timestamp: Date.now()
                 })

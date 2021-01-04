@@ -39,7 +39,7 @@ export const Description = styled.div`
     /* text-align: justify; */
     font-size: 17px;
     /* padding: 0 5%; */
-    color: #3d3d3d;
+    color: #4D4D4D;
     /* width: 350px; */
     width: 100%;
     min-width: 300px;

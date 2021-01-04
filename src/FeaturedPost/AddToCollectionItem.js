@@ -25,6 +25,8 @@ const AddToCollectionItem = (props) => {
                         country: props.photoInformation.country,
                         city: props.photoInformation.city,
                         title: props.photoInformation.title,
+                        url: props.photoInformation.url,
+                        username: props.photoInformation.username,
                         collection: props.collection,
                         timestamp: Date.now()
                     }).then(()=> {

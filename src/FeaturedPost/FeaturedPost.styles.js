@@ -84,7 +84,7 @@ export const AddCollectionHeartContainer = styled.div`
 
 export const BodyImage = styled.img`
     /* width: ${props=> `${props.width}`}; */
-    width: ${props=> props.imageQuantity > 1 ? `calc(${props.width} * 65vw - ${props.imageGap} *${props.width})` : 'auto'};
+    width: ${props=> props.imageQuantity > 1 ? `calc(${props.width} * 65vw - ${props.imageGap} * ${props.width})` : 'auto'};
     /* width: calc(5 * 65)vw; */
     margin:  ${props=>  props.margin};
     max-height: 90vh;
@@ -93,7 +93,8 @@ export const BodyImage = styled.img`
     cursor: pointer;
     @media (max-width: 1000px) {
         /* margin: 0; */
-        width: ${props=> props.imageQuantity > 1 ? `calc(${props.width} * 90vw)` : 'auto'};
+        /* width: ${props=> props.imageQuantity > 1 ? `calc(${props.width} * 90vw)` : 'auto'}; */
+        width: ${props=> props.imageQuantity > 1 ? `calc(${props.width} * 90vw - ${props.imageGap} * ${props.width})` : 'auto'};
         max-width: 90vw;
     }
 `

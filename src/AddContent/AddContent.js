@@ -271,8 +271,10 @@ const AddContent = (props) => {
             previewDescription = document.getElementById('post-description-input').value
         }else{
             let descriptionNoEllipsis = descriptionArray[0].substring(0, 150)
+            descriptionNoEllipsis = descriptionNoEllipsis.trim()
             if (descriptionNoEllipsis[descriptionNoEllipsis.length-1] !== '.') {
                 descriptionNoEllipsis = descriptionNoEllipsis.slice(0, -3)
+                descriptionNoEllipsis = descriptionNoEllipsis.trim()
                 if(descriptionNoEllipsis[descriptionNoEllipsis.length-1] !== '.'){
                     descriptionNoEllipsis += '...'
                 }
@@ -527,6 +529,7 @@ const AddContent = (props) => {
         const paragraph = document.getElementById('content-paragraph-original').value
         const splitParagraph = paragraph.split('\n')
         let finalParagraph = splitParagraph[0].slice(0, 400)
+        finalParagraph.trim()
         if(finalParagraph[finalParagraph.length-1]!=='.'){
             finalParagraph += '...'
         }

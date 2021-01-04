@@ -59,7 +59,8 @@ const AddDropdown = (props) => {
         .doc(props.user)
         .collection('bookmarked')
         .add({
-            ...data
+            ...data,
+            timestamp: Date.now(),
         })
         .then(()=>props.setIsBookmarked(true))
         .catch(err =>console.log(err))

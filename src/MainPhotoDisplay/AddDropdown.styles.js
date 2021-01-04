@@ -3,11 +3,11 @@ import styled from 'styled-components'
 export const Container = styled.div`
     width: auto;
     /* min-width: 220px; */
-    height: 80px;
+    min-height: 80px;
     position: absolute;
     background-color: white;
     font-size: 20px;
-    transform: translate(-95%, 35%);
+    transform: translate(-95%, 31%);
     color: black;
     display: flex;
     justify-content: center;
@@ -22,7 +22,7 @@ export const Options = styled.div`
 `
 
 export const Option = styled.div`
-    padding: 5px 10px;
+    padding: 10px 10px;
     display: flex;
     align-items: center;
     white-space: nowrap;

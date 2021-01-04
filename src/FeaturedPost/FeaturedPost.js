@@ -62,7 +62,8 @@ const FeaturedPost = (props) => {
         .doc(props.user)
         .collection('bookmarked')
         .add({
-            ...data
+            ...data,
+            timestamp: Date.now(),
         })
         .then(()=>setIsBookmark(true))
         .catch(err =>console.log(err))
@@ -121,8 +122,8 @@ const FeaturedPost = (props) => {
             db.collection('users')
             .doc(props?.user)
             .collection('bookmarked')
-            .where('username', '==', props?.photoInformation?.username)
-            .where('url', '==', props?.photoInformation?.url)
+            .where('username', '==', props?.match?.params?.username)
+            .where('url', '==', props?.match?.params?.url)
             .get()
             .then(data=> {
                 if(data.docs[0]) {
