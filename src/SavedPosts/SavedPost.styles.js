@@ -24,6 +24,7 @@ export const Image = styled.img`
     border-radius: 3px;
     object-fit: cover;
     margin: 0 20px 0 0;
+    box-shadow: 0 4px 5px 0px rgba(0, 0, 0, .3);
 `
 
 export const Title = styled.div`
@@ -31,11 +32,13 @@ export const Title = styled.div`
     cursor: pointer;
     font-size: 25px;
     margin: 0 0 20px 0;
+    font-weight: 500;
 `
 
 export const Description = styled.div`
     font-size: 16px;
     color: #4D4D4D;
+    line-height: 27px;
     /* width: 40vw; */
 `
 

@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    width: 120px;
-    height: 80px;
+    width: 130px;
+    height: 75px;
     position: absolute;
     background-color: white;
     font-size: 20px;
@@ -21,6 +21,8 @@ export const Options = styled.div`
 `
 
 export const Option = styled.div`
+    margin: 2px 8px 2px 0;
+    padding: 0 5px;
     &:hover {
         background-color: #dedede;
         /* color: white; */

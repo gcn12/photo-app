@@ -18,6 +18,7 @@ export const Title = styled.div`
     /* color: #242424; */
     font-size: 60px;
     font-family: ${props=> props.font};
+    font-weight: 400;
     margin-top: 20px;
     @media (max-width: 1000px) {
         /* width: 85vw; */
@@ -43,9 +44,10 @@ export const MainImage = styled.img`
 
 export const Author = styled.div`
     color: #595959;
-    font-size: 20px;
+    font-size: 25px;
     /* color: #242424; */
     cursor: pointer;
+    font-weight: 300;
     font-family: ${props=> props.font};
     margin: 15px 0 40px 0;
 `
@@ -66,6 +68,10 @@ export const Description = styled.div`
     line-height: 35px;
     /* text-align: justify; */
     text-justify: inter-word;
+    @media (max-width: 1300px) {
+        width: 60vw;
+        margin: 0px;
+    }
     @media (max-width: 1000px) {
         width: 85vw;
         margin: 0px;
@@ -114,12 +120,13 @@ export const BodyImageContainer = styled.div`
 `
 
 export const Header = styled.div`
-    font-size: 40px;
+    font-size: 42px;
     font-family: ${props=> props.font};
-    font-weight: 500;
+    font-weight: 400;
     width: 50vw;
     @media (max-width: 1000px) {
         width: 85vw;
+        font-size: 35px;
     }
     @media (max-width: 500px) {
         width: 90vw;
@@ -127,7 +134,8 @@ export const Header = styled.div`
 `
 
 export const Caption = styled.div`
-    font-size: 17px;
+    font-size: 20px;
+    font-weight: 300;
     font-family: ${props=> props.font};
     margin: 0 0 30px 0;
     @media (max-width: 1000px) {

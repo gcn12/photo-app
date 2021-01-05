@@ -22,12 +22,12 @@ const DropdownDelete = (props) => {
     return(
         <Container>
             <Options>
-                <div style={{display: 'flex', alignItems:'center'}}>
-                    <Edit style={{height: '20px', width: '20px'}} />
+                <div style={{display: 'flex', alignItems:'center', justifyContent: 'space-between'}}>
+                    <Edit style={{height: '18px', width: '18px'}} />
                     <Option onClick={renameCollection}>Rename</Option>
                 </div>
-                <div style={{display: 'flex', alignItems:'center'}}>
-                    <TrashCan style={{height: '20px', width: '20px'}} />
+                <div style={{display: 'flex', alignItems:'center', justifyContent: 'space-between'}}>
+                    <TrashCan style={{height: '18px', width: '18px'}} />
                     <Option onClick={deleteCollection}>Delete</Option>
                 </div>
             </Options>

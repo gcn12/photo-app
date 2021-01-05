@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    min-height: 200px;
+    min-height: 255px;
     z-index: 2;
-    width: 30vw;
+    width: 35vw;
     background-color: #f5f5f5;
     margin: auto;
     position: fixed;
@@ -45,9 +45,9 @@ export const Text = styled.div`
 `
 
 export const CollectionsContainer = styled.div`
-    padding: 0 20px;
-    min-height: 100px;
-    max-height: 140px;
+    padding: 0 60px;
+    min-height: 150px;
+    max-height: 200px;
     overflow-y: scroll;
 `
 

@@ -15,6 +15,7 @@ export const Collection = styled.div`
     align-items: center;
     justify-content: space-between;
     font-size: 18px;
+    padding: 5px 0;
     height: 30px;
     &:hover {
         /* background-color: #dedede; */

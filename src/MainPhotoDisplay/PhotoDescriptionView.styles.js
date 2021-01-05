@@ -38,6 +38,8 @@ export const Image = styled.img`
 export const Description = styled.div`
     /* text-align: justify; */
     font-size: 17px;
+    line-height: 30px;
+    font-weight: 400;
     /* padding: 0 5%; */
     color: #4D4D4D;
     /* width: 350px; */
@@ -64,6 +66,7 @@ export const Name = styled.div`
 export const Title = styled.div`
     cursor: pointer;
     font-size: 30px;
+    font-weight: 500;
     /* width: 120px; */
     /* padding: 0 5%; */
     &:hover{

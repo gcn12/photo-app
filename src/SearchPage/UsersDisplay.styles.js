@@ -20,8 +20,8 @@ export const Container = styled.div`
     width: 303px;
     margin-bottom: 20px;
     /* position: relative; */
-    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, .1);
-    border-radius: 10px;
+    box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, .1);
+    border-radius: 3px;
     display: flex;
     flex-direction: column;
     align-items: center;
