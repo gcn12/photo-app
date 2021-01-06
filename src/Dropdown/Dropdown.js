@@ -19,6 +19,10 @@ const Dropdown = (props) => {
     const [isCollectionExists, setIsCollectionExists] = useState(false)
 
     const addToCollection = (name) => {
+        let collectionNameUrl = name.trim()
+        collectionNameUrl = collectionNameUrl.split(' ')
+        collectionNameUrl = collectionNameUrl.join('-')
+        collectionNameUrl = collectionNameUrl.toLowerCase()
         const addRef = db.collection('users').doc(props.user).collection('collections')
         addRef.where('image', '==', props.photoInformation.image)
         .where('collection', '==', name)
@@ -27,6 +31,7 @@ const Dropdown = (props) => {
             if(data.docs.length === 0) {
                 addRef.add({
                     ...props.photoInformation,
+                    collectionUrl: collectionNameUrl,
                     collection: name,
                     timestamp: Date.now()
                 })
@@ -37,6 +42,9 @@ const Dropdown = (props) => {
     const createCollection = () => {
         const collectionName = document.getElementById('collection-name').value
         if(!props.collectionsList.includes(collectionName) && collectionName.length>0){
+            let collectionNameUrl = collectionName.split(' ')
+            collectionNameUrl = collectionNameUrl.join('-')
+            collectionNameUrl = collectionNameUrl.toLowerCase()
             db.collection('users')
             .doc(props.user)
             .collection('collection-names')
@@ -44,6 +52,7 @@ const Dropdown = (props) => {
             .set({
                 collection: collectionName,
                 timestamp: Date.now(),
+                collectionUrl: collectionNameUrl,
                 preview: [props.photoInformation.image]
             },{merge: true})
             .then(()=>{

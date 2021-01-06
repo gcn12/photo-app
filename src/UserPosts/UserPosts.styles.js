@@ -10,6 +10,7 @@ export const Photo = styled.img`
     height: 180px;
     width: 180px;
     border-radius: 50%;
+    cursor: pointer;
 `
 
 export const GearIcon = styled.img`
@@ -47,14 +48,13 @@ export const PostContainer = styled.div`
     height: 100%;
     width: 100%;
     margin: 20px;
-    cursor: pointer;
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
     align-items: center;
     opacity: ${props=> props.opacity};
     transition: opacity 500ms ease-in-out;
-    ${props => props.shouldHover 
+    /* ${props => props.shouldHover 
         ? `&:hover ${GearIcon} {
             visibility: visible;
             // display: initial;
@@ -63,11 +63,25 @@ export const PostContainer = styled.div`
     }
     &:hover ${GearIcon} {
         opacity: 1; 
-    }
+    } */
 `
 
 export const PostTitle = styled.div`
     /* color: white; */
     font-size: 20px;
     justify-self: center;
+    cursor: pointer;
+`
+
+export const TitleEllipsisContainer = styled.div`
+    display: flex;
+    align-items: center;
+    /* position: relative; */
+`
+
+export const Ellipsis = styled.div`
+    margin-left: 5px;
+    font-size: 22px;
+    font-weight: 900;
+    cursor: pointer;
 `

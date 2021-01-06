@@ -5,6 +5,10 @@ import {
     ProfileImage,
     Container,
     PostsContainer,
+    Username,
+    Name, 
+    Bio,
+    UserContainer,
 } from './PublicProfile.styles'
 
 const PublicProfile = (props) => {
@@ -16,15 +20,15 @@ const PublicProfile = (props) => {
     
     const { userData, userPosts } = props
     return(
-        <div>
-            <div style={{display: 'flex', position: 'fixed',  flexDirection: "column", alignItems: "center"}}>
+        <div style={{marginTop: '55px'}}>
+            <UserContainer>
+                <ProfileImage alt='profile' src={userData[0]?.profileImage}></ProfileImage>
                 <Container>
-                    <ProfileImage alt='profile' src={userData[0]?.profileImage}></ProfileImage>
-                    <div>{userData[0]?.name}</div>
-                    <div>{userData[0]?.username}</div>
-                    <div>{userData[0]?.bio}</div>
+                    <Username>{userData[0]?.username}</Username>
+                    <Name>{userData[0]?.name}</Name>
+                    <Bio>{userData[0]?.bio}</Bio>
                 </Container>
-            </div>
+            </UserContainer>
 
             <PostsContainer>
             {userPosts?.map((post, index)=> {

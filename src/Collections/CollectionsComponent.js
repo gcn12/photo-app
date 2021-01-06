@@ -1,25 +1,56 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { db } from '../Firebase'
+import PublicProfilesPosts from '../PublicProfile/PublicProfilePosts'
+// import { collectionsData } from '../Redux/Actions/collectionsActions'
 import {
-    Container,
-    Image,
     Title,
+    Container,
+    PostsContainer,
 } from './CollectionsComponent.styles'
 
 const CollectionsComponent = (props) => {
+
+    const [collectionImages, setCollectionImages] = useState([])
+
+    useEffect(()=> {
+        if(props.user){
+            db.collection('users')
+            .doc(props.user)
+            .collection('collections')
+            .where('collectionUrl', '==', props.match.params.collectionName)
+            .get()
+            .then(data=> {
+                let imageArray = []
+                data.forEach(item=> {
+                    imageArray.push(item.data())
+                })
+                setCollectionImages(imageArray)
+            })
+            .catch(err=> console.log(err))
+        }
+        // eslint-disable-next-line
+    }, [props.user])
+
     return(
         <Container>
-            <Link to={`/photo-app/post/${props?.collection?.username}/${props?.collection?.url}`} style={{textDecoration: 'none'}}>
-                <Image src={props?.collection?.smallImage} />
-                <Title>{props?.collection?.title}</Title>
-            </Link>
+            <Title>{collectionImages[0]?.collection}</Title>
+            <PostsContainer>
+                {collectionImages.map((post, index) => {
+                    return(
+                        <Link key={index} to={`/photo-app/post/${post.username}/${post.url}`} style={{textDecoration: 'none'}}> 
+                            <PublicProfilesPosts history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} post={post} />
+                        </Link>
+                    )
+                })}
+            </PostsContainer>
         </Container>
     )
 }
 
 const mapStateToProps = state => ({
-    
+    user: state.app.user,
 })
 
 export default connect(mapStateToProps)(CollectionsComponent)

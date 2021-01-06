@@ -6,7 +6,9 @@ export const Container = styled.div`
     position: absolute;
     background-color: white;
     font-size: 20px;
-    transform: translate(-20%, 40%);
+    transform: translate(-85%, 0%);
+    /* left: 0;
+    top: 0; */
     color: #242424;
     display: flex;
     justify-content: center;
@@ -21,6 +23,7 @@ export const Options = styled.div`
 `
 
 export const Option = styled.div`
+    cursor: pointer;
     &:hover {
         background-color: #dedede;
     }

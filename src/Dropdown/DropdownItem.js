@@ -13,12 +13,17 @@ const DropdownItem = (props) => {
     const addToCollection = () => {
         const addRef = db.collection('users').doc(props.user).collection('collections')
         if(!props.bool) {
+            let collectionNameUrl = props.collection.trim()
+            collectionNameUrl = collectionNameUrl.split(' ')
+            collectionNameUrl = collectionNameUrl.join('-')
+            collectionNameUrl = collectionNameUrl.toLowerCase()
             addRef.where('image', '==', props.photoInformation.image)
             .where('collection', '==', props.collection)
             .get()
             .then(data=> {
                 if(data.docs.length === 0) {
                     addRef.add({
+                        collectionUrl: collectionNameUrl,
                         id: props.photoInformation.id,
                         image: props.photoInformation.image,
                         smallImage: props.photoInformation.smallImage,

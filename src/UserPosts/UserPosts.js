@@ -10,7 +10,8 @@ import {
     PostsContainer,
     PostContainer, 
     PostTitle,
-    GearIcon,
+    TitleEllipsisContainer,
+    Ellipsis,
 } from './UserPosts.styles'
 import PostDropdown from './UserPostsDropdown'
 import { connect } from 'react-redux'
@@ -43,7 +44,7 @@ export const DisplayPosts = (props) => {
     }
 
     window.onclick = (e) => {
-        if (!e.target.matches('.user-post-dropdown')) {
+        if (!e.target.className.includes('user-post-dropdown')) {
             setShowOptions(false)
         }
     } 
@@ -60,16 +61,18 @@ export const DisplayPosts = (props) => {
             :
             null
             }
-            <div style={{padding: '0px', position: 'relative'}}>
-                <GearIcon display={showOptions ? 'initial' : 'none'} opacity={showOptions ? '1' : '0'} visibility={showOptions ? 'visible' : 'hidden'} onClick={()=>setShowOptions(!showOptions)} alt='settings' className='user-post-dropdown' src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjQgMTMuNjE2di0zLjIzMmMtMS42NTEtLjU4Ny0yLjY5NC0uNzUyLTMuMjE5LTIuMDE5di0uMDAxYy0uNTI3LTEuMjcxLjEtMi4xMzQuODQ3LTMuNzA3bC0yLjI4NS0yLjI4NWMtMS41NjEuNzQyLTIuNDMzIDEuMzc1LTMuNzA3Ljg0N2gtLjAwMWMtMS4yNjktLjUyNi0xLjQzNS0xLjU3Ni0yLjAxOS0zLjIxOWgtMy4yMzJjLS41ODIgMS42MzUtLjc0OSAyLjY5Mi0yLjAxOSAzLjIxOWgtLjAwMWMtMS4yNzEuNTI4LTIuMTMyLS4wOTgtMy43MDctLjg0N2wtMi4yODUgMi4yODVjLjc0NSAxLjU2OCAxLjM3NSAyLjQzNC44NDcgMy43MDctLjUyNyAxLjI3MS0xLjU4NCAxLjQzOC0zLjIxOSAyLjAydjMuMjMyYzEuNjMyLjU4IDIuNjkyLjc0OSAzLjIxOSAyLjAxOS41MyAxLjI4Mi0uMTE0IDIuMTY2LS44NDcgMy43MDdsMi4yODUgMi4yODZjMS41NjItLjc0MyAyLjQzNC0xLjM3NSAzLjcwNy0uODQ3aC4wMDFjMS4yNy41MjYgMS40MzYgMS41NzkgMi4wMTkgMy4yMTloMy4yMzJjLjU4Mi0xLjYzNi43NS0yLjY5IDIuMDI3LTMuMjIyaC4wMDFjMS4yNjItLjUyNCAyLjEyLjEwMSAzLjY5OC44NTFsMi4yODUtMi4yODZjLS43NDQtMS41NjMtMS4zNzUtMi40MzMtLjg0OC0zLjcwNi41MjctMS4yNzEgMS41ODgtMS40NCAzLjIyMS0yLjAyMXptLTEyIDIuMzg0Yy0yLjIwOSAwLTQtMS43OTEtNC00czEuNzkxLTQgNC00IDQgMS43OTEgNCA0LTEuNzkxIDQtNCA0eiIvPjwvc3ZnPg==" />
-                {showOptions ? 
-                <PostDropdown setShowEdit={setShowEdit} getPostData={getPostData} setShowOptions={setShowOptions} setShowGear={props.setShowGear} posts={props.post} setShowDelete={setShowDelete} />
-                :
-                null
-                }
-            </div>
             <Photo onLoad={()=> setIsVisible(true)} onClick={selectPhoto} src={props.post.smallImage} alt='display'></Photo>
-            <PostTitle onClick={selectPhoto}>{props.post.title}</PostTitle>
+                <TitleEllipsisContainer>
+                    <PostTitle onClick={selectPhoto}>{props.post.title}</PostTitle>
+                    <div style={{position: 'relative'}}>
+                        <Ellipsis onClick={()=> setShowOptions(!showOptions)} className={'user-post-dropdown'}>&#8942;</Ellipsis>
+                        {showOptions ? 
+                        <PostDropdown setShowEdit={setShowEdit} getPostData={getPostData} setShowOptions={setShowOptions} setShowGear={props.setShowGear} posts={props.post} setShowDelete={setShowDelete} />
+                        :
+                        null
+                        }
+                    </div>
+                </TitleEllipsisContainer>
         </PostContainer>
     )
 }

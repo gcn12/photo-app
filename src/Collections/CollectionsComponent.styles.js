@@ -1,22 +1,27 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    display: grid;
+    margin: 75px 200px 0 200px;
+    @media(max-width: 700px) {
+        margin: 75px 10px 0px 10px;
+    }
 `
 
 export const CollectionName = styled.div`
     font-size: 30px;
 `
 
-export const Title = styled.div`
-    color: #242424;
+export const PostsContainer = styled.div`
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    /* grid-template-columns: repeat(3, auto); */
+    grid-column-gap: 30px;
+    
+    justify-items: center;
+    justify-content: center;
 `
 
-export const Image = styled.img`
-    height: 150px;
-    width: 150px;
-    object-fit: cover;
-    box-shadow: 0 0 3px 3px rgba(0, 0, 0, .2);
-    border-radius: 4px;
-    cursor: pointer;
+export const Title = styled.div`
+    font-size: 40px;
+    font-weight: 500;
 `

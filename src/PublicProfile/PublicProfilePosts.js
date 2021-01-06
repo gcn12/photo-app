@@ -3,6 +3,7 @@ import {
     Container,
     Image,
     Title,
+    Location,
 } from './PublicProfilesPosts.styles'
 
 const PublicProfilesPosts = (props) => {
@@ -16,7 +17,7 @@ const PublicProfilesPosts = (props) => {
         <Container onClick={selectPhoto}>
             <Image src={props.post.smallImage} alt=''></Image>
             <Title>{props.post.title}</Title>
-            <Title>{`${props.post.city}, ${props.post.country}`}</Title>
+            <Location>{`${props.post.city}, ${props.post.country}`}</Location>
             {/* <Title>{props.post.previewDescription}</Title> */}
         </Container>
     )

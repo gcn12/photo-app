@@ -5,7 +5,7 @@ export const Container = styled.div`
     right: 0%;
     top: 95%;
     background-color: white;
-    padding: 20px;
+    padding: 10px 5px;
     z-index: 2;
     box-shadow: 0 2px 3px rgba(0, 0, 0, .3);
     border-radius: 3px;
@@ -29,8 +29,10 @@ export const LI = styled.li`
     -moz-user-select: none; 
     -ms-user-select: none; 
     user-select: none; 
-    padding: 2px;
+    padding: 5px 15px 5px 15px;
     white-space: nowrap;
+    background-color: transparent;
+    transition: background-color 40ms ease-in-out;
     &:hover{
         background-color: #ededed;
     }

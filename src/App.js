@@ -14,6 +14,7 @@ import {
   sortCriteria
 } from './Redux/Actions/appActions'
 import Header from './Header/Header'
+import CollectionsComponent from './Collections/CollectionsComponent'
 // import VerticalScroll from './VeritcalScroll/VerticalScroll'
 import Discover from './Discover/Discover'
 import FeaturedPost from './FeaturedPost/FeaturedPost'
@@ -313,6 +314,10 @@ const App = (props) => {
       )} />
 
 
+      <Route path='/photo-app/profile/collections/:collectionName' render={(props)=> (
+        <CollectionsComponent {...props} getFeaturedPhotoInfo={getFeaturedPhotoInfo}  />
+      )} />
+
       <Route path='/photo-app/' render={(props)=> (
         <Footer {...props} />
       )} />
@@ -332,7 +337,7 @@ const App = (props) => {
           {...props}/>
         )} />
  
-        <Route path='/photo-app/profile/:route?' render={(props)=>( 
+        <Route exact path='/photo-app/profile/:route?' render={(props)=>( 
           <Profile 
             getFeaturedPhotoInfo={getFeaturedPhotoInfo}
             {...props}

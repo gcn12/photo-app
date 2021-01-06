@@ -25,8 +25,13 @@ const AddToCollection = (props) => {
         .where('collection', '==', name)
         .get()
         .then(data=> {
+            let collectionNameUrl = name.trim()
+            collectionNameUrl = collectionNameUrl.split(' ')
+            collectionNameUrl = collectionNameUrl.join('-')
+            collectionNameUrl = collectionNameUrl.toLowerCase()
             if(data.docs.length === 0) {
                 addRef.add({
+                    collectionUrl: collectionNameUrl,
                     id: props.photoInfo.id,
                     image: props.photoInfo.image,
                     smallImage: props.photoInfo.smallImage,
@@ -45,11 +50,16 @@ const AddToCollection = (props) => {
     const createCollection = () => {
         const collectionName = document.getElementById('collection-name').value
         if(!props.collectionsList.includes(collectionName) && collectionName.length>0){
+            let collectionNameUrl = collectionName.trim()
+            collectionNameUrl = collectionNameUrl.split(' ')
+            collectionNameUrl = collectionNameUrl.join('-')
+            collectionNameUrl = collectionNameUrl.toLowerCase()
             db.collection('users')
             .doc(props.user)
             .collection('collection-names')
             .doc(collectionName)
             .set({
+                collectionUrl: collectionNameUrl,
                 collection: collectionName,
                 timestamp: Date.now(),
                 preview: [props.photoInfo.image]

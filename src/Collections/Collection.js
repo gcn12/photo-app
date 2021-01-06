@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import DropdownDelete from './DropdownDelete'
 import { homePhotoInformation } from '../Redux/Actions/appActions'
 import { db } from '../Firebase'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { collectionsData } from '../Redux/Actions/collectionsActions'
 import { 
@@ -21,7 +22,6 @@ const Collection = (props) => {
     const [isVisible, setIsVisible] = useState(false)
 
     const getPhotos = () => {
-        console.log(props.collection[0])
         db.collection('users')
         .doc(props.user)
         .collection('collections')
@@ -35,7 +35,6 @@ const Collection = (props) => {
             props.dispatch(homePhotoInformation(imageArray))
             // props.history.push('/photo-app/posts')
             props.dispatch(collectionsData(imageArray))
-            props.setIsCollectionDisplay(true)
         })
     }
 
@@ -58,18 +57,20 @@ const Collection = (props) => {
     
     return(
         <ImageTitleContainer opacity={isVisible ? 1 : 0}>
-            <ImagesContainer onClick={getPhotos}>
-                {items > 0 ? 
-                <div>
-                    <Image onLoad={()=> setIsVisible(true)} margin={dimensionsMap[items].margin[1]} height={dimensionsMap[items].height[1]} width={dimensionsMap[items].width[1]} src={collection[1][0]} key='1' alt='placeholder' />
-                    <Image margin={dimensionsMap[items].margin[2]} height={dimensionsMap[items].height[2]} width={dimensionsMap[items].width[2]} src={collection[1][1]} key='2' alt='placeholder' />
-                    <Image margin={dimensionsMap[items].margin[3]} height={dimensionsMap[items].height[3]} width={dimensionsMap[items].width[3]} src={collection[1][2]} key='3' alt='placeholder' />
-                    <Image margin={dimensionsMap[items].margin[4]} height={dimensionsMap[items].height[4]} width={dimensionsMap[items].width[4]} src={collection[1][3]} key='4' alt='placeholder' />
-                </div>
-                :
-                <NoImage onLoad={()=> setIsVisible(true)}>Collection is empty</NoImage>
-                }
-            </ImagesContainer>
+            <Link to={`/photo-app/profile/collections/${collection[2]}`}>
+                <ImagesContainer onClick={getPhotos}>
+                    {items > 0 ? 
+                    <div>
+                        <Image onLoad={()=> setIsVisible(true)} margin={dimensionsMap[items].margin[1]} height={dimensionsMap[items].height[1]} width={dimensionsMap[items].width[1]} src={collection[1][0]} key='1' alt='placeholder' />
+                        <Image margin={dimensionsMap[items].margin[2]} height={dimensionsMap[items].height[2]} width={dimensionsMap[items].width[2]} src={collection[1][1]} key='2' alt='placeholder' />
+                        <Image margin={dimensionsMap[items].margin[3]} height={dimensionsMap[items].height[3]} width={dimensionsMap[items].width[3]} src={collection[1][2]} key='3' alt='placeholder' />
+                        <Image margin={dimensionsMap[items].margin[4]} height={dimensionsMap[items].height[4]} width={dimensionsMap[items].width[4]} src={collection[1][3]} key='4' alt='placeholder' />
+                    </div>
+                    :
+                    <NoImage onLoad={()=> setIsVisible(true)}>Collection is empty</NoImage>
+                    }
+                </ImagesContainer>
+            </Link>
             <Header>
                 <Title>{props.collection[0]}</Title>
                 <Ellipsis onClick={()=>setIsDeleteMenu(!isDeleteMenu)}>

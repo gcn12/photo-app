@@ -67,6 +67,10 @@ const AddDropdown = (props) => {
     }
 
     const unbookmark = () => {
+        if(props.removeFromSavedPostArray) {
+            props.removeFromSavedPostArray(props.index)
+            props.setShowDropdown(false)
+        }
         db.collection('users')
         .doc(props.user)
         .collection('bookmarked')
@@ -75,17 +79,19 @@ const AddDropdown = (props) => {
         .get()
         .then(data=> {
             data.docs[0].ref.delete()
-            props.setIsBookmarked(false)
+            if(!props.isRemoveFromSavedPage){
+                props.setIsBookmarked(false)
+            }
         })
     }
 
 
     return(
-        <Container>
+        <Container translateContainer={props.translateContainer}>
             {/* <AddToCollection /> */}
             <Options>
                 {props.isBookmarked ? 
-                <Option className='add-dropdown' onClick={unbookmark}>
+                <Option className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'} onClick={unbookmark}>
                     <div style={{transform: 'scale(.9)'}}>
                         <FilledBookmark />
                     </div>

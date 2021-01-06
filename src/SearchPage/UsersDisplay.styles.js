@@ -5,11 +5,13 @@ export const Image = styled.img`
     width: 100px;
     object-fit: cover;
     border-radius: 50%; 
-    margin-top: 10px;
-    border: 1px solid rgba(0, 0, 0, .3);
-    /* position: absolute;
-    top: 30%;
-    left: 35%; */
+    /* margin-top: 10px; */
+    border: 4px solid rgba(255, 255, 255, 1);
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 37%;
+    left: 50%;
+
 `
 
 export const Container = styled.div`
@@ -17,35 +19,42 @@ export const Container = styled.div`
     transition: opacity 400ms ease-in-out;
     background-color: #fafafa;
     height: 400px;
-    width: 303px;
+    width: 300px;
     margin-bottom: 20px;
-    /* position: relative; */
+    position: relative;
     box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, .1);
-    border-radius: 3px;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
 `
 
 export const HeaderImage = styled.img`
-    height: 90px;
-    width: 90px;
-    margin: 10px 3px;
+    height: 140px;
+    width: 300px;
+    /* margin: 10px 3px; */
     object-fit: cover;
-    border-radius: 5px;
-`
-
-export const Name = styled.div`
-    font-size: 22px;
+    border-radius: 5px 5px 0 0;
 `
 
 export const Username = styled.div`
-    font-size: 17px
+    font-size: 22px;
+    font-weight: 600;
+    margin: 10px 0 5px 0;
+`
+
+export const Name = styled.div`
+    font-size: 14px;
+    font-weight: 300;
+    margin: 0px 0 15px 0;
 `
 
 export const Bio = styled.div`
     font-size: 14px;
-    padding: 0 7%;
+    padding: 0 14%;
+    vertical-align: middle; 
+    text-align: center; 
+    margin: 0 0 20px 0;
 `
 
 export const Follow = styled.button`

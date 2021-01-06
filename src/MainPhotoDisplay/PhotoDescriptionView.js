@@ -14,6 +14,7 @@ import {
     Location,
     Title,
     BookmarkLocationContainer,
+    Ellipsis,
     // Name,
     // LocationNameContainer,
 } from './PhotoDescriptionView.styles'
@@ -76,11 +77,11 @@ const PhotoDescriptionView = (props) => {
                     <div>
                         <div className='add-dropdown' style={{cursor: 'pointer'}}>
                             {showDropdown ? 
-                            <AddDropdown setCollectionsList={setCollectionsList}  id={props.photoInfo.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.photoInfo} />
+                            <AddDropdown translateContainer='translate(-93%, 31%)' setCollectionsList={setCollectionsList}  id={props.photoInfo.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.photoInfo} />
                             :
                             null
                             }
-                            <div className='add-dropdown' onClick={checkIsBookmarked}>&#8942;</div>
+                            <Ellipsis className='add-dropdown' onClick={checkIsBookmarked}>&#8942;</Ellipsis>
                         </div>
                     </div>
                 </BookmarkLocationContainer>

@@ -29,7 +29,7 @@ const SavedPosts = (props) => {
         <div>
             {savedPostsData.map((post, index) => {
                 return(
-                    <SavedPost post={post} key={index}></SavedPost>
+                    <SavedPost index={index} savedPostsData={savedPostsData} setSavedPostsData={setSavedPostsData} post={post} key={index}></SavedPost>
                 )
             })}
         </div>

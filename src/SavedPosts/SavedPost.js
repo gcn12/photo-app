@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom' 
+import AddDropdown from '../MainPhotoDisplay/AddDropdown'
+import AddToCollection from '../FeaturedPost/AddToCollection'
+
 // import { ReactComponent as TrashCan } from '../Icons/TrashCan.svg'
 import {
     Container,
@@ -13,9 +16,31 @@ import {
 const SavedPost = (props) => {
 
     const [isVisible, setIsVisible] = useState(false)
+    const [showDropdown, setShowDropdown] = useState(false)
+    const [showAddToCollection, setShowAddToCollection] = useState(false)
+    const [isBookmarked, setIsBookmarked] = useState(true)
+
+    const [collectionsList, setCollectionsList] = useState([])
+
+    window.onclick = (e) => {
+        if (!e.target.matches('.add-dropdown')) {
+            setShowDropdown(false)
+        }
+    } 
+
+    const removeFromSavedPostArray = () => {
+        let dataCopy = [...props.savedPostsData]
+        dataCopy.splice(props.index, 1)
+        props.setSavedPostsData([...dataCopy])
+    }
 
     return(
         <Container opacity={isVisible ? 1 : 0}>
+            {showAddToCollection ? 
+            <AddToCollection removeFromSavedPostArray={removeFromSavedPostArray} photoInfo={props.post} collectionsList={collectionsList} setIsAddToCollection={setShowAddToCollection} setCollectionsList={setCollectionsList} />
+            :
+            null
+            }
             <ImageTextContainer>
             <Link to={`/photo-app/post/${props.post.username}/${props.post.url}`}>
                 <Image onLoad={()=>setIsVisible(true)} src={props.post.image} />
@@ -28,7 +53,14 @@ const SavedPost = (props) => {
                     {/* <Description>{`${props.post.city}, ${props.post.country}`}</Description> */}
                     <Description>{props.post.previewDescription}</Description>
                 </div>
-                <More>&#8942;</More>
+                <div style={{position: 'relative'}}>
+                    <More onClick={()=> setShowDropdown(!showDropdown)} className='add-dropdown'>&#8942;</More>
+                    {showDropdown ? 
+                    <AddDropdown setShowDropdown={setShowDropdown} isRemoveFromSavedPage={true} index={props.index} removeFromSavedPostArray={removeFromSavedPostArray} translateContainer='translate(-93%, 0%)' setCollectionsList={setCollectionsList} id={props.post.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.post} />
+                    :
+                    null
+                    }
+                </div>
             </div>
                 {/* <TrashCan style={{height: '50px', width: '50px'}} /> */}
             </ImageTextContainer>

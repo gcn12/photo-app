@@ -4,7 +4,7 @@ export const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0px 30px 10px;
+    margin: 0px 30px 20px;
     padding: 10px 0 0 0;
 
     @media(max-width: 550px) {
@@ -27,6 +27,7 @@ export const UL = styled.ul`
 
 export const LI = styled.li`
     margin-right: 15px;
+    font-weight: 500;
     color: #242424;
     cursor: pointer;
     -webkit-touch-callout: none; 
@@ -43,6 +44,7 @@ export const Border = styled.div`
 `
 
 export const Navigation = styled.div`
+    font-weight: 500;
     color: #242424;
     text-decoration: none;
     white-space: nowrap;

@@ -13,6 +13,10 @@ const Rename = (props) => {
     const submitRename = (collectionName) => {
         const collectionRename = document.getElementById('new-collection-name').value
         if(collectionRename.length > 0) {
+            let collectionNameUrl = collectionRename.trim()
+            collectionNameUrl = collectionNameUrl.split(' ')
+            collectionNameUrl = collectionNameUrl.join('-')
+            collectionNameUrl = collectionNameUrl.toLowerCase()
             const collectionRef = db.collection('users').doc(props.user)
             collectionRef.collection('collections').where('collection', '==', collectionName)
             .get()
@@ -26,6 +30,7 @@ const Rename = (props) => {
                     collectionRef.collection('collection-names').doc(collectionName).delete()
                     const oldCollectionData = data.data()
                     oldCollectionData['collection'] = collectionRename
+                    oldCollectionData['collectionUrl'] = collectionNameUrl
                     collectionRef.collection('collection-names').doc(collectionRename)
                     .set(oldCollectionData)
                     .then(()=>{

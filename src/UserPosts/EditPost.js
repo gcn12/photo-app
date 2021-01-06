@@ -532,7 +532,7 @@ const EditPost = (props) => {
 
     return(
         <Container height={isUploading ? '50vh' : '97vh'} width={isUploading ? '50vw' : '90vw'} opacity={1}>
-            <button onClick={()=> console.log(postData)}>Log</button>
+            {/* <button onClick={()=> console.log(postData)}>Log</button> */}
             <CenterUploadProgress>
                 <UploadProgress uploadProgressColor={uploadProgressColor} animate={uploadStatusProps} variants={animationMap.uploadStatus} uploadCount={uploadCount} uploadProgress={uploadProgress} />
             </CenterUploadProgress>

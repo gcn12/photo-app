@@ -3,14 +3,10 @@ import { db } from '../Firebase'
 import Collection from './Collection'
 import Rename from './Rename'
 import Delete from './Delete'
-import CollectionsComponent from './CollectionsComponent'
 import { connect } from 'react-redux'
 import { 
     Container,
 } from './Collections.styles'
-import {
-    CollectionName,
-} from './CollectionsComponent.styles'
 
 const Collections = (props) => {
 
@@ -18,7 +14,6 @@ const Collections = (props) => {
     const [showRename, setShowRename] = useState(false)
     const [showDelete, setShowDelete] = useState(false)
     const [collectionName, setCollectionName] = useState('')
-    const [isCollectionDisplay, setIsCollectionDisplay] = useState(false)
 
     const getCollections = () => {
         if(props.user) {    
@@ -38,6 +33,7 @@ const Collections = (props) => {
                     }else{
                         valueArray.push([null])
                     }
+                    valueArray.push(collectionObject.collectionUrl)
                     collectionsArray.push(valueArray)
                 })
                 setCollectionInfo(collectionsArray)
@@ -49,16 +45,6 @@ const Collections = (props) => {
  
     return(
         <div>
-            {isCollectionDisplay ? 
-            <div>
-                <CollectionName>{props?.collectionsData[0].collection}</CollectionName>
-                {props?.collectionsData.map((collection, index)=> {
-                    return(
-                        <CollectionsComponent collection={collection} key={index} />
-                    )
-                })}
-            </div>
-            :
             <div>
                 { showRename ?
                 <Rename showRename={showRename} getCollections={getCollections} collectionName={collectionName} setShowRename={setShowRename}></Rename>
@@ -74,7 +60,6 @@ const Collections = (props) => {
                     {collectionInfo?.map((collection, index)=> {
                         return(
                             <Collection 
-                                setIsCollectionDisplay={setIsCollectionDisplay}
                                 setShowDelete={setShowDelete}
                                 setCollectionName={setCollectionName}
                                 setShowRename={setShowRename}
@@ -89,7 +74,6 @@ const Collections = (props) => {
                     })}
                 </Container>
             </div>
-            }
         </div>
     )
 }
