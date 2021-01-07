@@ -11,7 +11,8 @@ import {
   userPosts,
   searchResults,
   startAfter,
-  sortCriteria
+  sortCriteria,
+  userInformation,
 } from './Redux/Actions/appActions'
 import Header from './Header/Header'
 import CollectionsComponent from './Collections/CollectionsComponent'
@@ -89,6 +90,13 @@ const App = (props) => {
     firebase.auth().onAuthStateChanged((userData)=> {
       if(userData) {
         props.dispatch(user(userData.uid))
+        db.collection('users')
+        .doc(userData.uid)
+        .get()
+        .then(item=> {
+          console.log(item.data())
+          props.dispatch(userInformation(item.data()))
+        })
       }
     })
     if(props?.location?.pathname) {

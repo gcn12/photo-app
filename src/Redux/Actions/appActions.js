@@ -10,6 +10,13 @@ export const SEARCH_RESULTS = 'SEARCH_RESULTS'
 export const SEARCH_QUERIES = 'SEARCH_QUERIES'
 export const START_AFTER = 'START_AFTER'
 export const SORT_CRITERIA = 'SORT_CRITERIA'
+export const USER_INFORMATION = 'USER_INFORMATION'
+
+export function userInformation(string) {
+    return(dispatch) => {
+        dispatch({type: USER_INFORMATION, payload: string})
+    }
+}
 
 export function sortCriteria(string) {
     return(dispatch) => {

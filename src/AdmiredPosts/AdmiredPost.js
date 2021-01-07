@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom' 
-import AddDropdown from '../MainPhotoDisplay/AddDropdown'
+import AdmiredDropdown from './AdmiredDropdown'
 import AddToCollection from '../FeaturedPost/AddToCollection'
 
 // import { ReactComponent as TrashCan } from '../Icons/TrashCan.svg'
@@ -11,9 +11,9 @@ import {
     Description,
     ImageTextContainer,
     More,
-} from './SavedPost.styles'
+} from '../SavedPosts/SavedPost.styles'
 
-const SavedPost = (props) => {
+const AdmiredPost = (props) => {
 
     const [isVisible, setIsVisible] = useState(false)
     const [showDropdown, setShowDropdown] = useState(false)
@@ -55,7 +55,7 @@ const SavedPost = (props) => {
                 <div style={{position: 'relative'}}>
                     <More onClick={()=> setShowDropdown(!showDropdown)} className='add-dropdown'>&#8942;</More>
                     {showDropdown ? 
-                    <AddDropdown setShowDropdown={setShowDropdown} isRemoveFromSavedPage={true} index={props.index} removeFromSavedPostArray={removeFromSavedPostArray} translateContainer='translate(-93%, 0%)' setCollectionsList={setCollectionsList} id={props.post.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.post} />
+                    <AdmiredDropdown setShowDropdown={setShowDropdown} isRemoveFromSavedPage={true} index={props.index} removeFromSavedPostArray={removeFromSavedPostArray} translateContainer='translate(-93%, 0%)' setCollectionsList={setCollectionsList} id={props.post.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.post} />
                     :
                     null
                     }
@@ -66,4 +66,4 @@ const SavedPost = (props) => {
     )
 }
 
-export default SavedPost
+export default AdmiredPost

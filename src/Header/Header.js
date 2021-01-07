@@ -9,6 +9,7 @@ import Search from '../Search/Search'
 import ProfileDropdown from './ProfileDropdown'
 import { connect } from 'react-redux'
 import { homePhotoInformation } from '../Redux/Actions/appActions'
+import { ReactComponent as Avatar } from '../Icons/Avatar.svg'
 import { searchTransition, searchVisibility, selected, selectedCategory } from '../Redux/Actions/headerActions'
 import { ReactComponent as SearchIcon } from '../Icons/Search.svg'
 import { Link } from 'react-router-dom' 
@@ -20,6 +21,7 @@ import {
     Navigation,
     HeaderRight,
     IconContainer,
+    ProfileImage,
 } from './Header.styles'
 
 const Header = (props) => {
@@ -161,14 +163,18 @@ const Header = (props) => {
                         <Navigation>|</Navigation>
                         {props.user ? 
                         <div style={{position: 'relative'}}>
-                        {/* <Link to='/photo-app/profile' style={{ textDecoration: 'none' }}> */}
-                            <Navigation className='profile-dropdown' onClick={()=> setShowProfileDropdown(!showProfileDropdown)} cursor='pointer'>Profile</Navigation>
+                            {props.userInformation.profileImage ? 
+                            <ProfileImage className='profile-dropdown' onClick={()=> setShowProfileDropdown(!showProfileDropdown)} src={props.userInformation.profileImage} />
+                            :
+                            <Avatar className='profile-dropdown' onClick={()=> setShowProfileDropdown(!showProfileDropdown)} style={{transform: 'scale(1.3)', position: 'relative', top: 4, cursor: 'pointer'}} />
+                            }
+                            {/* <Navigation className='profile-dropdown' onClick={()=> setShowProfileDropdown(!showProfileDropdown)} cursor='pointer'>
+                            </Navigation> */}
                             {showProfileDropdown ? 
                             <ProfileDropdown setShowProfileDropdown={setShowProfileDropdown} history={props.history} />
                             :
                             null
                             }
-                        {/* </Link> */}
                         </div>
                         :
                         <Link to='/photo-app/login' style={{ textDecoration: 'none' }}>
@@ -215,6 +221,7 @@ const Header = (props) => {
 
 const mapStateToProps = state => ({
     user: state.app.user,
+    userInformation: state.app.userInformation,
     dropdownTransition: state.header.dropdownTransition,
     visibility: state.header.visibility,
 })

@@ -8,6 +8,7 @@ import { ReactComponent as FilledHeart } from '../Icons/FilledHeart.svg'
 import { ReactComponent as Add } from '../Icons/Add.svg'
 import { ReactComponent as EmptyBookmark } from '../Icons/EmptyBookmark.svg'
 import { ReactComponent as FilledBookmark } from '../Icons/FilledBookmark.svg'
+import { ReactComponent as SquareAvatar } from '../Icons/SquareAvatar.svg'
 import firebase from 'firebase'
 import { motion } from 'framer-motion'
 import { connect } from 'react-redux'
@@ -39,6 +40,12 @@ import {
     DateStyle,
     ButtonLabelContainer,
     ButtonLabel,
+    UserBioContainer,
+    ProfileImage,
+    Bio,
+    BioName,
+    BioUsername,
+    BioContainer,
     // AddCollectionHeartContainer,
 } from './FeaturedPost.styles'
 
@@ -232,22 +239,34 @@ const FeaturedPost = (props) => {
     
 
     const heartImage = () => {
+        const {views, hearts, ratio, dataObj, font, imagesLarge, imagesSmall, photoBodyMap, ...data } = props.photoInformation
         db.collection('users')
         .doc(props.user)
-        .collection('hearts')
-        .doc('hearts')
-        .set({
-            hearts: firebase.firestore.FieldValue.arrayUnion(props.photoInformation.id)
-        }, {merge: true})
-        .then(()=> {
-            setIsHeart(true)
-            db.collection('preview-posts').where('id', '==', props.photoInformation.id)
-            .get()
-            .then(ref=> {
-                incrementHeartCount(ref.docs[0].ref.id)
-                calculateLikeRatio(ref.docs[0].ref.id)
+        .collection('admired')
+        .add({
+            ...data,
+            timestamp: Date.now(),
+        })
+        .then(()=>{
+            // setIsBookmark(true)
+            db.collection('users')
+            .doc(props.user)
+            .collection('hearts')
+            .doc('hearts')
+            .set({
+                hearts: firebase.firestore.FieldValue.arrayUnion(props.photoInformation.id)
+            }, {merge: true})
+            .then(()=> {
+                setIsHeart(true)
+                db.collection('preview-posts').where('id', '==', props.photoInformation.id)
+                .get()
+                .then(ref=> {
+                    incrementHeartCount(ref.docs[0].ref.id)
+                    calculateLikeRatio(ref.docs[0].ref.id)
+                })
             })
         })
+        .catch(err =>console.log(err))
         
     }
 
@@ -321,31 +340,12 @@ const FeaturedPost = (props) => {
             }
             <Container>
                 <div>
+
                     <MainImage onLoad={null} width={isImageHorizontal ? '80vw' : 'auto'} height={isImageHorizontal ? 'auto' : '80vh'} id='featured-main-image' alt='display' src={props?.photoInformation?.image}></MainImage>
                     {/* <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</DateStyle> */}
                     <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                         <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MM DD YY')}</DateStyle>
                     </div>
-                    {/* <InfoContainer justify='space-between'>
-                        {props?.user ? 
-                        <AddCollectionHeartContainer>
-                            <SubmitButton className='dropdown' onClick={showDropdownAndGetList}>
-                                <div className='dropdown'>Add to collection &#x25BC;</div>
-                            </SubmitButton>
-                            {showDropdown ? 
-                            <Dropdown className='dropdown' /> 
-                            : 
-                            null}  
-                            {isHeart ? 
-                            <FilledHeart onClick={unheartImage} style={{marginLeft: '10px', cursor: 'pointer'}} />
-                            :
-                            <EmptyHeart onClick={heartImage} style={{marginLeft: '10px', cursor: 'pointer'}} />
-                            }
-                        </AddCollectionHeartContainer>
-                        :
-                        null}
-                        <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</DateStyle>
-                    </InfoContainer> */}
                     <div style={{display: 'flex', justifyContent: 'center'}}>
                         <Title font={props?.photoInformation?.font}>{props?.photoInformation?.title}</Title>
                     </div>
@@ -466,6 +466,27 @@ const FeaturedPost = (props) => {
                 </ButtonLabelContainer>
             </PostFooterContainer>
 
+
+            <UserBioContainer>
+                <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} style={{textDecoration: 'none'}}>
+                    {props?.photoInformation?.profileImage ? 
+                    <ProfileImage src={props.photoInformation.profileImage } />
+                    :
+                    <SquareAvatar style={{ transform: 'scale(3.5)', marginRight: '50px' }}/>
+                    }
+                </Link>
+                <BioContainer>
+                <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} style={{textDecoration: 'none'}}>
+                    <BioUsername>{props?.photoInformation?.username}</BioUsername>
+                </Link>
+                    <BioName>{props?.photoInformation?.author}</BioName>
+                    {props?.photoInformation?.bio ? 
+                    <Bio>{props?.photoInformation?.bio}</Bio>
+                    :
+                    null
+                    }
+                </BioContainer>
+            </UserBioContainer>
 
             
             <HorizontalGallery 

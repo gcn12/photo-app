@@ -3,10 +3,10 @@ import styled from 'styled-components'
 export const Container = styled.div`
     opacity: ${props=> props.visibility};
     margin-top: 30px;
-    cursor: pointer;
 `
 
 export const Image = styled.img`
+    cursor: pointer;
     /* width: 300px; */
     width: 100%;
     min-width: 200px;
@@ -24,6 +24,7 @@ export const Image = styled.img`
 export const Title = styled.div`
     font-size: 25px;
     font-weight: 500;
+    cursor: pointer;
     color: #242424;
 `
 

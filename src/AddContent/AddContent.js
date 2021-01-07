@@ -225,7 +225,7 @@ const AddContent = (props) => {
     const [bodyContent, setBodyContent] = useState([])
     const [bodyImages, setBodyImages] = useState([])
     const [imageSizeRatio, setImageSizeRatio] = useState({})
-    const [uploadCount, setUploadCount] = useState(11)
+    const [uploadCount, setUploadCount] = useState(3)
     const [uploadProgress, setUploadProgress] = useState(0)
     const [uploadProgressColor, setUploadProgressColor] = useState(false)
     const [paragraph, setParagraph] = useState('')
@@ -281,6 +281,20 @@ const AddContent = (props) => {
             }
             previewDescription = descriptionNoEllipsis
         }
+
+        let profileImage
+        if(props.userInformation.profileImage) {
+            profileImage = props.userInformation.profileImage
+        } else{
+            profileImage = null
+        }
+
+        let bio
+        if(props.userInformation.bio) {
+            bio = props.userInformation.bio
+        } else{
+            profileImage = null
+        }
     
         let mainImage
         let mainImageSmall
@@ -321,7 +335,7 @@ const AddContent = (props) => {
             .doc(props.user)
             .get()
             .then(data=> {
-                setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
+                // setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
                 const username = data.data()['username']
                 db.collection('continents-countries').doc('map').collection(country)
                 .where(country, 'in', ['North America', 'South America', 'Asia', 'Europe', 'Oceania', 'Africa'])
@@ -330,7 +344,9 @@ const AddContent = (props) => {
                     setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                     const continent = data.docs[0].data()[country]
                     db.collection('posts').add({
+                        bio,
                         font,
+                        profileImage,
                         photoBodyMap: imageSizeArrayWithIndex,
                         // content: descriptionArray,
                         imagesLarge: urlObjectLarge,
@@ -351,7 +367,7 @@ const AddContent = (props) => {
                         url,
                         username
                     }).then(docRef => {
-                        setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+                        // setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                         db.collection('posts').doc(docRef.id).set({
                             id: docRef.id,
                         }, {merge: true}) 
@@ -403,47 +419,35 @@ const AddContent = (props) => {
         let url = title.split(' ')
         url = url.join('-')
         url = url.toLowerCase()
-        setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
         // const random = Math.round(Math.random()*1000000)
         db.collection('users')
         .doc(props.user)
         .get()
         .then(userData=> {
-            setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
             const username = userData.data().username
-            setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
-            setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
 
             let photoIndexes = []
             let fileArray = []
             const photoUrlArraySortedSmall = []
             const photoUrlArraySortedLarge = []
-            // const photoFiles = [...filesLarge, ...filesSmall]
             for (let i = 0; i < filesLarge.length; i++) {
                 fileArray = [...fileArray, ...filesLarge[i]]
-                // if(filesLarge[i].length > 0) {
-                    if(i !== 0){
-                        photoUrlArraySortedSmall.push([])
-                        photoUrlArraySortedLarge.push([])
-                        for(let j = 0; j<filesLarge[i].length; j++) {
-                            photoIndexes.push(i-1)
-                        }
+                if(i !== 0){
+                    photoUrlArraySortedSmall.push([])
+                    photoUrlArraySortedLarge.push([])
+                    for(let j = 0; j<filesLarge[i].length; j++) {
+                        photoIndexes.push(i-1)
                     }
-                // }
-                // else{
-                //     if(i!==0) {
-                //         photoIndexes.push(i-1)
-                //         photoUrlArraySortedSmall.push([])
-                //         photoUrlArraySortedLarge.push([])
-                //     }
-                // }
+                }
             }
             for (let i = 0; i < filesLarge.length; i++) {
                 fileArray = [...fileArray, ...filesSmall[i]]
             }
+            setUploadCount(uploadCount => uploadCount + fileArray.length)
             const urlArray = []
             let index = []
             let indexNum = 0
+            setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
             const upload = () => {
                 if(indexNum<fileArray.length) {
                     const random = Math.round(Math.random()*1000000)
@@ -459,7 +463,7 @@ const AddContent = (props) => {
                             indexNum++ 
                             index.push(downloadURL) 
                         }).then((downloadURL)=> {
-                            setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+                            // setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                             if(urlArray.length===fileArray.length) {
                                 submit(photoUrlArraySortedSmall, photoUrlArraySortedLarge, [...urlArray], photoIndexes, imageSizeArray, itemsToUploadData, filesIndex)
                             }else{
@@ -566,17 +570,17 @@ const AddContent = (props) => {
 
     const getBodyImages = () => {
         const images = document.getElementsByClassName('body-photos')
-        let count = 0
+        // let count = 0
         let imagesArray = []
         for (let i = 0; i < images.length; i++) {
             let subArray = []
             for(let j = 0; j<images[i].files.length; j++) {
-                count += 1
+                // count += 1
                 subArray.push(images[i].files[j])
             }
             imagesArray.push(subArray)
         }
-        setUploadCount(uploadCount => uploadCount + count)
+        // setUploadCount(uploadCount => uploadCount + count)
         setBodyImages(imagesArray)
     }
 
@@ -731,6 +735,7 @@ const AddContent = (props) => {
 
 const mapStateToProps = state => ({
     user: state.app.user,
+    userInformation: state.app.userInformation,
 })
 
 export default connect(mapStateToProps)(AddContent)

@@ -21,10 +21,13 @@ export const initialState = {
         new: false,
         rating: false,
     },
+    userInformation: {},
 }
 
 export default function pageReducer(state=initialState, action) {
     switch(action.type) {
+        case actions.USER_INFORMATION:
+            return {...state, userInformation: action.payload}
         case actions.SORT_CRITERIA:
             return {...state, sortCriteria: action.payload}
         case actions.START_AFTER:

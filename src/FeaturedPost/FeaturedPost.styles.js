@@ -12,6 +12,7 @@ export const InfoContainer = styled.div`
     display: flex;
     justify-content: ${props=> props.justify};
     align-items: center;
+    margin: 15px 0 40px 0; 
 `
 
 export const Title = styled.div`
@@ -36,20 +37,28 @@ export const MainImage = styled.img`
     /* height: ${props=> props.height};
     width: ${props=> props.width}; */
     height: auto;
+    /* object-fit: contain; */
+    /* -o-object-fit: contain; */
+    
     width: auto;
     max-height: 90vh;
     max-width: 90vw;
     display: block;
+    /* width: auto !important; */
+
+    
+
 `
 
 export const Author = styled.div`
     color: #595959;
-    font-size: 25px;
+    font-size: 20px;
     /* color: #242424; */
     cursor: pointer;
     font-weight: 300;
     font-family: ${props=> props.font};
-    margin: 15px 0 40px 0;
+    /* margin: 15px 0 40px 0; */
+    display: inline-block;
 `
 
 export const DateStyle = styled.div`
@@ -92,7 +101,7 @@ export const BodyImage = styled.img`
     /* width: ${props=> `${props.width}`}; */
     width: ${props=> props.imageQuantity > 1 ? `calc(${props.width} * 65vw - ${props.imageGap} * ${props.width})` : 'auto'};
     /* width: calc(5 * 65)vw; */
-    margin:  ${props=>  props.margin};
+    margin: ${props=>  props.margin};
     max-height: 90vh;
     max-width: 65vw;
     display: block;
@@ -162,4 +171,40 @@ export const ButtonLabel = styled.div`
     margin-top: 10px;
     font-size: 17px;
     font-weight: 300;
+`
+
+export const UserBioContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+`
+
+export const BioContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+export const ProfileImage = styled.img`
+    height: 100px;
+    width: 100px;
+    border-radius: 5px;
+    margin-right: 15px;
+`
+
+export const BioUsername = styled.div`
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size: 30px;
+    color: #242424;
+`
+
+export const BioName = styled.div`
+    font-size: 15px;
+    margin-bottom: 15px;
+`
+
+export const Bio = styled.div`
+    max-width: 30vw;
+    color: #4D4D4D;
 `

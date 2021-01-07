@@ -1,10 +1,8 @@
 import React from 'react'
-// import AddToCollection from '../FeaturedPost/AddToCollection'
-// import { ReactComponent as FilledBookmark } from '../Icons/FilledBookmark.svg'
-// import { ReactComponent as EmptyBookmark } from '../Icons/EmptyBookmark.svg'
 import { db } from '../Firebase'
 import { ReactComponent as Add } from '../Icons/Add.svg'
 import { connect } from 'react-redux'
+import { ReactComponent as FilledHeart } from '../Icons/FilledHeart.svg'
 import {
     Container,
     OptionIcon,
@@ -13,13 +11,8 @@ import {
     OptionText,
     Triangle,
 } from '../Styles/DropdownStyles.styles'
-// import {
-//     Container,
-//     Option,
-//     Options,
-// } from './AddDropdown.styles'
 
-const AddDropdown = (props) => {
+const AdmiredDropdown = (props) => {
 
     const getCollectionsList = () => {
         const collectionsArray = []
@@ -65,7 +58,7 @@ const AddDropdown = (props) => {
         const { views, hearts, ratio, ...data } = props.photoInfo
         db.collection('users')
         .doc(props.user)
-        .collection('bookmarked')
+        .collection('admired')
         .add({
             ...data,
             timestamp: Date.now(),
@@ -81,7 +74,7 @@ const AddDropdown = (props) => {
         }
         db.collection('users')
         .doc(props.user)
-        .collection('bookmarked')
+        .collection('admired')
         .where('username', '==', props.photoInfo.username)
         .where('url', '==', props.photoInfo.url)
         .get()
@@ -102,14 +95,14 @@ const AddDropdown = (props) => {
                 <OptionIconContainer radius='5px 5px 0 0' className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}  onClick={unbookmark}>
 
                     <OptionIcon className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}  style={{transform: 'scale(.9)'}}>
-                        <img style={{transform: 'scale(.8)', position: 'relative', top: 4}} alt='' className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'} src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTggMjRsLTYtNS4yNjktNiA1LjI2OXYtMjRoMTJ2MjR6Ii8+PC9zdmc+"></img>
+                    <FilledHeart style={{backrgroundColor: 'red', transform: 'scale(.8)', position: 'relative', top: 4}} />
                     </OptionIcon>
                     <OptionText className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'} >Remove from saved</OptionText>
                 </OptionIconContainer>
                 :
                 <OptionIconContainer radius='5px 5px 0 0' className='add-dropdown' onClick={bookmark}> 
                     <OptionIcon className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'} style={{transform: 'scale(.9)'}}>
-                        <img style={{transform: 'scale(.8)', position: 'relative', top: 4}} alt='' className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'} src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTYgMnYxNy41ODJsLTQtMy41MTItNCAzLjUxMnYtMTcuNTgyaDh6bTItMmgtMTJ2MjRsNi01LjI2OSA2IDUuMjY5di0yNHoiLz48L3N2Zz4="></img>
+                    <img style={{transform: 'scale(.8)', position: 'relative', top: 4}} alt='' className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'} src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0xMiAyMS41OTNjLTUuNjMtNS41MzktMTEtMTAuMjk3LTExLTE0LjQwMiAwLTMuNzkxIDMuMDY4LTUuMTkxIDUuMjgxLTUuMTkxIDEuMzEyIDAgNC4xNTEuNTAxIDUuNzE5IDQuNDU3IDEuNTktMy45NjggNC40NjQtNC40NDcgNS43MjYtNC40NDcgMi41NCAwIDUuMjc0IDEuNjIxIDUuMjc0IDUuMTgxIDAgNC4wNjktNS4xMzYgOC42MjUtMTEgMTQuNDAybTUuNzI2LTIwLjU4M2MtMi4yMDMgMC00LjQ0NiAxLjA0Mi01LjcyNiAzLjIzOC0xLjI4NS0yLjIwNi0zLjUyMi0zLjI0OC01LjcxOS0zLjI0OC0zLjE4MyAwLTYuMjgxIDIuMTg3LTYuMjgxIDYuMTkxIDAgNC42NjEgNS41NzEgOS40MjkgMTIgMTUuODA5IDYuNDMtNi4zOCAxMi0xMS4xNDggMTItMTUuODA5IDAtNC4wMTEtMy4wOTUtNi4xODEtNi4yNzQtNi4xODEiLz48L3N2Zz4=" />
                     </OptionIcon>
                     <OptionText className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}>Save for later</OptionText>
                 </OptionIconContainer>
@@ -129,4 +122,4 @@ const mapStateToProps = state => ({
     user: state.app.user,
 })
 
-export default connect(mapStateToProps)(AddDropdown)
+export default connect(mapStateToProps)(AdmiredDropdown)

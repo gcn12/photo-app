@@ -47,6 +47,7 @@ export const Triangle = styled.div`
     right: 0;
     z-index: 4;
     transform: ${props=>props.shift};
+    display: initial;
     /* &:hover {
         border-bottom: 10px solid #dedede;
     } */
@@ -64,8 +65,3 @@ export const OptionIconContainer = styled.div`
     }
 `
 
-export const HoverTest = styled.div`
-    &:hover ${Triangle} {
-        background-color: #dedede;
-    }
-`

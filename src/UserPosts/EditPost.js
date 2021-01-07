@@ -45,10 +45,10 @@ const EditPost = (props) => {
     const [postData, setPostData] = useState({})
     const [remainingCharacters, setRemainingCharacters] = useState(150)
     const [isTooManyImages, setIsTooManyImages] = useState(false)
-    const [uploadCount, setUploadCount] = useState(4)
+    const [uploadCount, setUploadCount] = useState(5)
+    const [uploadProgress, setUploadProgress] = useState(0)
     const [isUploading, setIsUploading] = useState(true)
     const [showCancel, setShowCancel] = useState(true)
-    const [uploadProgress, setUploadProgress] = useState(0)
     const [uploadProgressColor, setUploadProgressColor] = useState(false)
     const [uploadStatusProps, setUploadStatusProps] = useState('initial')
     const [imagesIndexMap, setImagesIndexMap] = useState({})
@@ -485,7 +485,7 @@ const EditPost = (props) => {
             .update({
                 ...fullPostUpdate
             }).then(()=> {
-                setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+                // setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                 db.collection('preview-posts')
                 .where('username', '==', postData.username)
                 .where('url', '==', postData.url)

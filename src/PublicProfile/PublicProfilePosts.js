@@ -16,9 +16,9 @@ const PublicProfilesPosts = (props) => {
     }
 
     return(
-        <Container visibility={isVisible ? 1 : 0} onClick={selectPhoto}>
-            <Image onLoad={()=> setIsVisible(true)} src={props.post.smallImage} alt=''></Image>
-            <Title>{props.post.title}</Title>
+        <Container visibility={isVisible ? 1 : 0} >
+            <Image onClick={selectPhoto} onLoad={()=> setIsVisible(true)} src={props.post.smallImage} alt=''></Image>
+            <Title onClick={selectPhoto}>{props.post.title}</Title>
             <Location>{`${props.post.city}, ${props.post.country}`}</Location>
             {/* <Title>{props.post.previewDescription}</Title> */}
         </Container>

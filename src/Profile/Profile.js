@@ -5,6 +5,7 @@ import Collections from '../Collections/Collections'
 import { connect } from 'react-redux'
 import Settings from '../Settings/Settings'
 import SavedPosts from '../SavedPosts/SavedPostsComponent'
+import AdmiredPosts from '../AdmiredPosts/AdmiredPostsComponent'
 import{ profilePage } from '../Redux/Actions/profileActions'
 import { Link } from 'react-router-dom'
 import { 
@@ -32,6 +33,9 @@ const Profile = (props) => {
                         <Link to='/photo-app/profile/saved' style={{textDecoration: 'none'}}>
                             <LI style={{borderBottom: props.profilePage==='saved'  ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('saved'))}>Saved</LI>
                         </Link>
+                        <Link to='/photo-app/profile/admired' style={{textDecoration: 'none'}}>
+                            <LI style={{borderBottom: props.profilePage==='admired'  ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('admired'))}>Admired</LI>
+                        </Link>
                         <Link to='/photo-app/profile/collections' style={{textDecoration: 'none'}}>
                             <LI style={{borderBottom: props.profilePage==='collections'  ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('collections'))}>Collections</LI>
                         </Link>
@@ -48,6 +52,10 @@ const Profile = (props) => {
                         case 'saved':
                             return( 
                                 <SavedPosts history={props.history} />
+                            )
+                        case 'admired': 
+                            return( 
+                                <AdmiredPosts history={props.history} />
                             )
                         case 'posts': 
                             return( 

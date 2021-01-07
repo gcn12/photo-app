@@ -27,18 +27,23 @@ const TitlePhoto = (props) => {
                     props.setIsImageHorizontal(false)
                 }
                 const image = document.getElementById('previewImage')
-                let ratio = height / width
+                let ratio
+                if(height < width) {
+                    ratio = height / width
+                }else{
+                    ratio = width / height
+                }
                 let finalHeightLarge
                 let finalWidthLarge
                 let finalHeightSmall
                 let finalWidthSmall
                 if(height > 850 || width > 850) {
                     if (height >= width) {
-                        finalHeightSmall = Math.round(ratio * 850)
-                        finalWidthSmall = 850
+                        finalWidthSmall = Math.round(ratio * 850)
+                        finalHeightSmall = 850
                     }else {
-                        finalWidthSmall =  850
                         finalHeightSmall = Math.round(ratio * 850)
+                        finalWidthSmall =  850
                     }
                 }else{
                     finalHeightSmall = height

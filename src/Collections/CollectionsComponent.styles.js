@@ -22,6 +22,6 @@ export const PostsContainer = styled.div`
 `
 
 export const Title = styled.div`
-    font-size: 40px;
+    font-size: 30px;
     font-weight: 500;
 `

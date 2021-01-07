@@ -72,7 +72,9 @@ const Preview = (props) => {
                 :
                 null 
                 }
-                <Author font={props.font}>{'Dan Richards'}</Author>
+                <div style={{margin: '15px 0 40px 0'}}>
+                    <Author font={props.font}>{'Dan Richards'}</Author>
+                </div>
                 </Container>
                 {Object.keys(props.itemsToUploadData).map((item, index)=> {
                     return(
