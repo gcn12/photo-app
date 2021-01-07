@@ -67,7 +67,7 @@ const PhotoDescriptionView = (props) => {
         <Container opacity={showPost ? 1 : 0}>
             <Card>
                 {showAddToCollection ? 
-                <AddToCollection photoInfo={props.photoInfo} collectionsList={collectionsList} setIsAddToCollection={setShowAddToCollection} setCollectionsList={setCollectionsList} />
+                <AddToCollection showAddToCollection={showAddToCollection} photoInfo={props.photoInfo} collectionsList={collectionsList} setIsAddToCollection={setShowAddToCollection} setCollectionsList={setCollectionsList} />
                 :
                 null
                 }
@@ -77,7 +77,7 @@ const PhotoDescriptionView = (props) => {
                     <div>
                         <div className='add-dropdown' style={{cursor: 'pointer'}}>
                             {showDropdown ? 
-                            <AddDropdown translateContainer='translate(-93%, 31%)' setCollectionsList={setCollectionsList}  id={props.photoInfo.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.photoInfo} />
+                            <AddDropdown fontSize='20px' translateContainer='translate(-90%, 50%)' setCollectionsList={setCollectionsList}  id={props.photoInfo.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.photoInfo} />
                             :
                             null
                             }

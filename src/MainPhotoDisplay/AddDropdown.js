@@ -1,15 +1,24 @@
 import React from 'react'
 // import AddToCollection from '../FeaturedPost/AddToCollection'
-import { ReactComponent as FilledBookmark } from '../Icons/FilledBookmark.svg'
+// import { ReactComponent as FilledBookmark } from '../Icons/FilledBookmark.svg'
+// import { ReactComponent as EmptyBookmark } from '../Icons/EmptyBookmark.svg'
 import { db } from '../Firebase'
-import { ReactComponent as EmptyBookmark } from '../Icons/EmptyBookmark.svg'
 import { ReactComponent as Add } from '../Icons/Add.svg'
 import { connect } from 'react-redux'
 import {
     Container,
-    Option,
+    OptionIcon,
     Options,
-} from './AddDropdown.styles'
+    OptionIconContainer,
+    OptionText,
+    Triangle,
+    HoverTest,
+} from '../Styles/DropdownStyles.styles'
+// import {
+//     Container,
+//     Option,
+//     Options,
+// } from './AddDropdown.styles'
 
 const AddDropdown = (props) => {
 
@@ -54,7 +63,7 @@ const AddDropdown = (props) => {
     }
 
     const bookmark = () => {
-        const {views, hearts, ratio, ...data } = props.photoInfo
+        const { views, hearts, ratio, ...data } = props.photoInfo
         db.collection('users')
         .doc(props.user)
         .collection('bookmarked')
@@ -87,30 +96,31 @@ const AddDropdown = (props) => {
 
 
     return(
-        <Container translateContainer={props.translateContainer}>
-            {/* <AddToCollection /> */}
+        <Container fontSize='20px' translateContainer={props.translateContainer}>
+            <Triangle shift='translate(-35%, -90%)' />
             <Options>
                 {props.isBookmarked ? 
-                <Option className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'} onClick={unbookmark}>
-                    <div style={{transform: 'scale(.9)'}}>
-                        <FilledBookmark />
-                    </div>
-                    Remove from saved
-                </Option>
+                <OptionIconContainer radius='5px 5px 0 0' className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}  onClick={unbookmark}>
+                    <HoverTest></HoverTest>
+                    <OptionIcon className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}  style={{transform: 'scale(.9)'}}>
+                        <img style={{transform: 'scale(.8)', position: 'relative', top: 4}} alt='' className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'} src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTggMjRsLTYtNS4yNjktNiA1LjI2OXYtMjRoMTJ2MjR6Ii8+PC9zdmc+"></img>
+                    </OptionIcon>
+                    <OptionText className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'} >Remove from saved</OptionText>
+                </OptionIconContainer>
                 :
-                <Option className='add-dropdown' onClick={bookmark}> 
-                    <div style={{transform: 'scale(.9)'}}>
-                        <EmptyBookmark />
-                    </div>
-                    Save for later
-                </Option>
+                <OptionIconContainer radius='5px 5px 0 0' className='add-dropdown' onClick={bookmark}> 
+                    <OptionIcon className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'} style={{transform: 'scale(.9)'}}>
+                        <img style={{transform: 'scale(.8)', position: 'relative', top: 4}} alt='' className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'} src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTYgMnYxNy41ODJsLTQtMy41MTItNCAzLjUxMnYtMTcuNTgyaDh6bTItMmgtMTJ2MjRsNi01LjI2OSA2IDUuMjY5di0yNHoiLz48L3N2Zz4="></img>
+                    </OptionIcon>
+                    <OptionText className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}>Save for later</OptionText>
+                </OptionIconContainer>
                 }     
-                <Option onClick={getCollectionsList}>
-                    <div style={{transform: 'scale(.8)'}}>
-                        <Add />
-                    </div>
-                    Add to collection
-                </Option>
+                <OptionIconContainer radius='0 0 5px 5px' onClick={getCollectionsList}>
+                    <OptionIcon>
+                        <Add style={{transform: 'scale(.7)', position: 'relative', top: 4}} />
+                    </OptionIcon>
+                    <OptionText>Add to collection</OptionText>
+                </OptionIconContainer>
             </Options>
         </Container>
     )

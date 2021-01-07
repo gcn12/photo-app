@@ -19,7 +19,7 @@ const UsersDisplay = (props) => {
         <Link to={`/photo-app/profiles/${props.item.username}`}>
                 <Image onLoad={()=>setIsVisible(true)} src={props.item.profileImage} alt=''></Image>
             </Link>
-            <div>
+            <div style={{height:'140px'}}>
                 <HeaderImage alt='' src='https://images.unsplash.com/photo-1555400038-63f5ba517a47?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8YmFsaXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60'></HeaderImage>
                 {/* <HeaderImage alt='' src='https://images.unsplash.com/photo-1501179691627-eeaa65ea017c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OXx8YmFsaXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60'></HeaderImage>
                 <HeaderImage alt='' src='https://images.unsplash.com/photo-1544959068-7c75914bf21e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTR8fGJhbGl8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60'></HeaderImage> */}

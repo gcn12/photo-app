@@ -65,12 +65,13 @@ export const Name = styled.div`
     font-size: 18px;
     font-weight: 500;
     margin-bottom: 30px;
-
-    white-space: pre-wrap;    
+    display: inline-block;
+    white-space: nowrap;
+    /* white-space: pre-wrap;    
     white-space: -moz-pre-wrap;    
     white-space: -pre-wrap;       
     white-space: -o-pre-wrap;     
-    word-wrap: break-word; 
+    word-wrap: break-word;  */
 `
 
 

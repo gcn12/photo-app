@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    width: 130px;
-    height: 75px;
+    /* width: 130px;
+    height: 75px; */
+    width: auto;
+    height: auto;
     position: absolute;
     background-color: white;
     font-size: 20px;
@@ -11,7 +13,7 @@ export const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 5%;
+    border-radius: 5px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, .3);
 `
 
@@ -21,10 +23,17 @@ export const Options = styled.div`
 `
 
 export const Option = styled.div`
-    margin: 2px 8px 2px 0;
-    padding: 0 5px;
+    margin: 0px 0px 0 5px;
+`
+
+export const OptionIconContainer = styled.div`
+    padding: 5px 20px;
+/* margin: 2px 8px 2px 0; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: ${props=>props.radius};
     &:hover {
         background-color: #dedede;
-        /* color: white; */
     }
 `

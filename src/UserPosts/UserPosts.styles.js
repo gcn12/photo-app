@@ -82,6 +82,6 @@ export const TitleEllipsisContainer = styled.div`
 export const Ellipsis = styled.div`
     margin-left: 5px;
     font-size: 22px;
-    font-weight: 900;
+    font-weight: 800;
     cursor: pointer;
 `

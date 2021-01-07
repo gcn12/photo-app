@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+    opacity: ${props=> props.visibility};
     margin-top: 30px;
     cursor: pointer;
 `

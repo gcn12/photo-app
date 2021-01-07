@@ -6,8 +6,15 @@ import { profilePage } from '../Redux/Actions/profileActions'
 import { user } from '../Redux/Actions/appActions'
 import {
     Container,
-    Item,
-} from './ProfileDropdown.styles'
+    OptionIconContainer,
+    OptionText,
+    Options,
+    Triangle,
+} from '../Styles/DropdownStyles.styles'
+// import {
+//     Container,
+//     Item,
+// } from './ProfileDropdown.styles'
 
 const ProfileDropdown = (props) => {
 
@@ -25,20 +32,34 @@ const ProfileDropdown = (props) => {
     } 
 
     return(
-        <Container className='profile-dropdown'>
-            <Link onClick={()=> props.dispatch(profilePage('saved'))} to='/photo-app/profile/saved' style={{ textDecoration: 'none' }}>
-                <Item>Saved</Item>
-            </Link>
-            <Link onClick={()=> props.dispatch(profilePage('collections'))} to='/photo-app/profile/collections' style={{ textDecoration: 'none' }}>
-                <Item>Collections</Item>
-            </Link>
-            <Link onClick={()=> props.dispatch(profilePage('posts'))} to='/photo-app/profile/posts' style={{ textDecoration: 'none' }}>
-                <Item>My posts</Item>
-            </Link>
-            <Link onClick={()=> props.dispatch(profilePage('settings'))} to='/photo-app/profile/settings' style={{ textDecoration: 'none' }}>
-                <Item>Settings</Item>
-            </Link>
-            <Item onClick={signoutWithRoute}>Sign out</Item>
+        <Container fontSize='20px' translateContainer='translate(-45%, 5%)' style={{zIndex: 3}} className='profile-dropdown'>
+            <div style={{position: 'absolute'}}></div>
+            <Triangle shift='translate(-130%, -90%)' />
+            <Options>
+                <OptionIconContainer>
+                    <Link onClick={()=> props.dispatch(profilePage('saved'))} to='/photo-app/profile/saved' style={{ textDecoration: 'none' }}>
+                        <OptionText>Saved</OptionText>
+                    </Link>
+                </OptionIconContainer>
+                <OptionIconContainer>
+                    <Link onClick={()=> props.dispatch(profilePage('collections'))} to='/photo-app/profile/collections' style={{ textDecoration: 'none' }}>
+                        <OptionText>Collections</OptionText>
+                    </Link>
+                </OptionIconContainer>
+                <OptionIconContainer>
+                    <Link onClick={()=> props.dispatch(profilePage('posts'))} to='/photo-app/profile/posts' style={{ textDecoration: 'none' }}>
+                        <OptionText>My posts</OptionText>
+                    </Link>
+                </OptionIconContainer>
+                <OptionIconContainer>
+                    <Link onClick={()=> props.dispatch(profilePage('settings'))} to='/photo-app/profile/settings' style={{ textDecoration: 'none' }}>
+                        <OptionText>Settings</OptionText>
+                    </Link>
+                </OptionIconContainer>
+                <OptionIconContainer>
+                    <OptionText onClick={signoutWithRoute}>Sign out</OptionText>
+                </OptionIconContainer>
+            </Options>
         </Container>
     )
 }

@@ -105,6 +105,7 @@ export const Collection = styled.div`
 `
 
 export const Warning = styled.div`
+    margin-top: 20px;
     color: red;
 `
 
@@ -168,4 +169,10 @@ export const CollectionName = styled.div`
     font-size: 20px;
     margin-right: 20px;
     /* color: white; */
+`
+
+export const CreateNewContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 `

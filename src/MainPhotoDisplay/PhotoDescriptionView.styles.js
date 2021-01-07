@@ -87,6 +87,6 @@ export const BookmarkLocationContainer = styled.div`
 `
 
 export const Ellipsis = styled.div`
-    font-weight: 600;
+    font-weight: 800;
     font-size: 20px;
 `

@@ -5,7 +5,6 @@ export const Image = styled.img`
     width: 100px;
     object-fit: cover;
     border-radius: 50%; 
-    /* margin-top: 10px; */
     border: 4px solid rgba(255, 255, 255, 1);
     position: absolute;
     transform: translate(-50%, -50%);

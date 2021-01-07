@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { 
     Container,
 } from './Collections.styles'
+// import { collectionsData } from '../Redux/Actions/collectionsActions'
 
 const Collections = (props) => {
 
@@ -14,6 +15,7 @@ const Collections = (props) => {
     const [showRename, setShowRename] = useState(false)
     const [showDelete, setShowDelete] = useState(false)
     const [collectionName, setCollectionName] = useState('')
+    const [collectionIndex, setCollectionIndex] = useState()
 
     const getCollections = () => {
         if(props.user) {    
@@ -31,7 +33,7 @@ const Collections = (props) => {
                     if(collectionObject?.preview?.length>0) {
                         valueArray.push(collectionObject.preview)
                     }else{
-                        valueArray.push([null])
+                        valueArray.push([])
                     }
                     valueArray.push(collectionObject.collectionUrl)
                     collectionsArray.push(valueArray)
@@ -52,7 +54,7 @@ const Collections = (props) => {
                 null
                 }
                 {showDelete ? 
-                <Delete setCollectionInfo={setCollectionInfo} collectionInfo={collectionInfo} collectionName={collectionName} setShowDelete={setShowDelete} />
+                <Delete collectionIndex={collectionIndex} setCollectionInfo={setCollectionInfo} collectionInfo={collectionInfo} collectionName={collectionName} setShowDelete={setShowDelete} />
                 :
                 null
                 }
@@ -60,6 +62,7 @@ const Collections = (props) => {
                     {collectionInfo?.map((collection, index)=> {
                         return(
                             <Collection 
+                                setCollectionIndex={setCollectionIndex}
                                 setShowDelete={setShowDelete}
                                 setCollectionName={setCollectionName}
                                 setShowRename={setShowRename}

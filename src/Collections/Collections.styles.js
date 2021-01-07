@@ -4,6 +4,7 @@ export const Header = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    margin-top: 5px;
 `
 
 export const Ellipsis = styled.div`
@@ -33,12 +34,12 @@ export const ImagesContainer = styled.div`
     height: 270px;
     width: 270px;
     overflow: hidden;
-    cursor: pointer;
+    cursor: ${props=>props.cursor};
     border-radius: 5%;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, .15);
+    box-shadow: 0 5px 15px 0px rgba(0, 0, 0, .15);
     transition: box-shadow 400ms ease-in-out;
     &:hover {
-        box-shadow: 0 5px 15px rgba(0, 0, 0, .4);
+        box-shadow: ${props=>props.shadow};
     }
 `
 
@@ -57,6 +58,7 @@ export const Container = styled.div`
 export const ImageTitleContainer = styled.div`
     opacity: ${props=>props.opacity};
     transition: opacity 500ms ease-in-out;
+    margin-top: 10px;
     /* margin: 0 20px 20px 20px; */
     /* display: inline-block; */
     /* max-width: 100%; */

@@ -5,6 +5,7 @@ import React, {
 import { db } from '../Firebase'
 import DeletePost from './DeletePost'
 import EditPost from './EditPost'
+import '../App.css'
 import {
     Photo,
     PostsContainer,
@@ -44,7 +45,7 @@ export const DisplayPosts = (props) => {
     }
 
     window.onclick = (e) => {
-        if (!e.target.className.includes('user-post-dropdown')) {
+        if (!e.target.matches('.user-post-dropdown')) {
             setShowOptions(false)
         }
     } 
@@ -67,7 +68,7 @@ export const DisplayPosts = (props) => {
                     <div style={{position: 'relative'}}>
                         <Ellipsis onClick={()=> setShowOptions(!showOptions)} className={'user-post-dropdown'}>&#8942;</Ellipsis>
                         {showOptions ? 
-                        <PostDropdown setShowEdit={setShowEdit} getPostData={getPostData} setShowOptions={setShowOptions} setShowGear={props.setShowGear} posts={props.post} setShowDelete={setShowDelete} />
+                        <PostDropdown showOptions={showOptions} setShowEdit={setShowEdit} getPostData={getPostData} setShowOptions={setShowOptions} setShowGear={props.setShowGear} posts={props.post} setShowDelete={setShowDelete} />
                         :
                         null
                         }

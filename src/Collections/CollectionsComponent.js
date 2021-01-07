@@ -19,6 +19,7 @@ const CollectionsComponent = (props) => {
             db.collection('users')
             .doc(props.user)
             .collection('collections')
+            .orderBy('timestamp', 'desc')
             .where('collectionUrl', '==', props.match.params.collectionName)
             .get()
             .then(data=> {

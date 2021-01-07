@@ -33,8 +33,8 @@ const Delete = (props) => {
             data.docs.forEach(item => {
                 item.ref.delete()
             })
-            const collectionInfo = props.collectionInfo
-            collectionInfo.splice(props.index, 1)
+            const collectionInfo = [...props.collectionInfo]
+            collectionInfo.splice(props.collectionIndex, 1)
             props.setCollectionInfo([...collectionInfo])
         })
     }

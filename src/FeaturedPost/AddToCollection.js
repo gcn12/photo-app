@@ -7,11 +7,11 @@ import {
     X,
     Text,
     CollectionsContainer,
-    // Container,
     Warning,
     CreateNewButton,
     CreateNewInput,
     CreateNewSubmit,
+    CreateNewContainer,
 } from './AddToCollection.styles'
 
 const AddToCollection = (props) => {
@@ -49,7 +49,14 @@ const AddToCollection = (props) => {
 
     const createCollection = () => {
         const collectionName = document.getElementById('collection-name').value
-        if(!props.collectionsList.includes(collectionName) && collectionName.length>0){
+        let isCollectionExists = false
+        for (let collection of props.collectionsList){
+            if (collection[0]===collectionName) {
+                isCollectionExists = true
+                break
+            }
+        }
+        if(!isCollectionExists && collectionName.length>0){
             let collectionNameUrl = collectionName.trim()
             collectionNameUrl = collectionNameUrl.split(' ')
             collectionNameUrl = collectionNameUrl.join('-')
@@ -97,20 +104,19 @@ const AddToCollection = (props) => {
                     )
                 })}
             </CollectionsContainer>
-            {/* <ButtonContainer>
-                <RenameButton onClick={()=>props.setIsAddToCollection(false)}>Done</RenameButton>
-            </ButtonContainer> */}
-            <div style={{display: 'flex', justifyContent: 'center', marginTop: '20px'}}>
-                {isCreateCollection ? 
-                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                    <CreateNewInput autoComplete='off' placeholder='collection name' id='collection-name' className='dropdown'></CreateNewInput>
-                    <CreateNewSubmit onClick={createCollection} className='dropdown'>Create</CreateNewSubmit>
-                </div>
-                :
-                <CreateNewButton onClick={()=>setIsCreateCollection(true)} className='dropdown'>Create new collection</CreateNewButton>
-                }
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <CreateNewContainer>
+                    {isCreateCollection ? 
+                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <CreateNewInput autoComplete='off' placeholder='collection name' id='collection-name' className='dropdown'></CreateNewInput>
+                        <CreateNewSubmit onClick={createCollection} className='dropdown'>Create</CreateNewSubmit>
+                    </div>
+                    :
+                    <CreateNewButton onClick={()=>setIsCreateCollection(true)} className='dropdown'>Create new collection</CreateNewButton>
+                    }
+                </CreateNewContainer>
+                {isCollectionExists ? <Warning>Collection already exists</Warning> : null}
             </div>
-            {isCollectionExists ? <Warning>Collection already exists</Warning> : null}
         </Container>
     )
 }

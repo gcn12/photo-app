@@ -28,6 +28,7 @@ export const Option = styled.div`
     align-items: center;
     white-space: nowrap;
     cursor: pointer;
+    transition: background-color 50ms ease-in-out;
     &:hover {
         background-color: #dedede;
     }

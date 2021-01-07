@@ -5,7 +5,7 @@ export const initialState = {
     query: '',
     user: '',
     photoInformation: null,
-    homePhotoInformation: null,
+    homePhotoInformation: [],
     userData: [],
     userPosts: [],
     displayView: true,

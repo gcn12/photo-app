@@ -28,6 +28,7 @@ export const Image = styled.img`
 `
 
 export const Title = styled.div`
+    display: inline-block;
     color: #242424;
     cursor: pointer;
     font-size: 25px;

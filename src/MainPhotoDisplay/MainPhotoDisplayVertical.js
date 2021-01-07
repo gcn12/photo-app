@@ -15,7 +15,7 @@ const GetPhotos = (props) => {
     return(
         <DisplayContainer style={{marginTop: '110px'}}>
             <PhotoDescriptionViewContainer>
-                {props.homePhotoInformation ? props.homePhotoInformation.map((photo, index)=> {
+                {props.homePhotoInformation.map((photo, index)=> {
                     return( 
                         <PhotoDescriptionView 
                         history={props.history}
@@ -26,10 +26,7 @@ const GetPhotos = (props) => {
                         photoInfo={photo} 
                         />
                     )
-                })
-                :
-                null
-                }
+                })}
             </PhotoDescriptionViewContainer>
             {
             props?.homePhotoInformation?.length > 0 ?

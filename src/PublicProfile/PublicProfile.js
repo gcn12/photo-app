@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import PublicProfilePosts from './PublicProfilePosts'
 import { connect } from 'react-redux'
+import fitty from 'fitty'
 import {
     ProfileImage,
     Container,
@@ -15,8 +16,17 @@ const PublicProfile = (props) => {
 
     useEffect(()=> {
         props.getUserProfile(props.match.params.username)
+        fitty('#public-profile-username', {
+            minSize: 1,
+            maxSize: 30
+        })
+        fitty('#public-profile-name', {
+            minSize: 1,
+            maxSize: 20
+        })
         // eslint-disable-next-line
     }, [])
+
     
     const { userData, userPosts } = props
     return(
@@ -24,8 +34,8 @@ const PublicProfile = (props) => {
             <UserContainer>
                 <ProfileImage alt='profile' src={userData[0]?.profileImage}></ProfileImage>
                 <Container>
-                    <Username>{userData[0]?.username}</Username>
-                    <Name>{userData[0]?.name}</Name>
+                    <Username id='public-profile-username'>{userData[0]?.username}</Username>
+                    <Name id='public-profile-name'>{userData[0]?.name}</Name>
                     <Bio>{userData[0]?.bio}</Bio>
                 </Container>
             </UserContainer>

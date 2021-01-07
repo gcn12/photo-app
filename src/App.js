@@ -314,6 +314,10 @@ const App = (props) => {
       )} />
 
 
+
+      {/* <TestFile user={user}  />  */}
+
+
       <Route path='/photo-app/profile/collections/:collectionName' render={(props)=> (
         <CollectionsComponent {...props} getFeaturedPhotoInfo={getFeaturedPhotoInfo}  />
       )} />
@@ -379,7 +383,7 @@ const App = (props) => {
         )} />
       </Switch>
       {/* <button onClick={()=>console.log(props.user)}>Press</button> */}
-      {/* <TestFile user={user}  />  */}
+      
     </div>
   );
 }

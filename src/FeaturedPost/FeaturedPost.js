@@ -37,6 +37,8 @@ import {
     Caption,
     PostFooterContainer,
     DateStyle,
+    ButtonLabelContainer,
+    ButtonLabel,
     // AddCollectionHeartContainer,
 } from './FeaturedPost.styles'
 
@@ -442,17 +444,26 @@ const FeaturedPost = (props) => {
 
 
             <PostFooterContainer>
-                {isHeart ? 
-                <FilledHeart onClick={unheartImage} style={{cursor: 'pointer'}} />
-                :
-                <EmptyHeart onClick={heartImage} style={{cursor: 'pointer'}} />
-                }
-                <Add onClick={openCollections} style={{cursor: 'pointer'}} />
-                {isBookmark ? 
-                <FilledBookmark onClick={unbookmark} style={{cursor: 'pointer'}} />
-                :
-                <EmptyBookmark onClick={bookmark} style={{cursor: 'pointer'}} />
-                }
+                <ButtonLabelContainer>
+                    {isHeart ? 
+                    <FilledHeart onClick={unheartImage} style={{cursor: 'pointer'}} />
+                    :
+                    <EmptyHeart onClick={heartImage} style={{cursor: 'pointer'}} />
+                    }
+                    <ButtonLabel>Admire this post</ButtonLabel>
+                </ButtonLabelContainer>
+                <ButtonLabelContainer>
+                    <Add onClick={openCollections} style={{cursor: 'pointer'}} />
+                    <ButtonLabel>Add to collection</ButtonLabel>
+                </ButtonLabelContainer>
+                <ButtonLabelContainer>
+                    {isBookmark ? 
+                    <FilledBookmark onClick={unbookmark} style={{cursor: 'pointer'}} />
+                    :
+                    <EmptyBookmark onClick={bookmark} style={{cursor: 'pointer'}} />
+                    }
+                    <ButtonLabel>Save for later</ButtonLabel>
+                </ButtonLabelContainer>
             </PostFooterContainer>
 
 

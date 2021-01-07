@@ -4,8 +4,11 @@ import { ReactComponent as Edit } from '../Icons/Edit.svg'
 import {
     Container,
     Options,
-    Option
-} from './UserPostsDropdown.styles'
+    OptionText,
+    OptionIcon,
+    OptionIconContainer,
+    Triangle,
+} from '../Styles/DropdownStyles.styles'
 
 const PostDropdown = (props) => {
 
@@ -23,16 +26,21 @@ const PostDropdown = (props) => {
     }
 
     return(
-        <Container>
+        <Container width={props.showOptions? '200px' : '0px'} fontSize='20px' translateContainer='translate(-79%, 12%)'>
+            <Triangle shift='translate(-30%, -90%)' />
             <Options>
-                <div style={{display: 'flex', alignItems:'center'}}>
-                    <Edit style={{height: '20px', width: '20px'}} />
-                    <Option onClick={editPost}>Edit</Option>
-                </div>
-                <div style={{display: 'flex', alignItems:'center'}}>
-                    <TrashCan style={{height: '20px', width: '20px'}} />
-                    <Option onClick={deletePost}>Delete</Option>
-                </div>
+                <OptionIconContainer onClick={editPost} radius='5px 5px 0 0'>
+                    <OptionIcon>
+                        <Edit style={{transform: 'scale(.7)', position: 'relative', top: 3}} />
+                    </OptionIcon>
+                    <OptionText>Edit</OptionText>
+                </OptionIconContainer>
+                <OptionIconContainer onClick={deletePost} radius='0 0 5px 5px'>
+                    <OptionIcon>
+                        <TrashCan style={{transform: 'scale(.7)', position: 'relative', top: 4}} />
+                    </OptionIcon>
+                    <OptionText>Delete</OptionText>
+                </OptionIconContainer>
             </Options>
         </Container>
     )

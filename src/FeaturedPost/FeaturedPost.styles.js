@@ -151,3 +151,15 @@ export const PostFooterContainer = styled.div`
     justify-content: space-evenly;
     margin: 100px 0;
 `
+
+export const ButtonLabelContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+export const ButtonLabel = styled.div`
+    margin-top: 10px;
+    font-size: 17px;
+    font-weight: 300;
+`

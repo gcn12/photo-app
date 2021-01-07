@@ -15,10 +15,10 @@ export const Collection = styled.div`
     align-items: center;
     justify-content: space-between;
     font-size: 18px;
-    padding: 5px 0;
+    padding: 5px 10px;
     height: 30px;
     &:hover {
-        /* background-color: #dedede; */
+        background-color: #e8e8e8;
         /* border-bottom: .5px solid black; */
     }
 `
@@ -73,7 +73,7 @@ export const CreateNewSubmit = styled.button`
 export const RemoveAdd = styled.div`
     font-size: 15px;
     &:hover {
-        border-bottom: .5px solid black;
+        /* border-bottom: .5px solid black; */
     }
     /* color: white; */
 `
