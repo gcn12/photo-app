@@ -1,36 +1,41 @@
 {
   "files": {
     "main.css": "/photo-app/static/css/main.37d24cef.chunk.css",
-    "main.js": "/photo-app/static/js/main.1bbf17cf.chunk.js",
-    "main.js.map": "/photo-app/static/js/main.1bbf17cf.chunk.js.map",
+    "main.js": "/photo-app/static/js/main.6ff11720.chunk.js",
+    "main.js.map": "/photo-app/static/js/main.6ff11720.chunk.js.map",
     "runtime-main.js": "/photo-app/static/js/runtime-main.1a7c4b83.js",
     "runtime-main.js.map": "/photo-app/static/js/runtime-main.1a7c4b83.js.map",
-    "static/js/2.74569c82.chunk.js": "/photo-app/static/js/2.74569c82.chunk.js",
-    "static/js/2.74569c82.chunk.js.map": "/photo-app/static/js/2.74569c82.chunk.js.map",
+    "static/js/2.750c45d4.chunk.js": "/photo-app/static/js/2.750c45d4.chunk.js",
+    "static/js/2.750c45d4.chunk.js.map": "/photo-app/static/js/2.750c45d4.chunk.js.map",
     "static/js/3.84e76c4e.chunk.js": "/photo-app/static/js/3.84e76c4e.chunk.js",
     "static/js/3.84e76c4e.chunk.js.map": "/photo-app/static/js/3.84e76c4e.chunk.js.map",
     "index.html": "/photo-app/index.html",
     "static/css/main.37d24cef.chunk.css.map": "/photo-app/static/css/main.37d24cef.chunk.css.map",
-    "static/js/2.74569c82.chunk.js.LICENSE.txt": "/photo-app/static/js/2.74569c82.chunk.js.LICENSE.txt",
+    "static/js/2.750c45d4.chunk.js.LICENSE.txt": "/photo-app/static/js/2.750c45d4.chunk.js.LICENSE.txt",
     "static/media/Add.9e5fd29d.svg": "/photo-app/static/media/Add.9e5fd29d.svg",
+    "static/media/Avatar.a85c8195.svg": "/photo-app/static/media/Avatar.a85c8195.svg",
+    "static/media/Collections.d3c075e6.svg": "/photo-app/static/media/Collections.d3c075e6.svg",
     "static/media/DescriptionGrid.4e622689.svg": "/photo-app/static/media/DescriptionGrid.4e622689.svg",
     "static/media/Edit.b2fbfd27.svg": "/photo-app/static/media/Edit.b2fbfd27.svg",
     "static/media/EmptyBookmark.5ae7abd3.svg": "/photo-app/static/media/EmptyBookmark.5ae7abd3.svg",
     "static/media/EmptyHeart.0c52fcba.svg": "/photo-app/static/media/EmptyHeart.0c52fcba.svg",
     "static/media/FilledBookmark.4ae6cdc3.svg": "/photo-app/static/media/FilledBookmark.4ae6cdc3.svg",
     "static/media/FilledHeart.246dfe67.svg": "/photo-app/static/media/FilledHeart.246dfe67.svg",
+    "static/media/Gear.6f0dcc66.svg": "/photo-app/static/media/Gear.6f0dcc66.svg",
     "static/media/Image.89d37a67.svg": "/photo-app/static/media/Image.89d37a67.svg",
     "static/media/PhotoGrid.37a6f80c.svg": "/photo-app/static/media/PhotoGrid.37a6f80c.svg",
+    "static/media/Plane.a3046dd8.svg": "/photo-app/static/media/Plane.a3046dd8.svg",
     "static/media/Profile.a85c8195.svg": "/photo-app/static/media/Profile.a85c8195.svg",
     "static/media/Remove.c7f69936.svg": "/photo-app/static/media/Remove.c7f69936.svg",
     "static/media/Search.737f043b.svg": "/photo-app/static/media/Search.737f043b.svg",
+    "static/media/SquareAvatar.3902a87e.svg": "/photo-app/static/media/SquareAvatar.3902a87e.svg",
     "static/media/Text.0f6eeb2f.svg": "/photo-app/static/media/Text.0f6eeb2f.svg",
     "static/media/TrashCan.9dc57184.svg": "/photo-app/static/media/TrashCan.9dc57184.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.1a7c4b83.js",
-    "static/js/2.74569c82.chunk.js",
+    "static/js/2.750c45d4.chunk.js",
     "static/css/main.37d24cef.chunk.css",
-    "static/js/main.1bbf17cf.chunk.js"
+    "static/js/main.6ff11720.chunk.js"
   ]
 }
