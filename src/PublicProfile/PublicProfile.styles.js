@@ -82,4 +82,19 @@ export const Bio = styled.div`
     line-height: 25px;
     vertical-align: middle; 
     text-align: center;
+    margin-bottom: 20px;
+`
+
+export const EditButton = styled.button`
+    height: 140px;
+    width: 180px;
+    font-size: 20px;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 1px solid black;
+    transition: transform 100ms ease-in-out;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.04)
+    }
 `

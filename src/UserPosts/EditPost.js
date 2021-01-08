@@ -45,7 +45,7 @@ const EditPost = (props) => {
     const [postData, setPostData] = useState({})
     const [remainingCharacters, setRemainingCharacters] = useState(150)
     const [isTooManyImages, setIsTooManyImages] = useState(false)
-    const [uploadCount, setUploadCount] = useState(5)
+    const [uploadCount, setUploadCount] = useState(3)
     const [uploadProgress, setUploadProgress] = useState(0)
     const [isUploading, setIsUploading] = useState(true)
     const [showCancel, setShowCancel] = useState(true)

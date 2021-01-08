@@ -10,6 +10,7 @@ import {
     Name, 
     Bio,
     UserContainer,
+    EditButton,
 } from '../PublicProfile/PublicProfile.styles'
 
 const UserPrivateProfile = (props) => {
@@ -42,6 +43,7 @@ const UserPrivateProfile = (props) => {
                     <Username id='public-profile-username'>{userData[0]?.username}</Username>
                     <Name id='public-profile-name'>{userData[0]?.name}</Name>
                     <Bio>{userData[0]?.bio}</Bio>
+                    <EditButton>Edit profile</EditButton>
                 </Container>
             </UserContainer>
 

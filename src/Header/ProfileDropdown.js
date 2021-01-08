@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import firebase from 'firebase'
 import { ReactComponent as FilledBookmark } from '../Icons/FilledBookmark.svg'
+import { ReactComponent as Profile } from '../Icons/Profile.svg'
 // import { ReactComponent as FilledHeart } from '../Icons/FilledHeart.svg'
 import { ReactComponent as Collections } from '../Icons/Collections.svg'
 import { ReactComponent as Plane } from '../Icons/Plane.svg'
@@ -45,6 +46,9 @@ const ProfileDropdown = (props) => {
 
                 <Link onClick={()=> props.dispatch(profilePage('profile2'))} to='/photo-app/profile/profile2' style={{ textDecoration: 'none' }}>
                     <OptionIconContainer>
+                        <OptionIcon>
+                            <Profile style={{transform: 'scale(.8)', position: 'relative', top: 4}} />
+                        </OptionIcon>
                         <OptionText>My profile</OptionText>
                     </OptionIconContainer>
                 </Link>

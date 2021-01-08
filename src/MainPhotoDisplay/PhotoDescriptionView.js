@@ -15,6 +15,7 @@ import {
     Title,
     BookmarkLocationContainer,
     Ellipsis,
+    Category,
     // Name,
     // LocationNameContainer,
 } from './PhotoDescriptionView.styles'
@@ -73,7 +74,10 @@ const PhotoDescriptionView = (props) => {
                 }
                 <Image onClick={goToPost} onLoad={()=> setShowPost(true)} src={props.photoInfo.smallImage}></Image>
                 <BookmarkLocationContainer>
-                    <Location>{`${props.photoInfo.city}, ${props.photoInfo.country}`}</Location>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
+                        <Location>{`${props.photoInfo.city}, ${props.photoInfo.country}`}</Location>
+                        <Category>{props.photoInfo.category}</Category>
+                    </div>
                     <div>
                         <div className='add-dropdown' style={{cursor: 'pointer'}}>
                             {showDropdown ? 
@@ -87,7 +91,6 @@ const PhotoDescriptionView = (props) => {
                 </BookmarkLocationContainer>
                 {/* <Name>{props.photoInfo.author}</Name> */}
                 <Title onClick={goToPost} id={`description-view-title-${props.index}`}>{props.photoInfo.title}</Title>
-                <Location>{props.photoInfo.category}</Location>
                 <Description>{props.photoInfo.previewDescription}</Description>
             </Card>
         </Container>

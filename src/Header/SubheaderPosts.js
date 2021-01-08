@@ -95,11 +95,11 @@ const Subheader = (props) => {
                     </div>
                     <div style={{display: 'flex', marginRight: '10px'}} >
                         <div className='categories-dropdown'>
-                            <div style={{display: 'flex'}} onClick={()=>props.setShowCategories(!props.showCategories)}>
+                            <div style={{display: 'flex', cursor: 'pointer'}} onClick={()=>props.setShowCategories(!props.showCategories)}>
                                 <CategoriesButton className='categories-dropdown'>
                                     {props.sortCriteria.category} 
                                 </CategoriesButton>
-                                <TriangleIcon>&#x25BC;</TriangleIcon>
+                                <TriangleIcon className='categories-dropdown'>&#x25BC;</TriangleIcon>
                             </div>
                             {props.showCategories ? 
                             <div style={{position: 'relative'}}>

@@ -53,7 +53,24 @@ export const Location = styled.div`
     cursor: pointer;
     font-size: 14px;
     margin-bottom: 5px;
+    /* border: 1px solid black; */
+    border-radius: 1px;
+    padding: 2px 7px;
+    color: #f2f2f2;
+    background-color: #242424;
     /* padding: 0 5%; */
+`
+
+export const Category = styled.div`
+    text-transform: capitalize;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    border-radius: 1px;
+    border: 1px solid black;
+    padding: 2px 7px;
+    color: black;
+    /* background-color: #b6bdcf; */
 `
 
 export const Name = styled.div`

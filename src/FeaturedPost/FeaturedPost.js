@@ -317,7 +317,7 @@ const FeaturedPost = (props) => {
     }
 
     const openCollections = () => {
-        setIsAddToCollection(true)
+        // setIsAddToCollection(true)
         if(props.collectionsList?.length === 0) {
             getCollectionsList()
         }else{
