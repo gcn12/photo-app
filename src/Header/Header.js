@@ -166,7 +166,7 @@ const Header = (props) => {
                             {props.userInformation.profileImage ? 
                             <ProfileImage className='profile-dropdown' onClick={()=> setShowProfileDropdown(!showProfileDropdown)} src={props.userInformation.profileImage} />
                             :
-                            <Avatar className='profile-dropdown' onClick={()=> setShowProfileDropdown(!showProfileDropdown)} style={{transform: 'scale(1.3)', position: 'relative', top: 4, cursor: 'pointer'}} />
+                            <Avatar className='profile-dropdown' onClick={()=> setShowProfileDropdown(!showProfileDropdown)} style={{transform: 'scale(1.3)', position: 'relative', top: 4, cursor: 'pointer', margin: '0 5px'}} />
                             }
                             {/* <Navigation className='profile-dropdown' onClick={()=> setShowProfileDropdown(!showProfileDropdown)} cursor='pointer'>
                             </Navigation> */}

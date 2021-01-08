@@ -22,12 +22,12 @@ const PostDropdown = (props) => {
     const deletePost = () => {
         props.setShowDelete(true)
         props.setShowOptions(false)
-        props.setShowGear(true)
+        // props.setShowGear(true)
     }
 
     return(
-        <Container width={props.showOptions? '200px' : '0px'} fontSize='20px' translateContainer='translate(-79%, 12%)'>
-            <Triangle shift='translate(-30%, -90%)' />
+        <Container width={props.showOptions? '200px' : '0px'} fontSize='20px' translateContainer='translate(165%, 55%)'>
+            <Triangle shift='translate(-65%, -90%)' />
             <Options>
                 <OptionIconContainer onClick={editPost} radius='5px 5px 0 0'>
                     <OptionIcon>

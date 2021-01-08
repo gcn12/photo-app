@@ -276,7 +276,7 @@ const App = (props) => {
     .then(data=> {
       let dataArray = []
       data.forEach(item=> {
-          dataArray.push(item.data())
+        dataArray.push(item.data())
       })
       props.dispatch(userData(dataArray))
     })
@@ -352,6 +352,7 @@ const App = (props) => {
         <Route exact path='/photo-app/profile/:route?' render={(props)=>( 
           <Profile 
             getFeaturedPhotoInfo={getFeaturedPhotoInfo}
+            getUserProfile={getUserProfile}
             {...props}
         />)} />
 

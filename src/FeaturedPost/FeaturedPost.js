@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import HorizontalGallery from '../HorizontalGallery/HorizontalGallery'
+// import HorizontalGallery from '../HorizontalGallery/HorizontalGallery'
 // import Dropdown from '../Dropdown/Dropdown'
 import { db } from '../Firebase'
 import { Link } from 'react-router-dom'
 import { ReactComponent as EmptyHeart } from '../Icons/EmptyHeart.svg'
 import { ReactComponent as FilledHeart } from '../Icons/FilledHeart.svg'
-import { ReactComponent as Add } from '../Icons/Add.svg'
+import { ReactComponent as Collections } from '../Icons/Collections.svg'
 import { ReactComponent as EmptyBookmark } from '../Icons/EmptyBookmark.svg'
 import { ReactComponent as FilledBookmark } from '../Icons/FilledBookmark.svg'
 import { ReactComponent as SquareAvatar } from '../Icons/SquareAvatar.svg'
@@ -54,8 +54,8 @@ import {
 const FeaturedPost = (props) => {
 
     const [showDropdown, setShowDropdown] = useState(null)
-    const [countryPhotos, setCountryPhotos] = useState([])
-    const [cityPhotos, setCityPhotos] = useState([])
+    // const [countryPhotos, setCountryPhotos] = useState([])
+    // const [cityPhotos, setCityPhotos] = useState([])
     const [isImageHorizontal, setIsImageHorizontal] = useState(true)
     const [isHeart, setIsHeart] = useState(false)
     const [isBookmark, setIsBookmark] = useState(false)
@@ -91,39 +91,39 @@ const FeaturedPost = (props) => {
         })
     }
     
-    const getCities = (city, country, continent) => {
-        const ref = db.collection('preview-posts')
-        .where('continent', '==', continent)
-        .where('country', '==', country)
+    // const getCities = (city, country, continent) => {
+    //     const ref = db.collection('preview-posts')
+    //     .where('continent', '==', continent)
+    //     .where('country', '==', country)
 
-        ref.where('city', '==', city)
-        .limit(6)
-        .get().then(snapshot=>{
-            const cityArray = []
-            snapshot.forEach(city=>{
-                cityArray.push(city.data())
-            })
-            setCityPhotos(cityArray)
-        })
+    //     ref.where('city', '==', city)
+    //     .limit(6)
+    //     .get().then(snapshot=>{
+    //         const cityArray = []
+    //         snapshot.forEach(city=>{
+    //             cityArray.push(city.data())
+    //         })
+    //         setCityPhotos(cityArray)
+    //     })
 
-        ref.limit(6).get().then(snapshot=>{
-            const countriesArray = []
-            snapshot.docs.forEach(doc=> {
-                countriesArray.push(doc.data())
-            }) 
-            setCountryPhotos(countriesArray)
-        })
-        window.scrollTo({top: 0})
-    }
+    //     ref.limit(6).get().then(snapshot=>{
+    //         const countriesArray = []
+    //         snapshot.docs.forEach(doc=> {
+    //             countriesArray.push(doc.data())
+    //         }) 
+    //         setCountryPhotos(countriesArray)
+    //     })
+    //     window.scrollTo({top: 0})
+    // }
 
-    const getPost = (docID) => {
-        db.collection('posts')
-        .doc(docID)
-        .get()
-        .then(data=> {
-            getCities(data.data())
-        })
-    }
+    // const getPost = (docID) => {
+    //     db.collection('posts')
+    //     .doc(docID)
+    //     .get()
+    //     .then(data=> {
+    //         getCities(data.data())
+    //     })
+    // }
 
     
     useEffect(()=>{
@@ -161,7 +161,7 @@ const FeaturedPost = (props) => {
             info['username'] = username
             props.dispatch(photoInformation(info))
             window.scrollTo({top: 0})
-            getCities(info.city, info.country, info.continent)
+            // getCities(info.city, info.country, info.continent)
             firebase.auth().onAuthStateChanged((user)=> {
             if(user) {
                 db.collection('users')
@@ -453,7 +453,7 @@ const FeaturedPost = (props) => {
                     <ButtonLabel>Admire this post</ButtonLabel>
                 </ButtonLabelContainer>
                 <ButtonLabelContainer>
-                    <Add onClick={openCollections} style={{cursor: 'pointer'}} />
+                    <Collections onClick={openCollections} style={{cursor: 'pointer'}} />
                     <ButtonLabel>Add to collection</ButtonLabel>
                 </ButtonLabelContainer>
                 <ButtonLabelContainer>
@@ -465,7 +465,6 @@ const FeaturedPost = (props) => {
                     <ButtonLabel>Save for later</ButtonLabel>
                 </ButtonLabelContainer>
             </PostFooterContainer>
-
 
             <UserBioContainer>
                 <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} style={{textDecoration: 'none'}}>
@@ -489,7 +488,7 @@ const FeaturedPost = (props) => {
             </UserBioContainer>
 
             
-            <HorizontalGallery 
+            {/* <HorizontalGallery 
             history={props.history}
             getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
             getPost={getPost}
@@ -507,7 +506,7 @@ const FeaturedPost = (props) => {
                 place={'country'} 
                 title={props.photoInformation?.country} 
                 photos={countryPhotos} 
-            />
+            /> */}
         </motion.div>
     )
 }

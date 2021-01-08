@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import firebase from 'firebase'
 import { ReactComponent as FilledBookmark } from '../Icons/FilledBookmark.svg'
-import { ReactComponent as FilledHeart } from '../Icons/FilledHeart.svg'
+// import { ReactComponent as FilledHeart } from '../Icons/FilledHeart.svg'
 import { ReactComponent as Collections } from '../Icons/Collections.svg'
 import { ReactComponent as Plane } from '../Icons/Plane.svg'
 import { ReactComponent as Gear } from '../Icons/Gear.svg'
@@ -42,16 +42,13 @@ const ProfileDropdown = (props) => {
             <div style={{position: 'absolute'}}></div>
             <Triangle shift='translate(-130%, -90%)' />
             <Options>
-                <OptionIconContainer>
-                    <Link onClick={()=> props.dispatch(profilePage('posts'))} to='/photo-app/profile/posts' style={{ textDecoration: 'none' }}>
-                        <OptionText>My posts</OptionText>
-                    </Link>
-                </OptionIconContainer>
-                <OptionIconContainer>
-                    <Link onClick={()=> props.dispatch(profilePage('posts'))} to={`/photo-app/profiles/${props.userInformation.username}`} style={{ textDecoration: 'none' }}>
+
+                <Link onClick={()=> props.dispatch(profilePage('profile2'))} to='/photo-app/profile/profile2' style={{ textDecoration: 'none' }}>
+                    <OptionIconContainer>
                         <OptionText>My profile</OptionText>
-                    </Link>
-                </OptionIconContainer>
+                    </OptionIconContainer>
+                </Link>
+                
                 <Link onClick={()=> props.dispatch(profilePage('saved'))} to='/photo-app/profile/saved' style={{ textDecoration: 'none' }}>
                     <OptionIconContainer radius='5px 5px 0 0'>
                         <OptionIcon>
@@ -61,10 +58,13 @@ const ProfileDropdown = (props) => {
                     </OptionIconContainer>
                 </Link>
 
+               
+
                 <Link onClick={()=> props.dispatch(profilePage('admired'))} to='/photo-app/profile/admired' style={{ textDecoration: 'none' }}>
                     <OptionIconContainer radius='5px 5px 0 0'>
                         <OptionIcon>
-                            <FilledHeart style={{transform: 'scale(.8)', position: 'relative', top: 4}} />
+                        <img alt='' style={{transform: 'scale(.8)', position: 'relative', top: 4}} src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgNC4yNDhjLTMuMTQ4LTUuNDAyLTEyLTMuODI1LTEyIDIuOTQ0IDAgNC42NjEgNS41NzEgOS40MjcgMTIgMTUuODA4IDYuNDMtNi4zODEgMTItMTEuMTQ3IDEyLTE1LjgwOCAwLTYuNzkyLTguODc1LTguMzA2LTEyLTIuOTQ0eiIvPjwvc3ZnPg==" />
+                            {/* <FilledHeart  /> */}
                         </OptionIcon>
                         <OptionText>Admired posts</OptionText>
                     </OptionIconContainer>

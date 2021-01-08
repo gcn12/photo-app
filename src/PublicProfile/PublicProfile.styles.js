@@ -27,7 +27,7 @@ export const PostsContainer = styled.div`
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     /* grid-template-columns: repeat(3, auto); */
     grid-column-gap: 30px;
-    margin: 0 50px 0 360px;
+    margin: 0 50px 20px 360px;
     justify-items: end;
     justify-content: end;
 
@@ -37,6 +37,7 @@ export const PostsContainer = styled.div`
 `
 
 export const UserContainer = styled.div`
+    opacity: ${props=>props.visibility};
     margin-top: 30px;
     /* width: 250px; */
     display: flex;

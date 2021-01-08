@@ -1,6 +1,6 @@
 import React from 'react'
 import { db } from '../Firebase'
-import { ReactComponent as Add } from '../Icons/Add.svg'
+import { ReactComponent as Collections } from '../Icons/Collections.svg'
 import { connect } from 'react-redux'
 import { ReactComponent as FilledHeart } from '../Icons/FilledHeart.svg'
 import {
@@ -89,7 +89,7 @@ const AdmiredDropdown = (props) => {
 
     return(
         <Container fontSize='20px' translateContainer={props.translateContainer}>
-            <Triangle shift='translate(-35%, -90%)' />
+            <Triangle shift='translate(-45%, -90%)' />
             <Options>
                 {props.isBookmarked ? 
                 <OptionIconContainer radius='5px 5px 0 0' className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}  onClick={unbookmark}>
@@ -97,7 +97,7 @@ const AdmiredDropdown = (props) => {
                     <OptionIcon className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}  style={{transform: 'scale(.9)'}}>
                     <FilledHeart style={{backrgroundColor: 'red', transform: 'scale(.8)', position: 'relative', top: 4}} />
                     </OptionIcon>
-                    <OptionText className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'} >Remove from saved</OptionText>
+                    <OptionText className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'} >Remove from admired</OptionText>
                 </OptionIconContainer>
                 :
                 <OptionIconContainer radius='5px 5px 0 0' className='add-dropdown' onClick={bookmark}> 
@@ -109,7 +109,7 @@ const AdmiredDropdown = (props) => {
                 }     
                 <OptionIconContainer radius='0 0 5px 5px' onClick={getCollectionsList}>
                     <OptionIcon>
-                        <Add style={{transform: 'scale(.7)', position: 'relative', top: 4}} />
+                        <Collections style={{transform: 'scale(.7)', position: 'relative', top: 4}} />
                     </OptionIcon>
                     <OptionText>Add to collection</OptionText>
                 </OptionIconContainer>

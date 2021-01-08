@@ -21,11 +21,11 @@ const DeletePost = (props) => {
             props.removePostFromPosts(props.index)
         })
         props.setShowDelete(false)
-        props.setShowGear(false)
+        // props.setShowGear(false)
     }
 
     const cancelDelete = () => {
-        props.setShowGear(false)
+        // props.setShowGear(false)
         props.setShowDelete(false)
     }
 

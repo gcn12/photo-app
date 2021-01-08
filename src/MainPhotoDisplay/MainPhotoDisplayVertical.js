@@ -13,7 +13,7 @@ import { SubmitButton, } from '../AddContent/AddContent.styles'
 const GetPhotos = (props) => {
 
     return(
-        <DisplayContainer style={{marginTop: '110px'}}>
+        <DisplayContainer style={{marginTop: '120px'}}>
             <PhotoDescriptionViewContainer>
                 {props.homePhotoInformation.map((photo, index)=> {
                     return( 

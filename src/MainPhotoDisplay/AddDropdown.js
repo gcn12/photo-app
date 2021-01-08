@@ -3,7 +3,7 @@ import React from 'react'
 // import { ReactComponent as FilledBookmark } from '../Icons/FilledBookmark.svg'
 // import { ReactComponent as EmptyBookmark } from '../Icons/EmptyBookmark.svg'
 import { db } from '../Firebase'
-import { ReactComponent as Add } from '../Icons/Add.svg'
+import { ReactComponent as Collections } from '../Icons/Collections.svg'
 import { connect } from 'react-redux'
 import {
     Container,
@@ -96,7 +96,7 @@ const AddDropdown = (props) => {
 
     return(
         <Container fontSize='20px' translateContainer={props.translateContainer}>
-            <Triangle shift='translate(-35%, -90%)' />
+            <Triangle shift='translate(-38%, -90%)' />
             <Options>
                 {props.isBookmarked ? 
                 <OptionIconContainer radius='5px 5px 0 0' className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}  onClick={unbookmark}>
@@ -116,7 +116,7 @@ const AddDropdown = (props) => {
                 }     
                 <OptionIconContainer radius='0 0 5px 5px' onClick={getCollectionsList}>
                     <OptionIcon>
-                        <Add style={{transform: 'scale(.7)', position: 'relative', top: 4}} />
+                        <Collections style={{transform: 'scale(.7)', position: 'relative', top: 4}} />
                     </OptionIcon>
                     <OptionText>Add to collection</OptionText>
                 </OptionIconContainer>

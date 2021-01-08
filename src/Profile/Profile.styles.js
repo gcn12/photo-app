@@ -14,7 +14,7 @@ export const UL = styled.ul`
 `
 
 export const Container = styled.div`
-    margin: 0 10%;
+    /* margin: 0 10%; */
 `
 
 export const LI = styled.li`

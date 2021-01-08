@@ -64,7 +64,7 @@ export const LI = styled.ul`
 `
 
 export const CategoriesButton = styled.div`
-    margin-right: 15px;
+    margin-right: 3px;
     cursor: pointer;
     position: relative;
     -webkit-touch-callout: none; 
@@ -76,4 +76,10 @@ export const CategoriesButton = styled.div`
     &::first-letter {
         text-transform: capitalize;
     }
+`
+
+export const TriangleIcon = styled.div`
+    transform: scale(.7);
+    position: relative;
+    top: 7;
 `

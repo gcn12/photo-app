@@ -11,6 +11,7 @@ import {
     LI,
     ULMobile,
     CategoriesButton,
+    TriangleIcon,
 } from './SubheaderPosts.styles'
 import SubheaderCategories from './SubheaderCategories'
 
@@ -92,10 +93,13 @@ const Subheader = (props) => {
                             <LI onClick={()=>changeSort('ratio')} underline={props.sortCriteria.rating ? true : false}>Highest rated</LI>
                         </Link>
                     </div>
-                    <div style={{display: 'flex'}} >
+                    <div style={{display: 'flex', marginRight: '10px'}} >
                         <div className='categories-dropdown'>
-                            <div onClick={()=>props.setShowCategories(!props.showCategories)}>
-                                <CategoriesButton className='categories-dropdown'>{props.sortCriteria.category} &#x25BC;</CategoriesButton>
+                            <div style={{display: 'flex'}} onClick={()=>props.setShowCategories(!props.showCategories)}>
+                                <CategoriesButton className='categories-dropdown'>
+                                    {props.sortCriteria.category} 
+                                </CategoriesButton>
+                                <TriangleIcon>&#x25BC;</TriangleIcon>
                             </div>
                             {props.showCategories ? 
                             <div style={{position: 'relative'}}>

@@ -499,7 +499,7 @@ const EditPost = (props) => {
                         ...previewPostUpdate
                     })
                     .then(()=>{
-                        props.getPosts(props.user)
+                        props.getPosts(props.userInformation.username)
                         console.log('uploaded')
                         setUploadProgressColor(true)
                         setTimeout(()=>props.setShowEdit(false), 1200)
@@ -670,6 +670,7 @@ const EditPost = (props) => {
 
 const mapStateToProps = state => ({
     user: state.app.user,
+    userInformation: state.app.userInformation,
 })
 
 export default connect(mapStateToProps)(EditPost)
