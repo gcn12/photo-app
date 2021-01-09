@@ -1,0 +1,210 @@
+import React, { useState, useEffect } from 'react'
+import { db } from '../Firebase'
+import { connect } from 'react-redux'
+import firebase from 'firebase'
+import UploadProgress from '../AddContent/UploadProgress'
+import {
+    Container,
+    Cancel,
+    ConfirmButton,
+    Text,
+    CollectionName,
+    BioTextarea,
+    ProfileImage,
+    EditButton,
+    CenterProgress,
+} from './EditProfile.styles'
+
+const EditProfile = (props) => {
+
+    const [fileName, setFileName] = useState('')
+    const [uploadProgressColor, setUploadProgressColor] = useState(false)
+    const [isUploading, setIsUploading] = useState(false)
+    const [username, setUsername] = useState('')
+    const [name, setName] = useState('')
+    const [bio, setBio] = useState('')
+    const [uploadStatusProps, setUploadStatusProps] = useState('initial')
+    const [uploadCount, setUploadCount] = useState(3)
+    const [uploadProgress, setUploadProgress] = useState(0)
+
+    const { userData } = props
+    useEffect(()=> {
+        setName(userData.name)
+        setUsername(userData.username)
+        setBio(userData.bio)
+        // eslint-disable-next-line
+    }, [])
+
+    const displayImage = () => {
+        const file = document.getElementById('edit-profile-input').files[0]
+        const viewFile = new FileReader()
+        setFileName(file.name)
+        viewFile.onload = (e) => {
+            const uploadedImage = document.createElement('img')
+            uploadedImage.src=e.target.result
+            uploadedImage.onload = function () {
+                const height = this.height;
+                const width = this.width;
+                let ratio
+                if(height < width) {
+                    ratio = height / width
+                }else{
+                    ratio = width / height
+                }
+                let finalHeightLarge
+                let finalWidthLarge
+                if(height > 500 || width > 500) {
+                    if (height >= width) {
+                        finalHeightLarge = 500
+                        finalWidthLarge = Math.round(ratio * 500)
+                    }else {
+                        finalWidthLarge = 500
+                        finalHeightLarge = Math.round(ratio * 500)
+                    }
+                }else{
+                    finalHeightLarge = height
+                    finalWidthLarge = width
+                }
+                let canvasLarge = document.createElement('canvas'), ctx;
+                canvasLarge.width = finalWidthLarge;
+                canvasLarge.height = finalHeightLarge;
+                ctx = canvasLarge.getContext('2d');
+                ctx.drawImage(uploadedImage, 0, 0, canvasLarge.width, canvasLarge.height);
+                const imageSrcLarge = canvasLarge.toDataURL('image/jpeg', 1)
+                const profileImageTag = document.getElementById('edit-profile-image')
+                profileImageTag.src = imageSrcLarge
+            }
+        }
+        viewFile.readAsDataURL(file)
+    }
+
+    const uploadProfileImage = () => {
+        setIsUploading(true)
+        setUploadCount(uploadCount => uploadCount + 1)
+        setTimeout(()=>setUploadStatusProps('transitionStart'), 0)
+        setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+        const image = document.getElementById('edit-profile-image').src
+        if(image !== props.userData.profileImage){
+            const storageRef = firebase.storage().ref()
+            const imageRef = storageRef.child(`${props.user}/${fileName}`)
+            imageRef.putString(image, 'data_url')
+            .then(snapshot=> {
+                snapshot.ref.getDownloadURL()
+                .then(url=> {
+                    updateProfile(url)
+                })
+            })
+        }else{
+            updateProfile()
+        }
+    }
+
+    const updateProfile = (profileImageUrl) => {
+        let isEmpty = true
+        const updateObject = {}
+        if(username !== props.userData.username){
+            isEmpty = false
+            updateObject['username'] = username
+            db.collection('pending-username-change')
+            .add({
+                previousUsername: props.userData.username,
+                newUsername: username,
+            })
+            .then(()=> null)
+        }
+        if(name !== props.userData.name){
+            isEmpty = false
+            updateObject['name'] = name
+        }
+        if(bio !== props.userData.bio){
+            isEmpty = false
+            updateObject['bio'] = bio
+        }
+        if(profileImageUrl){
+            isEmpty = false
+            updateObject['profileImage'] = profileImageUrl
+        }
+        if(!isEmpty) {
+            setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+            db.collection('users')
+            .doc(props.user)
+            .update({
+                ...updateObject
+            })
+            .then(()=>{
+                setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+                setUploadProgressColor(true)
+                setTimeout(()=> props.setShowEditProfile(false), 1200)
+                props.getUserProfile(props.userInformation.id)
+                console.log(props.userInformation.id)
+            })
+            .catch(err=>console.log(err))
+        }else{
+            props.setShowEditProfile(false)
+        }
+    }
+
+    return(
+        <Container>
+            {isUploading ? 
+            <div style={{height: '300px'}}>
+                <CenterProgress>
+                    <UploadProgress uploadProgressColor={uploadProgressColor} animate={uploadStatusProps} variants={animationMap.uploadStatus} uploadCount={uploadCount} uploadProgress={uploadProgress} />
+                </CenterProgress>
+            </div>
+            :
+            <div>
+                <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '20px'}}>
+                    <Text size='40px'>Edit profile</Text>
+                    <Text onClick={()=>props.setShowEditProfile(false)} style={{cursor: 'pointer'}} size='40px'>&times;</Text>
+                </div>
+                <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+                    <ProfileImage src={props.userData.profileImage} id='edit-profile-image' />
+                    <EditButton htmlFor='edit-profile-input'>Change image</EditButton>
+                    <input onChange={displayImage} hidden id='edit-profile-input' type='file'></input>
+                </div>
+                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                    <div>
+                        <Text>Username:</Text>
+                        <CollectionName autoComplete='off' id='edit-profile-username' onChange={(e)=>setUsername(e.target.value)} defaultValue={username}></CollectionName>
+                    </div>
+                    <div>
+                        <Text>Name:</Text>
+                        <CollectionName autoComplete='off' id='edit-profile-name' onChange={(e)=>setName(e.target.value)} defaultValue={name}></CollectionName>
+                    </div>
+                    <div>
+                        <Text>Bio:</Text>
+                        <BioTextarea id='edit-profile-bio' onChange={(e)=>setBio(e.target.value)} defaultValue={bio}></BioTextarea>
+                    </div>
+                </div>
+                <div style={{display: 'flex'}}>
+                    <Cancel onClick={()=>props.setShowEditProfile(false)}>Cancel</Cancel>
+                    <ConfirmButton onClick={uploadProfileImage}>Confirm changes</ConfirmButton>
+                </div>
+            </div>
+            }
+        </Container>
+    )
+}
+
+const mapStateToProps = state => ({
+    user: state.app.user,
+    userInformation: state.app.userInformation,
+})
+
+const animationMap = {
+    uploadStatus: {
+        initial: {
+            x: 0,
+            y: 50,
+            opacity: 0,
+        },
+        transitionStart: {
+            x: 0,
+            y: 50,
+            opacity: 1,
+        }
+    }
+}
+
+export default connect(mapStateToProps)(EditProfile)

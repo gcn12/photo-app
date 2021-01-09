@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { db } from '../Firebase'
 import PublicProfilesPosts from '../PublicProfile/PublicProfilePosts'
 // import { collectionsData } from '../Redux/Actions/collectionsActions'
@@ -40,9 +39,9 @@ const CollectionsComponent = (props) => {
             <PostsContainer>
                 {collectionImages.map((post, index) => {
                     return(
-                        <Link key={index} to={`/photo-app/post/${post.username}/${post.url}`} style={{textDecoration: 'none'}}> 
+                        <div key={index} style={{textDecoration: 'none'}}> 
                             <PublicProfilesPosts history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} post={post} />
-                        </Link>
+                        </div>
                     )
                 })}
             </PostsContainer>

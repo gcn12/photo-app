@@ -26,7 +26,7 @@ const PostDropdown = (props) => {
     }
 
     return(
-        <Container width={props.showOptions? '200px' : '0px'} fontSize='20px' translateContainer='translate(165%, 55%)'>
+        <Container width={props.showOptions? '200px' : '0px'} fontSize='20px' translateContainer={props.translateContainer}>
             <Triangle shift='translate(-65%, -90%)' />
             <Options>
                 <OptionIconContainer onClick={editPost} radius='5px 5px 0 0'>

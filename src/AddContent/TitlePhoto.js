@@ -86,51 +86,8 @@ const TitlePhoto = (props) => {
                 filesLargeCopy[0] = [imageSrcLarge]
                 props.setFilesLarge(filesLargeCopy)
             }
-
-
-
         }
         viewFile.readAsDataURL(file)
-
-
-
-
-        // const file = document.getElementsByClassName('photo-input')[0].files[0]
-        // const reader2 = new FileReader()
-        // reader2.readAsDataURL(file);
-        // reader2.onload = (e) => {
-        //     const fileName = file.name
-        //     const image = document.createElement('img')
-        //     image.src = e.target.result;
-        //     image.onload = function () {
-        //         resizeFile(image, image, fileName);
-        //     };
-        // }
-
-        // const resizeFile = (loadedData, preview, fileName) => { 
-        //     setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-        //     const height = loadedData.height
-        //     const width = loadedData.width
-        //     let ratio
-        //     let finalHeight
-        //     let finalWidth
-        //     if (height >= width) {
-        //         ratio = width / height
-        //         finalHeight = 850
-        //         finalWidth = Math.round(ratio * 850)
-        //     }else {
-        //         ratio = height / width
-        //         finalWidth = 850
-        //         finalHeight = Math.round(ratio * 850)
-        //     }
-        //     let canvas = document.createElement('canvas'),
-        //     ctx;
-        //     canvas.width = finalWidth;
-        //     canvas.height = finalHeight;
-        //     ctx = canvas.getContext('2d');
-        //     ctx.drawImage(preview, 0, 0, canvas.width, canvas.height);
-        //     fileUpload(canvas, fileName)
-        // }
     }
 
     const checkProceed = () => {

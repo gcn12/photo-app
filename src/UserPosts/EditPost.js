@@ -43,7 +43,7 @@ const EditPost = (props) => {
     const [showUpload, setShowUpload] = useState(false)
     const [filesArray, setFilesArray] = useState([])
     const [postData, setPostData] = useState({})
-    const [remainingCharacters, setRemainingCharacters] = useState(150)
+    const [remainingCharacters, setRemainingCharacters] = useState(100)
     const [isTooManyImages, setIsTooManyImages] = useState(false)
     const [uploadCount, setUploadCount] = useState(3)
     const [uploadProgress, setUploadProgress] = useState(0)
@@ -111,7 +111,7 @@ const EditPost = (props) => {
         setFont(props?.postData[0]?.font)
 
         if(props?.postData[0]?.previewDescription) {
-            const quanityCharacters = 150 - props?.postData[0]?.previewDescription.length 
+            const quanityCharacters = 100 - props?.postData[0]?.previewDescription.length 
             setRemainingCharacters(quanityCharacters)
         }
         if(props.postData) {
@@ -499,7 +499,7 @@ const EditPost = (props) => {
                         ...previewPostUpdate
                     })
                     .then(()=>{
-                        props.getPosts(props.userInformation.username)
+                        props.getPosts(props.userInformation.id)
                         console.log('uploaded')
                         setUploadProgressColor(true)
                         setTimeout(()=>props.setShowEdit(false), 1200)
@@ -511,7 +511,7 @@ const EditPost = (props) => {
 
     const calculateRemainingCharacters = () => {
         const characters = document.getElementById('edit-post-description').value
-        const characterQuantity = 150 - characters.length
+        const characterQuantity = 100 - characters.length
         setRemainingCharacters(characterQuantity)
     }
 
@@ -674,103 +674,3 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(EditPost)
-
-
-
-
-
-// return(
-//     <Container height={isUploading ? '50vh' : '97vh'} width={isUploading ? '50vw' : '90vw'} opacity={isVisible ? 1 : 0}>
-//         <CenterUploadProgress>
-//             <UploadProgress uploadProgressColor={uploadProgressColor} animate={uploadStatusProps} variants={animationMap.uploadStatus} uploadCount={uploadCount} uploadProgress={uploadProgress} />
-//         </CenterUploadProgress>
-//             <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-//                 <X visibility={showCancel ? 'visible' : 'hidden'} display={showCancel ? 'initial' : 'none'} onClick={()=>props.setShowEdit(false)}>&times;</X>
-//             </div>
-//             <VerticalScroll height='10vh'>
-//         <HideContent visibility={isUploading ? 'hidden' : 'visible'} display={isUploading ? 'none' : 'initial'}>
-//                 <div>
-//                     <Container2>
-//                         <div id='edit-area'>
-//                             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-//                                 <Title autoComplete='off' id='edit-post-title' font={font} onChange={null} defaultValue={props?.postData[0]?.title}></Title>
-//                                 <MainImage onLoad={()=>setIsUploading(false)} src={postData?.smallImage}></MainImage>
-//                                 <label htmlFor='main-image-input' className='upload-button-label'>Change main image</label>
-//                                 <input onChange={changeMainPhoto} hidden id='main-image-input' type='file'></input>
-//                             </div>
-//                         </div>
-//                         {postData?.content?.map((paragraph, index)=> {
-//                             return(
-//                             <ContentContainer key={index}>
-//                                 <Paragraphs className='content-paragraph' font={font} defaultValue={paragraph}></Paragraphs>
-//                                 <PhotoAndButtonContainer>
-//                                     <Masonry>
-//                                         {postData?.images[index]?.map((image, i)=> {
-//                                             return(
-//                                                 <ImageNew key={i} src={image}></ImageNew>
-//                                                 )
-//                                             })}
-//                                     </Masonry>
-//                                     {postData?.images[index] || showUpload || postData.content.length > index + 1 ? 
-//                                     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-//                                         <UploadLabel htmlFor={`edit-body-photos${index}`}>Select photos (max. 3)</UploadLabel>
-//                                         <input multiple id={`edit-body-photos${index}`} onChange={()=> changeBodyPhotos(index)} hidden  type='file'></input>
-//                                         {isTooManyImages ? 
-//                                         <TooManyImages>Exceeded image limit of three</TooManyImages>
-//                                         :
-//                                         null
-//                                         }
-//                                     </div>    
-//                                     :
-//                                     null
-//                                     }
-//                                 </PhotoAndButtonContainer>
-//                             </ContentContainer>
-//                             )
-//                         })}
-//                         <BodyButtonContainer id='add-content-body-buttons'>
-//                             {isAdditionalElements ? 
-//                             <RemoveLastElement type="button" onClick={removeLastElement}>{`Remove last ${isAddImage ? 'image' : 'text block'}`}</RemoveLastElement>
-//                             :
-//                             null
-//                             }
-//                             {isAddImage ? 
-//                             <NewItemButton type="button" onClick={newParagraph}>Add paragraph</NewItemButton>
-//                             : 
-//                             <NewItemButton long={!isAdditionalElements} type="button" onClick={newImage}>Add image</NewItemButton>
-//                             }
-//                         </BodyButtonContainer>
-//                         <Label>Post description</Label>
-//                         <PostDescriptionInput font={font} onChange={calculateRemainingCharacters} id='edit-post-description'></PostDescriptionInput>
-//                         <div style={{marginBottom: '15px'}}>Remaining characters: {remainingCharacters}</div>
-//                         <Label>Font:</Label>
-//                         <FontSelect onChange={getFont} id='font-select'>
-//                             <FontOption value="'Montserrat', sans-serif;" font="'Montserrat', sans-serif;">Montserrat</FontOption>
-//                             <FontOption value="'Work Sans', sans-serif;" font="'Work Sans', sans-serif;">Work Sans</FontOption>
-//                             <FontOption value="'Heebo', sans-serif;" font="'Heebo', sans-serif;">Heebo</FontOption>
-//                             <FontOption value="'Roboto', sans-serif;" font="'Roboto', sans-serif;">Roboto</FontOption>
-//                             <FontOption value="'Raleway', sans-serif;" font="'Raleway', sans-serif;">Raleway</FontOption>
-//                             <FontOption value="'Poppins', sans-serif;" font="'Poppins', sans-serif;">Poppins</FontOption>
-//                         </FontSelect>
-//                         <Label htmlFor='category'>Category:</Label>
-//                         <SelectInput onChange={null} name='category' id='category'>
-//                             <option value='restaurant'>Restaurant</option>
-//                             <option value='entertainment'>Entertainment</option>
-//                             <option value='adventure'>Adventure</option>
-//                             <option value='sightseeing'>Sightseeing</option>
-//                             <option value='shopping'>Shopping</option>
-//                             <option value='museum'>Museum</option>
-//                         </SelectInput>
-//                         <Label>Location:</Label>
-//                         <Autocomplete id='autocomplete-component'/>
-//                         <div style={{marginBottom: '20px'}}></div>
-//                         <div style={{display: 'flex'}}>
-//                             <Cancel onClick={()=>props.setShowEdit(false)}>Cancel</Cancel>
-//                             <Submit onClick={fileUpload}>Submit</Submit>
-//                         </div>
-//                     </Container2>
-//                 </div>
-//         </HideContent>
-//             </VerticalScroll>
-//     </Container>
-// )

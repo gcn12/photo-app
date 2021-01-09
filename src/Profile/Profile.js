@@ -30,8 +30,8 @@ const Profile = (props) => {
             <Container>
                 <HeaderContainer>
                     <UL>
-                        <Link to='/photo-app/profile/profile2' style={{textDecoration: 'none'}}>
-                            <LI style={{borderBottom: props.profilePage==='profile2'  ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('profile2'))}>My profile</LI>
+                        <Link to='/photo-app/profile/my-profile' style={{textDecoration: 'none'}}>
+                            <LI style={{borderBottom: props.profilePage==='my-profile'  ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('my-profile'))}>My profile</LI>
                         </Link>
                         <Link to='/photo-app/profile/saved' style={{textDecoration: 'none'}}>
                             <LI style={{borderBottom: props.profilePage==='saved'  ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('saved'))}>Saved</LI>
@@ -49,7 +49,7 @@ const Profile = (props) => {
                 </HeaderContainer>
                 {(()=> {
                     switch (props.profilePage) {
-                        case 'profile2':
+                        case 'my-profile':
                             return( 
                                 <UserPrivateProfile getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} getUserProfile={props.getUserProfile} history={props.history} />
                             )

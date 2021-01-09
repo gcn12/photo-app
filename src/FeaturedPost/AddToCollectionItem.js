@@ -23,6 +23,7 @@ const AddToCollectionItem = (props) => {
             .then(data=> {
                 if(data.docs.length === 0) {
                     addRef.add({
+                        postID: props.photoInformation.postID,
                         collectionUrl: collectionNameUrl,
                         id: props.photoInformation.id,
                         image: props.photoInformation.image,

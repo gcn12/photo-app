@@ -50,7 +50,7 @@ const PhotoDescriptionView = (props) => {
     const goToPost = () => {
         props.dispatch(photoInformation(props.photoInfo))
         props.getFeaturedPhotoInfo(props.photoInfo.url, props.photoInfo.username)
-        props.history.push(`/photo-app/post/${props.photoInfo.username}/${props.photoInfo.url}`)
+        props.history.push(`/photo-app/post/${props.photoInfo.postID}`)
         db.collection('preview-posts').where('image', '==', props.photoInfo.image)
         .get()
         .then(reference=> {

@@ -12,7 +12,7 @@ const PublicProfilesPosts = (props) => {
 
     const selectPhoto = () => {
         props.getFeaturedPhotoInfo(props.post.url, props.post.username)
-        props.history.push(`/photo-app/post/${props.post.username}/${props.post.url}`)
+        props.history.push(`/photo-app/post/${props.post.postID}`)
     }
 
     return(

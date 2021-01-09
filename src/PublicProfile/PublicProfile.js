@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PublicProfilePosts from './PublicProfilePosts'
 import { connect } from 'react-redux'
+import { db } from '../Firebase'
 import fitty from 'fitty'
 import {
     ProfileImage,
@@ -17,7 +18,13 @@ const PublicProfile = (props) => {
     const [isVisible, setIsVisible] = useState(false)
 
     useEffect(()=> {
-        props.getUserProfile(props.match.params.username)
+        db.collection('users')
+        .where('username', '==', props.match.params.username)
+        .get()
+        .then(data=> {
+            props.getUserProfile(data.docs[0].data().id)
+        })
+        .catch(err=>console.log(err))
         fitty('#public-profile-username', {
             minSize: 1,
             maxSize: 30

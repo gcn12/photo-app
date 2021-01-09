@@ -42,12 +42,12 @@ const AdmiredPost = (props) => {
             null
             }
             <ImageTextContainer>
-            <Link to={`/photo-app/post/${props.post.username}/${props.post.url}`}>
+            <Link to={`/photo-app/post/${props.post.postID}`}>
                 <Image onLoad={()=>setIsVisible(true)} src={props.post.image} />
             </Link>
             <div style={{display: 'flex', alignItems: 'start'}}>
                 <div>
-                    <Link to={`/photo-app/post/${props.post.username}/${props.post.url}`} style={{textDecoration: 'none'}}>
+                    <Link to={`/photo-app/post/${props.post.postID}`} style={{textDecoration: 'none'}}>
                         <Title>{props.post.title}</Title>
                     </Link>
                     <Description>{props.post.previewDescription}</Description>

@@ -56,7 +56,7 @@ const FeaturedPost = (props) => {
     const [showDropdown, setShowDropdown] = useState(null)
     // const [countryPhotos, setCountryPhotos] = useState([])
     // const [cityPhotos, setCityPhotos] = useState([])
-    const [isImageHorizontal, setIsImageHorizontal] = useState(true)
+    // const [isImageHorizontal, setIsImageHorizontal] = useState(true)
     const [isHeart, setIsHeart] = useState(false)
     const [isBookmark, setIsBookmark] = useState(false)
     const [isAddToCollection, setIsAddToCollection] = useState(false)
@@ -131,8 +131,7 @@ const FeaturedPost = (props) => {
             db.collection('users')
             .doc(props?.user)
             .collection('bookmarked')
-            .where('username', '==', props?.match?.params?.username)
-            .where('url', '==', props?.match?.params?.url)
+            .where('postID', '==', props?.match?.params?.postID)
             .get()
             .then(data=> {
                 if(data.docs[0]) {
@@ -141,33 +140,24 @@ const FeaturedPost = (props) => {
                 setShowDropdown(!showDropdown)
             })
         }
-        // eslint-disable-next-line
-        getFeaturedPhotoInfo2(props?.match?.params?.url, props?.match?.params?.username)
+        getFeaturedPhotoInfo2(props?.match?.params?.postID)
         // eslint-disable-next-line
     },[])
 
-    const getFeaturedPhotoInfo2 = (url, username) => {
+    const getFeaturedPhotoInfo2 = (postID) => {
         db.collection('posts')
-        .where('url', '==', url)
-        .where('username', '==', username)
+        .where('postID', '==', postID)
         .get()
         .then(data=> {
-            let arr = []
-            data.forEach(item=> {
-                arr.push(item.data())
-            })
-            const info = arr[0]
-            getImageSize(info.image)
-            info['username'] = username
-            props.dispatch(photoInformation(info))
+            let post = data.docs[0].data()
+            props.dispatch(photoInformation(post))
             window.scrollTo({top: 0})
-            // getCities(info.city, info.country, info.continent)
             firebase.auth().onAuthStateChanged((user)=> {
             if(user) {
                 db.collection('users')
                 .doc(user.uid)
                 .collection('hearts')
-                .where('hearts', 'array-contains', info.id)
+                .where('hearts', 'array-contains', post.id)
                 .get()
                 .then(data=> {
                     let arr = []
@@ -184,16 +174,16 @@ const FeaturedPost = (props) => {
         })
     }
 
-    const getImageSize = (src) => {
-        var img = new Image();
-        img.onload = function () { 
-            if (img.height / img.width > 1) {
-                setIsImageHorizontal(false)
-            }
-        };
-        // img.src = props?.photoInformation?.image;
-        img.src = src
-    }
+    // const getImageSize = (src) => {
+    //     var img = new Image();
+    //     img.onload = function () { 
+    //         if (img.height / img.width > 1) {
+    //             setIsImageHorizontal(false)
+    //         }
+    //     };
+    //     // img.src = props?.photoInformation?.image;
+    //     img.src = src
+    // }
     
 
     const getCollectionsList = () => {
@@ -341,7 +331,11 @@ const FeaturedPost = (props) => {
             <Container>
                 <div>
 
-                    <MainImage onLoad={null} width={isImageHorizontal ? '80vw' : 'auto'} height={isImageHorizontal ? 'auto' : '80vh'} id='featured-main-image' alt='display' src={props?.photoInformation?.image}></MainImage>
+                    <MainImage 
+                    onLoad={null} 
+                    // width={isImageHorizontal ? '80vw' : 'auto'} 
+                    // height={isImageHorizontal ? 'auto' : '80vh'} 
+                    id='featured-main-image' alt='display' src={props?.photoInformation?.image}></MainImage>
                     {/* <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</DateStyle> */}
                     <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                         <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MM DD YY')}</DateStyle>

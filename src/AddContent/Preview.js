@@ -1,19 +1,15 @@
 import React from 'react'
 import moment from 'moment'
-import { ReactComponent as FilledHeart } from '../Icons/FilledHeart.svg'
 import {
     PreviewContainer,
     BodyImagePreview,
-    AddCollectionHeartContainer,
 } from './Preview.styles'
-import { SubmitButton } from './AddContent.styles'
 import {
     Author,
     Title,
     Description,
     MainImage,
     Container,
-    InfoContainer,
     BodyContainer,
     BodyImageContainer,
     DateStyle,
@@ -57,15 +53,8 @@ const Preview = (props) => {
                     :
                     null
                     }
-                    <InfoContainer justify='space-between'>
-                        <AddCollectionHeartContainer>
-                            <SubmitButton className='dropdown'>
-                                <div className='dropdown'>Add to collection</div>
-                            </SubmitButton>
-                            <FilledHeart style={{marginLeft: '10px'}} />
-                        </AddCollectionHeartContainer>
-                        <DateStyle font={props.font}>{moment(Date.now()).format('MMMM Do YYYY')}</DateStyle>
-                    </InfoContainer>
+                    <DateStyle font={props.font}>{moment(Date.now()).format('MMMM Do YYYY')}</DateStyle>
+
                 </div>
                 {document.getElementById('add-content-title') ? 
                 <Title font={props.font}>{document.getElementById('add-content-title').value}</Title>

@@ -44,7 +44,7 @@ const ProfileDropdown = (props) => {
             <Triangle shift='translate(-130%, -90%)' />
             <Options>
 
-                <Link onClick={()=> props.dispatch(profilePage('profile2'))} to='/photo-app/profile/profile2' style={{ textDecoration: 'none' }}>
+                <Link onClick={()=> props.dispatch(profilePage('my-profile'))} to='/photo-app/profile/my-profile' style={{ textDecoration: 'none' }}>
                     <OptionIconContainer>
                         <OptionIcon>
                             <Profile style={{transform: 'scale(.8)', position: 'relative', top: 4}} />

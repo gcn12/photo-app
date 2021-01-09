@@ -94,7 +94,6 @@ const App = (props) => {
         .doc(userData.uid)
         .get()
         .then(item=> {
-          console.log(item.data())
           props.dispatch(userInformation(item.data()))
         })
       }
@@ -269,9 +268,9 @@ const App = (props) => {
     }
   }
 
-  const getUserProfile = (username) => {
+  const getUserProfile = (userID) => {
     db.collection('users')
-    .where('username', '==', username)
+    .where('id', '==', userID)
     .get()
     .then(data=> {
       let dataArray = []
@@ -282,7 +281,7 @@ const App = (props) => {
     })
 
     db.collection('preview-posts')
-    .where('username', '==', username)
+    .where('userID', '==', userID)
     .orderBy('timestamp', 'desc')
     .get()
     .then(data=> {
@@ -371,7 +370,7 @@ const App = (props) => {
           />
         )} />
 
-        <Route exact path='/photo-app/post/:username/:url' render={(props)=> (
+        <Route exact path='/photo-app/post/:postID' render={(props)=> (
           <FeaturedPost 
           getUserProfile={getUserProfile}
           getFeaturedPhotoInfo={getFeaturedPhotoInfo}

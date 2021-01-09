@@ -127,6 +127,9 @@ const Header = (props) => {
         if (!e.target.matches('.categories-dropdown')) {
             setShowCategories(false)
         }
+        // if (!e.target.matches('.user-post-dropdown')) {
+        //     props.setShowOptions(false)
+        // }
     } 
 
     return(

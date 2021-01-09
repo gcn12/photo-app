@@ -236,7 +236,7 @@ const AddContent = (props) => {
     const [bodyProceed, setBodyProceed] = useState(false)
     const [fontProceed, setFontProceed] = useState(true)
     const [isDuplicate, setIsDuplicate] = useState(false)
-    const [numberCharacters, setNumberCharacters] = useState(150)
+    const [numberCharacters, setNumberCharacters] = useState(100)
     const [filesSmall, setFilesSmall] = useState([])
     const [filesLarge, setFilesLarge] = useState([])
     const [fileNames, setFileNames] = useState([])
@@ -270,7 +270,7 @@ const AddContent = (props) => {
         if (document.getElementById('post-description-input').value.length > 0) {
             previewDescription = document.getElementById('post-description-input').value
         }else{
-            let descriptionNoEllipsis = descriptionArray[0].substring(0, 150)
+            let descriptionNoEllipsis = descriptionArray[0].substring(0, 100)
             descriptionNoEllipsis = descriptionNoEllipsis.trim()
             if (descriptionNoEllipsis[descriptionNoEllipsis.length-1] !== '.') {
                 descriptionNoEllipsis = descriptionNoEllipsis.slice(0, -3)
@@ -315,6 +315,28 @@ const AddContent = (props) => {
             }
         }
 
+        // let postID = String(Math.round(Math.random() * 10000000000))
+        let postID = ''
+
+        let alpha1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        let alpha2 = 'abcdefghijklmnopqrstuvwxyz'
+        let numbers = '123456789'
+        let idLength = Math.round(Math.random() * 4) + 6
+        while (idLength > 0) {
+            let index = Math.floor(Math.random() * 3)
+            let character 
+            if(index === 0) {
+                character = alpha1[Math.floor(Math.random() * 26)]
+            }
+            if(index === 1) {
+                character = alpha2[Math.floor(Math.random() * 26)]
+            }
+            if(index === 2) {
+                character = numbers[Math.floor(Math.random() * 9)]
+            }
+            postID+=character
+            idLength--
+        }
 
         const imageSizeArrayValues = Object.values(imageSizeArray)
         const urlObjectLarge = {}
@@ -363,9 +385,11 @@ const AddContent = (props) => {
                         author: name,
                         location,
                         dataObj,
+                        postID,
                         // views: 0, change back later
                         url,
-                        username
+                        username,
+                        userID: props.userInformation.id,
                     }).then(docRef => {
                         // setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                         db.collection('posts').doc(docRef.id).set({
@@ -387,6 +411,7 @@ const AddContent = (props) => {
                                 image: mainImage,
                                 category,
                                 city,
+                                postID,
                                 country,
                                 continent,
                                 url,
@@ -394,6 +419,7 @@ const AddContent = (props) => {
                                 views,
                                 hearts,
                                 ratio,
+                                userID: props.userInformation.id,
                             })
                             .then(()=>{
                                 db.collection('users')
@@ -405,7 +431,7 @@ const AddContent = (props) => {
                                 }, {merge: true})
                                 setTimeout(()=>setUploadProgressColor(true), 300)
                                 setTimeout(()=>props.getFeaturedPhotoInfo(url, username), 2000)
-                                setTimeout(()=>props.history.push(`/photo-app/post/${username}/${url}`), 2000)
+                                setTimeout(()=>props.history.push(`/photo-app/post/${postID}`), 2000)
                             })
                         })              
                     })
@@ -533,7 +559,7 @@ const AddContent = (props) => {
         const paragraph = document.getElementById('content-paragraph-original').value
         const splitParagraph = paragraph.split('\n')
         let finalParagraph = splitParagraph[0].slice(0, 400)
-        finalParagraph.trim()
+        finalParagraph = finalParagraph.trim()
         if(finalParagraph[finalParagraph.length-1]!=='.'){
             finalParagraph += '...'
         }

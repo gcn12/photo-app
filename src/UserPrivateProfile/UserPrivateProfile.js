@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import UserPrivateProfilesPosts from './UserPrivateProfilePosts'
 import { connect } from 'react-redux'
 import fitty from 'fitty'
+import EditProfile from './EditProfile'
 import {
     ProfileImage,
     Container,
@@ -16,11 +17,12 @@ import {
 const UserPrivateProfile = (props) => {
 
     const [isVisible, setIsVisible] = useState(false)
+    const [showEditProfile, setShowEditProfile] = useState(false)
 
     const { userInformation, getUserProfile } = props
     useEffect(()=> {
-        if(userInformation.username){
-            getUserProfile(userInformation.username)
+        if(userInformation.id){
+            getUserProfile(userInformation.id)
         }
         fitty('#public-profile-username', {
             minSize: 1,
@@ -37,20 +39,25 @@ const UserPrivateProfile = (props) => {
     const { userData, userPosts } = props
     return(
         <div style={{marginTop: '10px'}}>
+            {showEditProfile ? 
+            <EditProfile getUserProfile={props.getUserProfile} userData={userData[0]} setShowEditProfile={setShowEditProfile} />
+            :
+            null
+            }
             <UserContainer visibility={isVisible ? 1 : 0}>
                 <ProfileImage onLoad={()=>setIsVisible(true)} alt='profile' src={userData[0]?.profileImage}></ProfileImage>
                 <Container>
                     <Username id='public-profile-username'>{userData[0]?.username}</Username>
                     <Name id='public-profile-name'>{userData[0]?.name}</Name>
                     <Bio>{userData[0]?.bio}</Bio>
-                    <EditButton>Edit profile</EditButton>
+                    <EditButton onClick={()=> setShowEditProfile(!showEditProfile)}>Edit profile</EditButton>
                 </Container>
             </UserContainer>
 
             <PostsContainer>
             {userPosts?.map((post, index)=> {
                 return(
-                    <UserPrivateProfilesPosts getUserProfile={props.getUserProfile} post={post} history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} key={index} />
+                    <UserPrivateProfilesPosts index={index} getUserProfile={props.getUserProfile} post={post} history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} key={index} />
                 )
             })}
             </PostsContainer>

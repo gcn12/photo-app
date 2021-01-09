@@ -13,7 +13,7 @@ export const ProfileImage = styled.img`
 
 export const Container = styled.div`
     width: 250px;
-    height: 100px;
+    height: 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -95,6 +95,6 @@ export const EditButton = styled.button`
     transition: transform 100ms ease-in-out;
     cursor: pointer;
     &:hover {
-        transform: scale(1.04)
+        transform: scale(1.03)
     }
 `
