@@ -6,10 +6,15 @@ export const UploadingTitle = styled.div`
 `
 
 export const ProgressContainer = styled(motion.div)`
+    /* position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    visibility: ${props=> props.visibility ? 'null' : 'hidden'};
-    display: ${props=> props.visibility ? 'null' : 'none'};
+    visibility: ${props=> props.visibility ? 'visible' : 'hidden'};
+    display: ${props=> props.visibility ? 'flex' : 'none'};
 `
