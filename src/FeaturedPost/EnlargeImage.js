@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import SpinnerOnly from '../Spinner/SpinnerOnly'
 import {
     Container,
     // Placeholder,
@@ -12,6 +13,11 @@ const EnlargeImage = (props) => {
 
     return(
         <Container>
+            {showPlaceholder ? 
+            null
+            :
+            <SpinnerOnly spinnerColor='#f2f2f2' />
+            }
             <Close onClick={props.closeImage}>&times;</Close>
             {/* <Placeholder opacity={showPlaceholder ? 0 : 1}></Placeholder> */}
             <Image src={props.image} onLoad={()=>setShowPlaceholder(true)} opacity={showPlaceholder ? 1 : 0} scale={showPlaceholder ? 'scale(1)' : 'scale(.75)'}>

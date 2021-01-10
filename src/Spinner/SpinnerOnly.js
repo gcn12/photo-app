@@ -1,11 +1,14 @@
 import React from 'react'
 import {
-    Spinner
+    Spinner,
+    CenterSpinner,
 } from './SpinnerOnly.styles'
 
-const SpinnerOnly = () => {
+const SpinnerOnly = (props) => {
     return(
-        <Spinner />
+        <CenterSpinner>
+            <Spinner spinnerColor={props.spinnerColor} />
+        </CenterSpinner>
     )
 }
 

@@ -27,7 +27,15 @@ export const Spinner = styled.div`
         margin: 8px;
         border-radius: 50%;
         border: 6px solid #fff;
-        border-color: #4D4D4D transparent #4D4D4D transparent;
+        border-color: ${props=>props.spinnerColor} transparent ${props=>props.spinnerColor} transparent;
         animation: ${ring} 2s linear infinite;
     }
+`
+
+export const CenterSpinner = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
 `

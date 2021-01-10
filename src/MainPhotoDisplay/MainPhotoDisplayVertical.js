@@ -7,7 +7,6 @@ import {
     PhotoDescriptionViewContainer,
     DisplayContainer,
     LoadMoreButtonContainer,
-    CenterSpinner,
 } from './MainPhotoDisplayVertical.styles'
 import { SubmitButton } from '../AddContent/AddContent.styles'
 
@@ -20,9 +19,7 @@ const GetPhotos = (props) => {
             {isVisible ? 
             null
             :
-            <CenterSpinner>
-                <SpinnerOnly />
-            </CenterSpinner>
+            <SpinnerOnly spinnerColor='#4D4D4D' />
             }
             <DisplayContainer opacity={isVisible ? 1 : 0} style={{marginTop: '120px'}}>
                 <PhotoDescriptionViewContainer>

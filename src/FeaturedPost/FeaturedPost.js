@@ -50,7 +50,6 @@ import {
     BioUsername,
     BioContainer,
     FeaturedPostContainer,
-    CenterSpinner,
     // AddCollectionHeartContainer,
 } from './FeaturedPost.styles'
 
@@ -285,9 +284,7 @@ const FeaturedPost = (props) => {
             {props.isVisible ? 
             null
             :
-            <CenterSpinner>
-                <SpinnerOnly />
-            </CenterSpinner>
+            <SpinnerOnly spinnerColor='#4D4D4D' />
             }
             <FeaturedPostContainer opacity={props.isVisible ? 1 : 0} style={{marginTop: '85px'}}>
                 {showImageEnlarged ? 

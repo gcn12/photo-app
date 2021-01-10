@@ -67,13 +67,3 @@ export const LoadMoreButtonContainer = styled.div`
     display: flex;
     justify-content: center;
 `
-
-export const CenterSpinner = styled.div`
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    /* right: 0;
-    bottom: 0; */
-    transform: translate(-50%, -50%);
-    text-align: center;
-`
