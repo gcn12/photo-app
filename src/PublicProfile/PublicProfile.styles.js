@@ -13,7 +13,7 @@ export const ProfileImage = styled.img`
 
 export const Container = styled.div`
     width: 250px;
-    height: 150px;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
