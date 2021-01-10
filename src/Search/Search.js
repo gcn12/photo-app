@@ -1,4 +1,4 @@
-import React, {  } from 'react'
+import React from 'react'
 // import algoliasearch from 'algoliasearch'
 import { ReactComponent as SearchIcon } from '../Icons/Search.svg'
 import { query, searchResults } from '../Redux/Actions/appActions'
@@ -26,7 +26,7 @@ const Search = (props) => {
         <Container>
             <div style={{position: 'relative'}} className='search-results'>
             <IconContainer>
-                <SearchIcon style={{position: 'absolute', top: '5', left: '5', transform: 'scale(.8)'}}></SearchIcon>
+                <SearchIcon style={{position: 'absolute', top: '7', left: '5', transform: 'scale(.6)'}}></SearchIcon>
                 {/* <SearchIcon style={{transform: 'scale(1)'}}></SearchIcon> */}
             </IconContainer>
                 <div style={{position: 'absolute', left: '10%'}}></div>

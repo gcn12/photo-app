@@ -1,48 +1,61 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PhotoDescriptionView from './PhotoDescriptionView'
 import '../App.css'
 import { connect } from 'react-redux'
-import {  } from '../Redux/Actions/appActions'
+import SpinnerOnly from '../Spinner/SpinnerOnly'
 import { 
     PhotoDescriptionViewContainer,
     DisplayContainer,
     LoadMoreButtonContainer,
+    CenterSpinner,
 } from './MainPhotoDisplayVertical.styles'
-import { SubmitButton, } from '../AddContent/AddContent.styles'
+import { SubmitButton } from '../AddContent/AddContent.styles'
 
 const GetPhotos = (props) => {
 
+    const [isVisible, setIsVisible] = useState(false)
+
     return(
-        <DisplayContainer style={{marginTop: '120px'}}>
-            <PhotoDescriptionViewContainer>
-                {props.homePhotoInformation.map((photo, index)=> {
-                    return( 
-                        <PhotoDescriptionView 
-                        history={props.history}
-                        index={index}
-                        photoLength={props.homePhotoInformation.length}
-                        getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
-                        key={index} 
-                        photoInfo={photo} 
-                        />
-                    )
-                })}
-            </PhotoDescriptionViewContainer>
-            {
-            props?.homePhotoInformation?.length > 0 ?
-            props.isLoadMore ? 
-            <LoadMoreButtonContainer>
-                <SubmitButton onClick={()=>props.sort(props.sortCriteria)}>Load more</SubmitButton>
-            </LoadMoreButtonContainer>
-            :
-            <div style={{display: 'flex', justifyContent: 'center'}}>
-                <div>You've reached the bottom</div>
-            </div>
-            :
+        <div style={{position: 'relative'}}>
+            {isVisible ? 
             null
+            :
+            <CenterSpinner>
+                <SpinnerOnly />
+            </CenterSpinner>
             }
-            <div style={{margin: '30px'}}></div>
-        </DisplayContainer>
+            <DisplayContainer opacity={isVisible ? 1 : 0} style={{marginTop: '120px'}}>
+                <PhotoDescriptionViewContainer>
+                    {props.homePhotoInformation.map((photo, index)=> {
+                        return( 
+                            <PhotoDescriptionView 
+                            setIsVisible={setIsVisible}
+                            history={props.history}
+                            index={index}
+                            photoLength={props.homePhotoInformation.length}
+                            getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
+                            key={index} 
+                            photoInfo={photo} 
+                            />
+                        )
+                    })}
+                </PhotoDescriptionViewContainer>
+                {
+                props?.homePhotoInformation?.length > 0 ?
+                props.isLoadMore ? 
+                <LoadMoreButtonContainer>
+                    <SubmitButton onClick={()=>props.sort(props.sortCriteria)}>Load more</SubmitButton>
+                </LoadMoreButtonContainer>
+                :
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+                    <div>You've reached the bottom</div>
+                </div>
+                :
+                null
+                }
+                <div style={{margin: '30px'}}></div>
+            </DisplayContainer>
+        </div>
     )
 }
 

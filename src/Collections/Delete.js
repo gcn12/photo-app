@@ -45,8 +45,12 @@ const Delete = (props) => {
                 <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                     <Text onClick={props.closeDelete} style={{cursor: 'pointer'}} size='40px'>&times;</Text>
                 </div>
-                <div style={{margin: '0px 0 30px 0', display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
-                    <Text size='20px'>Delete collection {props.collectionName} ?</Text>
+                <div style={{margin: '0px 0 30px 0', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <Text size='20px'>Delete collection</Text>
+                    &nbsp;
+                    <Text size='20px' weight='700'>{props.collectionName}</Text> 
+                    &nbsp;
+                    <Text>?</Text>   
                 </div>
                 <div style={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <Cancel onClick={props.closeDelete}>Cancel</Cancel>

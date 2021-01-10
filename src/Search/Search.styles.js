@@ -18,7 +18,7 @@ export const Container = styled.div`
 `
 
 export const SearchBox = styled.input`
-    text-indent: 30px;
+    text-indent: 27px;
     border: 0;
     padding: 3px;
     /* border: 1px solid black; */
@@ -31,19 +31,23 @@ export const SearchBox = styled.input`
     clear: both;  */
     /* box-shadow: 0px 5px 6px rgba(0, 0, 0, .1); */
     &::-webkit-input-placeholder {
-        text-indent: 30px;
+        text-indent: 27px;
+        color: #707070;
     }
 
     &:-moz-placeholder { /* Firefox 18- */
-        text-indent: 30px;
+        text-indent: 27px;
+        color: #707070;
     }
 
     &::-moz-placeholder {  /* Firefox 19+ */
-        text-indent: 30px;
+        text-indent: 27px;
+        color: #707070;
     }
 
     &:-ms-input-placeholder {  
-        text-indent: 30px;
+        text-indent: 27px;
+        color: #707070;
     }
 
     @media (max-width: 690px) {
@@ -67,7 +71,6 @@ export const MoreResults = styled.div`
 `
 
 export const IconContainer = styled.div`
-    cursor: pointer;
     @media (max-width: 550px) {
         visibility: hidden;
         display: none;

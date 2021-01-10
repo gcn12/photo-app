@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    min-height: 255px;
+    min-height: 300px;
     z-index: 4;
     width: 35vw;
     background-color: #f5f5f5;
@@ -46,8 +46,8 @@ export const Text = styled.div`
 
 export const CollectionsContainer = styled.div`
     padding: 0 60px;
-    min-height: 150px;
-    max-height: 200px;
+    min-height: 170px;
+    max-height: 225px;
     overflow-y: scroll;
 `
 

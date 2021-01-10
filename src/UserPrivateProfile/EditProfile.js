@@ -104,6 +104,7 @@ const EditProfile = (props) => {
         const updateObject = {}
         const cloudUpdateObject = {}
         cloudUpdateObject['id'] = props.userData.id
+        // cloudUpdateObject['userID'] = props.userInformation.id
         if(username !== props.userData.username){
             isEmpty = false
             updateObject['username'] = username
@@ -141,7 +142,7 @@ const EditProfile = (props) => {
             .then(()=>{
                 setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                 setUploadProgressColor(true)
-                setTimeout(()=> props.setShowEditProfile(false), 1200)
+                setTimeout(props.closeDialog, 1200)
                 props.getUserProfile(props.userInformation.id)
                 console.log(props.userInformation.id)
             })
@@ -153,12 +154,11 @@ const EditProfile = (props) => {
 
     return(
         <Container>
+            {/* {console.log(props.userData)} */}
             {isUploading ? 
-            <div style={{height: '300px'}}>
                 <CenterProgress>
                     <UploadProgress uploadProgressColor={uploadProgressColor} animate={uploadStatusProps} variants={animationMap.uploadStatus} uploadCount={uploadCount} uploadProgress={uploadProgress} />
                 </CenterProgress>
-            </div>
             :
             <div>
                 <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '20px'}}>

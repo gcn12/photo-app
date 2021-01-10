@@ -10,6 +10,7 @@ import { ReactComponent as Collections } from '../Icons/Collections.svg'
 import { ReactComponent as EmptyBookmark } from '../Icons/EmptyBookmark.svg'
 import { ReactComponent as FilledBookmark } from '../Icons/FilledBookmark.svg'
 import { ReactComponent as SquareAvatar } from '../Icons/SquareAvatar.svg'
+import SpinnerOnly from '../Spinner/SpinnerOnly'
 import firebase from 'firebase'
 import { PopupDarken } from '../Styles/PopupStyles.styles'
 import { connect } from 'react-redux'
@@ -49,6 +50,7 @@ import {
     BioUsername,
     BioContainer,
     FeaturedPostContainer,
+    CenterSpinner,
     // AddCollectionHeartContainer,
 } from './FeaturedPost.styles'
 
@@ -279,198 +281,207 @@ const FeaturedPost = (props) => {
     }
 
     return(
-        <FeaturedPostContainer opacity={props.isVisible ? 1 : 0} style={{marginTop: '85px'}}>
-            {showImageEnlarged ? 
-            <div>
-                <PopupDarken />
-                <EnlargeImage closeImage={closeImage} setShowImageEnlarged={setShowImageEnlarged} image={imageToEnlarge} />
-            </div>
-            :
+        <div>
+            {props.isVisible ? 
             null
-            }
-            {/* <SubmitButton onClick={()=>props.history.goBack()}>Back</SubmitButton> */}
-            {isAddToCollection ? 
-            <div>
-                <PopupDarken />
-                <AddToCollection closeAddToCollection={closeAddToCollection} photoInfo={props.photoInformation} setCollectionsList={setCollectionsList} collectionsList={collectionsList} setIsAddToCollection={setIsAddToCollection} />
-            </div>
             :
-            null
+            <CenterSpinner>
+                <SpinnerOnly />
+            </CenterSpinner>
             }
-            <Container>
+            <FeaturedPostContainer opacity={props.isVisible ? 1 : 0} style={{marginTop: '85px'}}>
+                {showImageEnlarged ? 
                 <div>
-                    <MainImage 
-                    onLoad={pagedLoaded} 
-                    id='featured-main-image' alt='display' src={props?.photoInformation?.image}>
-                    </MainImage>
-                    {/* <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</DateStyle> */}
-                    <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                        <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MM DD YY')}</DateStyle>
-                    </div>
-                    <div style={{display: 'flex', justifyContent: 'center'}}>
-                        <Title font={props?.photoInformation?.font}>{props?.photoInformation?.title}</Title>
-                    </div>
-                    <InfoContainer justify='center'>
-                        <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} style={{textDecoration: 'none'}}>
-                            <Author font={props?.photoInformation?.font}>{props?.photoInformation?.author} | {props?.photoInformation?.username}</Author>
-                        </Link>
-                    </InfoContainer>
+                    <PopupDarken />
+                    <EnlargeImage closeImage={closeImage} setShowImageEnlarged={setShowImageEnlarged} image={imageToEnlarge} />
                 </div>
-            </Container>
-            {/* {console.log(props?.photoInformation)} */}
-            {props?.photoInformation?.dataObj ? 
-            Object.keys(props?.photoInformation?.dataObj)?.map((item, index) => {
-                return(
-                    <BodyContainer key={index}>
-                        {Object.values(props?.photoInformation?.dataObj)[item][0]==='caption' && Object.values(props?.photoInformation?.dataObj)[item][1].length>0 ? 
-                        <Caption font={props.photoInformation.font}>{Object.values(props?.photoInformation?.dataObj)[item][1]}</Caption>
-                        :
-                        null
-                        }
-                        {Object.values(props?.photoInformation?.dataObj)[item][0]==='paragraph' && Object.values(props?.photoInformation?.dataObj)[item][1].length>0 ? 
-                        <Description font={props.photoInformation.font}>{Object.values(props?.photoInformation?.dataObj)[item][1]}</Description>
-                        :
-                        null
-                        }
-                        {Object.values(props?.photoInformation?.dataObj)[item][0]==='header' && Object.values(props?.photoInformation?.dataObj)[item][1].length>0 ? 
-                        <Header font={props.photoInformation.font}>{Object.values(props?.photoInformation?.dataObj)[item][1]}</Header>
-                        :
-                        null
-                        }
-                        {Object.values(props?.photoInformation?.dataObj)[item][0]==='images' ? 
-                        <BodyImageContainer>
-                            {props?.photoInformation?.imagesSmall[item]?.map((image, i)=> {
-                                return(
-                                    <div key={i}>
-                                        {/* <BodyImage length={props?.photoInformation?.photoBodyMap[item].length} margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 .5%' : '0%'} width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} src={image} key={i}></BodyImage> */}
-                                        {props.photoInformation.photoBodyMap[item].length === 1 ? 
-                                        <div>
-                                            <BodyImage 
-                                            onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])}
-                                            imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
-                                            margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 5px' : '0%'} 
-                                            imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
-                                            // width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} 
-                                            width={props?.photoInformation?.photoBodyMap[item][i]} 
-                                            imageGap='0px'
-                                            src={image} key={i} 
-                                            />
+                :
+                null
+                }
+                {/* <SubmitButton onClick={()=>props.history.goBack()}>Back</SubmitButton> */}
+                {isAddToCollection ? 
+                <div>
+                    <PopupDarken />
+                    <AddToCollection closeAddToCollection={closeAddToCollection} photoInfo={props.photoInformation} setCollectionsList={setCollectionsList} collectionsList={collectionsList} setIsAddToCollection={setIsAddToCollection} />
+                </div>
+                :
+                null
+                }
+                <Container>
+                    <div>
+                        <MainImage 
+                        onLoad={pagedLoaded} 
+                        id='featured-main-image' alt='display' src={props?.photoInformation?.image}>
+                        </MainImage>
+                        {/* <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</DateStyle> */}
+                        <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                            <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MM DD YY')}</DateStyle>
+                        </div>
+                        <div style={{display: 'flex', justifyContent: 'center'}}>
+                            <Title font={props?.photoInformation?.font}>{props?.photoInformation?.title}</Title>
+                        </div>
+                        <InfoContainer justify='center'>
+                            <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} style={{textDecoration: 'none'}}>
+                                <Author font={props?.photoInformation?.font}>{props?.photoInformation?.author} | {props?.photoInformation?.username}</Author>
+                            </Link>
+                        </InfoContainer>
+                    </div>
+                </Container>
+                {/* {console.log(props?.photoInformation)} */}
+                {props?.photoInformation?.dataObj ? 
+                Object.keys(props?.photoInformation?.dataObj)?.map((item, index) => {
+                    return(
+                        <BodyContainer key={index}>
+                            {Object.values(props?.photoInformation?.dataObj)[item][0]==='caption' && Object.values(props?.photoInformation?.dataObj)[item][1].length>0 ? 
+                            <Caption font={props.photoInformation.font}>{Object.values(props?.photoInformation?.dataObj)[item][1]}</Caption>
+                            :
+                            null
+                            }
+                            {Object.values(props?.photoInformation?.dataObj)[item][0]==='paragraph' && Object.values(props?.photoInformation?.dataObj)[item][1].length>0 ? 
+                            <Description font={props.photoInformation.font}>{Object.values(props?.photoInformation?.dataObj)[item][1]}</Description>
+                            :
+                            null
+                            }
+                            {Object.values(props?.photoInformation?.dataObj)[item][0]==='header' && Object.values(props?.photoInformation?.dataObj)[item][1].length>0 ? 
+                            <Header font={props.photoInformation.font}>{Object.values(props?.photoInformation?.dataObj)[item][1]}</Header>
+                            :
+                            null
+                            }
+                            {Object.values(props?.photoInformation?.dataObj)[item][0]==='images' ? 
+                            <BodyImageContainer>
+                                {props?.photoInformation?.imagesSmall[item]?.map((image, i)=> {
+                                    return(
+                                        <div key={i}>
+                                            {/* <BodyImage length={props?.photoInformation?.photoBodyMap[item].length} margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 .5%' : '0%'} width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} src={image} key={i}></BodyImage> */}
+                                            {props.photoInformation.photoBodyMap[item].length === 1 ? 
+                                            <div>
+                                                <BodyImage 
+                                                onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])}
+                                                imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
+                                                margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 5px' : '0%'} 
+                                                imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
+                                                // width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} 
+                                                width={props?.photoInformation?.photoBodyMap[item][i]} 
+                                                imageGap='0px'
+                                                src={image} key={i} 
+                                                />
+                                            </div>
+                                            :
+                                            null}
+        
+                                            {props.photoInformation.photoBodyMap[item].length === 2 ? 
+                                            <div>
+                                                <BodyImage 
+                                                onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])}
+                                                imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
+                                                margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 5px' : '0%'} 
+                                                imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
+                                                // width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} 
+                                                width={props?.photoInformation?.photoBodyMap[item][i]} 
+                                                imageGap='10px'
+                                                src={image} key={i} 
+                                                />
+                                            </div>
+                                            :
+                                            null}
+        
+                                            {props.photoInformation.photoBodyMap[item].length === 3 ? 
+                                            <div>
+                                                <BodyImage 
+                                                onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])}
+                                                imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
+                                                margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 5px' : '0%'} 
+                                                imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
+                                                // width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} 
+                                                width={props?.photoInformation?.photoBodyMap[item][i]} 
+                                                imageGap='20px'
+                                                src={image} key={i} 
+                                                />
+                                            </div>
+                                            :
+                                            null}
                                         </div>
-                                        :
-                                        null}
-    
-                                        {props.photoInformation.photoBodyMap[item].length === 2 ? 
-                                        <div>
-                                            <BodyImage 
-                                            onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])}
-                                            imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
-                                            margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 5px' : '0%'} 
-                                            imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
-                                            // width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} 
-                                            width={props?.photoInformation?.photoBodyMap[item][i]} 
-                                            imageGap='10px'
-                                            src={image} key={i} 
-                                            />
-                                        </div>
-                                        :
-                                        null}
-    
-                                        {props.photoInformation.photoBodyMap[item].length === 3 ? 
-                                        <div>
-                                            <BodyImage 
-                                            onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])}
-                                            imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
-                                            margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 5px' : '0%'} 
-                                            imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
-                                            // width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} 
-                                            width={props?.photoInformation?.photoBodyMap[item][i]} 
-                                            imageGap='20px'
-                                            src={image} key={i} 
-                                            />
-                                        </div>
-                                        :
-                                        null}
-                                    </div>
-                                )
-                            })}
-                        </BodyImageContainer>
-                        :
-                        null
-                        }
-                    </BodyContainer>
-                )
-            })
-            :
-            null}
+                                    )
+                                })}
+                            </BodyImageContainer>
+                            :
+                            null
+                            }
+                        </BodyContainer>
+                    )
+                })
+                :
+                null}
 
 
-            <PostFooterContainer>
-                <ButtonLabelContainer>
-                    {isHeart ? 
-                    <FilledHeart onClick={unheartImage} style={{cursor: 'pointer'}} />
-                    :
-                    <EmptyHeart onClick={heartImage} style={{cursor: 'pointer'}} />
-                    }
-                    <ButtonLabel>Admire this post</ButtonLabel>
-                </ButtonLabelContainer>
-                <ButtonLabelContainer>
-                    <Collections onClick={openCollections} style={{cursor: 'pointer'}} />
-                    <ButtonLabel>Add to collection</ButtonLabel>
-                </ButtonLabelContainer>
-                <ButtonLabelContainer>
-                    {isBookmark ? 
-                    <FilledBookmark onClick={unbookmark} style={{cursor: 'pointer'}} />
-                    :
-                    <EmptyBookmark onClick={bookmark} style={{cursor: 'pointer'}} />
-                    }
-                    <ButtonLabel>Save for later</ButtonLabel>
-                </ButtonLabelContainer>
-            </PostFooterContainer>
+                <PostFooterContainer>
+                    <ButtonLabelContainer onClick={isHeart ? unheartImage : heartImage}>
+                        {isHeart ? 
+                        <FilledHeart style={{cursor: 'pointer'}} />
+                        :
+                        <EmptyHeart style={{cursor: 'pointer'}} />
+                        }
+                        <ButtonLabel>Admire this post</ButtonLabel>
+                    </ButtonLabelContainer>
+                    <ButtonLabelContainer onClick={openCollections}>
+                        <Collections style={{cursor: 'pointer'}} />
+                        <ButtonLabel>Add to collection</ButtonLabel>
+                    </ButtonLabelContainer>
+                    <ButtonLabelContainer onClick={isBookmark ? unbookmark : bookmark}>
+                        {isBookmark ? 
+                        <FilledBookmark style={{cursor: 'pointer'}} />
+                        :
+                        <EmptyBookmark style={{cursor: 'pointer'}} />
+                        }
+                        <ButtonLabel>Save for later</ButtonLabel>
+                    </ButtonLabelContainer>
+                </PostFooterContainer>
 
-            <UserBioContainer>
-                <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} style={{textDecoration: 'none'}}>
-                    {props?.photoInformation?.profileImage  ? 
-                    <ProfileImage src={props.photoInformation.profileImage } />
-                    :
-                    <SquareAvatar style={{ transform: 'scale(4.5)', marginRight: '50px' }}/>
-                    }
-                </Link>
-                <BioContainer>
+                <UserBioContainer>
                     <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} style={{textDecoration: 'none'}}>
-                        <BioUsername>{props?.photoInformation?.username}</BioUsername>
+                        {props?.photoInformation?.profileImage  ? 
+                        <ProfileImage src={props.photoInformation.profileImage } />
+                        :
+                        <SquareAvatar style={{ transform: 'scale(4.5)', marginRight: '50px' }}/>
+                        }
                     </Link>
-                    <BioName>{props?.photoInformation?.author}</BioName>
-                    {props?.photoInformation?.bio ? 
-                    <Bio>{props?.photoInformation?.bio}</Bio>
-                    :
-                    null
-                    }
-                </BioContainer>
-            </UserBioContainer>
-            
-            <div style={{backgroundColor: '#fcfcfc', padding: '20px 0'}}>
-                <KeepReading history={props.history} photoInformation={props?.photoInformation} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} />
-            </div>
-            {/* <HorizontalGallery 
-            history={props.history}
-            getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
-            getPost={getPost}
-            getCountries={getCities} 
-            placeName={props?.city} 
-            place={'city'} 
-            title={props.photoInformation?.city} 
-            photos={cityPhotos} 
-            />
-            <HorizontalGallery 
+                    <BioContainer>
+                        <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} style={{textDecoration: 'none'}}>
+                            <BioUsername>{props?.photoInformation?.username}</BioUsername>
+                        </Link>
+                        <BioName>{props?.photoInformation?.author}</BioName>
+                        {props?.photoInformation?.bio ? 
+                        <Bio>{props?.photoInformation?.bio}</Bio>
+                        :
+                        null
+                        }
+                    </BioContainer>
+                </UserBioContainer>
+                
+                <div style={{backgroundColor: '#fcfcfc', padding: '20px 0'}}>
+                    <KeepReading history={props.history} photoInformation={props?.photoInformation} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} />
+                </div>
+                {/* <HorizontalGallery 
                 history={props.history}
                 getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
                 getPost={getPost}
-                placeName={props.photoInformation?.country} 
-                place={'country'} 
-                title={props.photoInformation?.country} 
-                photos={countryPhotos} 
-            /> */}
-        </FeaturedPostContainer>
+                getCountries={getCities} 
+                placeName={props?.city} 
+                place={'city'} 
+                title={props.photoInformation?.city} 
+                photos={cityPhotos} 
+                />
+                <HorizontalGallery 
+                    history={props.history}
+                    getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
+                    getPost={getPost}
+                    placeName={props.photoInformation?.country} 
+                    place={'country'} 
+                    title={props.photoInformation?.country} 
+                    photos={countryPhotos} 
+                /> */}
+            </FeaturedPostContainer>
+        </div>
     )
 }
 

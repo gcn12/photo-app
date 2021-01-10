@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import { motion } from 'framer-motion'
 
-export const DisplayContainer = styled(motion.div)`
+export const DisplayContainer = styled.div`
     /* transition-delay: 1s; */
-    transition: opacity 700ms ease-in-out;
+    opacity: ${props=>props.opacity};
+    /* transition: opacity 700ms ease-in-out; */
 `
 
 export const PhotoDescriptionViewContainer = styled.div`
@@ -66,4 +66,14 @@ export const LoadMoreButtonContainer = styled.div`
     /* position: fixed; */
     display: flex;
     justify-content: center;
+`
+
+export const CenterSpinner = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* right: 0;
+    bottom: 0; */
+    transform: translate(-50%, -50%);
+    text-align: center;
 `

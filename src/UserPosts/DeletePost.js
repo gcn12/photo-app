@@ -21,6 +21,7 @@ const DeletePost = (props) => {
             props.removePostFromPosts(props.index)
         })
         props.setShowDelete(false)
+        props.closeDelete()
         // props.setShowGear(false)
     }
 
@@ -36,12 +37,16 @@ const DeletePost = (props) => {
                 <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                     <Text onClick={cancelDelete} style={{cursor: 'pointer'}} size='40px'>&times;</Text>
                 </div>
-                <div style={{margin: '0px 0 30px 0', display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
-                    <Text size='20px'>Delete post {props.title} ?</Text>
+                <div style={{margin: '0px 0 30px 0', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <Text size='20px'>Delete post</Text>
+                    &nbsp;
+                    <Text size='20px' weight='700'>{props.title}</Text> 
+                    &nbsp;
+                    <Text>?</Text> 
                 </div>
                 <div style={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <Cancel onClick={cancelDelete}>Cancel</Cancel>
-                    <DeleteButton onClick={()=>deleteCollection()}>Delete</DeleteButton>
+                    <DeleteButton onClick={deleteCollection}>Delete</DeleteButton>
                 </div>
             </Container>
         </div>

@@ -47,7 +47,13 @@ const Rename = (props) => {
         <div className='rename-component-container'>
             <Container> 
                 <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                    <Text size='20px'>Rename collection {props.collectionName}</Text>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
+                        <Text size='20px'>Rename collection</Text>
+                        &nbsp;
+                        <Text size='20px' weight='700'>{props.collectionName}</Text> 
+                        &nbsp;
+                        <Text>?</Text> 
+                    </div>
                     <Text onClick={props.closeRename} style={{cursor: 'pointer'}} size='40px'>&times;</Text>
                 </div>
                 <CollectionName autoComplete='off' id='new-collection-name'></CollectionName>

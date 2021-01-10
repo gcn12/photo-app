@@ -58,7 +58,7 @@ const SavedPost = (props) => {
             }
             <ImageTextContainer>
             <Link to={`/photo-app/post/${props.post.postID}`}>
-                <Image onLoad={()=>setIsVisible(true)} src={props.post.image} />
+                <Image onLoad={()=>setIsVisible(true)} src={props.post.smallImage} />
             </Link>
             <div style={{display: 'flex', alignItems: 'start'}}>
                 <div>

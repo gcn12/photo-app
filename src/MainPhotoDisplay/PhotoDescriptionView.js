@@ -79,6 +79,14 @@ const PhotoDescriptionView = (props) => {
         enableBodyScroll(document.body)
     }
 
+    const whenLoaded = () => {
+        if(props.index===0){
+            props.setIsVisible(true)
+        }
+        setShowPost(true)
+
+    }
+
     return(
         <Container opacity={showPost ? 1 : 0}>
             <Card>
@@ -90,7 +98,7 @@ const PhotoDescriptionView = (props) => {
                 :
                 null
                 }
-                <Image onClick={goToPost} onLoad={()=> setShowPost(true)} src={props.photoInfo.smallImage}></Image>
+                <Image onClick={goToPost} onLoad={whenLoaded} src={props.photoInfo.smallImage}></Image>
                 <BookmarkLocationContainer>
                     <div style={{display: 'flex', alignItems: 'center'}}>
                         <Location>{`${props.photoInfo.city}, ${props.photoInfo.country}`}</Location>

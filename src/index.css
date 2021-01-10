@@ -12,11 +12,11 @@ body {
   /* overscroll-behavior-y: none; */
 } 
 
-@media only screen and (max-width: 550px) {
+/* @media only screen and (max-width: 550px) {
   body{
-    margin-bottom: 60px;
+    padding-bottom: 60px;
   }
-}
+} */
 
 /* font-family: 'Castoro', serif; */
 /* font-family: 'Roboto', sans-serif; */

@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     height: auto;
+    min-height: 400px;
     width: 40vw;
     background-color: #f5f5f5;
     margin: auto;
@@ -48,15 +49,17 @@ export const BioTextarea = styled.textarea`
 `
 
 export const ConfirmButton = styled.button`
-    width: 200px;
-    height: 50px;
+    width: auto;
+    height: auto;
     font-size: 20px;
+    padding: 5px 20px;
     background-color: #242424;
     color: white;
     border: none;
     border-radius: 2px;
     cursor: pointer;
     margin-left: 10px;
+    white-space: nowrap;
 `
 
 export const Cancel = styled.button`
@@ -93,8 +96,9 @@ export const EditButton = styled.label`
 `
 
 export const CenterProgress = styled.div`
-    position: absolute;
-    top: -15%;
-    left: 15%;
-    transform: translate(50%, 50%)
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -85%);
+    z-index: 5
 `

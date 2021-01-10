@@ -165,6 +165,7 @@ export const ButtonLabelContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    cursor: pointer;
 `
 
 export const ButtonLabel = styled.div`
@@ -212,4 +213,11 @@ export const Bio = styled.div`
 export const FeaturedPostContainer = styled.div`
     opacity: ${props=>props.opacity};
     transition: opacity 400ms ease-in-out;
+`
+
+export const CenterSpinner = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 `

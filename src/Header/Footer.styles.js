@@ -13,7 +13,7 @@ export const Container = styled.div`
     align-items: center;
 
     @media (min-width: 550px) {
-        display: 'none';
+        display: none;
         visibility: hidden;
     }
 `

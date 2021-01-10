@@ -8,9 +8,10 @@ const FourImageGrid = (props) => {
     return(
         <Container>
             {props.photos.map((photo, index)=> {
+                console.log(photo)
                 return(
                     <div key={index}>
-                        <Image src={photo.image} key={index} alt='popular'></Image>
+                        <Image src={photo.smallImage} key={index} alt='popular'></Image>
                         <div>{photo.title}</div>
                     </div>
                 )
