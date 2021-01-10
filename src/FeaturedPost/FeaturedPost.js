@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 // import Dropdown from '../Dropdown/Dropdown'
 import { db } from '../Firebase'
 import { Link } from 'react-router-dom'
+import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
 import { ReactComponent as EmptyHeart } from '../Icons/EmptyHeart.svg'
 import { ReactComponent as FilledHeart } from '../Icons/FilledHeart.svg'
 import { ReactComponent as Collections } from '../Icons/Collections.svg'
@@ -10,6 +11,7 @@ import { ReactComponent as EmptyBookmark } from '../Icons/EmptyBookmark.svg'
 import { ReactComponent as FilledBookmark } from '../Icons/FilledBookmark.svg'
 import { ReactComponent as SquareAvatar } from '../Icons/SquareAvatar.svg'
 import firebase from 'firebase'
+import { PopupDarken } from '../Styles/PopupStyles.styles'
 import { connect } from 'react-redux'
 import { photoInformation } from '../Redux/Actions/appActions'
 import { isVisible } from '../Redux/Actions/featuredPostActions'
@@ -168,12 +170,12 @@ const FeaturedPost = (props) => {
                         if (index+1 === collections.docs.length) {
                             setCollectionsList(collectionsArray)
                             // props.dispatch(collectionsList(collectionsArray))
-                            setIsAddToCollection(true)
+                            openAddToCollection()
                         }
                     })
                 })
             }else{
-                setIsAddToCollection(true)
+                openAddToCollection()
             }
         }) 
     }
@@ -246,7 +248,7 @@ const FeaturedPost = (props) => {
         if(props.collectionsList?.length === 0) {
             getCollectionsList()
         }else{
-            setIsAddToCollection(true)
+            openAddToCollection()
         }
     }
 
@@ -255,16 +257,43 @@ const FeaturedPost = (props) => {
         window.scrollTo({top: 0})
     }
 
+    const openImage = (imageURL) => {
+        enlarge(imageURL)
+        setShowImageEnlarged(true)
+        disableBodyScroll(document.body)
+    }
+
+    const closeImage = () => {
+        setShowImageEnlarged(false)
+        enableBodyScroll(document.body)
+    }
+
+    const openAddToCollection = () => {
+        setIsAddToCollection(true)
+        disableBodyScroll(document.body)
+    }
+
+    const closeAddToCollection = () => {
+        setIsAddToCollection(false)
+        enableBodyScroll(document.body)
+    }
+
     return(
-        <FeaturedPostContainer opacity={props.isVisible ? 1 : 0} style={{marginTop: '75px'}}>
+        <FeaturedPostContainer opacity={props.isVisible ? 1 : 0} style={{marginTop: '85px'}}>
             {showImageEnlarged ? 
-            <EnlargeImage setShowImageEnlarged={setShowImageEnlarged} image={imageToEnlarge} />
+            <div>
+                <PopupDarken />
+                <EnlargeImage closeImage={closeImage} setShowImageEnlarged={setShowImageEnlarged} image={imageToEnlarge} />
+            </div>
             :
             null
             }
             {/* <SubmitButton onClick={()=>props.history.goBack()}>Back</SubmitButton> */}
             {isAddToCollection ? 
-            <AddToCollection photoInfo={props.photoInformation} setCollectionsList={setCollectionsList} collectionsList={collectionsList} setIsAddToCollection={setIsAddToCollection} />
+            <div>
+                <PopupDarken />
+                <AddToCollection closeAddToCollection={closeAddToCollection} photoInfo={props.photoInformation} setCollectionsList={setCollectionsList} collectionsList={collectionsList} setIsAddToCollection={setIsAddToCollection} />
+            </div>
             :
             null
             }
@@ -317,7 +346,7 @@ const FeaturedPost = (props) => {
                                         {props.photoInformation.photoBodyMap[item].length === 1 ? 
                                         <div>
                                             <BodyImage 
-                                            onClick={()=>enlarge(props?.photoInformation?.imagesLarge[item][i])}
+                                            onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])}
                                             imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
                                             margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 5px' : '0%'} 
                                             imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
@@ -333,7 +362,7 @@ const FeaturedPost = (props) => {
                                         {props.photoInformation.photoBodyMap[item].length === 2 ? 
                                         <div>
                                             <BodyImage 
-                                            onClick={()=>enlarge(props?.photoInformation?.imagesLarge[item][i])}
+                                            onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])}
                                             imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
                                             margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 5px' : '0%'} 
                                             imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
@@ -349,7 +378,7 @@ const FeaturedPost = (props) => {
                                         {props.photoInformation.photoBodyMap[item].length === 3 ? 
                                         <div>
                                             <BodyImage 
-                                            onClick={()=>enlarge(props?.photoInformation?.imagesLarge[item][i])}
+                                            onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])}
                                             imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
                                             margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 5px' : '0%'} 
                                             imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 

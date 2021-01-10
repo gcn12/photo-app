@@ -11,14 +11,14 @@ export const Container = styled.div`
 `
 
 export const Image = styled.img`
-    box-shadow: 0px 0px 1px 100vmax rgba(0,0,0,0.9);
-    z-index: 3;
+    /* box-shadow: 0px 0px 1px 100vmax rgba(0,0,0,0.9); */
+    z-index: 4;
     position: fixed;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
-
-
+    /* transform: translate(-50%, -50%); */
+    transition: transform 600ms ease-in-out, opacity 550ms ease-in-out;
+    transform: translate(-50%, -50%) ${props=>props.scale};
     opacity: ${props=>props.opacity};
     height: auto;
     width: auto;
@@ -35,7 +35,7 @@ export const Placeholder = styled.div`
     transform: translate(-50%, -50%);
 
 
-    opacity: ${props=>props.opacity};
+    /* opacity: ${props=>props.opacity}; */
     width: 400px;
     height: 400px;
     background-color: white;

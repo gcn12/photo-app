@@ -12,9 +12,9 @@ const EnlargeImage = (props) => {
 
     return(
         <Container>
-            <Close onClick={()=> props.setShowImageEnlarged(false)}>&times;</Close>
+            <Close onClick={props.closeImage}>&times;</Close>
             {/* <Placeholder opacity={showPlaceholder ? 0 : 1}></Placeholder> */}
-            <Image src={props.image} onLoad={()=>setShowPlaceholder(true)} opacity={showPlaceholder ? 1 : 0}>
+            <Image src={props.image} onLoad={()=>setShowPlaceholder(true)} opacity={showPlaceholder ? 1 : 0} scale={showPlaceholder ? 'scale(1)' : 'scale(.75)'}>
                 
             </Image>
         </Container>
