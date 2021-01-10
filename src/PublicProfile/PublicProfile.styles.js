@@ -51,7 +51,8 @@ export const UserContainer = styled.div`
 `
 
 export const Username = styled.div`
-    font-weight: 600;
+    /* font-family: montserrat; */
+    font-weight: 500;
     font-size: 25px;
     margin-bottom: 10px;
 
@@ -63,8 +64,9 @@ export const Username = styled.div`
 `
 
 export const Name = styled.div`
+    /* font-family: montserrat; */
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 400;
     margin-bottom: 30px;
     display: inline-block;
     white-space: nowrap;
@@ -77,7 +79,8 @@ export const Name = styled.div`
 
 
 export const Bio = styled.div`
-    font-weight: 400;
+    /* font-family: montserrat; */
+    font-weight: 500;
     font-size: 17px;
     line-height: 25px;
     vertical-align: middle; 
@@ -92,9 +95,5 @@ export const EditButton = styled.button`
     background-color: transparent;
     border-radius: 5px;
     border: 1px solid black;
-    transition: transform 100ms ease-in-out;
     cursor: pointer;
-    &:hover {
-        transform: scale(1.03)
-    }
 `

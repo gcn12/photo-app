@@ -315,129 +315,145 @@ const AddContent = (props) => {
             }
         }
 
-        // let postID = String(Math.round(Math.random() * 10000000000))
-        let postID = ''
+        const createID = () => {
+            let postID = ''
+            let alpha1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            let alpha2 = 'abcdefghijklmnopqrstuvwxyz'
+            let numbers = '123456789'
+            let idLength = Math.round(Math.random() * 4) + 6
+            while (idLength > 0) {
+                let index = Math.floor(Math.random() * 3)
+                let character 
+                if(index === 0) {
+                    character = alpha1[Math.floor(Math.random() * 26)]
+                }
+                if(index === 1) {
+                    character = alpha2[Math.floor(Math.random() * 26)]
+                }
+                if(index === 2) {
+                    character = numbers[Math.floor(Math.random() * 9)]
+                }
+                postID+=character
+                idLength--
+            }
 
-        let alpha1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        let alpha2 = 'abcdefghijklmnopqrstuvwxyz'
-        let numbers = '123456789'
-        let idLength = Math.round(Math.random() * 4) + 6
-        while (idLength > 0) {
-            let index = Math.floor(Math.random() * 3)
-            let character 
-            if(index === 0) {
-                character = alpha1[Math.floor(Math.random() * 26)]
-            }
-            if(index === 1) {
-                character = alpha2[Math.floor(Math.random() * 26)]
-            }
-            if(index === 2) {
-                character = numbers[Math.floor(Math.random() * 9)]
-            }
-            postID+=character
-            idLength--
-        }
-
-        const imageSizeArrayValues = Object.values(imageSizeArray)
-        const urlObjectLarge = {}
-        const urlObjectSmall = {}
-        const imageSizeArrayWithIndex = {}
-        for (let i=0; i<imagesEmptyArraysLarge.length; i++) {
-            urlObjectLarge[filesIndex[i]] = imagesEmptyArraysLarge[i]
-            urlObjectSmall[filesIndex[i]] = imagesEmptyArraysSmall[i]
-            imageSizeArrayWithIndex[filesIndex[i]] = imageSizeArrayValues[i]
-            // urlObjectLarge[i] = imagesEmptyArraysLarge[i]
-            // urlObjectSmall[i] = imagesEmptyArraysSmall[i]
-        }
-        db.collection('users').doc(props.user)
-        .get()
-        .then(data=> {
-            const name = data.data().name
-            db.collection('users')
-            .doc(props.user)
+            db.collection('preview-posts')
+            .where('postID', '==', postID)
             .get()
             .then(data=> {
-                // setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
-                const username = data.data()['username']
-                db.collection('continents-countries').doc('map').collection(country)
-                .where(country, 'in', ['North America', 'South America', 'Asia', 'Europe', 'Oceania', 'Africa'])
-                .get()
-                .then(data => {
-                    setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-                    const continent = data.docs[0].data()[country]
-                    db.collection('posts').add({
-                        bio,
-                        font,
-                        profileImage,
-                        photoBodyMap: imageSizeArrayWithIndex,
-                        // content: descriptionArray,
-                        imagesLarge: urlObjectLarge,
-                        imagesSmall: urlObjectSmall,
-                        title,
-                        timestamp,
-                        previewDescription,
-                        smallImage: mainImageSmall,
-                        image: mainImage,
-                        category,
-                        city,
-                        country,
-                        continent,
-                        author: name,
-                        location,
-                        dataObj,
-                        postID,
-                        // views: 0, change back later
-                        url,
-                        username,
-                        userID: props.userInformation.id,
-                    }).then(docRef => {
-                        // setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-                        db.collection('posts').doc(docRef.id).set({
-                            id: docRef.id,
-                        }, {merge: true}) 
-                        .then(()=> {
-                            const views = Math.round(Math.random()*500)+500
-                            const hearts = Math.round(Math.random()*300)+100
-                            const ratio = hearts / views
-                            setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-                            db.collection('preview-posts').add({
-                                username,
-                                timestamp,
-                                id: docRef.id,
-                                author: name,
-                                previewDescription,
-                                smallImage: mainImageSmall,
-                                title,
-                                image: mainImage,
-                                category,
-                                city,
-                                postID,
-                                country,
-                                continent,
-                                url,
-                                // views: 0,
-                                views,
-                                hearts,
-                                ratio,
-                                userID: props.userInformation.id,
-                            })
-                            .then(()=>{
-                                db.collection('users')
-                                .doc(props.user)
-                                .collection('post-names')
-                                .doc('post-names')
-                                .set({
-                                    'post-names': firebase.firestore.FieldValue.arrayUnion(url)
-                                }, {merge: true})
-                                setTimeout(()=>setUploadProgressColor(true), 300)
-                                setTimeout(()=>props.getFeaturedPhotoInfo(url, username), 2000)
-                                setTimeout(()=>props.history.push(`/photo-app/post/${postID}`), 2000)
-                            })
-                        })              
-                    })
+                const dataArray =  []
+                data.forEach(item=> {
+                    dataArray.push(item.data())
                 })
+                if(dataArray.length===0) {
+                    const imageSizeArrayValues = Object.values(imageSizeArray)
+                    const urlObjectLarge = {}
+                    const urlObjectSmall = {}
+                    const imageSizeArrayWithIndex = {}
+                    for (let i=0; i<imagesEmptyArraysLarge.length; i++) {
+                        urlObjectLarge[filesIndex[i]] = imagesEmptyArraysLarge[i]
+                        urlObjectSmall[filesIndex[i]] = imagesEmptyArraysSmall[i]
+                        imageSizeArrayWithIndex[filesIndex[i]] = imageSizeArrayValues[i]
+                        // urlObjectLarge[i] = imagesEmptyArraysLarge[i]
+                        // urlObjectSmall[i] = imagesEmptyArraysSmall[i]
+                    }
+                    db.collection('users').doc(props.user)
+                    .get()
+                    .then(data=> {
+                        const name = data.data().name
+                        db.collection('users')
+                        .doc(props.user)
+                        .get()
+                        .then(data=> {
+                            // setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
+                            const username = data.data()['username']
+                            db.collection('continents-countries').doc('map').collection(country)
+                            .where(country, 'in', ['North America', 'South America', 'Asia', 'Europe', 'Oceania', 'Africa'])
+                            .get()
+                            .then(data => {
+                                setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+                                const continent = data.docs[0].data()[country]
+                                db.collection('posts').add({
+                                    bio,
+                                    font,
+                                    profileImage,
+                                    photoBodyMap: imageSizeArrayWithIndex,
+                                    // content: descriptionArray,
+                                    imagesLarge: urlObjectLarge,
+                                    imagesSmall: urlObjectSmall,
+                                    title,
+                                    timestamp,
+                                    previewDescription,
+                                    smallImage: mainImageSmall,
+                                    image: mainImage,
+                                    category,
+                                    city,
+                                    country,
+                                    continent,
+                                    author: name,
+                                    location,
+                                    dataObj,
+                                    postID,
+                                    // views: 0, change back later
+                                    url,
+                                    username,
+                                    userID: props.userInformation.id,
+                                }).then(docRef => {
+                                    // setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+                                    db.collection('posts').doc(docRef.id).set({
+                                        id: docRef.id,
+                                    }, {merge: true}) 
+                                    .then(()=> {
+                                        const views = Math.round(Math.random()*500)+500
+                                        const hearts = Math.round(Math.random()*300)+100
+                                        const ratio = hearts / views
+                                        setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+                                        db.collection('preview-posts').add({
+                                            username,
+                                            timestamp,
+                                            id: docRef.id,
+                                            author: name,
+                                            previewDescription,
+                                            smallImage: mainImageSmall,
+                                            title,
+                                            image: mainImage,
+                                            category,
+                                            city,
+                                            postID,
+                                            country,
+                                            continent,
+                                            url,
+                                            // views: 0,
+                                            views,
+                                            hearts,
+                                            ratio,
+                                            userID: props.userInformation.id,
+                                        })
+                                        .then(()=>{
+                                            db.collection('users')
+                                            .doc(props.user)
+                                            .collection('post-names')
+                                            .doc('post-names')
+                                            .set({
+                                                'post-names': firebase.firestore.FieldValue.arrayUnion(url)
+                                            }, {merge: true})
+                                            setTimeout(()=>setUploadProgressColor(true), 300)
+                                            setTimeout(()=>props.getFeaturedPhotoInfo(postID), 2000)
+                                            setTimeout(()=>props.history.push(`/photo-app/post/${postID}`), 2000)
+                                        })
+                                    })              
+                                })
+                            })
+                        })
+                    })
+                }else{
+                    createID()
+                }
             })
-        })
+        }
+        createID()
+
+
     }
     
     const fileUpload1 = (imageSizeArray) => {

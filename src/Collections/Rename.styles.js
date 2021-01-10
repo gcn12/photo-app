@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     height: 200px;
-    z-index: 2;
+    z-index: 4;
     /* width: 500px; */
     width: 30vw;
     background-color: #f5f5f5;
@@ -17,7 +17,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     padding: 20px;
-    box-shadow: 0px 0px 1px 100vmax rgba(0,0,0,0.8);
+    /* box-shadow: 0px 0px 1px 100vmax rgba(0,0,0,0.8); */
 
     @media (max-width: 1100px) {
         width: 40vw;

@@ -13,13 +13,13 @@ import {
 const DropdownDelete = (props) => {
 
     const renameCollection = () => {
-        props.setShowRename(true)
+        props.openRename()
         props.setCollectionName(props.collectionName)
     }
 
     const deleteCollection = () => {
         props.setCollectionIndex(props.index)
-        props.setShowDelete(true)
+        props.openDelete()
         props.setCollectionName(props.collectionName)
     }
 

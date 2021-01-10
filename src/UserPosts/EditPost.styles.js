@@ -17,8 +17,8 @@ export const Container = styled.div`
     /* justify-content: center; */
     cursor: default;
     /* align-items: center; */
-    z-index: 2;
-    box-shadow: 0px 0px 1px 100vmax rgba(0,0,0,0.8);
+    z-index: 4;
+    /* box-shadow: 0px 0px 1px 100vmax rgba(0,0,0,0.8); */
     border-radius: 5px;
 `
 

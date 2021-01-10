@@ -18,6 +18,7 @@ const PublicProfile = (props) => {
     const [isVisible, setIsVisible] = useState(false)
 
     useEffect(()=> {
+        window.scrollTo({top: 0})
         db.collection('users')
         .where('username', '==', props.match.params.username)
         .get()
@@ -43,7 +44,7 @@ const PublicProfile = (props) => {
             <UserContainer visibility={isVisible ? 1 : 0}>
                 <ProfileImage onLoad={()=>setIsVisible(true)} alt='profile' src={userData[0]?.profileImage}></ProfileImage>
                 <Container>
-                    <Username id='public-profile-username'>{userData[0]?.username}</Username>
+                <Username id='public-profile-username'>{userData[0]?.username}</Username>
                     <Name id='public-profile-name'>{userData[0]?.name}</Name>
                     <Bio>{userData[0]?.bio}</Bio>
                 </Container>
@@ -52,7 +53,7 @@ const PublicProfile = (props) => {
             <PostsContainer>
             {userPosts?.map((post, index)=> {
                 return(
-                    <PublicProfilePosts post={post} history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} key={index} />
+                    <PublicProfilePosts minWidth='200px' height='220px' post={post} history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} key={index} />
                 )
             })}
             </PostsContainer>

@@ -43,13 +43,13 @@ const Delete = (props) => {
         <div className='rename-component-container'>
             <Container> 
                 <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                    <Text onClick={()=>props.setShowDelete(false)} style={{cursor: 'pointer'}} size='40px'>&times;</Text>
+                    <Text onClick={props.closeDelete} style={{cursor: 'pointer'}} size='40px'>&times;</Text>
                 </div>
                 <div style={{margin: '0px 0 30px 0', display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
                     <Text size='20px'>Delete collection {props.collectionName} ?</Text>
                 </div>
                 <div style={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <Cancel onClick={()=>props.setShowDelete(false)}>Cancel</Cancel>
+                    <Cancel onClick={props.closeDelete}>Cancel</Cancel>
                     <DeleteButton onClick={()=>deleteCollection(props.collectionName)}>Delete</DeleteButton>
                 </div>
             </Container>

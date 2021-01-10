@@ -79,7 +79,7 @@ const Collection = (props) => {
                 <Ellipsis onClick={()=>setIsDeleteMenu(!isDeleteMenu)}>
                     <div style={{fontWeight: 800, fontSize: '22px'}} className='delete-collection'>&#8942;</div>
                     {isDeleteMenu ? 
-                    <DropdownDelete setCollectionIndex={props.setCollectionIndex} setShowDelete={props.setShowDelete} setCollectionName={props.setCollectionName} setShowRename={props.setShowRename} collectionInfo={props.collectionInfo} index={props.index} setCollectionInfo={props.setCollectionInfo} collectionName={props.collection[0]}></DropdownDelete>
+                    <DropdownDelete openDelete={props.openDelete} openRename={props.openRename} setCollectionIndex={props.setCollectionIndex} setShowDelete={props.setShowDelete} setCollectionName={props.setCollectionName} setShowRename={props.setShowRename} collectionInfo={props.collectionInfo} index={props.index} setCollectionInfo={props.setCollectionInfo} collectionName={props.collection[0]}></DropdownDelete>
                     :
                     null
                     }

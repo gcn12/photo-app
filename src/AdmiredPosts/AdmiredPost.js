@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom' 
 import AdmiredDropdown from './AdmiredDropdown'
 import AddToCollection from '../FeaturedPost/AddToCollection'
-
+import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
 // import { ReactComponent as TrashCan } from '../Icons/TrashCan.svg'
+import { PopupDarken } from '../Styles/PopupStyles.styles'
 import {
     Container,
     Image,
@@ -34,10 +35,23 @@ const AdmiredPost = (props) => {
         props.setSavedPostsData([...dataCopy])
     }
 
+    const openAddToCollection = () => {
+        setShowAddToCollection(true)
+        disableBodyScroll(document.body)
+    }
+
+    const closeAddToCollection = () => {
+        setShowAddToCollection(false)
+        enableBodyScroll(document.body)
+    }
+
     return(
         <Container opacity={isVisible ? 1 : 0}>
             {showAddToCollection ? 
-            <AddToCollection removeFromSavedPostArray={removeFromSavedPostArray} photoInfo={props.post} collectionsList={collectionsList} setIsAddToCollection={setShowAddToCollection} setCollectionsList={setCollectionsList} />
+            <div>
+                <PopupDarken />
+                <AddToCollection closeAddToCollection={closeAddToCollection} removeFromSavedPostArray={removeFromSavedPostArray} photoInfo={props.post} collectionsList={collectionsList} setIsAddToCollection={setShowAddToCollection} setCollectionsList={setCollectionsList} />
+            </div>
             :
             null
             }
@@ -55,7 +69,7 @@ const AdmiredPost = (props) => {
                 <div style={{position: 'relative'}}>
                     <More onClick={()=> setShowDropdown(!showDropdown)} className='add-dropdown'>&#8942;</More>
                     {showDropdown ? 
-                    <AdmiredDropdown setShowDropdown={setShowDropdown} isRemoveFromSavedPage={true} index={props.index} removeFromSavedPostArray={removeFromSavedPostArray} translateContainer='translate(-90%, 5%)' setCollectionsList={setCollectionsList} id={props.post.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.post} />
+                    <AdmiredDropdown openAddToCollection={openAddToCollection} setShowDropdown={setShowDropdown} isRemoveFromSavedPage={true} index={props.index} removeFromSavedPostArray={removeFromSavedPostArray} translateContainer='translate(-90%, 5%)' setCollectionsList={setCollectionsList} id={props.post.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.post} />
                     :
                     null
                     }

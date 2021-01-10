@@ -26,6 +26,7 @@ const DeletePost = (props) => {
 
     const cancelDelete = () => {
         // props.setShowGear(false)
+        props.closeDelete()
         props.setShowDelete(false)
     }
 

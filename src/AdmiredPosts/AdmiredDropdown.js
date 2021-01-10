@@ -44,12 +44,12 @@ const AdmiredDropdown = (props) => {
                         if (index+1 === collections.docs.length) {
                             props.setCollectionsList(collectionsArray)
                             // props.dispatch(collectionsList(collectionsArray))
-                            props.setShowAddToCollection(true)
+                            props.openAddToCollection()
                         }
                     })
                 })
             }else{
-                props.setShowAddToCollection(true)
+                props.openAddToCollection()
             }
         }) 
     }

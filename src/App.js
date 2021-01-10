@@ -293,10 +293,9 @@ const App = (props) => {
     })
   }
 
-  const getFeaturedPhotoInfo = (url, username) => {
+  const getFeaturedPhotoInfo = (postID) => {
     db.collection('posts')
-    .where('url', '==', url)
-    .where('username', '==', username)
+    .where('postID', '==', postID)
     .get()
     .then(data=> {
       let arr = []
@@ -304,9 +303,10 @@ const App = (props) => {
         arr.push(item.data())
       })
       const info = arr[0]
-      info['username'] = username
+      // info['username'] = username
       props.dispatch(photoInformation(info))
-      window.scrollTo({top: 0})
+      props.history.push(`/photo-app/post/${postID}`)
+      // window.scrollTo({top: 0})
     })
   }
 

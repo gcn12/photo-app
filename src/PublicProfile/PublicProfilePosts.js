@@ -1,4 +1,8 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import {
+    isVisible
+} from '../Redux/Actions/featuredPostActions'
 import {
     Container,
     Image,
@@ -8,16 +12,17 @@ import {
 
 const PublicProfilesPosts = (props) => {
 
-    const [isVisible, setIsVisible] = useState(false)
+    const [isPostVisible, setIsPostVisible] = useState(false)
 
     const selectPhoto = () => {
-        props.getFeaturedPhotoInfo(props.post.url, props.post.username)
-        props.history.push(`/photo-app/post/${props.post.postID}`)
+        props.dispatch(isVisible(false))
+        props.getFeaturedPhotoInfo(props.post.postID)
+        // props.history.push(`/photo-app/post/${props.post.postID}`)
     }
 
     return(
-        <Container visibility={isVisible ? 1 : 0} >
-            <Image onClick={selectPhoto} onLoad={()=> setIsVisible(true)} src={props.post.smallImage} alt=''></Image>
+        <Container visibility={isPostVisible ? 1 : 0} >
+            <Image height={props.height} minWidth={props.minWidth} onClick={selectPhoto} onLoad={()=> setIsPostVisible(true)} src={props.post.smallImage} alt=''></Image>
             <Title onClick={selectPhoto}>{props.post.title}</Title>
             <Location>{`${props.post.city}, ${props.post.country}`}</Location>
             {/* <Title>{props.post.previewDescription}</Title> */}
@@ -25,4 +30,6 @@ const PublicProfilesPosts = (props) => {
     )
 }
 
-export default PublicProfilesPosts
+const mapStateToProps = state => ({})
+
+export default connect(mapStateToProps)(PublicProfilesPosts)

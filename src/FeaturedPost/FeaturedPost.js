@@ -10,12 +10,12 @@ import { ReactComponent as EmptyBookmark } from '../Icons/EmptyBookmark.svg'
 import { ReactComponent as FilledBookmark } from '../Icons/FilledBookmark.svg'
 import { ReactComponent as SquareAvatar } from '../Icons/SquareAvatar.svg'
 import firebase from 'firebase'
-import { motion } from 'framer-motion'
 import { connect } from 'react-redux'
 import { photoInformation } from '../Redux/Actions/appActions'
-// import { collectionsList } from '../Redux/Actions/featuredPostActions'
+import { isVisible } from '../Redux/Actions/featuredPostActions'
 import AddToCollection from './AddToCollection'
 import EnlargeImage from './EnlargeImage'
+import KeepReading from './KeepReading'
 // import FeaturedPostGallery from '../FeaturedPostGallery/FeaturedPostGallery'
 // import { SubmitButton } from '../AddContent/AddContent.styles'
 import { 
@@ -46,6 +46,7 @@ import {
     BioName,
     BioUsername,
     BioContainer,
+    FeaturedPostContainer,
     // AddCollectionHeartContainer,
 } from './FeaturedPost.styles'
 
@@ -60,7 +61,6 @@ const FeaturedPost = (props) => {
     const [isHeart, setIsHeart] = useState(false)
     const [isBookmark, setIsBookmark] = useState(false)
     const [isAddToCollection, setIsAddToCollection] = useState(false)
-    const [animateLoad, setAnimateLoad] = useState('initial')
     const [showImageEnlarged, setShowImageEnlarged] = useState(false)
     const [imageToEnlarge, setImageToEnlarge] = useState('')
     const [collectionsList, setCollectionsList] = useState([])
@@ -90,42 +90,7 @@ const FeaturedPost = (props) => {
             setIsBookmark(false)
         })
     }
-    
-    // const getCities = (city, country, continent) => {
-    //     const ref = db.collection('preview-posts')
-    //     .where('continent', '==', continent)
-    //     .where('country', '==', country)
 
-    //     ref.where('city', '==', city)
-    //     .limit(6)
-    //     .get().then(snapshot=>{
-    //         const cityArray = []
-    //         snapshot.forEach(city=>{
-    //             cityArray.push(city.data())
-    //         })
-    //         setCityPhotos(cityArray)
-    //     })
-
-    //     ref.limit(6).get().then(snapshot=>{
-    //         const countriesArray = []
-    //         snapshot.docs.forEach(doc=> {
-    //             countriesArray.push(doc.data())
-    //         }) 
-    //         setCountryPhotos(countriesArray)
-    //     })
-    //     window.scrollTo({top: 0})
-    // }
-
-    // const getPost = (docID) => {
-    //     db.collection('posts')
-    //     .doc(docID)
-    //     .get()
-    //     .then(data=> {
-    //         getCities(data.data())
-    //     })
-    // }
-
-    
     useEffect(()=>{
         if(props.user) {
             db.collection('users')
@@ -151,9 +116,9 @@ const FeaturedPost = (props) => {
         .then(data=> {
             let post = data.docs[0].data()
             props.dispatch(photoInformation(post))
-            window.scrollTo({top: 0})
+            // window.scrollTo({top: 0})
             firebase.auth().onAuthStateChanged((user)=> {
-            if(user) {
+                if(user) {
                 db.collection('users')
                 .doc(user.uid)
                 .collection('hearts')
@@ -165,26 +130,13 @@ const FeaturedPost = (props) => {
                         arr.push(item.data())
                     })
                     setIsHeart(arr.length)
-                })
-                .then(()=> {
-                    setAnimateLoad('transitionStart')
+                    window.scrollTo({top: 0})
+                    // props.dispatch(isVisible(true))
                 })
             }
             })
         })
     }
-
-    // const getImageSize = (src) => {
-    //     var img = new Image();
-    //     img.onload = function () { 
-    //         if (img.height / img.width > 1) {
-    //             setIsImageHorizontal(false)
-    //         }
-    //     };
-    //     // img.src = props?.photoInformation?.image;
-    //     img.src = src
-    // }
-    
 
     const getCollectionsList = () => {
         const collectionsArray = []
@@ -278,26 +230,9 @@ const FeaturedPost = (props) => {
         })
     }
 
-    // const showDropdownAndGetList = () => {
-    //     if(props.collectionsList?.length === 0) {
-    //         getCollectionsList()
-    //     }else{
-    //         setShowDropdown(!showDropdown)
-    //     }
-    // }
-
     window.onclick = (e) => {
         if (!e.target.matches('.dropdown')) {
             setShowDropdown(false)
-        }
-    }
-
-    const variants = {
-        initial: {
-            opacity: 0,
-        },
-        transitionStart: {
-            opacity: 1,
         }
     }
 
@@ -315,8 +250,13 @@ const FeaturedPost = (props) => {
         }
     }
 
+    const pagedLoaded = () => {
+        props.dispatch(isVisible(true))
+        window.scrollTo({top: 0})
+    }
+
     return(
-        <motion.div style={{marginTop: '75px'}} variants={variants} initial='initial' animate={animateLoad}>
+        <FeaturedPostContainer opacity={props.isVisible ? 1 : 0} style={{marginTop: '75px'}}>
             {showImageEnlarged ? 
             <EnlargeImage setShowImageEnlarged={setShowImageEnlarged} image={imageToEnlarge} />
             :
@@ -330,12 +270,10 @@ const FeaturedPost = (props) => {
             }
             <Container>
                 <div>
-
                     <MainImage 
-                    onLoad={null} 
-                    // width={isImageHorizontal ? '80vw' : 'auto'} 
-                    // height={isImageHorizontal ? 'auto' : '80vh'} 
-                    id='featured-main-image' alt='display' src={props?.photoInformation?.image}></MainImage>
+                    onLoad={pagedLoaded} 
+                    id='featured-main-image' alt='display' src={props?.photoInformation?.image}>
+                    </MainImage>
                     {/* <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</DateStyle> */}
                     <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                         <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MM DD YY')}</DateStyle>
@@ -462,16 +400,16 @@ const FeaturedPost = (props) => {
 
             <UserBioContainer>
                 <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} style={{textDecoration: 'none'}}>
-                    {props?.photoInformation?.profileImage ? 
+                    {props?.photoInformation?.profileImage  ? 
                     <ProfileImage src={props.photoInformation.profileImage } />
                     :
-                    <SquareAvatar style={{ transform: 'scale(3.5)', marginRight: '50px' }}/>
+                    <SquareAvatar style={{ transform: 'scale(4.5)', marginRight: '50px' }}/>
                     }
                 </Link>
                 <BioContainer>
-                <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} style={{textDecoration: 'none'}}>
-                    <BioUsername>{props?.photoInformation?.username}</BioUsername>
-                </Link>
+                    <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} style={{textDecoration: 'none'}}>
+                        <BioUsername>{props?.photoInformation?.username}</BioUsername>
+                    </Link>
                     <BioName>{props?.photoInformation?.author}</BioName>
                     {props?.photoInformation?.bio ? 
                     <Bio>{props?.photoInformation?.bio}</Bio>
@@ -480,8 +418,10 @@ const FeaturedPost = (props) => {
                     }
                 </BioContainer>
             </UserBioContainer>
-
             
+            <div style={{backgroundColor: '#fcfcfc', padding: '20px 0'}}>
+                <KeepReading history={props.history} photoInformation={props?.photoInformation} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} />
+            </div>
             {/* <HorizontalGallery 
             history={props.history}
             getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
@@ -501,7 +441,7 @@ const FeaturedPost = (props) => {
                 title={props.photoInformation?.country} 
                 photos={countryPhotos} 
             /> */}
-        </motion.div>
+        </FeaturedPostContainer>
     )
 }
 
@@ -509,6 +449,7 @@ const mapStateToProps = state => ({
     user: state.app.user,
     photoInformation: state.app.photoInformation,
     collectionsList: state.featuredPost.collectionsList,
+    isVisible: state.featuredPost.isVisible
 })
 
 export default connect(mapStateToProps)(FeaturedPost)

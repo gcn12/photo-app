@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import { db } from '../Firebase'
 import { incrementViewCount } from '../Functions' 
 import { photoInformation } from '../Redux/Actions/appActions'
+import { isVisible } from '../Redux/Actions/featuredPostActions'
 import AddDropdown from './AddDropdown'
 import AddToCollection from '../FeaturedPost/AddToCollection'
 import { connect } from 'react-redux'
+import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
+import { PopupDarken } from '../Styles/PopupStyles.styles'
 // import fitty from 'fitty'
 import {
     Image,
@@ -48,9 +51,11 @@ const PhotoDescriptionView = (props) => {
     }
 
     const goToPost = () => {
+        props.dispatch(isVisible(false))
         props.dispatch(photoInformation(props.photoInfo))
-        props.getFeaturedPhotoInfo(props.photoInfo.url, props.photoInfo.username)
-        props.history.push(`/photo-app/post/${props.photoInfo.postID}`)
+        props.getFeaturedPhotoInfo(props.photoInfo.postID)
+        // window.scrollTo({top: 0})
+        // props.history.push(`/photo-app/post/${props.photoInfo.postID}`)
         db.collection('preview-posts').where('image', '==', props.photoInfo.image)
         .get()
         .then(reference=> {
@@ -64,11 +69,24 @@ const PhotoDescriptionView = (props) => {
         }
     } 
 
+    const openAddToCollection = () => {
+        setShowAddToCollection(true)
+        disableBodyScroll(document.body)
+    }
+
+    const closeAddToCollection = () => {
+        setShowAddToCollection(false)
+        enableBodyScroll(document.body)
+    }
+
     return(
         <Container opacity={showPost ? 1 : 0}>
             <Card>
                 {showAddToCollection ? 
-                <AddToCollection showAddToCollection={showAddToCollection} photoInfo={props.photoInfo} collectionsList={collectionsList} setIsAddToCollection={setShowAddToCollection} setCollectionsList={setCollectionsList} />
+                <div>
+                    <PopupDarken />
+                    <AddToCollection closeAddToCollection={closeAddToCollection} showAddToCollection={showAddToCollection} photoInfo={props.photoInfo} collectionsList={collectionsList} setIsAddToCollection={setShowAddToCollection} setCollectionsList={setCollectionsList} />
+                </div>
                 :
                 null
                 }
@@ -81,7 +99,7 @@ const PhotoDescriptionView = (props) => {
                     <div>
                         <div className='add-dropdown' style={{cursor: 'pointer'}}>
                             {showDropdown ? 
-                            <AddDropdown fontSize='20px' translateContainer='translate(-90%, 50%)' setCollectionsList={setCollectionsList}  id={props.photoInfo.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.photoInfo} />
+                            <AddDropdown fontSize='20px' translateContainer='translate(-90%, 50%)' openAddToCollection={openAddToCollection} setCollectionsList={setCollectionsList}  id={props.photoInfo.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.photoInfo} />
                             :
                             null
                             }

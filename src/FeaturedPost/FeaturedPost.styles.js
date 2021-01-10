@@ -186,8 +186,8 @@ export const BioContainer = styled.div`
 `
 
 export const ProfileImage = styled.img`
-    height: 100px;
-    width: 100px;
+    height: 120px;
+    width: 120px;
     border-radius: 5px;
     margin-right: 15px;
 `
@@ -207,4 +207,9 @@ export const BioName = styled.div`
 export const Bio = styled.div`
     max-width: 30vw;
     color: #4D4D4D;
+`
+
+export const FeaturedPostContainer = styled.div`
+    opacity: ${props=>props.opacity};
+    transition: opacity 400ms ease-in-out;
 `

@@ -502,7 +502,7 @@ const EditPost = (props) => {
                         props.getPosts(props.userInformation.id)
                         console.log('uploaded')
                         setUploadProgressColor(true)
-                        setTimeout(()=>props.setShowEdit(false), 1200)
+                        setTimeout(()=>props.closeEdit(), 1200)
                     })
                 })
             })              
@@ -537,7 +537,7 @@ const EditPost = (props) => {
                 <UploadProgress uploadProgressColor={uploadProgressColor} animate={uploadStatusProps} variants={animationMap.uploadStatus} uploadCount={uploadCount} uploadProgress={uploadProgress} />
             </CenterUploadProgress>
                 <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                    <X visibility={showCancel ? 'visible' : 'hidden'} display={showCancel ? 'initial' : 'none'} onClick={()=>props.setShowEdit(false)}>&times;</X>
+                    <X visibility={showCancel ? 'visible' : 'hidden'} display={showCancel ? 'initial' : 'none'} onClick={props.closeEdit}>&times;</X>
                 </div>
                 <VerticalScroll height='10vh'>
             <HideContent visibility={isUploading ? 'hidden' : 'visible'} display={isUploading ? 'none' : 'initial'}>
@@ -657,7 +657,7 @@ const EditPost = (props) => {
                             <Autocomplete defaultValue={props?.postData[0]?.location} id='autocomplete-component'/>
                             <div style={{marginBottom: '20px'}}></div>
                             <div style={{display: 'flex'}}>
-                                <Cancel onClick={()=>props.setShowEdit(false)}>Cancel</Cancel>
+                                <Cancel onClick={props.closeEdit}>Cancel</Cancel>
                                 <Submit onClick={fileUpload}>Submit</Submit>
                             </div>
                         </Container2>

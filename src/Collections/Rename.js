@@ -48,11 +48,11 @@ const Rename = (props) => {
             <Container> 
                 <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                     <Text size='20px'>Rename collection {props.collectionName}</Text>
-                    <Text onClick={()=>props.setShowRename(false)} style={{cursor: 'pointer'}} size='40px'>&times;</Text>
+                    <Text onClick={props.closeRename} style={{cursor: 'pointer'}} size='40px'>&times;</Text>
                 </div>
                 <CollectionName autoComplete='off' id='new-collection-name'></CollectionName>
                 <div style={{display:'flex', justifyContent: 'flex-start', alignItems: 'center'}}>
-                    <Cancel onClick={()=>props.setShowRename(false)}>Cancel</Cancel>
+                    <Cancel onClick={props.closeRename}>Cancel</Cancel>
                     <RenameButton onClick={()=>submitRename(props.collectionName)}>Rename</RenameButton>
                 </div>
             </Container>

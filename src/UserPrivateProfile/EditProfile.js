@@ -102,30 +102,37 @@ const EditProfile = (props) => {
     const updateProfile = (profileImageUrl) => {
         let isEmpty = true
         const updateObject = {}
+        const cloudUpdateObject = {}
+        cloudUpdateObject['id'] = props.userData.id
         if(username !== props.userData.username){
             isEmpty = false
             updateObject['username'] = username
-            db.collection('pending-username-change')
-            .add({
-                previousUsername: props.userData.username,
-                newUsername: username,
-            })
-            .then(()=> null)
+            cloudUpdateObject['username'] = username
         }
         if(name !== props.userData.name){
             isEmpty = false
             updateObject['name'] = name
+            cloudUpdateObject['author'] = name
         }
         if(bio !== props.userData.bio){
             isEmpty = false
             updateObject['bio'] = bio
+            cloudUpdateObject['bio'] = bio
         }
         if(profileImageUrl){
             isEmpty = false
             updateObject['profileImage'] = profileImageUrl
+            cloudUpdateObject['profileImage'] = profileImageUrl
         }
         if(!isEmpty) {
             setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+
+            db.collection('pending-profile-changes')
+            .add({
+                ...cloudUpdateObject
+            })
+            .then(()=> null)
+
             db.collection('users')
             .doc(props.user)
             .update({
@@ -156,7 +163,7 @@ const EditProfile = (props) => {
             <div>
                 <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '20px'}}>
                     <Text size='40px'>Edit profile</Text>
-                    <Text onClick={()=>props.setShowEditProfile(false)} style={{cursor: 'pointer'}} size='40px'>&times;</Text>
+                    <Text onClick={props.closeDialog} style={{cursor: 'pointer'}} size='40px'>&times;</Text>
                 </div>
                 <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
                     <ProfileImage src={props.userData.profileImage} id='edit-profile-image' />
@@ -178,7 +185,7 @@ const EditProfile = (props) => {
                     </div>
                 </div>
                 <div style={{display: 'flex'}}>
-                    <Cancel onClick={()=>props.setShowEditProfile(false)}>Cancel</Cancel>
+                    <Cancel onClick={props.closeDialog}>Cancel</Cancel>
                     <ConfirmButton onClick={uploadProfileImage}>Confirm changes</ConfirmButton>
                 </div>
             </div>

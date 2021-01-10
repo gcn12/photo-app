@@ -4,6 +4,8 @@ import Collection from './Collection'
 import Rename from './Rename'
 import Delete from './Delete'
 import { connect } from 'react-redux'
+import { PopupDarken } from '../Styles/PopupStyles.styles'
+import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
 import { 
     Container,
 } from './Collections.styles'
@@ -43,18 +45,44 @@ const Collections = (props) => {
         }
     }
 
+    const openDelete = () => {
+        setShowDelete(true)
+        disableBodyScroll(document.body)
+    }
+
+    const closeDelete = () => {
+        setShowDelete(false)
+        enableBodyScroll(document.body)
+    }
+
+    const openRename = () => {
+        setShowRename(true)
+        disableBodyScroll(document.body)
+    }
+
+    const closeRename = () => {
+        setShowRename(false)
+        enableBodyScroll(document.body)
+    }
+
     useEffect(getCollections, [props.user])
  
     return(
         <div>
             <div>
                 { showRename ?
-                <Rename showRename={showRename} getCollections={getCollections} collectionName={collectionName} setShowRename={setShowRename}></Rename>
+                <div>
+                    <PopupDarken />
+                    <Rename closeRename={closeRename} showRename={showRename} getCollections={getCollections} collectionName={collectionName} setShowRename={setShowRename}></Rename>
+                </div>
                 : 
                 null
                 }
                 {showDelete ? 
-                <Delete collectionIndex={collectionIndex} setCollectionInfo={setCollectionInfo} collectionInfo={collectionInfo} collectionName={collectionName} setShowDelete={setShowDelete} />
+                <div>
+                    <PopupDarken />
+                    <Delete closeDelete={closeDelete} collectionIndex={collectionIndex} setCollectionInfo={setCollectionInfo} collectionInfo={collectionInfo} collectionName={collectionName} setShowDelete={setShowDelete} />
+                </div>
                 :
                 null
                 }
@@ -62,6 +90,8 @@ const Collections = (props) => {
                     {collectionInfo?.map((collection, index)=> {
                         return(
                             <Collection 
+                                openRename={openRename}
+                                openDelete={openDelete}
                                 setCollectionIndex={setCollectionIndex}
                                 setShowDelete={setShowDelete}
                                 setCollectionName={setCollectionName}

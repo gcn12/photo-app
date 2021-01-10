@@ -9,15 +9,16 @@ export const Image = styled.img`
     cursor: pointer;
     /* width: 300px; */
     width: 100%;
-    min-width: 200px;
-    /* max-width: 350px; */
-    height: 220px;
+    /* min-width: 200px;
+    height: 220px; */
+    min-width: ${props=>props.minWidth};
+    height: ${props=>props.height};
     object-fit: cover;
     border-radius: 3px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    box-shadow: 0 1px 2px 0px rgba(0, 0, 0, .2);
     transition: box-shadow 400ms ease-in-out;
     &:hover {
-        box-shadow: 0 5px 15px rgba(0, 0, 0, .4);
+        box-shadow: 0 4px 6px 0px rgba(0, 0, 0, .4);
     }
 `
 

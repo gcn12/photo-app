@@ -15,12 +15,12 @@ const PostDropdown = (props) => {
     const editPost = () => {
         // props.setShowRename(true)
         // props.setCollectionName(props.collectionName)
-        props.setShowEdit(true)
+        props.openEdit()
         props.getPostData()
     }
 
     const deletePost = () => {
-        props.setShowDelete(true)
+        props.openDelete()
         props.setShowOptions(false)
         // props.setShowGear(true)
     }

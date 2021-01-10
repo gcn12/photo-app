@@ -38,13 +38,18 @@ const ProfileDropdown = (props) => {
         }
     } 
 
+    const pageRoute = (pageName) => {
+        props.dispatch(profilePage(pageName))
+        props.setShowProfileDropdown(false)
+    }
+
     return(
         <Container fontSize='20px' translateContainer='translate(-70%, 5%)' style={{zIndex: 3}} className='profile-dropdown'>
             <div style={{position: 'absolute'}}></div>
             <Triangle shift='translate(-130%, -90%)' />
             <Options>
 
-                <Link onClick={()=> props.dispatch(profilePage('my-profile'))} to='/photo-app/profile/my-profile' style={{ textDecoration: 'none' }}>
+                <Link onClick={()=> pageRoute('my-profile')} to='/photo-app/profile/my-profile' style={{ textDecoration: 'none' }}>
                     <OptionIconContainer>
                         <OptionIcon>
                             <Profile style={{transform: 'scale(.8)', position: 'relative', top: 4}} />
@@ -53,7 +58,7 @@ const ProfileDropdown = (props) => {
                     </OptionIconContainer>
                 </Link>
                 
-                <Link onClick={()=> props.dispatch(profilePage('saved'))} to='/photo-app/profile/saved' style={{ textDecoration: 'none' }}>
+                <Link onClick={()=> pageRoute('saved')} to='/photo-app/profile/saved' style={{ textDecoration: 'none' }}>
                     <OptionIconContainer radius='5px 5px 0 0'>
                         <OptionIcon>
                             <FilledBookmark style={{transform: 'scale(.9)', position: 'relative', top: 4}} />
@@ -64,7 +69,7 @@ const ProfileDropdown = (props) => {
 
                
 
-                <Link onClick={()=> props.dispatch(profilePage('admired'))} to='/photo-app/profile/admired' style={{ textDecoration: 'none' }}>
+                <Link onClick={()=> pageRoute('admired')} to='/photo-app/profile/admired' style={{ textDecoration: 'none' }}>
                     <OptionIconContainer radius='5px 5px 0 0'>
                         <OptionIcon>
                         <img alt='' style={{transform: 'scale(.8)', position: 'relative', top: 4}} src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgNC4yNDhjLTMuMTQ4LTUuNDAyLTEyLTMuODI1LTEyIDIuOTQ0IDAgNC42NjEgNS41NzEgOS40MjcgMTIgMTUuODA4IDYuNDMtNi4zODEgMTItMTEuMTQ3IDEyLTE1LjgwOCAwLTYuNzkyLTguODc1LTguMzA2LTEyLTIuOTQ0eiIvPjwvc3ZnPg==" />
@@ -73,7 +78,7 @@ const ProfileDropdown = (props) => {
                         <OptionText>Admired posts</OptionText>
                     </OptionIconContainer>
                 </Link>
-                <Link onClick={()=> props.dispatch(profilePage('collections'))} to='/photo-app/profile/collections' style={{ textDecoration: 'none' }}>
+                <Link onClick={()=> pageRoute('collections')} to='/photo-app/profile/collections' style={{ textDecoration: 'none' }}>
                     <OptionIconContainer>
                         <OptionIcon>
                             <Collections style={{transform: 'scale(.8)', position: 'relative', top: 4}} />
@@ -82,7 +87,7 @@ const ProfileDropdown = (props) => {
                     </OptionIconContainer>
                 </Link>
                 <div style={{marginBottom: '10px'}}></div>
-                <Link onClick={()=> props.dispatch(profilePage('settings'))} to='/photo-app/profile/settings' style={{ textDecoration: 'none' }}>
+                <Link onClick={()=> pageRoute('settings')} to='/photo-app/profile/settings' style={{ textDecoration: 'none' }}>
                     <OptionIconContainer>
                         <OptionIcon>
                             <Gear style={{transform: 'scale(.8)', position: 'relative', top: 4}} />

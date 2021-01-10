@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import UserPrivateProfilesPosts from './UserPrivateProfilePosts'
 import { connect } from 'react-redux'
 import fitty from 'fitty'
+// import disableScroll from 'disable-scroll'
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import EditProfile from './EditProfile'
 import {
     ProfileImage,
@@ -13,6 +15,7 @@ import {
     UserContainer,
     EditButton,
 } from '../PublicProfile/PublicProfile.styles'
+import { PopupDarken } from '../Styles/PopupStyles.styles'
 
 const UserPrivateProfile = (props) => {
 
@@ -21,6 +24,7 @@ const UserPrivateProfile = (props) => {
 
     const { userInformation, getUserProfile } = props
     useEffect(()=> {
+        window.scrollTo({top: 0})
         if(userInformation.id){
             getUserProfile(userInformation.id)
         }
@@ -35,12 +39,26 @@ const UserPrivateProfile = (props) => {
         // eslint-disable-next-line
     }, [userInformation])
 
+    const showDialog = () => {
+        setShowEditProfile(true)
+        // disableScroll.on()
+        disableBodyScroll(document.getElementById('dialog'))
+    }
+
+    const closeDialog = () => {
+        setShowEditProfile(false)
+        enableBodyScroll(document.getElementById('dialog'))
+        // disableScroll.off()
+    }
     
     const { userData, userPosts } = props
     return(
-        <div style={{marginTop: '10px'}}>
+        <div id='dialog' style={{marginTop: '10px', position: 'relative'}}>
             {showEditProfile ? 
-            <EditProfile getUserProfile={props.getUserProfile} userData={userData[0]} setShowEditProfile={setShowEditProfile} />
+            <div>
+                <PopupDarken />
+                <EditProfile closeDialog={closeDialog} getUserProfile={props.getUserProfile} userData={userData[0]} setShowEditProfile={setShowEditProfile} />
+            </div>
             :
             null
             }
@@ -50,7 +68,7 @@ const UserPrivateProfile = (props) => {
                     <Username id='public-profile-username'>{userData[0]?.username}</Username>
                     <Name id='public-profile-name'>{userData[0]?.name}</Name>
                     <Bio>{userData[0]?.bio}</Bio>
-                    <EditButton onClick={()=> setShowEditProfile(!showEditProfile)}>Edit profile</EditButton>
+                    <EditButton onClick={showDialog}>Edit profile</EditButton>
                 </Container>
             </UserContainer>
 
