@@ -62,6 +62,7 @@ const FeaturedPost = (props) => {
     // const [cityPhotos, setCityPhotos] = useState([])
     const [isImageHorizontal, setIsImageHorizontal] = useState(true)
     const [isHeart, setIsHeart] = useState(false)
+    const [isPostVisible, setIsPostVisible] = useState(false)
     const [isBookmark, setIsBookmark] = useState(false)
     const [isAddToCollection, setIsAddToCollection] = useState(false)
     const [showImageEnlarged, setShowImageEnlarged] = useState(false)
@@ -291,7 +292,8 @@ const FeaturedPost = (props) => {
 
         img.onload = function () { 
             // alert('hello')
-            props.dispatch(isPostVisible(true))
+            // props.dispatch(isPostVisible(true))
+            setIsPostVisible(true)
             if (img.height > img.width ) {
                 setIsImageHorizontal(false)
             }
@@ -302,7 +304,8 @@ const FeaturedPost = (props) => {
     return(
         <div>
             <FeaturedPostContainer 
-            opacity={props.isPostVisible ? 1 : 0} 
+            // opacity={props.isPostVisible ? 1 : 0} 
+            opacity={isPostVisible ? 1 : 0} 
             style={{marginTop: '85px'}}>
                 {showImageEnlarged ? 
                 <div>
@@ -337,6 +340,7 @@ const FeaturedPost = (props) => {
                         <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                             <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MM DD YY')}</DateStyle>
                         </div>
+                    </div>
                         <div style={{display: 'flex', justifyContent: 'center'}}>
                             <Title font={props?.photoInformation?.font}>{props?.photoInformation?.title}</Title>
                         </div>
@@ -345,7 +349,6 @@ const FeaturedPost = (props) => {
                                 <Author font={props?.photoInformation?.font}>{props?.photoInformation?.author} | {props?.photoInformation?.username}</Author>
                             </Link>
                         </InfoContainer>
-                    </div>
                 </Container>
                 {/* {console.log(props?.photoInformation)} */}
                 {props?.photoInformation?.dataObj ? 

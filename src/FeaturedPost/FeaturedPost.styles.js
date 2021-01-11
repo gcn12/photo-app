@@ -230,6 +230,7 @@ export const PlaceholderImage = styled.img`
     object-fit: contain;
     /* max-width: 90vw; */
     max-height: 90vh;
+    max-width: 90vw;
     width: 100%;
     height: 100%;
     /* display: block; */
