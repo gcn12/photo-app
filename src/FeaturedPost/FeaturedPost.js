@@ -10,7 +10,6 @@ import { ReactComponent as Collections } from '../Icons/Collections.svg'
 import { ReactComponent as EmptyBookmark } from '../Icons/EmptyBookmark.svg'
 import { ReactComponent as FilledBookmark } from '../Icons/FilledBookmark.svg'
 import { ReactComponent as SquareAvatar } from '../Icons/SquareAvatar.svg'
-import SpinnerOnly from '../Spinner/SpinnerOnly'
 import firebase from 'firebase'
 import { PopupDarken } from '../Styles/PopupStyles.styles'
 import { connect } from 'react-redux'
@@ -283,11 +282,6 @@ const FeaturedPost = (props) => {
 
     return(
         <div>
-            {props.isVisible ? 
-            null
-            :
-            <SpinnerOnly spinnerColor='#4D4D4D' />
-            }
             <FeaturedPostContainer opacity={props.isVisible ? 1 : 0} style={{marginTop: '85px'}}>
                 {showImageEnlarged ? 
                 <div>

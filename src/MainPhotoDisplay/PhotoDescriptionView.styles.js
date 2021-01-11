@@ -17,6 +17,8 @@ export const Container = styled.div`
 `
 
 export const Image = styled.img`
+    display: ${props=>props.display};
+    opacity: ${props=>props.opacity};
     /* border-radius: 5px 5px 0 0; */
     cursor: pointer;
     margin-bottom: 10px;
@@ -106,4 +108,22 @@ export const BookmarkLocationContainer = styled.div`
 export const Ellipsis = styled.div`
     font-weight: 800;
     font-size: 20px;
+`
+
+export const PlaceholderImage = styled.div`
+    display: ${props=>props.display};
+    cursor: pointer;
+    margin-bottom: 10px;
+    object-fit: cover;
+    width: 100%;
+    min-width: 320px;
+    max-width: 400px;
+    height: 250px;
+    opacity: ${props=>props.opacity};
+    /* max-height: 230px; */
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .3);
+    transition: box-shadow 300ms ease-in-out;
+    &:hover {
+        box-shadow: 0 7px 7px 0 rgba(0, 0, 0, .5);
+    }
 `

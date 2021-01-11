@@ -3,7 +3,6 @@ import { db } from '../Firebase'
 import { incrementViewCount } from '../Functions' 
 import { photoInformation } from '../Redux/Actions/appActions'
 import { isVisible } from '../Redux/Actions/featuredPostActions'
-import { isMainPhotoDisplayVisible } from '../Redux/Actions/mainPhotoDisplayActions'
 import AddDropdown from './AddDropdown'
 import AddToCollection from '../FeaturedPost/AddToCollection'
 import { connect } from 'react-redux'
@@ -20,6 +19,7 @@ import {
     BookmarkLocationContainer,
     Ellipsis,
     Category,
+    PlaceholderImage,
     // Name,
     // LocationNameContainer,
 } from './PhotoDescriptionView.styles'
@@ -83,14 +83,14 @@ const PhotoDescriptionView = (props) => {
 
     const whenLoaded = () => {
         if(props.index===0){
-            props.dispatch(isMainPhotoDisplayVisible(true))
+            // props.dispatch(isMainPhotoDisplayVisible(true))
         }
         setShowPost(true)
 
     }
 
     return(
-        <Container opacity={showPost ? 1 : 0}>
+        <Container opacity={showPost ? 1 : 1}>
             <Card>
                 {showAddToCollection ? 
                 <div>
@@ -100,7 +100,8 @@ const PhotoDescriptionView = (props) => {
                 :
                 null
                 }
-                <Image onClick={goToPost} onLoad={whenLoaded} src={props.photoInfo.smallImage}></Image>
+                <PlaceholderImage onClick={goToPost} onLoad={whenLoaded} display={showPost ? 'none' : 'initial'} opacity={showPost ? 0 : 1} />
+                <Image onClick={goToPost} display={showPost ? 'initial' : 'none'} onLoad={whenLoaded} opacity={showPost ? 1 : 0} src={props.photoInfo.smallImage} />
                 <BookmarkLocationContainer>
                     <div style={{display: 'flex', alignItems: 'center'}}>
                         <Location>{`${props.photoInfo.city}, ${props.photoInfo.country}`}</Location>

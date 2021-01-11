@@ -9,7 +9,6 @@ import Search from '../Search/Search'
 import ProfileDropdown from './ProfileDropdown'
 import { connect } from 'react-redux'
 import { homePhotoInformation } from '../Redux/Actions/appActions'
-import { isMainPhotoDisplayVisible } from '../Redux/Actions/mainPhotoDisplayActions'
 import { ReactComponent as Avatar } from '../Icons/Avatar.svg'
 import { searchTransition, searchVisibility, selected, selectedCategory } from '../Redux/Actions/headerActions'
 import { ReactComponent as SearchIcon } from '../Icons/Search.svg'
@@ -108,7 +107,6 @@ const Header = (props) => {
     }
 
     const getAssortedAndDropOpacity = () => {
-        props.dispatch(isMainPhotoDisplayVisible(false))
         props.dispatch(homePhotoInformation([]))
         let criteria = {
             city: '',
