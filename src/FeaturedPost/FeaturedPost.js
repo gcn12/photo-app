@@ -292,7 +292,7 @@ const FeaturedPost = (props) => {
         img.onload = function () { 
             // alert('hello')
             props.dispatch(isPostVisible(true))
-            if (img.height / img.width > 1) {
+            if (img.height > img.width ) {
                 setIsImageHorizontal(false)
             }
         };

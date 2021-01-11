@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import {
-    isVisible
+    isVisible,
+    isPostVisible,
 } from '../Redux/Actions/featuredPostActions'
 import {
     Container,
@@ -15,6 +16,7 @@ const PublicProfilesPosts = (props) => {
     const [isPostVisible, setIsPostVisible] = useState(false)
 
     const selectPhoto = () => {
+        props.dispatch(isPostVisible(false))
         props.dispatch(isVisible(false))
         props.getFeaturedPhotoInfo(props.post.postID)
         // props.history.push(`/photo-app/post/${props.post.postID}`)
