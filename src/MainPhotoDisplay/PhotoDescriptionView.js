@@ -3,6 +3,7 @@ import { db } from '../Firebase'
 import { incrementViewCount } from '../Functions' 
 import { photoInformation } from '../Redux/Actions/appActions'
 import { isVisible } from '../Redux/Actions/featuredPostActions'
+import { isMainPhotoDisplayVisible } from '../Redux/Actions/mainPhotoDisplayActions'
 import AddDropdown from './AddDropdown'
 import AddToCollection from '../FeaturedPost/AddToCollection'
 import { connect } from 'react-redux'
@@ -30,6 +31,7 @@ const PhotoDescriptionView = (props) => {
     const [isBookmarked, setIsBookmarked] = useState(false)
     const [showAddToCollection, setShowAddToCollection] = useState(false)
     const [collectionsList, setCollectionsList] = useState([])
+    const [showSpinner, setShowSpinner] = useState(true)
 
     const checkIsBookmarked = () => {
         if(!isBookmarked) {
@@ -81,7 +83,7 @@ const PhotoDescriptionView = (props) => {
 
     const whenLoaded = () => {
         if(props.index===0){
-            props.setIsVisible(true)
+            props.dispatch(isMainPhotoDisplayVisible(true))
         }
         setShowPost(true)
 
@@ -93,7 +95,7 @@ const PhotoDescriptionView = (props) => {
                 {showAddToCollection ? 
                 <div>
                     <PopupDarken />
-                    <AddToCollection closeAddToCollection={closeAddToCollection} showAddToCollection={showAddToCollection} photoInfo={props.photoInfo} collectionsList={collectionsList} setIsAddToCollection={setShowAddToCollection} setCollectionsList={setCollectionsList} />
+                    <AddToCollection showSpinner={showSpinner} closeAddToCollection={closeAddToCollection} showAddToCollection={showAddToCollection} photoInfo={props.photoInfo} collectionsList={collectionsList} setIsAddToCollection={setShowAddToCollection} setCollectionsList={setCollectionsList} />
                 </div>
                 :
                 null
@@ -107,7 +109,7 @@ const PhotoDescriptionView = (props) => {
                     <div>
                         <div className='add-dropdown' style={{cursor: 'pointer'}}>
                             {showDropdown ? 
-                            <AddDropdown fontSize='20px' translateContainer='translate(-90%, 50%)' openAddToCollection={openAddToCollection} setCollectionsList={setCollectionsList}  id={props.photoInfo.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.photoInfo} />
+                            <AddDropdown setShowSpinner={setShowSpinner} fontSize='20px' translateContainer='translate(-90%, 50%)' openAddToCollection={openAddToCollection} setCollectionsList={setCollectionsList}  id={props.photoInfo.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.photoInfo} />
                             :
                             null
                             }

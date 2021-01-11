@@ -28,7 +28,7 @@ export const HideContent = styled.div`
 `
 
 export const CenterUploadProgress = styled.div`
-    position: relative;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -75%);

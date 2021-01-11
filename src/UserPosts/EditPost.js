@@ -532,10 +532,10 @@ const EditPost = (props) => {
 
     return(
         <div style={{position: 'relative'}}>
+            <CenterUploadProgress>
+                <UploadProgress uploadProgressColor={uploadProgressColor} animate={uploadStatusProps} variants={animationMap.uploadStatus} uploadCount={uploadCount} uploadProgress={uploadProgress} />
+            </CenterUploadProgress>
             <Container height={isUploading ? '50vh' : '97vh'} width={isUploading ? '50vw' : '90vw'} opacity={1}>
-                <CenterUploadProgress>
-                    <UploadProgress uploadProgressColor={uploadProgressColor} animate={uploadStatusProps} variants={animationMap.uploadStatus} uploadCount={uploadCount} uploadProgress={uploadProgress} />
-                </CenterUploadProgress>
                 {/* <button onClick={()=> console.log(postData)}>Log</button> */}
                     <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                         <X visibility={showCancel ? 'visible' : 'hidden'} display={showCancel ? 'initial' : 'none'} onClick={props.closeEdit}>&times;</X>

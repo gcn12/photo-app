@@ -8,13 +8,12 @@ import {
     SubmitButton,
     Text,
     Container,
-    Container2,
 } from './Login.styles'
 
 const Login = (props) => {
 
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     const submit = () => {
         if(email?.length > 0 && password?.length > 0){
@@ -28,21 +27,18 @@ const Login = (props) => {
     }
 
     return(
-        <Container2>
-            <Container>
-                <Text>Email</Text>
-                <TextField onChange={e => setEmail(e.target.value)}></TextField>
-                <Text>Password</Text>
-                <TextField onChange={e => setPassword(e.target.value)} type='password'></TextField>
-                <br></br>
-                <SubmitButton onClick={submit}>Login</SubmitButton>
-                {/* <SubmitButton onClick={signout}>Signout</SubmitButton> */}
-            </Container>
-        </Container2>
+        <Container>
+            <Text>Email</Text>
+            <TextField onChange={e => setEmail(e.target.value)}></TextField>
+            <Text>Password</Text>
+            <TextField onChange={e => setPassword(e.target.value)} type='password'></TextField>
+            <br></br>
+            <SubmitButton onClick={submit}>Login</SubmitButton>
+            {/* <SubmitButton onClick={signout}>Signout</SubmitButton> */}
+        </Container>
     )
 }
 
-const mapStateToProps = state => ({
-})
+const mapStateToProps = state => ({})
 
 export default connect(mapStateToProps)(Login)

@@ -67,6 +67,7 @@ const FeaturedPost = (props) => {
     const [showImageEnlarged, setShowImageEnlarged] = useState(false)
     const [imageToEnlarge, setImageToEnlarge] = useState('')
     const [collectionsList, setCollectionsList] = useState([])
+    const [showSpinner, setShowSpinner] = useState(true)
 
     const bookmark = () => {
         const {views, hearts, ratio, dataObj, font, imagesLarge, imagesSmall, photoBodyMap, ...data } = props.photoInformation
@@ -142,6 +143,7 @@ const FeaturedPost = (props) => {
     }
 
     const getCollectionsList = () => {
+        openAddToCollection()
         const collectionsArray = []
         db.collection('users')
         .doc(props.user)
@@ -171,7 +173,7 @@ const FeaturedPost = (props) => {
                         if (index+1 === collections.docs.length) {
                             setCollectionsList(collectionsArray)
                             // props.dispatch(collectionsList(collectionsArray))
-                            openAddToCollection()
+                            setShowSpinner(false)
                         }
                     })
                 })
@@ -299,7 +301,7 @@ const FeaturedPost = (props) => {
                 {isAddToCollection ? 
                 <div>
                     <PopupDarken />
-                    <AddToCollection closeAddToCollection={closeAddToCollection} photoInfo={props.photoInformation} setCollectionsList={setCollectionsList} collectionsList={collectionsList} setIsAddToCollection={setIsAddToCollection} />
+                    <AddToCollection showSpinner={showSpinner} closeAddToCollection={closeAddToCollection} photoInfo={props.photoInformation} setCollectionsList={setCollectionsList} collectionsList={collectionsList} setIsAddToCollection={setIsAddToCollection} />
                 </div>
                 :
                 null

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import AddToCollectionItem from './AddToCollectionItem'
+import SpinnerOnly from '../Spinner/SpinnerOnly'
 import { db } from '../Firebase'
 import {
     Container,
@@ -83,41 +84,49 @@ const AddToCollection = (props) => {
     } 
 
     return(
-        <Container>
-            <X onClick={props.closeAddToCollection} style={{cursor: 'pointer'}} size='60px'>&times;</X>
-            <div style={{marginBottom: '15px', display: 'flex', justifyContent: 'center'}}>
-                <Text size='30px'>Add to collection</Text>
-            </div>
-            <CollectionsContainer>
-                {props?.collectionsList?.map((collection, index) => {
-                    return(
-                        <AddToCollectionItem 
-                            photoInformation={props.photoInfo}
-                            setCollectionsList={props.setCollectionsList}
-                            collectionsList={props.collectionsList}
-                            index={index} 
-                            className='dropdown' 
-                            collection={collection[0]} 
-                            key={index}
-                            bool={collection[1]} 
-                        />
-                    )
-                })}
-            </CollectionsContainer>
-            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <CreateNewContainer>
-                    {isCreateCollection ? 
-                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                        <CreateNewInput autoComplete='off' placeholder='collection name' id='collection-name' className='dropdown'></CreateNewInput>
-                        <CreateNewSubmit onClick={createCollection} className='dropdown'>Create</CreateNewSubmit>
-                    </div>
-                    :
-                    <CreateNewButton onClick={()=>setIsCreateCollection(true)} className='dropdown'>Create new collection</CreateNewButton>
-                    }
-                </CreateNewContainer>
-                {isCollectionExists ? <Warning>Collection already exists</Warning> : null}
-            </div>
-        </Container>
+        <div>
+            {props.showSpinner
+            ?
+            <SpinnerOnly spinnerColor='black' />
+            :
+            null
+            } 
+            <Container>
+                <X onClick={props.closeAddToCollection} style={{cursor: 'pointer'}} size='60px'>&times;</X>
+                <div style={{marginBottom: '15px', display: 'flex', justifyContent: 'center'}}>
+                    <Text size='30px'>Add to collection</Text>
+                </div>
+                <CollectionsContainer>
+                    {props?.collectionsList?.map((collection, index) => {
+                        return(
+                            <AddToCollectionItem 
+                                photoInformation={props.photoInfo}
+                                setCollectionsList={props.setCollectionsList}
+                                collectionsList={props.collectionsList}
+                                index={index} 
+                                className='dropdown' 
+                                collection={collection[0]} 
+                                key={index}
+                                bool={collection[1]} 
+                            />
+                        )
+                    })}
+                </CollectionsContainer>
+                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                    <CreateNewContainer>
+                        {isCreateCollection ? 
+                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                            <CreateNewInput autoComplete='off' placeholder='collection name' id='collection-name' className='dropdown'></CreateNewInput>
+                            <CreateNewSubmit onClick={createCollection} className='dropdown'>Create</CreateNewSubmit>
+                        </div>
+                        :
+                        <CreateNewButton onClick={()=>setIsCreateCollection(true)} className='dropdown'>Create new collection</CreateNewButton>
+                        }
+                    </CreateNewContainer>
+                    {isCollectionExists ? <Warning>Collection already exists</Warning> : null}
+                </div>
+            </Container>
+        </div>
     )
 }
 

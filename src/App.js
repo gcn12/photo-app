@@ -1,5 +1,6 @@
 import React, { 
-  useEffect,
+  useEffect, 
+  // useState,
 } from 'react'
 import { connect } from 'react-redux'
 import { 
@@ -16,6 +17,7 @@ import {
 } from './Redux/Actions/appActions'
 import Header from './Header/Header'
 import CollectionsComponent from './Collections/CollectionsComponent'
+// import NewLogin from './Login/NewLogin'
 // import VerticalScroll from './VeritcalScroll/VerticalScroll'
 import Discover from './Discover/Discover'
 import FeaturedPost from './FeaturedPost/FeaturedPost'
@@ -34,6 +36,8 @@ import { db } from './Firebase'
 import { Route, Switch } from 'react-router-dom'
 
 const App = (props) => {
+
+  // const [showLogin, setShowLogin] = useState(false)
 
   const sort = (criteriaObject, isNewSort) => {
     props.dispatch(sortCriteria(criteriaObject))
@@ -317,11 +321,18 @@ const App = (props) => {
   return (
     <div>
       <Route path='/photo-app/' render={(props)=> (
-        <Header search={search} {...props} sort={sort} />
+        <Header search={search} 
+        // setShowLogin={setShowLogin} 
+        {...props} sort={sort} />
       )} />
 
       {/* <TestFile user={user}  />  */}
 
+      {/* {showLogin ? 
+      <NewLogin />
+      :
+      null
+      } */}
 
       <Route path='/photo-app/profile/collections/:collectionName' render={(props)=> (
         <CollectionsComponent {...props} getFeaturedPhotoInfo={getFeaturedPhotoInfo}  />

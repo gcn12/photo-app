@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { ReactComponent as PhotoGrid } from '../Icons/PhotoGrid.svg'
 import { ReactComponent as DescriptionGrid } from '../Icons/DescriptionGrid.svg'
 import { homePhotoInformation, displayView, sortCriteria } from '../Redux/Actions/appActions'
+import { isMainPhotoDisplayVisible } from '../Redux/Actions/mainPhotoDisplayActions'
 import { dropdownTransition, visibility, dropdownCategoriesTransition, categoriesVisibility, selected } from '../Redux/Actions/headerActions'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -52,6 +53,7 @@ const Subheader = (props) => {
     // }
 
     const changeSort = (sortCriteriaInput) => {
+        props.dispatch(isMainPhotoDisplayVisible(false))
         props.dispatch(homePhotoInformation([]))
         let criteria = props.sortCriteria
         let newCriteria = {}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PhotoDescriptionView from './PhotoDescriptionView'
 import '../App.css'
 import { connect } from 'react-redux'
@@ -12,21 +12,19 @@ import { SubmitButton } from '../AddContent/AddContent.styles'
 
 const GetPhotos = (props) => {
 
-    const [isVisible, setIsVisible] = useState(false)
-
     return(
         <div style={{position: 'relative'}}>
-            {isVisible ? 
+            {props.isMainPhotoDisplayVisible ? 
             null
             :
             <SpinnerOnly spinnerColor='#4D4D4D' />
             }
-            <DisplayContainer opacity={isVisible ? 1 : 0} style={{marginTop: '120px'}}>
+            <DisplayContainer opacity={props.isMainPhotoDisplayVisible ? 1 : 0} style={{marginTop: '120px'}}>
                 <PhotoDescriptionViewContainer>
                     {props.homePhotoInformation.map((photo, index)=> {
                         return( 
                             <PhotoDescriptionView 
-                            setIsVisible={setIsVisible}
+                            // setIsVisible={setIsVisible}
                             history={props.history}
                             index={index}
                             photoLength={props.homePhotoInformation.length}
@@ -60,6 +58,7 @@ const mapStateToProps = state => ({
     isLoadMore: state.app.isLoadMore,
     homePhotoInformation: state.app.homePhotoInformation,
     sortCriteria: state.app.sortCriteria,
+    isMainPhotoDisplayVisible: state.mainPhotoDisplay.isMainPhotoDisplayVisible,
 })
 
 export default connect(mapStateToProps)(GetPhotos)

@@ -6,7 +6,6 @@ import {
     SubmitButton,
     Text,
     Container,
-    Container2,
 } from '../Login/Login.styles'
 
 const Signup = (props) => {
@@ -40,21 +39,18 @@ const Signup = (props) => {
     }
 
     return(
-        <Container2>
-            {console.log(props)}
-            <Container>
-                <Text>Name</Text>
-                <TextField onChange={e=> setName(e.target.value)}></TextField>
-                <Text>Email</Text>
-                <TextField onChange={e => setEmail(e.target.value)}></TextField>
-                <Text>Username</Text>
-                <TextField onChange={e=> setUsername(e.target.value)}></TextField>
-                <Text>Password</Text>
-                <TextField onChange={e=> setPassword(e.target.value)} type='password'></TextField>
-                <br></br>
-                <SubmitButton onClick={submit}>Signup</SubmitButton>
-            </Container>
-        </Container2>
+        <Container>
+            <Text>Name</Text>
+            <TextField onChange={e=> setName(e.target.value)}></TextField>
+            <Text>Email</Text>
+            <TextField onChange={e => setEmail(e.target.value)}></TextField>
+            <Text>Username</Text>
+            <TextField onChange={e=> setUsername(e.target.value)}></TextField>
+            <Text>Password</Text>
+            <TextField onChange={e=> setPassword(e.target.value)} type='password'></TextField>
+            <br></br>
+            <SubmitButton onClick={submit}>Signup</SubmitButton>
+        </Container>
     )
 }
 

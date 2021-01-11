@@ -2,9 +2,11 @@ import styled from 'styled-components'
 
 export const TextField = styled.input`
     width: 40vw;
-    height: 30px;
+    max-width: 300px;
+    height: 35px;
     font-size: 20px;
     transition: height 500ms;
+    margin-bottom: 20px;
 
     &:focus {
         height: 40px;
@@ -42,18 +44,15 @@ export const SubmitButton = styled.button`
 
 export const Text = styled.div`
     /* color: white; */
+    margin-bottom: 5px;
 `
 
 export const Container = styled.div`
     position: absolute;
-    top: calc(50% - 120px);
-    display:flex;
-    flex-direction: column;
-`
-
-export const Container2 = styled.div`
-display: flex;
-justify-content: center;
-    /* position: relative; */
-    /* margin-top: 55px; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fcfcfc;
+    padding: 40px;
+    border-radius: 10px;
 `
