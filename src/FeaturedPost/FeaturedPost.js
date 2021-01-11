@@ -323,11 +323,13 @@ const FeaturedPost = (props) => {
                 }
                 <Container>
                     <div>
-                        <PlaceholderImage id='featured-post-placeholder-image' height={isImageHorizontal ? 'auto' : '90vh'} width={isImageHorizontal ? '90vw' : 'auto'} display={props.isVisible ? 'none' : 'initial'} alt='' 
-                        // src={props?.photoInformation?.smallImage} 
-                        />
+                        <div style={{width: '90vw', height: '90vh', display: `${props.isVisible ? 'none' : 'block'}`}}>
+                            <PlaceholderImage id='featured-post-placeholder-image' height={isImageHorizontal ? 'auto' : '90vh'} width={isImageHorizontal ? '90vw' : 'auto'} display={props.isVisible ? 'none' : 'block'} alt='' 
+                            // src={props?.photoInformation?.smallImage} 
+                            />
+                        </div>
                         <MainImage 
-                        display={props.isVisible ? 'initial' : 'none'}
+                        display={props.isVisible ? 'block' : 'none'}
                         onLoad={pageLoaded} 
                         id='featured-main-image' alt='display' src={props?.photoInformation?.image}>
                         </MainImage>

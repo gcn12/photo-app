@@ -13,7 +13,7 @@ import {
 
 const PublicProfilesPosts = (props) => {
 
-    const [isPostVisible, setIsPostVisible] = useState(false)
+    const [isProfilePostVisible, setIsProfilePostVisible] = useState(false)
 
     const selectPhoto = () => {
         props.dispatch(isPostVisible(false))
@@ -23,8 +23,8 @@ const PublicProfilesPosts = (props) => {
     }
 
     return(
-        <Container visibility={isPostVisible ? 1 : 0} >
-            <Image height={props.height} minWidth={props.minWidth} onClick={selectPhoto} onLoad={()=> setIsPostVisible(true)} src={props.post.smallImage} alt=''></Image>
+        <Container visibility={isProfilePostVisible ? 1 : 0} >
+            <Image height={props.height} minWidth={props.minWidth} onClick={selectPhoto} onLoad={()=> setIsProfilePostVisible(true)} src={props.post.smallImage} alt=''></Image>
             <Title onClick={selectPhoto}>{props.post.title}</Title>
             <Location>{`${props.post.city}, ${props.post.country}`}</Location>
             {/* <Title>{props.post.previewDescription}</Title> */}

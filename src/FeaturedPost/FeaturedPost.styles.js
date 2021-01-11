@@ -214,18 +214,25 @@ export const MainImage = styled.img`
     width: auto;
     max-height: 90vh;
     max-width: 90vw;
-    display: block;
+    /* display: block; */
     display: ${props=>props.display};
     /* animation: ${fadeIn} 1s; */
 `
 
 export const PlaceholderImage = styled.img`
     filter: blur(5px);
-    height: ${props=>props.height};
-    width: ${props=>props.height};
-    min-height: 90vh;
-    max-width: 90vw;
-    display: block;
+    /* height: ${props=>props.height};
+    width: ${props=>props.width}; */
+    /* height: auto;
+    width: auto;
+    max-height: 90vh;
+    max-width: 90vw; */
+    object-fit: contain;
+    /* max-width: 90vw; */
+    max-height: 90vh;
+    width: 100%;
+    height: 100%;
+    /* display: block; */
     opacity: ${props=>props.opacity};
     display: ${props=>props.display};
 `
