@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 export const Container = styled.div`
     overflow: none;
@@ -16,25 +16,31 @@ export const Container = styled.div`
     flex-direction: column;
 `
 
+const fadeIn = keyframes`
+    from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    from { opacity: 0; }
+        to { opacity: 1; }
+    }
+`;
+
 export const Image = styled.img`
     display: ${props=>props.display};
     opacity: ${props=>props.opacity};
-    /* border-radius: 5px 5px 0 0; */
     cursor: pointer;
     margin-bottom: 10px;
     object-fit: cover;
-    /* overflow:hidden; */
-    /* width: 350px; */
     width: 100%;
     min-width: 320px;
     max-width: 400px;
     height: 250px;
-    /* max-height: 230px; */
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .3);
     transition: box-shadow 300ms ease-in-out, opacity 400ms ease-in-out;
     &:hover {
         box-shadow: 0 7px 7px 0 rgba(0, 0, 0, .5);
     }
+    animation: ${fadeIn} 1s;
 `
 
 export const Description = styled.div`
@@ -120,7 +126,6 @@ export const PlaceholderImage = styled.div`
     max-width: 400px;
     height: 250px;
     opacity: ${props=>props.opacity};
-    /* max-height: 230px; */
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .3);
     transition: box-shadow 300ms ease-in-out;
     &:hover {

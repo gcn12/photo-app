@@ -37,13 +37,13 @@ const TitlePhoto = (props) => {
                 let finalWidthLarge
                 let finalHeightSmall
                 let finalWidthSmall
-                if(height > 850 || width > 850) {
+                if(height > 650 || width > 650) {
                     if (height >= width) {
-                        finalWidthSmall = Math.round(ratio * 850)
-                        finalHeightSmall = 850
+                        finalWidthSmall = Math.round(ratio * 650)
+                        finalHeightSmall = 650
                     }else {
-                        finalHeightSmall = Math.round(ratio * 850)
-                        finalWidthSmall =  850
+                        finalHeightSmall = Math.round(ratio * 650)
+                        finalWidthSmall =  650
                     }
                 }else{
                     finalHeightSmall = height

@@ -8,6 +8,7 @@ import AddToCollection from '../FeaturedPost/AddToCollection'
 import { connect } from 'react-redux'
 import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
 import { PopupDarken } from '../Styles/PopupStyles.styles'
+import '../App.css'
 // import fitty from 'fitty'
 import {
     Image,
@@ -100,7 +101,7 @@ const PhotoDescriptionView = (props) => {
                 :
                 null
                 }
-                <PlaceholderImage onClick={goToPost} onLoad={whenLoaded} display={showPost ? 'none' : 'initial'} opacity={showPost ? 0 : 1} />
+                <PlaceholderImage className='shine' onClick={goToPost} onLoad={whenLoaded} display={showPost ? 'none' : 'initial'} opacity={showPost ? 0 : 1} />
                 <Image onClick={goToPost} display={showPost ? 'initial' : 'none'} onLoad={whenLoaded} opacity={showPost ? 1 : 0} src={props.photoInfo.smallImage} />
                 <BookmarkLocationContainer>
                     <div style={{display: 'flex', alignItems: 'center'}}>

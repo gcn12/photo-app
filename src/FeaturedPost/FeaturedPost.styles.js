@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 export const Container = styled.div`
     display: flex;
@@ -30,24 +30,6 @@ export const Title = styled.div`
         font-size: 40px;
     }
     
-`
-
-export const MainImage = styled.img`
-    /* height: 90vh; */
-    /* height: ${props=> props.height};
-    width: ${props=> props.width}; */
-    height: auto;
-    /* object-fit: contain; */
-    /* -o-object-fit: contain; */
-    
-    width: auto;
-    max-height: 90vh;
-    max-width: 90vw;
-    display: block;
-    /* width: auto !important; */
-
-    
-
 `
 
 export const Author = styled.div`
@@ -212,5 +194,38 @@ export const Bio = styled.div`
 
 export const FeaturedPostContainer = styled.div`
     opacity: ${props=>props.opacity};
-    transition: opacity 400ms ease-in-out;
+    /* transition: opacity 400ms ease-in-out; */
+`
+
+const fadeIn = keyframes`
+    from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    from { opacity: 0; }
+        to { opacity: 1; }
+    }
+`;
+
+export const MainImage = styled.img`
+    /* height: 90vh; */
+    /* height: ${props=> props.height};
+    width: ${props=> props.width}; */
+    height: auto;
+    width: auto;
+    max-height: 90vh;
+    max-width: 90vw;
+    display: block;
+    display: ${props=>props.display};
+    /* animation: ${fadeIn} 1s; */
+`
+
+export const PlaceholderImage = styled.img`
+    filter: blur(5px);
+    height: ${props=>props.height};
+    width: ${props=>props.height};
+    min-height: 90vh;
+    max-width: 90vw;
+    display: block;
+    opacity: ${props=>props.opacity};
+    display: ${props=>props.display};
 `

@@ -14,7 +14,7 @@ import firebase from 'firebase'
 import { PopupDarken } from '../Styles/PopupStyles.styles'
 import { connect } from 'react-redux'
 import { photoInformation } from '../Redux/Actions/appActions'
-import { isVisible } from '../Redux/Actions/featuredPostActions'
+import { isVisible, isPostVisible } from '../Redux/Actions/featuredPostActions'
 import AddToCollection from './AddToCollection'
 import EnlargeImage from './EnlargeImage'
 import KeepReading from './KeepReading'
@@ -49,6 +49,7 @@ import {
     BioUsername,
     BioContainer,
     FeaturedPostContainer,
+    PlaceholderImage,
     // AddCollectionHeartContainer,
 } from './FeaturedPost.styles'
 
@@ -59,7 +60,7 @@ const FeaturedPost = (props) => {
     const [showDropdown, setShowDropdown] = useState(null)
     // const [countryPhotos, setCountryPhotos] = useState([])
     // const [cityPhotos, setCityPhotos] = useState([])
-    // const [isImageHorizontal, setIsImageHorizontal] = useState(true)
+    const [isImageHorizontal, setIsImageHorizontal] = useState(true)
     const [isHeart, setIsHeart] = useState(false)
     const [isBookmark, setIsBookmark] = useState(false)
     const [isAddToCollection, setIsAddToCollection] = useState(false)
@@ -108,6 +109,7 @@ const FeaturedPost = (props) => {
                 setShowDropdown(!showDropdown)
             })
         }
+        // getImageSize(props?.photoInformation?.smallImage)
         getFeaturedPhotoInfo2(props?.match?.params?.postID)
         // eslint-disable-next-line
     },[])
@@ -118,6 +120,7 @@ const FeaturedPost = (props) => {
         .get()
         .then(data=> {
             let post = data.docs[0].data()
+            getImageSize(post.smallImage)
             props.dispatch(photoInformation(post))
             // window.scrollTo({top: 0})
             firebase.auth().onAuthStateChanged((user)=> {
@@ -254,7 +257,7 @@ const FeaturedPost = (props) => {
         }
     }
 
-    const pagedLoaded = () => {
+    const pageLoaded = () => {
         props.dispatch(isVisible(true))
         window.scrollTo({top: 0})
     }
@@ -280,9 +283,26 @@ const FeaturedPost = (props) => {
         enableBodyScroll(document.body)
     }
 
+    const getImageSize = (src) => {
+        // var img = new Image();
+        const img = document.getElementById('featured-post-placeholder-image')
+        img.src = src
+
+        img.onload = function () { 
+            // alert('hello')
+            props.dispatch(isPostVisible(true))
+            if (img.height / img.width > 1) {
+                setIsImageHorizontal(false)
+            }
+        };
+        // img.src = props?.photoInformation?.image;
+    }
+
     return(
         <div>
-            <FeaturedPostContainer opacity={props.isVisible ? 1 : 0} style={{marginTop: '85px'}}>
+            <FeaturedPostContainer 
+            opacity={props.isPostVisible ? 1 : 0} 
+            style={{marginTop: '85px'}}>
                 {showImageEnlarged ? 
                 <div>
                     <PopupDarken />
@@ -302,8 +322,12 @@ const FeaturedPost = (props) => {
                 }
                 <Container>
                     <div>
+                        <PlaceholderImage id='featured-post-placeholder-image' height={isImageHorizontal ? 'auto' : '90vh'} width={isImageHorizontal ? '90vw' : 'auto'} display={props.isVisible ? 'none' : 'initial'} alt='' 
+                        // src={props?.photoInformation?.smallImage} 
+                        />
                         <MainImage 
-                        onLoad={pagedLoaded} 
+                        display={props.isVisible ? 'initial' : 'none'}
+                        onLoad={pageLoaded} 
                         id='featured-main-image' alt='display' src={props?.photoInformation?.image}>
                         </MainImage>
                         {/* <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</DateStyle> */}
@@ -482,7 +506,8 @@ const mapStateToProps = state => ({
     user: state.app.user,
     photoInformation: state.app.photoInformation,
     collectionsList: state.featuredPost.collectionsList,
-    isVisible: state.featuredPost.isVisible
+    isVisible: state.featuredPost.isVisible,
+    isPostVisible: state.featuredPost.isPostVisible,
 })
 
 export default connect(mapStateToProps)(FeaturedPost)
