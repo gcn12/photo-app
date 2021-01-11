@@ -115,6 +115,7 @@ const FeaturedPost = (props) => {
     },[])
 
     const getFeaturedPhotoInfo2 = (postID) => {
+        window.scrollTo({top: 0})
         db.collection('posts')
         .where('postID', '==', postID)
         .get()
@@ -136,7 +137,7 @@ const FeaturedPost = (props) => {
                         arr.push(item.data())
                     })
                     setIsHeart(arr.length)
-                    window.scrollTo({top: 0})
+                    
                     // props.dispatch(isVisible(true))
                 })
             }
