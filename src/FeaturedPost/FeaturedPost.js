@@ -326,7 +326,7 @@ const FeaturedPost = (props) => {
                 }
                 <Container>
                     <div>
-                        <div style={{width: '90vw', height: '90vh', display: `${props.isVisible ? 'none' : 'block'}`}}>
+                        <div style={{width: '90vw', maxHeight: '90vh', display: `${props.isVisible ? 'none' : 'block'}`}}>
                             <PlaceholderImage id='featured-post-placeholder-image' height={isImageHorizontal ? 'auto' : '90vh'} width={isImageHorizontal ? '90vw' : 'auto'} display={props.isVisible ? 'none' : 'block'} alt='' 
                             // src={props?.photoInformation?.smallImage} 
                             />
