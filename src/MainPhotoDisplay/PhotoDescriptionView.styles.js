@@ -31,7 +31,7 @@ export const Image = styled.img`
     height: 250px;
     /* max-height: 230px; */
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .3);
-    transition: box-shadow 300ms ease-in-out;
+    transition: box-shadow 300ms ease-in-out, opacity 400ms ease-in-out;
     &:hover {
         box-shadow: 0 7px 7px 0 rgba(0, 0, 0, .5);
     }
