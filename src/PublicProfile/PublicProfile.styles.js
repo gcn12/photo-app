@@ -24,15 +24,15 @@ export const Container = styled.div`
 
 export const PostsContainer = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     /* grid-template-columns: repeat(3, auto); */
-    grid-column-gap: 30px;
-    margin: 0 50px 20px 360px;
+    grid-column-gap: 20px;
+    margin: 0 50px 20px 340px;
     justify-items: end;
     justify-content: end;
 
     @media(max-width: 700px) {
-        margin: 100px 50px 0 50px;
+        margin: 30px 50px 0 50px;
     }
 `
 

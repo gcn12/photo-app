@@ -89,19 +89,13 @@ const TitlePhoto = (props) => {
                 props.setFilesLarge(filesLargeCopy)
 
 
-
-
-
-
-
-
-                if(height > 250 || width > 250) {
+                if(height > 150 || width > 150) {
                     if (height >= width) {
-                        finalHeightSmallest = 250
-                        finalWidthSmallest = Math.round(ratio * 250)
+                        finalHeightSmallest = 150
+                        finalWidthSmallest = Math.round(ratio * 150)
                     }else {
-                        finalWidthSmallest= 250
-                        finalHeightSmallest = Math.round(ratio * 250)
+                        finalWidthSmallest= 150
+                        finalHeightSmallest = Math.round(ratio * 150)
                     }
                 }else{
                     finalHeightSmallest = height

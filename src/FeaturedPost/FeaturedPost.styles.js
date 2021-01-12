@@ -87,7 +87,7 @@ export const BodyImage = styled.img`
     max-height: 90vh;
     max-width: 65vw;
     display: block;
-    cursor: pointer;
+    cursor: zoom-in;
     @media (max-width: 1000px) {
         /* margin: 0; */
         /* width: ${props=> props.imageQuantity > 1 ? `calc(${props.width} * 90vw)` : 'auto'}; */
@@ -141,6 +141,9 @@ export const PostFooterContainer = styled.div`
     display: flex;
     justify-content: space-evenly;
     margin: 100px 0;
+    @media (max-width: 500px) {
+        flex-direction: column;
+    }
 `
 
 export const ButtonLabelContainer = styled.div`
@@ -148,6 +151,9 @@ export const ButtonLabelContainer = styled.div`
     flex-direction: column;
     align-items: center;
     cursor: pointer;
+    @media (max-width: 500px) {
+        margin-bottom: 45px;
+    }
 `
 
 export const ButtonLabel = styled.div`
@@ -161,11 +167,18 @@ export const UserBioContainer = styled.div`
     justify-content: center;
     align-items: center;
     margin-bottom: 100px;
+    @media (max-width: 500px) {
+        flex-direction: column;
+    }
 `
 
 export const BioContainer = styled.div`
     display: flex;
     flex-direction: column;
+    @media (max-width: 500px) {
+        justify-content: center;
+        align-items: center;
+    }
 `
 
 export const ProfileImage = styled.img`
@@ -188,8 +201,11 @@ export const BioName = styled.div`
 `
 
 export const Bio = styled.div`
-    max-width: 30vw;
+    /* max-width: 30vw; */
     color: #4D4D4D;
+    @media (min-width: 500px) {
+        width: 350px;
+    }
 `
 
 export const FeaturedPostContainer = styled.div`
