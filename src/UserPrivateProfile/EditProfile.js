@@ -86,7 +86,7 @@ const EditProfile = (props) => {
         const image = document.getElementById('edit-profile-image').src
         if(image !== props.userData.profileImage){
             const storageRef = firebase.storage().ref()
-            const imageRef = storageRef.child(`${props.user}/${fileName}`)
+            const imageRef = storageRef.child(`${props.userInformation.id}/${fileName}`)
             imageRef.putString(image, 'data_url')
             .then(snapshot=> {
                 snapshot.ref.getDownloadURL()

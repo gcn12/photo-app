@@ -1,12 +1,16 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+    /* max-height: 90vh; */
     display: grid;
-    grid-gap: 10px;
-    grid-template-columns: repeat(auto-fill, minmax(400px,1fr));
-    grid-auto-rows: 200px;
+    grid-template-columns: repeat(3, 1fr);
+    object-fit: contain;
+
 `
 
 export const Image = styled.img`
-    width: 400px;
+    /* width: auto;
+    height: auto; */
+    max-width: 200px;
+    max-height: 400px;
 `

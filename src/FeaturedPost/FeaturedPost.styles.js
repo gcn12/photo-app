@@ -233,7 +233,7 @@ export const MainImage = styled.img`
     max-width: 90vw;
     /* display: block; */
     display: ${props=>props.display};
-    /* animation: ${fadeIn} 1s; */
+    animation: ${fadeIn} 1s;
 `
 
 export const PlaceholderImage = styled.img`

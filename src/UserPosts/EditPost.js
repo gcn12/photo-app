@@ -332,7 +332,7 @@ const EditPost = (props) => {
             if(index < imagesIndexMapValues.length){
                 const random = Math.round(Math.random()*1000000)
                 const storageRef = firebase.storage().ref()
-                const picRef = storageRef.child(`${postData.username}/${postData.url}/${imagesIndexMapValues[index].name}${random}`)
+                const picRef = storageRef.child(`${props.userInformation.id}/${postData.url}/${imagesIndexMapValues[index].name}${random}`)
                 const file = imagesIndexMapValues[index]
                 setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                 picRef.putString(file, 'data_url')

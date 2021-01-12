@@ -315,7 +315,6 @@ const FeaturedPost = (props) => {
                 :
                 null
                 }
-                {/* <SubmitButton onClick={()=>props.history.goBack()}>Back</SubmitButton> */}
                 {isAddToCollection ? 
                 <div>
                     <PopupDarken />
@@ -484,25 +483,7 @@ const FeaturedPost = (props) => {
                 <div style={{backgroundColor: '#fcfcfc', padding: '20px 0'}}>
                     <KeepReading history={props.history} photoInformation={props?.photoInformation} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} />
                 </div>
-                {/* <HorizontalGallery 
-                history={props.history}
-                getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
-                getPost={getPost}
-                getCountries={getCities} 
-                placeName={props?.city} 
-                place={'city'} 
-                title={props.photoInformation?.city} 
-                photos={cityPhotos} 
-                />
-                <HorizontalGallery 
-                    history={props.history}
-                    getFeaturedPhotoInfo={props.getFeaturedPhotoInfo}
-                    getPost={getPost}
-                    placeName={props.photoInformation?.country} 
-                    place={'country'} 
-                    title={props.photoInformation?.country} 
-                    photos={countryPhotos} 
-                /> */}
+
             </FeaturedPostContainer>
         </div>
     )

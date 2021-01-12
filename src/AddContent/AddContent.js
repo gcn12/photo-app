@@ -472,65 +472,59 @@ const AddContent = (props) => {
         url = url.join('-')
         url = url.toLowerCase()
         // const random = Math.round(Math.random()*1000000)
-        db.collection('users')
-        .doc(props.user)
-        .get()
-        .then(userData=> {
-            const username = userData.data().username
 
-            let photoIndexes = []
-            let fileArray = []
-            const photoUrlArraySortedSmall = []
-            const photoUrlArraySortedLarge = []
-            for (let i = 0; i < filesLarge.length; i++) {
-                fileArray = [...fileArray, ...filesLarge[i]]
-                if(i !== 0){
-                    photoUrlArraySortedSmall.push([])
-                    photoUrlArraySortedLarge.push([])
-                    for(let j = 0; j<filesLarge[i].length; j++) {
-                        photoIndexes.push(i-1)
-                    }
+        let photoIndexes = []
+        let fileArray = []
+        const photoUrlArraySortedSmall = []
+        const photoUrlArraySortedLarge = []
+        for (let i = 0; i < filesLarge.length; i++) {
+            fileArray = [...fileArray, ...filesLarge[i]]
+            if(i !== 0){
+                photoUrlArraySortedSmall.push([])
+                photoUrlArraySortedLarge.push([])
+                for(let j = 0; j<filesLarge[i].length; j++) {
+                    photoIndexes.push(i-1)
                 }
             }
-            for (let i = 0; i < filesLarge.length; i++) {
-                fileArray = [...fileArray, ...filesSmall[i]]
+        }
+        for (let i = 0; i < filesLarge.length; i++) {
+            fileArray = [...fileArray, ...filesSmall[i]]
+        }
+        fileArray = [...fileArray, filesSmallest]
+        setUploadCount(uploadCount => uploadCount + fileArray.length)
+        const urlArray = []
+        let index = []
+        let indexNum = 0
+        setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+        const upload = () => {
+            if(indexNum<fileArray.length) {
+                const random = Math.round(Math.random()*1000000)
+                const file = fileArray[indexNum]
+                firebase.storage().ref()
+                .child(`${props.userInformation.id}/${url}/${fileNames[indexNum]}${random}`)
+                .putString(file, 'data_url')
+                .then(snapshot => {
+                    setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
+                    snapshot.ref.getDownloadURL()
+                    .then(downloadURL => {
+                        urlArray.push(downloadURL)  
+                        indexNum++ 
+                        index.push(downloadURL) 
+                    }).then((downloadURL)=> {
+                        // setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+                        if(urlArray.length===fileArray.length) {
+                            submit(photoUrlArraySortedSmall, photoUrlArraySortedLarge, [...urlArray], photoIndexes, imageSizeArray, itemsToUploadData, filesIndex)
+                        }else{
+                            upload()
+                        }
+                    })
+                    .catch(error => console.log(error))
+                });
+            }else{
+                return
             }
-            fileArray = [...fileArray, filesSmallest]
-            setUploadCount(uploadCount => uploadCount + fileArray.length)
-            const urlArray = []
-            let index = []
-            let indexNum = 0
-            setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-            const upload = () => {
-                if(indexNum<fileArray.length) {
-                    const random = Math.round(Math.random()*1000000)
-                    const file = fileArray[indexNum]
-                    firebase.storage().ref()
-                    .child(`${username}/${url}/${fileNames[indexNum]}${random}`)
-                    .putString(file, 'data_url')
-                    .then(snapshot => {
-                        setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
-                        snapshot.ref.getDownloadURL()
-                        .then(downloadURL => {
-                            urlArray.push(downloadURL)  
-                            indexNum++ 
-                            index.push(downloadURL) 
-                        }).then((downloadURL)=> {
-                            // setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-                            if(urlArray.length===fileArray.length) {
-                                submit(photoUrlArraySortedSmall, photoUrlArraySortedLarge, [...urlArray], photoIndexes, imageSizeArray, itemsToUploadData, filesIndex)
-                            }else{
-                                upload()
-                            }
-                        })
-                        .catch(error => console.log(error))
-                    });
-                }else{
-                    return
-                }
-            }
-            upload()
-        })
+        }
+        upload()
     }
 
 
