@@ -14,7 +14,7 @@ import firebase from 'firebase'
 import { PopupDarken } from '../Styles/PopupStyles.styles'
 import { connect } from 'react-redux'
 import { photoInformation } from '../Redux/Actions/appActions'
-import { isVisible, isPostVisible } from '../Redux/Actions/featuredPostActions'
+import { isVisible } from '../Redux/Actions/featuredPostActions'
 import AddToCollection from './AddToCollection'
 import EnlargeImage from './EnlargeImage'
 import KeepReading from './KeepReading'
@@ -122,7 +122,7 @@ const FeaturedPost = (props) => {
         .get()
         .then(data=> {
             let post = data.docs[0].data()
-            getImageSize(post.smallImage)
+            getImageSize(post.smallestImage)
             props.dispatch(photoInformation(post))
             // window.scrollTo({top: 0})
             firebase.auth().onAuthStateChanged((user)=> {

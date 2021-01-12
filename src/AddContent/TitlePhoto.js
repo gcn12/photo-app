@@ -37,6 +37,8 @@ const TitlePhoto = (props) => {
                 let finalWidthLarge
                 let finalHeightSmall
                 let finalWidthSmall
+                let finalHeightSmallest
+                let finalWidthSmallest
                 if(height > 650 || width > 650) {
                     if (height >= width) {
                         finalWidthSmall = Math.round(ratio * 650)
@@ -85,6 +87,38 @@ const TitlePhoto = (props) => {
                 const filesLargeCopy = props.filesLarge
                 filesLargeCopy[0] = [imageSrcLarge]
                 props.setFilesLarge(filesLargeCopy)
+
+
+
+
+
+
+
+
+                if(height > 250 || width > 250) {
+                    if (height >= width) {
+                        finalHeightSmallest = 250
+                        finalWidthSmallest = Math.round(ratio * 250)
+                    }else {
+                        finalWidthSmallest= 250
+                        finalHeightSmallest = Math.round(ratio * 250)
+                    }
+                }else{
+                    finalHeightSmallest = height
+                    finalWidthSmallest = width
+                }
+                let canvasSmallest = document.createElement('canvas'), ctx3;
+                canvasSmallest.width = finalWidthSmallest;
+                canvasSmallest.height = finalHeightSmallest;
+                ctx3 = canvasSmallest.getContext('2d');
+                ctx3.drawImage(uploadedImage, 0, 0, canvasSmallest.width, canvasSmallest.height);
+                const imageSrcSmallest = canvasSmallest.toDataURL('image/jpeg', 1)
+
+                props.setFileNames(fileName)
+
+                // const filesSmallestCopy = props.filesSmallest
+                // filesSmallestCopy[0] = [imageSrcSmallest]
+                props.setFilesSmallest(imageSrcSmallest)
             }
         }
         viewFile.readAsDataURL(file)

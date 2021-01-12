@@ -237,6 +237,7 @@ const AddContent = (props) => {
     const [fontProceed, setFontProceed] = useState(true)
     const [isDuplicate, setIsDuplicate] = useState(false)
     const [numberCharacters, setNumberCharacters] = useState(100)
+    const [filesSmallest, setFilesSmallest] = useState([])
     const [filesSmall, setFilesSmall] = useState([])
     const [filesLarge, setFilesLarge] = useState([])
     const [fileNames, setFileNames] = useState([])
@@ -298,9 +299,10 @@ const AddContent = (props) => {
     
         let mainImage
         let mainImageSmall
+        let mainImageSmallest = unsortedImages[unsortedImages.length-1]
     
-        let unsortedImagesLarge = unsortedImages.slice(0, unsortedImages.length/2)
-        let unsortedImagesSmall = unsortedImages.slice(unsortedImages.length / 2)
+        let unsortedImagesLarge = unsortedImages.slice(0, (unsortedImages.length-1)/2)
+        let unsortedImagesSmall = unsortedImages.slice((unsortedImages.length-1) / 2)
 
         for(let i=0; i<unsortedImagesLarge.length; i++) {
             if(i === 0) {
@@ -314,6 +316,12 @@ const AddContent = (props) => {
                 }
             }
         }
+
+        console.log(mainImage)
+        console.log(mainImageSmall)
+        console.log(mainImageSmallest)
+        console.log(unsortedImagesLarge)
+        console.log(unsortedImagesSmall)
 
         const createID = () => {
             let postID = ''
@@ -386,6 +394,7 @@ const AddContent = (props) => {
                                     previewDescription,
                                     smallImage: mainImageSmall,
                                     image: mainImage,
+                                    smallestImage: mainImageSmallest,
                                     category,
                                     city,
                                     country,
@@ -415,6 +424,7 @@ const AddContent = (props) => {
                                             author: name,
                                             previewDescription,
                                             smallImage: mainImageSmall,
+                                            smallestImage: mainImageSmallest,
                                             title,
                                             image: mainImage,
                                             category,
@@ -485,6 +495,7 @@ const AddContent = (props) => {
             for (let i = 0; i < filesLarge.length; i++) {
                 fileArray = [...fileArray, ...filesSmall[i]]
             }
+            fileArray = [...fileArray, filesSmallest]
             setUploadCount(uploadCount => uploadCount + fileArray.length)
             const urlArray = []
             let index = []
@@ -717,15 +728,14 @@ const AddContent = (props) => {
             null
             :
             <div>
-
-            <NextButton proceed={1} width='130px' onClick={()=>props.history.goBack()}>Back</NextButton>
-            <Scroll scrollHeight='90vh' visibility={animationMap.preview[previewProps].opacity}>
-                <Preview previewImageSizeRatio={previewImageSizeRatio} previewImages={previewImages} filesSmall={filesSmall} itemsToUploadData={itemsToUploadData} font={font} isImageHorizontal={isImageHorizontal} imageSizeRatio={imageSizeRatio} bodyImages={bodyImages} bodyContent={bodyContent} filesLarge={filesLarge} previewProps={previewProps} animationMap={animationMap}></Preview>
-            </Scroll>
+                <NextButton proceed={1} width='130px' onClick={()=>props.history.goBack()}>Back</NextButton>
+                <Scroll scrollHeight='90vh' visibility={animationMap.preview[previewProps].opacity}>
+                    <Preview previewImageSizeRatio={previewImageSizeRatio} previewImages={previewImages} filesSmall={filesSmall} itemsToUploadData={itemsToUploadData} font={font} isImageHorizontal={isImageHorizontal} imageSizeRatio={imageSizeRatio} bodyImages={bodyImages} bodyContent={bodyContent} filesLarge={filesLarge} previewProps={previewProps} animationMap={animationMap}></Preview>
+                </Scroll>
             </div>
             }
             <Scroll scrollHeight='90vh' visibility={animationMap.titlePhoto[titlePhotoProps].opacity}>
-                <TitlePhoto fileNames={fileNames} setFileNames={setFileNames}  filesLarge={filesLarge} filesSmall={filesSmall} setFilesLarge={setFilesLarge} setFilesSmall={setFilesSmall} isDuplicate={isDuplicate} setTitlePhotoProceed={setTitlePhotoProceed} setIsImageHorizontal={setIsImageHorizontal} animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} titlePhotoProps={titlePhotoProps}/>
+                <TitlePhoto setFilesSmallest={setFilesSmallest} fileNames={fileNames} setFileNames={setFileNames}  filesLarge={filesLarge} filesSmall={filesSmall} setFilesLarge={setFilesLarge} setFilesSmall={setFilesSmall} isDuplicate={isDuplicate} setTitlePhotoProceed={setTitlePhotoProceed} setIsImageHorizontal={setIsImageHorizontal} animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} titlePhotoProps={titlePhotoProps}/>
             </Scroll>
             <Scroll scrollHeight='90vh' visibility={animationMap.categoryLocation[categoryLocationProps].opacity}>
                 <CategoryLocation setCategoryLocationProceed={setCategoryLocationProceed} animationMap={animationMap} categoryLocation={categoryLocationProps}/>
