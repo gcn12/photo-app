@@ -26,7 +26,8 @@ export const Image = styled.img`
     width: auto;
     max-height: 92vh;
     max-width: 92vw;
-    display: block;
+    overflow: visible;
+    /* display: block; */
 `
 
 export const Placeholder = styled.div`
