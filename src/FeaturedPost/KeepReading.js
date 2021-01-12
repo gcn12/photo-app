@@ -4,6 +4,8 @@ import PublicProfilePosts from '../PublicProfile/PublicProfilePosts'
 import {
     PostsContainer,
     Text,
+    MoreFromContainer,
+    ContentContainer,
 } from './KeepReading.styles'
 
 const KeepReading = (props) => {
@@ -64,11 +66,11 @@ const KeepReading = (props) => {
                 <Text size='40px' weight='600'>Keep reading</Text>
             </div>
             {userPosts.length > 0 ? 
-            <div style={{margin: '0 15% 20px 15%'}}>
-                <div style={{display: 'flex'}}>
+            <ContentContainer>
+                <MoreFromContainer>
                     <Text size='20px' weight='400'>More from</Text>
                     <Text size='20px' weight='600'>&nbsp;{props?.photoInformation?.username}</Text>
-                </div>
+                </MoreFromContainer>
                 {/* <div style={{display: 'flex', justifyContent: 'center'}}> */}
                     <PostsContainer>
                         {userPosts.map((post, index) => {
@@ -78,7 +80,7 @@ const KeepReading = (props) => {
                         })}
                     </PostsContainer>
                 {/* </div> */}
-            </div>
+            </ContentContainer>
             :
             null
             }

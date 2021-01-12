@@ -205,6 +205,7 @@ export const Bio = styled.div`
     color: #4D4D4D;
     @media (min-width: 500px) {
         width: 350px;
+        margin: 5%;
     }
 `
 

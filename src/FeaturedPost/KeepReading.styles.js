@@ -2,19 +2,36 @@ import styled from 'styled-components'
 
 export const PostsContainer = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    /* grid-template-columns: repeat(3, auto); */
+    /* grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); */
+    grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 30px;
-    /* margin: 0 10% 20px 10%; */
     justify-items: center;
     justify-content: center;
 
-    @media(max-width: 700px) {
-        margin: 100px 50px 0 50px;
+    @media(max-width: 900px) {
+        margin: 0px 10px 0 10px;
+        grid-template-columns: repeat(2, 1fr);
     }
 `
 
 export const Text = styled.div`
     font-size: ${props=>props.size};
     font-weight: ${props=>props.weight};
+`
+
+export const MoreFromContainer = styled.div`
+    display: flex;
+    @media(max-width: 700px) {
+        justify-content: center;
+    }
+`
+
+export const ContentContainer = styled.div`
+    margin: 0 5%;
+    @media (max-width: 900px) {
+        margin: 0 15%;
+    }
+    @media (max-width: 600px) {
+        margin: 0 5%;
+    }
 `
