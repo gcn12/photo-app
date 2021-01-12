@@ -49,7 +49,7 @@ export const Navigation = styled.div`
     text-decoration: none;
     white-space: nowrap;
     cursor: ${props=>props.cursor};
-    font-size: 22px;
+    font-size: 25px;
     margin: 0 5px;
     &:hover{
         color: #4a4a4a
@@ -58,7 +58,7 @@ export const Navigation = styled.div`
 
 export const HeaderRight = styled.div`
     display: flex;
-    align-items: flex-start;
+    /* align-items: flex-start; */
     @media(max-width: 550px){
         visibility: hidden;
         display: none;

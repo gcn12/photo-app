@@ -317,12 +317,6 @@ const AddContent = (props) => {
             }
         }
 
-        console.log(mainImage)
-        console.log(mainImageSmall)
-        console.log(mainImageSmallest)
-        console.log(unsortedImagesLarge)
-        console.log(unsortedImagesSmall)
-
         const createID = () => {
             let postID = ''
             let alpha1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -373,7 +367,6 @@ const AddContent = (props) => {
                         .doc(props.user)
                         .get()
                         .then(data=> {
-                            // setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
                             const username = data.data()['username']
                             db.collection('continents-countries').doc('map').collection(country)
                             .where(country, 'in', ['North America', 'South America', 'Asia', 'Europe', 'Oceania', 'Africa'])
@@ -408,7 +401,6 @@ const AddContent = (props) => {
                                     username,
                                     userID: props.userInformation.id,
                                 }).then(docRef => {
-                                    // setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                                     db.collection('posts').doc(docRef.id).set({
                                         id: docRef.id,
                                     }, {merge: true}) 
@@ -510,8 +502,6 @@ const AddContent = (props) => {
                         urlArray.push(downloadURL)  
                         indexNum++ 
                         index.push(downloadURL) 
-                    }).then((downloadURL)=> {
-                        // setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                         if(urlArray.length===fileArray.length) {
                             submit(photoUrlArraySortedSmall, photoUrlArraySortedLarge, [...urlArray], photoIndexes, imageSizeArray, itemsToUploadData, filesIndex)
                         }else{
@@ -627,7 +617,6 @@ const AddContent = (props) => {
             }
             imagesArray.push(subArray)
         }
-        // setUploadCount(uploadCount => uploadCount + count)
         setBodyImages(imagesArray)
     }
 
@@ -673,7 +662,6 @@ const AddContent = (props) => {
                 setPreviewProps('transitionEnd')
                 fileUpload1(imageSizeRatio)
                 setUploadStatusProps('transitionStart')
-                // setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
                 setSwitchValue(7)
                 break
             default: 

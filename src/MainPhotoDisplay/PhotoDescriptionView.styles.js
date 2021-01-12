@@ -25,24 +25,6 @@ const fadeIn = keyframes`
     }
 `;
 
-export const Image = styled.img`
-    display: ${props=>props.display};
-    opacity: ${props=>props.opacity};
-    cursor: pointer;
-    margin-bottom: 10px;
-    object-fit: cover;
-    width: 100%;
-    min-width: 320px;
-    max-width: 400px;
-    height: 250px;
-    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .3);
-    transition: box-shadow 300ms ease-in-out, opacity 400ms ease-in-out;
-    &:hover {
-        box-shadow: 0 7px 7px 0 rgba(0, 0, 0, .5);
-    }
-    animation: ${fadeIn} 1s;
-`
-
 export const Description = styled.div`
     /* text-align: justify; */
     font-size: 17px;
@@ -92,6 +74,8 @@ export const Title = styled.div`
     cursor: pointer;
     font-size: 30px;
     font-weight: 500;
+    text-decoration: none;
+    color: #242424;
     /* width: 120px; */
     /* padding: 0 5%; */
     &:hover{
@@ -116,16 +100,35 @@ export const Ellipsis = styled.div`
     font-size: 20px;
 `
 
-export const PlaceholderImage = styled.div`
+export const ImageLinkContainer = styled.div`
     display: ${props=>props.display};
+    opacity: ${props=>props.opacity};
+`
+
+export const Image = styled.img`
     cursor: pointer;
     margin-bottom: 10px;
     object-fit: cover;
     width: 100%;
-    min-width: 320px;
-    max-width: 400px;
+    /* min-width: 320px;
+    max-width: 400px; */
     height: 250px;
-    opacity: ${props=>props.opacity};
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .3);
+    transition: box-shadow 300ms ease-in-out, opacity 400ms ease-in-out;
+    &:hover {
+        box-shadow: 0 7px 7px 0 rgba(0, 0, 0, .5);
+    }
+    animation: ${fadeIn} 1s;
+`
+
+export const PlaceholderImage = styled.div`
+    cursor: pointer;
+    margin-bottom: 10px;
+    object-fit: cover;
+    width: 100%;
+    /* min-width: 320px;
+    max-width: 400px; */
+    height: 250px;
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .3);
     transition: box-shadow 300ms ease-in-out;
     &:hover {

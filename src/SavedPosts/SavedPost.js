@@ -12,6 +12,7 @@ import {
     Description,
     ImageTextContainer,
     More,
+    ContentContainer,
 } from './SavedPost.styles'
 import { PopupDarken } from '../Styles/PopupStyles.styles'
 
@@ -57,25 +58,25 @@ const SavedPost = (props) => {
             null
             }
             <ImageTextContainer>
-            <Link to={`/photo-app/post/${props.post.postID}`}>
-                <Image onLoad={()=>setIsVisible(true)} src={props.post.smallImage} />
-            </Link>
-            <div style={{display: 'flex', alignItems: 'start'}}>
-                <div>
-                    <Link to={`/photo-app/post/${props.post.postID}/`} style={{textDecoration: 'none'}}>
-                        <Title>{props.post.title}</Title>
-                    </Link>
-                    <Description>{props.post.previewDescription}</Description>
+                <Link to={`/photo-app/post/${props.post.postID}`}>
+                    <Image onLoad={()=>setIsVisible(true)} src={props.post.smallImage} />
+                </Link>
+                <div style={{display: 'flex', alignItems: 'start'}}>
+                    <ContentContainer>
+                        <Link to={`/photo-app/post/${props.post.postID}/`} style={{textDecoration: 'none'}}>
+                            <Title>{props.post.title}</Title>
+                        </Link>
+                        <Description>{props.post.previewDescription}</Description>
+                    </ContentContainer>
+                    <div style={{position: 'relative'}}>
+                        <More onClick={()=> setShowDropdown(!showDropdown)} className='add-dropdown'>&#8942;</More>
+                        {showDropdown ? 
+                        <AddDropdown openAddToCollection={openAddToCollection} setShowDropdown={setShowDropdown} isRemoveFromSavedPage={true} index={props.index} removeFromSavedPostArray={removeFromSavedPostArray} translateContainer='translate(-90%, 5%)' setCollectionsList={setCollectionsList} id={props.post.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.post} />
+                        :
+                        null
+                        }
+                    </div>
                 </div>
-                <div style={{position: 'relative'}}>
-                    <More onClick={()=> setShowDropdown(!showDropdown)} className='add-dropdown'>&#8942;</More>
-                    {showDropdown ? 
-                    <AddDropdown openAddToCollection={openAddToCollection} setShowDropdown={setShowDropdown} isRemoveFromSavedPage={true} index={props.index} removeFromSavedPostArray={removeFromSavedPostArray} translateContainer='translate(-90%, 5%)' setCollectionsList={setCollectionsList} id={props.post.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.post} />
-                    :
-                    null
-                    }
-                </div>
-            </div>
             </ImageTextContainer>
         </Container>
     )

@@ -89,11 +89,16 @@ export const Bio = styled.div`
 `
 
 export const EditButton = styled.button`
-    /* height: 140px;
-    width: 180px;
-    font-size: 20px;
+    height: auto;
+    width: auto;
     background-color: transparent;
     border-radius: 5px;
     border: 1px solid black;
-    cursor: pointer; */
+    padding: 5px 10px;
+    cursor: pointer; 
+    /* height: 140px;
+    width: 180px;
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: transparent; */
 `

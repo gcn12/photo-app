@@ -202,10 +202,14 @@ export const BioName = styled.div`
 
 export const Bio = styled.div`
     /* max-width: 30vw; */
+    width: 400px;
     color: #4D4D4D;
-    @media (min-width: 500px) {
+    font-weight: 500;
+    @media (max-width: 500px) {
         width: 350px;
-        margin: 5%;
+        margin: 2% 5%;
+        vertical-align: middle; 
+        text-align: center;
     }
 `
 
@@ -233,11 +237,11 @@ export const MainImage = styled.img`
     max-width: 90vw;
     /* display: block; */
     display: ${props=>props.display};
-    -webkit-animation: ${fadeIn} 1s; 
+    /* -webkit-animation: ${fadeIn} 1s; 
     -moz-animation: ${fadeIn} 1s; 
     -ms-animation: ${fadeIn} 1s; 
     -o-animation: ${fadeIn} 1s; 
-    animation: ${fadeIn} 1s;
+    animation: ${fadeIn} 1s; */
 `
 
 export const PlaceholderImage = styled.img`

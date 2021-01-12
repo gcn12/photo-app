@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { db } from '../Firebase'
-import { incrementViewCount } from '../Functions' 
-import { photoInformation } from '../Redux/Actions/appActions'
-import { isVisible } from '../Redux/Actions/featuredPostActions'
+// import { incrementViewCount } from '../Functions' 
+// import { photoInformation } from '../Redux/Actions/appActions'
+// import { isVisible } from '../Redux/Actions/featuredPostActions'
 import AddDropdown from './AddDropdown'
 import AddToCollection from '../FeaturedPost/AddToCollection'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
 import { PopupDarken } from '../Styles/PopupStyles.styles'
 import '../App.css'
@@ -21,6 +22,7 @@ import {
     Ellipsis,
     Category,
     PlaceholderImage,
+    ImageLinkContainer,
     // Name,
     // LocationNameContainer,
 } from './PhotoDescriptionView.styles'
@@ -53,18 +55,18 @@ const PhotoDescriptionView = (props) => {
         }
     }
 
-    const goToPost = () => {
-        props.dispatch(isVisible(false))
-        props.dispatch(photoInformation(props.photoInfo))
-        props.getFeaturedPhotoInfo(props.photoInfo.postID)
-        // window.scrollTo({top: 0})
-        // props.history.push(`/photo-app/post/${props.photoInfo.postID}`)
-        db.collection('preview-posts').where('image', '==', props.photoInfo.image)
-        .get()
-        .then(reference=> {
-            incrementViewCount(reference.docs[0].ref.id)
-        })
-    } 
+    // const goToPost = () => {
+    //     props.dispatch(isVisible(false))
+    //     props.dispatch(photoInformation(props.photoInfo))
+    //     props.getFeaturedPhotoInfo(props.photoInfo.postID)
+    //     // window.scrollTo({top: 0})
+    //     // props.history.push(`/photo-app/post/${props.photoInfo.postID}`)
+    //     db.collection('preview-posts').where('image', '==', props.photoInfo.image)
+    //     .get()
+    //     .then(reference=> {
+    //         incrementViewCount(reference.docs[0].ref.id)
+    //     })
+    // } 
     
     window.onclick = (e) => {
         if (!e.target.matches('.add-dropdown')) {
@@ -101,8 +103,16 @@ const PhotoDescriptionView = (props) => {
                 :
                 null
                 }
-                <PlaceholderImage className='shine' onClick={goToPost} onLoad={whenLoaded} display={showPost ? 'none' : 'initial'} opacity={showPost ? 0 : 1} />
-                <Image onClick={goToPost} display={showPost ? 'initial' : 'none'} onLoad={whenLoaded} opacity={showPost ? 1 : 0} src={props.photoInfo.smallImage} />
+                <ImageLinkContainer display={showPost ? 'none' : 'initial'} opacity={showPost ? 0 : 1}>
+                    <Link to={`/photo-app/post/${props.photoInfo.postID}`}>
+                        <PlaceholderImage className='shine' onLoad={whenLoaded} />
+                    </Link>
+                </ImageLinkContainer>
+                <ImageLinkContainer display={showPost ? 'initial' : 'none'} opacity={showPost ? 1 : 0}>
+                    <Link to={`/photo-app/post/${props.photoInfo.postID}`}>
+                        <Image onLoad={whenLoaded} src={props.photoInfo.smallImage} />
+                    </Link>
+                </ImageLinkContainer>
                 <BookmarkLocationContainer>
                     <div style={{display: 'flex', alignItems: 'center'}}>
                         <Location>{`${props.photoInfo.city}, ${props.photoInfo.country}`}</Location>
@@ -120,7 +130,10 @@ const PhotoDescriptionView = (props) => {
                     </div>
                 </BookmarkLocationContainer>
                 {/* <Name>{props.photoInfo.author}</Name> */}
-                <Title onClick={goToPost} id={`description-view-title-${props.index}`}>{props.photoInfo.title}</Title>
+                <Link to={`/photo-app/post/${props.photoInfo.postID}`} style={{textDecoration: 'none'}}>
+                    {/* <Title onClick={goToPost} id={`description-view-title-${props.index}`}>{props.photoInfo.title}</Title> */}
+                    <Title id={`description-view-title-${props.index}`}>{props.photoInfo.title}</Title>
+                </Link>
                 <Description>{props.photoInfo.previewDescription}</Description>
             </Card>
         </Container>

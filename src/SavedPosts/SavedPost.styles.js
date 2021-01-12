@@ -12,9 +12,26 @@ export const Container = styled.div`
 `
 
 export const ImageTextContainer = styled.div`
-    width: 50vw;
+    width: 600px;
     display: flex;
     align-items: flex-end;
+    @media (max-width: 600px) {
+        flex-direction: column;
+        align-items: center;
+        padding: 0 10%;
+    }
+`
+
+export const ContentContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    @media (min-width: 600px) {
+        align-items: flex-start;
+    }
+    @media (max-width: 600px) {
+        /* flex-direction: column; */
+        justify-content: center;
+    }
 `
 
 export const Image = styled.img`

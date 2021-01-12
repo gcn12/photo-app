@@ -57,7 +57,7 @@ const EditPost = (props) => {
     const [imagesToUploadLarge, setImagesToUploadLarge] = useState({})
 
     const newImage = () => {
-        const filesArrayCopy = filesArray
+        const filesArrayCopy = [...filesArray]
         filesArrayCopy.push([])
         setFilesArray(filesArrayCopy)
         const copy = {...postData}
@@ -75,7 +75,7 @@ const EditPost = (props) => {
         const copy = {...postData}
         if(isAddImage) {
             setIsTooManyImages(false)
-            const filesArrayCopy = filesArray
+            const filesArrayCopy = [...filesArray]
             filesArrayCopy.pop()
             setFilesArray(filesArrayCopy)
             const photoBodyMap = copy.photoBodyMap
@@ -291,11 +291,11 @@ const EditPost = (props) => {
     const fileUpload = () => {
         setIsUploading(true)
         setShowCancel(false)
-        filesArray.forEach(files=> {
-            if(files?.length > 0) {
-                setUploadCount(uploadCount => uploadCount + files.length)
-            }
-        })
+        // filesArray.forEach(files=> {
+        //     if(files?.length > 0) {
+        //         setUploadCount(uploadCount => uploadCount + files.length)
+        //     }
+        // })
         setTimeout(()=>setUploadStatusProps('transitionStart'), 400)
         setTimeout(()=>setUploadProgress(previousUploadProgress=> previousUploadProgress + 1), 200)
         upload2()
@@ -325,6 +325,8 @@ const EditPost = (props) => {
             }
             imagesIndexMapValues = [...imagesIndexMapValues, ...allLargeFiles]
         }
+        setUploadCount(uploadCount => uploadCount + imagesIndexMapValues.length)
+        // setUploadProgress(previousUploadProgress=> previousUploadProgress + imagesIndexMapValues.length)
 
         let index = 0
         let finalArray = []
@@ -420,18 +422,21 @@ const EditPost = (props) => {
         const previewPostUpdate = {}
 
         
-        const postDataValues = Object.values(postData.dataObj)
-        const originalDataValues = Object.values(props.postData[0].dataObj)
-
-        if (postDataValues.length !== originalDataValues.length) {
-            fullPostUpdate['dataObj'] = postData.dataObj
-        }else{
-            originalDataValues.forEach((item, index) => {
-                if (item[1] !== postDataValues[index][1]) {
-                    fullPostUpdate['dataObj'] = postData.dataObj
-                }
-            })
-        }
+        // const postDataValues = Object.values(postData.dataObj)
+        // const originalDataValues = Object.values(props.postData[0].dataObj)
+        // console.log(postDataValues)
+        // console.log(originalDataValues)
+        // if (postDataValues.length !== originalDataValues.length) {
+        //     fullPostUpdate['dataObj'] = postData.dataObj
+        // }else{
+        //     originalDataValues.forEach((item, index) => {
+        //         if (item[1] !== postDataValues[index][1]) {
+        //             fullPostUpdate['dataObj'] = postData.dataObj
+        //         }
+        //     })
+        // }
+        // console.log(fullPostUpdate)
+        fullPostUpdate['dataObj'] = postData.dataObj
         if(Object.keys(imagesSmallObj)?.length > 0) {
             const imagesFinalSmall = {...postData.imagesSmall, ...imagesSmallObj}
             const imagesFinalLarge = {...postData.imagesLarge, ...imagesLargeObj}
@@ -485,7 +490,6 @@ const EditPost = (props) => {
             .update({
                 ...fullPostUpdate
             }).then(()=> {
-                // setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                 db.collection('preview-posts')
                 .where('username', '==', postData.username)
                 .where('url', '==', postData.url)

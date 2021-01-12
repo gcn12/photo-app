@@ -141,15 +141,18 @@ const Header = (props) => {
                 <SearchDropdown  />
                 <Container>
                     <UL>
-                        <Link onClick={getAssortedAndDropOpacity} to='/photo-app/posts/popular' style={{ textDecoration: 'none' }}>
-                            <LI>Wall</LI>
-                        </Link>
-                        <Link to='/photo-app/discover' style={{ textDecoration: 'none' }}>
-                            <LI>Discover</LI>
-                        </Link>
+                        <LI>
+                            <Link onClick={getAssortedAndDropOpacity} to='/photo-app/posts/popular' style={{ textDecoration: 'none', color: '#242424' }}>
+                                Wall
+                            </Link>
+                        </LI>
+                        <LI>
+                            <Link to='/photo-app/discover' style={{ textDecoration: 'none', color: '#242424' }}>
+                                Discover
+                            </Link>
+                        </LI>
                     </UL>
-                    <Search 
-                    search={props.search} history={props.history} location={props.location} />
+                    <Search search={props.search} history={props.history} location={props.location} />
                     <IconContainer>
                         <SearchIcon onClick={startSearchTransition} style={{transform: 'scale(1)'}}></SearchIcon>
                     </IconContainer>
