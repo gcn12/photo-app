@@ -233,6 +233,10 @@ export const MainImage = styled.img`
     max-width: 90vw;
     /* display: block; */
     display: ${props=>props.display};
+    -webkit-animation: ${fadeIn} 1s; 
+    -moz-animation: ${fadeIn} 1s; 
+    -ms-animation: ${fadeIn} 1s; 
+    -o-animation: ${fadeIn} 1s; 
     animation: ${fadeIn} 1s;
 `
 
