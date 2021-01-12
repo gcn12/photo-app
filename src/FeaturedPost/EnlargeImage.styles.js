@@ -17,8 +17,9 @@ export const Image = styled.img`
     left: 50%;
     top: 50%;
     /* transform: translate(-50%, -50%); */
-    transition: transform 600ms ease-in-out, opacity 550ms ease-in-out;
-    transform: translate(-50%, -50%) ${props=>props.scale};
+    /* transition: transform 600ms ease-in-out, opacity 550ms ease-in-out; */
+    /* transform: translate(-50%, -50%) ${props=>props.scale}; */
+    transform: translate(-50%, -50%);
     opacity: ${props=>props.opacity};
     object-fit: contain;
     height: auto;

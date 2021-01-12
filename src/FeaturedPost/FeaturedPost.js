@@ -309,7 +309,7 @@ const FeaturedPost = (props) => {
             style={{marginTop: '85px'}}>
                 {showImageEnlarged ? 
                 <div>
-                    <PopupDarken />
+                    <PopupDarken onClick={closeImage} />
                     <EnlargeImage closeImage={closeImage} setShowImageEnlarged={setShowImageEnlarged} image={imageToEnlarge} />
                 </div>
                 :
