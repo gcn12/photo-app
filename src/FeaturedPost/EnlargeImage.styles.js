@@ -20,6 +20,7 @@ export const Image = styled.img`
     transition: transform 600ms ease-in-out, opacity 550ms ease-in-out;
     transform: translate(-50%, -50%) ${props=>props.scale};
     opacity: ${props=>props.opacity};
+    object-fit: contain;
     height: auto;
     width: auto;
     max-height: 92vh;
