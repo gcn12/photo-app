@@ -5,6 +5,7 @@ import {
     // Placeholder,
     Image,
     Close,
+    ImageContainer,
 } from './EnlargeImage.styles'
 
 const EnlargeImage = (props) => {
@@ -20,9 +21,9 @@ const EnlargeImage = (props) => {
             }
             <Close onClick={props.closeImage}>&times;</Close>
             {/* <Placeholder opacity={showPlaceholder ? 0 : 1}></Placeholder> */}
-            <div style={{maxHeight: '92vw', maxWidth: '92vw'}}>
+            <ImageContainer>
                 <Image src={props.image} onLoad={()=>setShowPlaceholder(true)} opacity={showPlaceholder ? 1 : 0} scale={showPlaceholder ? 'scale(1)' : 'scale(.75)'} />
-            </div>
+            </ImageContainer>
         </Container>
     )
 }

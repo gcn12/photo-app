@@ -11,23 +11,23 @@ export const Container = styled.div`
 `
 
 export const Image = styled.img`
-    /* box-shadow: 0px 0px 1px 100vmax rgba(0,0,0,0.9); */
-    z-index: 4;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    /* transform: translate(-50%, -50%); */
-    /* transition: transform 600ms ease-in-out, opacity 550ms ease-in-out; */
-    /* transform: translate(-50%, -50%) ${props=>props.scale}; */
-    transform: translate(-50%, -50%);
-    opacity: ${props=>props.opacity};
+    /* opacity: ${props=>props.opacity}; */
+    /* max-height: 92vh;
+    max-width: 92vw; */
+    overflow: visible;
     object-fit: contain;
     height: auto;
     width: auto;
     max-height: 92vh;
     max-width: 92vw;
-    overflow: visible;
-    /* display: block; */
+`
+
+export const ImageContainer = styled.div`
+    z-index: 4;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 `
 
 export const Placeholder = styled.div`
