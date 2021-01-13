@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 export const Container = styled.div`
     /* z-index: 3;
@@ -10,12 +10,28 @@ export const Container = styled.div`
     position: relative;
 `
 
+const scaleIn = keyframes`
+    from { transform: scale(.9); }
+        to { transform: scale(1); }
+    }
+`;
+
+const fadeIn = keyframes`
+    from { opacity: .7; }
+        to { opacity: 1; }
+    }
+`;
+
 export const Image = styled.img`
     /* opacity: ${props=>props.opacity}; */
+
     /* max-height: 92vh;
     max-width: 92vw; */
+    /* transform: ${props=> props.scale};
+    transition: transform 300ms ease-in-out; */
     overflow: visible;
     /* object-fit: contain; */
+    animation: ${fadeIn} 2s, ${scaleIn} 1s ease-in-out;
     height: auto;
     width: auto;
     max-height: 92vh;
