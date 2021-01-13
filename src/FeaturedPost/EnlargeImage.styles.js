@@ -23,6 +23,7 @@ export const Image = styled.img`
 `
 
 export const ImageContainer = styled.div`
+    display: ${props=>props.display};
     z-index: 4;
     position: fixed;
     left: 50%;

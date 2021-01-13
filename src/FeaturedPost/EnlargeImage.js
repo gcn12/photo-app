@@ -14,14 +14,14 @@ const EnlargeImage = (props) => {
 
     return(
         <Container>
-            {showPlaceholder ? 
+            {/* {showPlaceholder ? 
             null
             :
             <SpinnerOnly spinnerColor='#f2f2f2' />
-            }
+            } */}
             <Close onClick={props.closeImage}>&times;</Close>
             {/* <Placeholder opacity={showPlaceholder ? 0 : 1}></Placeholder> */}
-            <ImageContainer>
+            <ImageContainer display={showPlaceholder ? 'initial' : 'none'}>
                 <Image src={props.image} onLoad={()=>setShowPlaceholder(true)} opacity={showPlaceholder ? 1 : 0} scale={showPlaceholder ? 'scale(1)' : 'scale(.75)'} />
             </ImageContainer>
         </Container>
