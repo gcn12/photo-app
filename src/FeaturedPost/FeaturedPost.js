@@ -97,6 +97,7 @@ const FeaturedPost = (props) => {
     }
 
     useEffect(()=>{
+        props.dispatch(photoInformation({}))
         if(props.user) {
             db.collection('users')
             .doc(props?.user)

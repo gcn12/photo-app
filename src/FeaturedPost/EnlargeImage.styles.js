@@ -15,7 +15,7 @@ export const Image = styled.img`
     /* max-height: 92vh;
     max-width: 92vw; */
     overflow: visible;
-    object-fit: contain;
+    /* object-fit: contain; */
     height: auto;
     width: auto;
     max-height: 92vh;
