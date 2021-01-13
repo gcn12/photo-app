@@ -17,7 +17,7 @@ const scaleIn = keyframes`
 `;
 
 const fadeIn = keyframes`
-    from { opacity: .5; }
+    from { opacity: .4; }
         to { opacity: 1; }
     }
 `;
@@ -32,11 +32,11 @@ export const Image = styled.img`
     overflow: visible;
     /* object-fit: contain; */
     /* animation: ${fadeIn} 2s, ${scaleIn} 700ms ease-in-out; */
-    animation: ${fadeIn} 1s ease-in-out;
+    animation: ${fadeIn} 300ms ease-in-out;
     height: auto;
     width: auto;
-    max-height: 92vh;
-    max-width: 92vw;
+    max-height: 88vh;
+    max-width: 88vw;
 `
 
 export const ImageContainer = styled.div`

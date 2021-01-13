@@ -73,15 +73,28 @@ const EditPost = (props) => {
 
     const removeLastElement = () => {
         const copy = {...postData}
-        if(isAddImage) {
+        if(!isAddImage) {
             setIsTooManyImages(false)
             const filesArrayCopy = [...filesArray]
             filesArrayCopy.pop()
             setFilesArray(filesArrayCopy)
             const photoBodyMap = copy.photoBodyMap
-            const mapIndex = Object.keys(photoBodyMap).length
-            delete photoBodyMap[mapIndex-1]
+            const keys = Object.keys(photoBodyMap)
+            const index = Math.max(...keys)
+            console.log(index)
+            const content = copy.dataObj
+            const dataLength = Object.keys(content).length
+            delete content[dataLength - 1]
+            delete content[dataLength - 2]
+            delete photoBodyMap[index]
             copy['photoBodyMap'] = photoBodyMap
+            const imagesSmallCopy = {...postData.imagesSmall}
+            delete imagesSmallCopy[index]
+            const imagesLargeCopy = {...postData.imagesLarge}
+            delete imagesLargeCopy[index]
+            copy['imagesSmall'] = imagesSmallCopy
+            copy['imagesLarge'] = imagesLargeCopy
+            console.log(copy)
             setPostData({...copy})
             setIsAddImage(false)
             setShowUpload(false)
@@ -436,14 +449,14 @@ const EditPost = (props) => {
         //     })
         // }
         // console.log(fullPostUpdate)
+        // if(Object.keys(imagesSmallObj)?.length > 0) {
+            // }
         fullPostUpdate['dataObj'] = postData.dataObj
-        if(Object.keys(imagesSmallObj)?.length > 0) {
-            const imagesFinalSmall = {...postData.imagesSmall, ...imagesSmallObj}
-            const imagesFinalLarge = {...postData.imagesLarge, ...imagesLargeObj}
-            fullPostUpdate['imagesSmall'] = imagesFinalSmall
-            fullPostUpdate['imagesLarge'] = imagesFinalLarge
-            fullPostUpdate['photoBodyMap'] = postData.photoBodyMap
-        }
+        const imagesFinalSmall = {...postData.imagesSmall, ...imagesSmallObj}
+        const imagesFinalLarge = {...postData.imagesLarge, ...imagesLargeObj}
+        fullPostUpdate['imagesSmall'] = imagesFinalSmall
+        fullPostUpdate['imagesLarge'] = imagesFinalLarge
+        fullPostUpdate['photoBodyMap'] = postData.photoBodyMap
         if(location.length > 2 && location !== postData.location) {
             const splitLocation = location.split(',')
             country = splitLocation[splitLocation.length-1].trim()

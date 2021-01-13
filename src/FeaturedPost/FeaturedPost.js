@@ -60,7 +60,7 @@ const FeaturedPost = (props) => {
     const [showDropdown, setShowDropdown] = useState(null)
     // const [countryPhotos, setCountryPhotos] = useState([])
     // const [cityPhotos, setCityPhotos] = useState([])
-    const [isImageHorizontal, setIsImageHorizontal] = useState(true)
+    // const [isImageHorizontal, setIsImageHorizontal] = useState(true)
     const [isHeart, setIsHeart] = useState(false)
     // const [isPostVisible, setIsPostVisible] = useState(false)
     const [isBookmark, setIsBookmark] = useState(false)
@@ -123,7 +123,7 @@ const FeaturedPost = (props) => {
         .get()
         .then(data=> {
             let post = data.docs[0].data()
-            getImageSize(post.smallestImage)
+            // getImageSize(post.smallestImage)
             props.dispatch(photoInformation(post))
             // window.scrollTo({top: 0})
             firebase.auth().onAuthStateChanged((user)=> {
@@ -286,21 +286,21 @@ const FeaturedPost = (props) => {
         enableBodyScroll(document.body)
     }
 
-    const getImageSize = (src) => {
-        // var img = new Image();
-        const img = document.getElementById('featured-post-placeholder-image')
-        img.src = src
+    // const getImageSize = (src) => {
+    //     // var img = new Image();
+    //     const img = document.getElementById('featured-post-placeholder-image')
+    //     img.src = src
 
-        img.onload = function () { 
-            // alert('hello')
-            // props.dispatch(isPostVisible(true))
-            // setIsPostVisible(true)
-            if (img.height > img.width ) {
-                setIsImageHorizontal(false)
-            }
-        };
-        // img.src = props?.photoInformation?.image;
-    }
+    //     img.onload = function () { 
+    //         // alert('hello')
+    //         // props.dispatch(isPostVisible(true))
+    //         // setIsPostVisible(true)
+    //         if (img.height > img.width ) {
+    //             setIsImageHorizontal(false)
+    //         }
+    //     };
+    //     // img.src = props?.photoInformation?.image;
+    // }
 
     return(
         <div>
@@ -329,8 +329,11 @@ const FeaturedPost = (props) => {
                         <div style={{width: '90vw', maxHeight: '90vh', display: `${props.isVisible ? 'none' : 'block'}`}}>
                             <PlaceholderImage 
                             onLoad={pageLoaded} 
-                            id='featured-post-placeholder-image' height={isImageHorizontal ? 'auto' : '90vh'} width={isImageHorizontal ? '90vw' : 'auto'} display={props.isVisible ? 'none' : 'block'} alt='' 
-                            // src={props?.photoInformation?.smallImage} 
+                            id='featured-post-placeholder-image' 
+                            // height={isImageHorizontal ? 'auto' : '90vh'} 
+                            // width={isImageHorizontal ? '90vw' : 'auto'} 
+                            display={props.isVisible ? 'none' : 'block'} alt='' 
+                            src={props?.photoInformation?.smallestImage} 
                             />
                         </div>
                         <MainImage 

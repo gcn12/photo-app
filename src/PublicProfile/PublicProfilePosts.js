@@ -25,8 +25,8 @@ const PublicProfilesPosts = (props) => {
 
     return(
         <Container marginTop={props.marginTop} visibility={isProfilePostVisible ? 1 : 0} >
-            <Link to={`/photo-app/post/${props.post.postID}`}>
-                <Image height={props.height} minWidth={props.minWidth} onClick={selectPhoto} onLoad={()=> setIsProfilePostVisible(true)} src={props.post.smallImage} alt=''></Image>
+            <Link onClick={selectPhoto} to={`/photo-app/post/${props.post.postID}`}>
+                <Image height={props.height} minWidth={props.minWidth}  onLoad={()=> setIsProfilePostVisible(true)} src={props.post.smallImage} alt=''></Image>
             </Link>
             <Link to={`/photo-app/post/${props.post.postID}`} style={{textDecoration: 'none'}}>
                 <Title onClick={selectPhoto}>{props.post.title}</Title>
