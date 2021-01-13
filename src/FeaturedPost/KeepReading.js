@@ -11,7 +11,7 @@ import {
 const KeepReading = (props) => {
 
     // const [cities, setCities] = useState([])
-    // const [countries, setCountries] = useState([])
+    const [countries, setCountries] = useState([])
     const [userPosts, setUserPosts] = useState([])
 
     useEffect(()=> {
@@ -30,29 +30,52 @@ const KeepReading = (props) => {
             // })
             // .catch(err=>console.log(err))
 
-            // db.collection('preview-posts')
-            // .orderBy('ratio', 'desc')
-            // .where('country', '==', props.photoInformation.country)
-            // .limit(4)
-            // .get()
-            // .then(countryData=> {
-            //     let countryArray = []
-            //     countryData.forEach(item=> {
-            //         countryArray.push(item.data())
-            //     })
-            //     setCountries(countryArray)
-            // })
-            // .catch(err=>console.log(err))
+            db.collection('preview-posts')
+            .orderBy('ratio', 'desc')
+            .where('country', '==', props.photoInformation.country)
+            .limit(5)
+            .get()
+            .then(countryData=> {
+                let countryArray = []
+                countryData.forEach(item=> {
+                    const data = item.data()
+                    if(data.postID !== props.photoInformation.postID && countryArray.length < 4) {
+                        countryArray.push(data)
+                    }
+                })
+                if(countryArray.length === 4) {
+                    setCountries(countryArray)
+                }else{
+                    db.collection('preview-posts')
+                    .orderBy('ratio', 'desc')
+                    .limit(5)
+                    .get()
+                    .then(countryData=> {
+                        let countryArray = []
+                        countryData.forEach(item=> {
+                            const data = item.data()
+                            if(data.postID !== props.photoInformation.postID && countryArray.length < 4) {
+                                countryArray.push(data)
+                            }
+                        })
+                        setCountries(countryArray)
+                    })
+                }
+            })
+            .catch(err=>console.log(err))
 
             db.collection('preview-posts')
             .orderBy('timestamp', 'desc')
             .where('userID', '==', props.photoInformation.userID)
-            .limit(4)
+            .limit(5)
             .get()
             .then(userData=> {
                 let userArray = []
                 userData.forEach(item=> {
-                    userArray.push(item.data())
+                    const data = item.data()
+                    if(data.postID!==props.photoInformation.postID && userArray.length < 4){
+                        userArray.push(data)
+                    }
                 })
                 setUserPosts(userArray)
             })
@@ -65,7 +88,7 @@ const KeepReading = (props) => {
             <div style={{display: 'flex', justifyContent: 'center', marginBottom: '40px'}}>
                 <Text size='40px' weight='600'>Keep reading</Text>
             </div>
-            {userPosts.length > 0 ? 
+            {userPosts.length === 4 ? 
             <ContentContainer>
                 <MoreFromContainer>
                     <Text size='20px' weight='400'>More from</Text>
@@ -84,6 +107,23 @@ const KeepReading = (props) => {
             :
             null
             }
+            {countries.length === 4 ?
+            <ContentContainer>
+                <MoreFromContainer>
+                    <Text size='20px' weight='400'>More from</Text>
+                    <Text size='20px' weight='600'>&nbsp;{props?.photoInformation?.country}</Text>
+                </MoreFromContainer>
+                <PostsContainer>
+                    {countries.map((country, index) => {
+                        return(
+                            <PublicProfilePosts height='150px' minWidth='100px' history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} post={country} key={index} />
+                        )
+                    })}
+                </PostsContainer>
+            </ContentContainer>
+            :
+            null
+            }
             {/* {cities.length > 0 ? 
             <div style={{margin: '0 10% 20px 10%'}}>
                 <div style={{display: 'flex'}}>
@@ -94,23 +134,6 @@ const KeepReading = (props) => {
                     {cities.map((city, index) => {
                         return(
                             <PublicProfilePosts height='150px' minWidth='100px' history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} post={city} key={index} />
-                        )
-                    })}
-                </PostsContainer>
-            </div>
-            :
-            null
-            }
-            {countries.length > 0 ?
-            <div style={{margin: '0 10% 20px 10%'}}>
-                <div style={{display: 'flex'}}>
-                    <Text size='20px' weight='400'>More from</Text>
-                    <Text size='20px' weight='600'>&nbsp;{props?.photoInformation?.country}</Text>
-                </div>
-                <PostsContainer>
-                    {countries.map((country, index) => {
-                        return(
-                            <PublicProfilePosts height='150px' minWidth='100px' history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} post={country} key={index} />
                         )
                     })}
                 </PostsContainer>
