@@ -14,7 +14,7 @@ import firebase from 'firebase'
 import { PopupDarken } from '../Styles/PopupStyles.styles'
 import { connect } from 'react-redux'
 import { photoInformation } from '../Redux/Actions/appActions'
-import { isVisible } from '../Redux/Actions/featuredPostActions'
+import { isPostVisible, isVisible } from '../Redux/Actions/featuredPostActions'
 import AddToCollection from './AddToCollection'
 import EnlargeImage from './EnlargeImage'
 import KeepReading from './KeepReading'
@@ -62,7 +62,7 @@ const FeaturedPost = (props) => {
     // const [cityPhotos, setCityPhotos] = useState([])
     const [isImageHorizontal, setIsImageHorizontal] = useState(true)
     const [isHeart, setIsHeart] = useState(false)
-    const [isPostVisible, setIsPostVisible] = useState(false)
+    // const [isPostVisible, setIsPostVisible] = useState(false)
     const [isBookmark, setIsBookmark] = useState(false)
     const [isAddToCollection, setIsAddToCollection] = useState(false)
     const [showImageEnlarged, setShowImageEnlarged] = useState(false)
@@ -261,7 +261,7 @@ const FeaturedPost = (props) => {
     }
 
     const pageLoaded = () => {
-        props.dispatch(isVisible(true))
+        props.dispatch(isPostVisible(true))
         window.scrollTo({top: 0})
     }
 
@@ -294,7 +294,7 @@ const FeaturedPost = (props) => {
         img.onload = function () { 
             // alert('hello')
             // props.dispatch(isPostVisible(true))
-            setIsPostVisible(true)
+            // setIsPostVisible(true)
             if (img.height > img.width ) {
                 setIsImageHorizontal(false)
             }
@@ -305,8 +305,8 @@ const FeaturedPost = (props) => {
     return(
         <div>
             <FeaturedPostContainer 
-            // opacity={props.isPostVisible ? 1 : 0} 
-            opacity={isPostVisible ? 1 : 0} 
+            opacity={props.isPostVisible ? 1 : 0} 
+            // opacity={isPostVisible ? 1 : 0} 
             style={{marginTop: '85px'}}>
                 {showImageEnlarged ? 
                 <div>
@@ -327,13 +327,16 @@ const FeaturedPost = (props) => {
                 <Container>
                     <div>
                         <div style={{width: '90vw', maxHeight: '90vh', display: `${props.isVisible ? 'none' : 'block'}`}}>
-                            <PlaceholderImage id='featured-post-placeholder-image' height={isImageHorizontal ? 'auto' : '90vh'} width={isImageHorizontal ? '90vw' : 'auto'} display={props.isVisible ? 'none' : 'block'} alt='' 
+                            <PlaceholderImage 
+                            onLoad={pageLoaded} 
+                            id='featured-post-placeholder-image' height={isImageHorizontal ? 'auto' : '90vh'} width={isImageHorizontal ? '90vw' : 'auto'} display={props.isVisible ? 'none' : 'block'} alt='' 
                             // src={props?.photoInformation?.smallImage} 
                             />
                         </div>
                         <MainImage 
                         display={props.isVisible ? 'block' : 'none'}
-                        onLoad={pageLoaded} 
+                        // onLoad={pageLoaded} 
+                        onLoad={()=>props.dispatch(isVisible(true))}
                         id='featured-main-image' alt='display' src={props?.photoInformation?.image}>
                         </MainImage>
                         {/* <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</DateStyle> */}

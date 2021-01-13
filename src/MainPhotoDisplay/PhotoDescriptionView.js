@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { db } from '../Firebase'
 import { incrementViewCount } from '../Functions' 
 import { photoInformation } from '../Redux/Actions/appActions'
-import { isVisible } from '../Redux/Actions/featuredPostActions'
+import { isVisible, isPostVisible } from '../Redux/Actions/featuredPostActions'
 import AddDropdown from './AddDropdown'
 import AddToCollection from '../FeaturedPost/AddToCollection'
 import { connect } from 'react-redux'
@@ -57,6 +57,7 @@ const PhotoDescriptionView = (props) => {
 
     const goToPost = () => {
         props.dispatch(isVisible(false))
+        props.dispatch(isPostVisible(false))
         props.dispatch(photoInformation(props.photoInfo))
         // props.getFeaturedPhotoInfo(props.photoInfo.postID)
         // window.scrollTo({top: 0})

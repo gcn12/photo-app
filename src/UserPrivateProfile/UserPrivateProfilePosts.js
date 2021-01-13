@@ -77,7 +77,7 @@ const UserPrivateProfilesPosts = (props) => {
     }
 
     return(
-        <Container visibility={isPostVisible ? 1 : 0} >
+        <Container marginTop='30px' visibility={isPostVisible ? 1 : 0} >
             {showEdit ? 
             <div>
                 <PopupDarken />

@@ -98,7 +98,7 @@ const KeepReading = (props) => {
                     <PostsContainer>
                         {userPosts.map((post, index) => {
                             return(
-                                <PublicProfilePosts height='150px' minWidth='80px' history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} post={post} key={index} />
+                                <PublicProfilePosts marginTop='10px' height='150px' minWidth='80px' history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} post={post} key={index} />
                             )
                         })}
                     </PostsContainer>
@@ -107,6 +107,7 @@ const KeepReading = (props) => {
             :
             null
             }
+            <div style={{marginTop: '30px'}}></div>
             {countries.length === 4 ?
             <ContentContainer>
                 <MoreFromContainer>
@@ -116,7 +117,7 @@ const KeepReading = (props) => {
                 <PostsContainer>
                     {countries.map((country, index) => {
                         return(
-                            <PublicProfilePosts height='150px' minWidth='100px' history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} post={country} key={index} />
+                            <PublicProfilePosts marginTop='10px' height='150px' minWidth='100px' history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} post={country} key={index} />
                         )
                     })}
                 </PostsContainer>

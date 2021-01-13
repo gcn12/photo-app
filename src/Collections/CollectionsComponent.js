@@ -40,7 +40,7 @@ const CollectionsComponent = (props) => {
                 {collectionImages.map((post, index) => {
                     return(
                         <div key={index} style={{textDecoration: 'none'}}> 
-                            <PublicProfilesPosts history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} post={post} />
+                            <PublicProfilesPosts marginTop='30px' history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} post={post} />
                         </div>
                     )
                 })}

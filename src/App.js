@@ -307,9 +307,11 @@ const App = (props) => {
         arr.push(item.data())
       })
       const info = arr[0]
-      // info['username'] = username
       props.dispatch(photoInformation(info))
-      props.history.push(`/photo-app/post/${postID}`)
+      // props.history.push(`/photo-app/post/${postID}`)
+
+
+      // info['username'] = username
       // window.scrollTo({top: 0})
     })
   }
