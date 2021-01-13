@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { db } from '../Firebase'
-// import { incrementViewCount } from '../Functions' 
-// import { photoInformation } from '../Redux/Actions/appActions'
-// import { isVisible } from '../Redux/Actions/featuredPostActions'
+import { incrementViewCount } from '../Functions' 
+import { photoInformation } from '../Redux/Actions/appActions'
+import { isVisible } from '../Redux/Actions/featuredPostActions'
 import AddDropdown from './AddDropdown'
 import AddToCollection from '../FeaturedPost/AddToCollection'
 import { connect } from 'react-redux'
@@ -55,18 +55,18 @@ const PhotoDescriptionView = (props) => {
         }
     }
 
-    // const goToPost = () => {
-    //     props.dispatch(isVisible(false))
-    //     props.dispatch(photoInformation(props.photoInfo))
-    //     props.getFeaturedPhotoInfo(props.photoInfo.postID)
-    //     // window.scrollTo({top: 0})
-    //     // props.history.push(`/photo-app/post/${props.photoInfo.postID}`)
-    //     db.collection('preview-posts').where('image', '==', props.photoInfo.image)
-    //     .get()
-    //     .then(reference=> {
-    //         incrementViewCount(reference.docs[0].ref.id)
-    //     })
-    // } 
+    const goToPost = () => {
+        props.dispatch(isVisible(false))
+        props.dispatch(photoInformation(props.photoInfo))
+        // props.getFeaturedPhotoInfo(props.photoInfo.postID)
+        // window.scrollTo({top: 0})
+        // props.history.push(`/photo-app/post/${props.photoInfo.postID}`)
+        db.collection('preview-posts').where('image', '==', props.photoInfo.image)
+        .get()
+        .then(reference=> {
+            incrementViewCount(reference.docs[0].ref.id)
+        })
+    } 
     
     window.onclick = (e) => {
         if (!e.target.matches('.add-dropdown')) {
@@ -108,7 +108,7 @@ const PhotoDescriptionView = (props) => {
                         <PlaceholderImage className='shine' onLoad={whenLoaded} />
                     </Link>
                 </ImageLinkContainer>
-                <ImageLinkContainer display={showPost ? 'initial' : 'none'} opacity={showPost ? 1 : 0}>
+                <ImageLinkContainer onClick={goToPost} display={showPost ? 'initial' : 'none'} opacity={showPost ? 1 : 0}>
                     <Link to={`/photo-app/post/${props.photoInfo.postID}`}>
                         <Image onLoad={whenLoaded} src={props.photoInfo.smallImage} />
                     </Link>
@@ -130,7 +130,7 @@ const PhotoDescriptionView = (props) => {
                     </div>
                 </BookmarkLocationContainer>
                 {/* <Name>{props.photoInfo.author}</Name> */}
-                <Link to={`/photo-app/post/${props.photoInfo.postID}`} style={{textDecoration: 'none'}}>
+                <Link onClick={goToPost} to={`/photo-app/post/${props.photoInfo.postID}`} style={{textDecoration: 'none'}}>
                     {/* <Title onClick={goToPost} id={`description-view-title-${props.index}`}>{props.photoInfo.title}</Title> */}
                     <Title id={`description-view-title-${props.index}`}>{props.photoInfo.title}</Title>
                 </Link>

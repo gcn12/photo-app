@@ -31,7 +31,7 @@ export const Image = styled.img`
     transition: transform 300ms ease-in-out; */
     overflow: visible;
     /* object-fit: contain; */
-    animation: ${fadeIn} 2s, ${scaleIn} 1s ease-in-out;
+    animation: ${fadeIn} 2s, ${scaleIn} 700ms ease-in-out;
     height: auto;
     width: auto;
     max-height: 92vh;
