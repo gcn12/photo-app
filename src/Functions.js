@@ -12,7 +12,9 @@ import { db } from "./Firebase"
 // }
 
 export const incrementViewCount = (docID) => {
-    db.collection('pending-views')
+    db.collection('pending-tasks')
+    .doc('increment-view')
+    .collection('increment-view')
     .add({
         id: docID
     })
@@ -20,7 +22,9 @@ export const incrementViewCount = (docID) => {
 }
 
 export const incrementHeartCount = (docID) => {
-    db.collection('pending-increment-hearts')
+    db.collection('pending-tasks')
+    .doc('increment-heart')
+    .collection('increment-heart')
     .add({
         id: docID
     })
@@ -28,7 +32,9 @@ export const incrementHeartCount = (docID) => {
 }
 
 export const decrementHeartCount = (docID) => {
-    db.collection('pending-decrement-hearts')
+    db.collection('pending-tasks')
+    .doc('decrement-heart')
+    .collection('decrement-heart')
     .add({
         id: docID
     })

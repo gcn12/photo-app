@@ -24,7 +24,7 @@ const EditProfile = (props) => {
     const [name, setName] = useState('')
     const [bio, setBio] = useState('')
     const [uploadStatusProps, setUploadStatusProps] = useState('initial')
-    const [uploadCount, setUploadCount] = useState(3)
+    const [uploadCount, setUploadCount] = useState(2)
     const [uploadProgress, setUploadProgress] = useState(0)
 
     const { userData } = props
@@ -128,7 +128,9 @@ const EditProfile = (props) => {
         if(!isEmpty) {
             setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
 
-            db.collection('pending-profile-changes')
+            db.collection('pending-tasks')
+            .doc('profile-change')
+            .collection('profile-change')
             .add({
                 ...cloudUpdateObject
             })
@@ -144,7 +146,6 @@ const EditProfile = (props) => {
                 setUploadProgressColor(true)
                 setTimeout(props.closeDialog, 1200)
                 props.getUserProfile(props.userInformation.id)
-                console.log(props.userInformation.id)
             })
             .catch(err=>console.log(err))
         }else{

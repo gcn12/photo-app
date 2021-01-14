@@ -11,7 +11,9 @@ import {
 const DeletePost = (props) => {
     
     const deleteCollection = () => {
-        db.collection('pending-delete-post')
+        db.collection('pending-tasks')
+        .doc('delete-post')
+        .collection('delete-post')
         .add({
             username: props.username,
             url: props.url,

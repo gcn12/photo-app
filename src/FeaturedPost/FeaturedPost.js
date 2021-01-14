@@ -87,8 +87,8 @@ const FeaturedPost = (props) => {
         db.collection('users')
         .doc(props.user)
         .collection('bookmarked')
-        .where('username', '==', props.photoInformation.username)
-        .where('url', '==', props.photoInformation.url)
+        .where('postID', '==', props.photoInformation.postID)
+        // .where('url', '==', props.photoInformation.url)
         .get()
         .then(data=> {
             data.docs[0].ref.delete()
