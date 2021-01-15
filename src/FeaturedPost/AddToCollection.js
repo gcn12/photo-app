@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import AddToCollectionItem from './AddToCollectionItem'
-import SpinnerOnly from '../Spinner/SpinnerOnly'
+import CollectionItemsShimmer from './CollectionItemsShimmer'
+// import SpinnerOnly from '../Spinner/SpinnerOnly'
 import { db } from '../Firebase'
 import {
     Container,
@@ -85,17 +86,26 @@ const AddToCollection = (props) => {
 
     return(
         <div>
-            {props.showSpinner
+            {/* {props.showSpinner
             ?
             <SpinnerOnly spinnerColor='black' />
             :
             null
-            } 
+            }  */}
             <Container>
                 <X onClick={props.closeAddToCollection} style={{cursor: 'pointer'}} size='60px'>&times;</X>
                 <div style={{marginBottom: '15px', display: 'flex', justifyContent: 'center'}}>
                     <Text size='30px'>Add to collection</Text>
                 </div>
+                {props.showSpinner ? 
+                <CollectionsContainer>
+                    {[1, 1, 1, 1].map((item, index) => {
+                        return(
+                            <CollectionItemsShimmer key={index}/>
+                        )
+                    })}
+                </CollectionsContainer>
+                :
                 <CollectionsContainer>
                     {props?.collectionsList?.map((collection, index) => {
                         return(
@@ -112,6 +122,7 @@ const AddToCollection = (props) => {
                         )
                     })}
                 </CollectionsContainer>
+                }
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <CreateNewContainer>
                         {isCreateCollection ? 

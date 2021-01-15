@@ -53,7 +53,7 @@ const PublicProfile = (props) => {
             <PostsContainer>
             {userPosts?.map((post, index)=> {
                 return(
-                    <PublicProfilePosts minWidth='200px' height='220px' post={post} history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} key={index} />
+                    <PublicProfilePosts marginTop='30px' minWidth='200px' height='220px' post={post} history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} key={index} />
                 )
             })}
             </PostsContainer>

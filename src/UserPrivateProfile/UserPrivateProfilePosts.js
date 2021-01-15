@@ -91,7 +91,7 @@ const UserPrivateProfilesPosts = (props) => {
             {showDelete ? 
             <div>
                 <PopupDarken />
-                <DeletePost closeDelete={closeDelete} removePostFromPosts={removePostFromPosts} setShowGear={props.setShowGear} index={props.index} title={props.post.title} image={props.post.image} username={props.post.username} url={props.post.url} setShowDelete={setShowDelete} />
+                <DeletePost post={props.post} location={props.post.location} country={props.post.country} closeDelete={closeDelete} removePostFromPosts={removePostFromPosts} setShowGear={props.setShowGear} postID={props.post.postID} index={props.index} title={props.post.title} image={props.post.image} username={props.post.username} url={props.post.url} setShowDelete={setShowDelete} />
             </div>
             :
             null
@@ -113,7 +113,7 @@ const UserPrivateProfilesPosts = (props) => {
                     }
                 </div>
             </TitleGearContainer>
-            <Location>{`${props.post.city}, ${props.post.country}`}</Location>
+            <Location>{props.post.location}</Location>
             {/* <Title>{props.post.previewDescription}</Title> */}
         </Container>
     )

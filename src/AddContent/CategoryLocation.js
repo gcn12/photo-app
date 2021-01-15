@@ -29,7 +29,7 @@ const CategoryLocation = (props) => {
                 <option value='shopping'>Shopping</option>
                 <option value='museum'>Museum</option>
             </SelectInput>
-            <Label>Select city:</Label>
+            <Label>Select location (city or country):</Label>
             <Autocomplete isCheckProceed={true} checkProceed={checkProceed}/>
         </CategoryLocationContainer>
     )

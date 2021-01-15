@@ -83,3 +83,27 @@ export const CollectionName = styled.div`
     margin-right: 20px;
     /* color: white; */
 `
+
+export const CollectionShimmer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+    padding: 5px 10px;
+    height: 30px;
+`
+
+export const CollectionNameShimmer = styled.div`
+    font-size: 20px;
+    margin-right: 20px;
+    background-color: #e8e8e8;
+    height: 25px;
+    width: 140px;
+`
+
+export const RemoveAddShimmer = styled.div`
+    font-size: 15px;
+    background-color: #e8e8e8;
+    height: 20px;
+    width: 60px;
+`

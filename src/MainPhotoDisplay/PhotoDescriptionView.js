@@ -116,7 +116,7 @@ const PhotoDescriptionView = (props) => {
                 </ImageLinkContainer>
                 <BookmarkLocationContainer>
                     <div style={{display: 'flex', alignItems: 'center'}}>
-                        <Location>{`${props.photoInfo.city}, ${props.photoInfo.country}`}</Location>
+                        <Location>{`${props.photoInfo.location}`}</Location>
                         <Category>{props.photoInfo.category}</Category>
                     </div>
                     <div>

@@ -11,10 +11,14 @@ import {
 const DeletePost = (props) => {
     
     const deleteCollection = () => {
+        console.log(props)
         db.collection('pending-tasks')
         .doc('delete-post')
         .collection('delete-post')
         .add({
+            postID: props.postID,
+            location: props.location,
+            country: props.country,
             username: props.username,
             url: props.url,
             image: props.image,

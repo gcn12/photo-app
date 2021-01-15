@@ -9,9 +9,9 @@ const Autocomplete = (props) => {
         autocomplete = new google.maps.places.Autocomplete(
             document.getElementById('autocomplete'),
             {
-                types: ['(cities)'],
+                types: ['(regions)'],
                 // componentRestrictions: {'country': ['au']},
-                // fields: ['place_id', 'geometry', 'name']
+                // fields: ['geometry', 'name']
             }
             )
         autocomplete.addListener('place_changed', onPlaceChanged)

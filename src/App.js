@@ -152,12 +152,21 @@ const App = (props) => {
       '6478d10ccc9941fe49a73aeb6ba2e73f'
     )
 
+    // const citiesQuery = {
+    //   indexName: 'cities',
+    //   query: props.query,
+    //   params: {
+    //     hitsPerPage: 6,
+    //     attributesToRetrieve: ['city', 'country', 'image'],
+    //   }
+    // }
+
     const citiesQuery = {
-      indexName: 'cities',
+      indexName: 'locations',
       query: props.query,
       params: {
         hitsPerPage: 6,
-        attributesToRetrieve: ['city', 'country', 'image'],
+        attributesToRetrieve: ['location', 'image'],
       }
     }
 
@@ -175,7 +184,7 @@ const App = (props) => {
       query: props.query,
       params: {
         hitsPerPage: 6,
-        attributesToRetrieve: ['smallImage', 'category', 'title', 'country', 'image', 'username', 'url', 'city', 'previewDescription'],
+        attributesToRetrieve: ['smallImage', 'category', 'title', 'country', 'image', 'username', 'url', 'location', 'previewDescription'],
       }
     }
 
@@ -188,7 +197,7 @@ const App = (props) => {
       query: props.query,
       params: {
         hitsPerPage: 2,
-        attributesToRetrieve: ['countryOnly', 'image',],
+        attributesToRetrieve: ['country', 'image',],
       }
     }
 

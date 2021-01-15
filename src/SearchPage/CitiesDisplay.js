@@ -35,10 +35,10 @@ const CitiesDisplay = (props) => {
                     <Image onLoad={()=> setIsVisible(true)} alt='' src={props.item.image}></Image>
                     </ImageContainer>
                 </div>
-                {props.item.city ? 
-                <Location>{props.item.city}, {props.item.country}</Location>
+                {props.item.country ? 
+                <Location>{props.item.country}</Location>
                 :
-                <Location>{props.item.countryOnly}</Location>
+                <Location>{props.item.location}</Location>
                 }
             </Link>
         </Container>

@@ -51,7 +51,7 @@ const AddDropdown = (props) => {
                         collectionsArray.push(mapArray)
                         if (index+1 === collections.docs.length) {
                             props.setCollectionsList(collectionsArray)
-                            // props.setShowSpinner(false)
+                            props.setShowSpinner(false)
                             // props.openAddToCollection()
                         }
                     })

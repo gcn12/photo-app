@@ -250,9 +250,8 @@ const AddContent = (props) => {
 
         const title = document.getElementById('add-content-title').value
         const location = document.getElementById('autocomplete').value
-        const splitLocation = location.split(',')
-        const country = splitLocation[splitLocation.length-1].trim()
-        const city = splitLocation[0]
+        const locationArray = location.split(',')
+        const country = locationArray[locationArray.length-1].trim()
         const category = document.getElementById('category').value
         const timestamp = Date.now()
         const descriptionArray = []
@@ -368,83 +367,76 @@ const AddContent = (props) => {
                         .get()
                         .then(data=> {
                             const username = data.data()['username']
-                            db.collection('continents-countries').doc('map').collection(country)
-                            .where(country, 'in', ['North America', 'South America', 'Asia', 'Europe', 'Oceania', 'Africa'])
-                            .get()
-                            .then(data => {
-                                setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-                                const continent = data.docs[0].data()[country]
-                                db.collection('posts').add({
-                                    bio,
-                                    font,
-                                    profileImage,
-                                    photoBodyMap: imageSizeArrayWithIndex,
-                                    // content: descriptionArray,
-                                    imagesLarge: urlObjectLarge,
-                                    imagesSmall: urlObjectSmall,
-                                    title,
-                                    timestamp,
-                                    previewDescription,
-                                    smallImage: mainImageSmall,
-                                    image: mainImage,
-                                    smallestImage: mainImageSmallest,
-                                    category,
-                                    city,
-                                    country,
-                                    continent,
-                                    author: name,
-                                    location,
-                                    dataObj,
-                                    postID,
-                                    // views: 0, change back later
-                                    url,
-                                    username,
-                                    userID: props.userInformation.id,
-                                }).then(docRef => {
-                                    db.collection('posts').doc(docRef.id).set({
+                            setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+                            db.collection('posts').add({
+                                bio,
+                                font,
+                                profileImage,
+                                photoBodyMap: imageSizeArrayWithIndex,
+                                // content: descriptionArray,
+                                imagesLarge: urlObjectLarge,
+                                imagesSmall: urlObjectSmall,
+                                title,
+                                timestamp,
+                                previewDescription,
+                                smallImage: mainImageSmall,
+                                image: mainImage,
+                                smallestImage: mainImageSmallest,
+                                category,
+                                country,
+                                author: name,
+                                location,
+                                locationArray,
+                                dataObj,
+                                postID,
+                                // views: 0, change back later
+                                url,
+                                username,
+                                userID: props.userInformation.id,
+                            }).then(docRef => {
+                                db.collection('posts').doc(docRef.id).set({
+                                    id: docRef.id,
+                                }, {merge: true}) 
+                                .then(()=> {
+                                    const views = Math.round(Math.random()*500)+500
+                                    const hearts = Math.round(Math.random()*300)+100
+                                    const ratio = hearts / views
+                                    setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
+                                    db.collection('preview-posts').add({
+                                        username,
+                                        timestamp,
+                                        country,
                                         id: docRef.id,
-                                    }, {merge: true}) 
-                                    .then(()=> {
-                                        const views = Math.round(Math.random()*500)+500
-                                        const hearts = Math.round(Math.random()*300)+100
-                                        const ratio = hearts / views
-                                        setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-                                        db.collection('preview-posts').add({
-                                            username,
-                                            timestamp,
-                                            id: docRef.id,
-                                            author: name,
-                                            previewDescription,
-                                            smallImage: mainImageSmall,
-                                            smallestImage: mainImageSmallest,
-                                            title,
-                                            image: mainImage,
-                                            category,
-                                            city,
-                                            postID,
-                                            country,
-                                            continent,
-                                            url,
-                                            // views: 0,
-                                            views,
-                                            hearts,
-                                            ratio,
-                                            userID: props.userInformation.id,
-                                        })
-                                        .then(()=>{
-                                            db.collection('users')
-                                            .doc(props.user)
-                                            .collection('post-names')
-                                            .doc('post-names')
-                                            .set({
-                                                'post-names': firebase.firestore.FieldValue.arrayUnion(url)
-                                            }, {merge: true})
-                                            setTimeout(()=>setUploadProgressColor(true), 300)
-                                            setTimeout(()=>props.getFeaturedPhotoInfo(postID), 2000)
-                                            setTimeout(()=>props.history.push(`/photo-app/post/${postID}`), 2000)
-                                        })
-                                    })              
-                                })
+                                        author: name,
+                                        previewDescription,
+                                        smallImage: mainImageSmall,
+                                        smallestImage: mainImageSmallest,
+                                        title,
+                                        image: mainImage,
+                                        category,
+                                        postID,
+                                        locationArray,
+                                        location,
+                                        url,
+                                        // views: 0,
+                                        views,
+                                        hearts,
+                                        ratio,
+                                        userID: props.userInformation.id,
+                                    })
+                                    .then(()=>{
+                                        db.collection('users')
+                                        .doc(props.user)
+                                        .collection('post-names')
+                                        .doc('post-names')
+                                        .set({
+                                            'post-names': firebase.firestore.FieldValue.arrayUnion(url)
+                                        }, {merge: true})
+                                        setTimeout(()=>setUploadProgressColor(true), 300)
+                                        setTimeout(()=>props.getFeaturedPhotoInfo(postID), 2000)
+                                        setTimeout(()=>props.history.push(`/photo-app/post/${postID}`), 2000)
+                                    })
+                                })              
                             })
                         })
                     })

@@ -11,75 +11,67 @@ import {
 const KeepReading = (props) => {
 
     // const [cities, setCities] = useState([])
-    const [countries, setCountries] = useState([])
-    const [userPosts, setUserPosts] = useState([])
+    const [postType, setPostType] = useState('')
+    const [posts, setPosts] = useState([])
 
     useEffect(()=> {
         if(props.photoInformation?.userID){
-            // db.collection('preview-posts')
-            // .orderBy('ratio', 'desc')
-            // .where('city', '==', props.photoInformation.city)
-            // .limit(4)
-            // .get()
-            // .then(cityData=> {
-            //     let cityArray = []
-            //     cityData.forEach(item=> {
-            //         cityArray.push(item.data())
-            //     })
-            //     setCities(cityArray)
-            // })
-            // .catch(err=>console.log(err))
-
-            db.collection('preview-posts')
-            .orderBy('ratio', 'desc')
-            .where('country', '==', props.photoInformation.country)
-            .limit(5)
-            .get()
-            .then(countryData=> {
-                let countryArray = []
-                countryData.forEach(item=> {
-                    const data = item.data()
-                    if(data.postID !== props.photoInformation.postID && countryArray.length < 4) {
-                        countryArray.push(data)
-                    }
-                })
-                if(countryArray.length === 4) {
-                    setCountries(countryArray)
-                }else{
-                    db.collection('preview-posts')
-                    .orderBy('ratio', 'desc')
-                    .limit(5)
-                    .get()
-                    .then(countryData=> {
-                        let countryArray = []
-                        countryData.forEach(item=> {
-                            const data = item.data()
-                            if(data.postID !== props.photoInformation.postID && countryArray.length < 4) {
-                                countryArray.push(data)
-                            }
-                        })
-                        setCountries(countryArray)
-                    })
-                }
-            })
-            .catch(err=>console.log(err))
-
             db.collection('preview-posts')
             .orderBy('timestamp', 'desc')
             .where('userID', '==', props.photoInformation.userID)
             .limit(5)
             .get()
             .then(userData=> {
-                let userArray = []
+                let dataArray = []
                 userData.forEach(item=> {
                     const data = item.data()
-                    if(data.postID!==props.photoInformation.postID && userArray.length < 4){
-                        userArray.push(data)
+                    if(data.postID!==props.photoInformation.postID && dataArray.length < 4){
+                        dataArray.push(data)
                     }
                 })
-                setUserPosts(userArray)
+                if(dataArray.length === 4) {
+                    setPosts(dataArray)
+                    setPostType(props.photoInformation.userID)
+                }else{
+                    db.collection('preview-posts')
+                    .orderBy('ratio', 'desc')
+                    .where('country', '==', props.photoInformation.locationArray[props.photoInformation.locationArray.length-1])
+                    .limit(5)
+                    .get()
+                    .then(countryData=> {
+                        let dataArray = []
+                        countryData.forEach(item=> {
+                            const data = item.data()
+                            if(data.postID !== props.photoInformation.postID && dataArray.length < 4) {
+                                dataArray.push(data)
+                            }
+                        })
+                        if (dataArray.length===4) {
+                            setPosts(dataArray)
+                            setPostType(props.photoInformation.locationArray[props.photoInformation.locationArray.length-1])
+                        }else{
+                            db.collection('preview-posts')
+                            .orderBy('ratio', 'desc')
+                            .limit(5)
+                            .get()
+                            .then(countryData=> {
+                                let dataArray = []
+                                countryData.forEach(item=> {
+                                    const data = item.data()
+                                    if(data.postID !== props.photoInformation.postID && dataArray.length < 4) {
+                                        dataArray.push(data)
+                                    }
+                                })
+                                setPosts(dataArray)
+                                setPostType('recommended')
+                            })
+                            .catch(err=>console.log(err))
+                        }
+                    })
+                }
             })
             .catch(err=>console.log(err))
+
         }
     }, [props.photoInformation])
 
@@ -88,60 +80,25 @@ const KeepReading = (props) => {
             <div style={{display: 'flex', justifyContent: 'center', marginBottom: '40px'}}>
                 <Text size='40px' weight='600'>Keep reading</Text>
             </div>
-            {userPosts.length === 4 ? 
             <ContentContainer>
+                {postType==='recommended' ? 
+                <Text size='20px' weight='400'>Recommended for you</Text>
+                :
                 <MoreFromContainer>
                     <Text size='20px' weight='400'>More from</Text>
                     <Text size='20px' weight='600'>&nbsp;{props?.photoInformation?.username}</Text>
                 </MoreFromContainer>
+                }
                 {/* <div style={{display: 'flex', justifyContent: 'center'}}> */}
                     <PostsContainer>
-                        {userPosts.map((post, index) => {
+                        {posts.map((post, index) => {
                             return(
-                                <PublicProfilePosts marginTop='10px' height='150px' minWidth='80px' history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} post={post} key={index} />
+                                <PublicProfilePosts setShowSpinner={props.setShowSpinner} marginTop='10px' height='150px' minWidth='80px' history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} post={post} key={index} />
                             )
                         })}
                     </PostsContainer>
                 {/* </div> */}
             </ContentContainer>
-            :
-            null
-            }
-            <div style={{marginTop: '30px'}}></div>
-            {countries.length === 4 ?
-            <ContentContainer>
-                <MoreFromContainer>
-                    <Text size='20px' weight='400'>More from</Text>
-                    <Text size='20px' weight='600'>&nbsp;{props?.photoInformation?.country}</Text>
-                </MoreFromContainer>
-                <PostsContainer>
-                    {countries.map((country, index) => {
-                        return(
-                            <PublicProfilePosts marginTop='10px' height='150px' minWidth='100px' history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} post={country} key={index} />
-                        )
-                    })}
-                </PostsContainer>
-            </ContentContainer>
-            :
-            null
-            }
-            {/* {cities.length > 0 ? 
-            <div style={{margin: '0 10% 20px 10%'}}>
-                <div style={{display: 'flex'}}>
-                    <Text size='20px' weight='400'>More from</Text>
-                    <Text size='20px' weight='600'>&nbsp;{props?.photoInformation?.city}</Text>
-                </div>
-                <PostsContainer>
-                    {cities.map((city, index) => {
-                        return(
-                            <PublicProfilePosts height='150px' minWidth='100px' history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} post={city} key={index} />
-                        )
-                    })}
-                </PostsContainer>
-            </div>
-            :
-            null
-            } */}
         </div>
     )
 }

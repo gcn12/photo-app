@@ -337,10 +337,10 @@ const FeaturedPost = (props) => {
                             />
                         </div>
                         <MainImage 
-                        display={props.isVisible ? 'block' : 'none'}
-                        // onLoad={pageLoaded} 
-                        onLoad={()=>props.dispatch(isVisible(true))}
-                        id='featured-main-image' alt='display' src={props?.photoInformation?.image}>
+                            display={props.isVisible ? 'block' : 'none'}
+                            // onLoad={pageLoaded} 
+                            onLoad={()=>props.dispatch(isVisible(true))}
+                            id='featured-main-image' alt='display' src={props?.photoInformation?.image}>
                         </MainImage>
                         {/* <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</DateStyle> */}
                         <div style={{display: 'flex', justifyContent: 'flex-end'}}>
@@ -488,7 +488,7 @@ const FeaturedPost = (props) => {
                 </UserBioContainer>
                 
                 <div style={{backgroundColor: '#fcfcfc', padding: '20px 0'}}>
-                    <KeepReading history={props.history} photoInformation={props?.photoInformation} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} />
+                    <KeepReading setShowSpinner={setShowSpinner} history={props.history} photoInformation={props?.photoInformation} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} />
                 </div>
 
             </FeaturedPostContainer>

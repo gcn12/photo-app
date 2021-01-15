@@ -17,6 +17,9 @@ const PublicProfilesPosts = (props) => {
     const [isProfilePostVisible, setIsProfilePostVisible] = useState(false)
 
     const selectPhoto = () => {
+        if(props.setShowSpinner) {
+            props.setShowSpinner(true)
+        }
         props.dispatch(isPostVisible(false))
         props.dispatch(isVisible(false))
         props.getFeaturedPhotoInfo(props.post.postID)
@@ -31,7 +34,7 @@ const PublicProfilesPosts = (props) => {
             <Link to={`/photo-app/post/${props.post.postID}`} style={{textDecoration: 'none'}}>
                 <Title onClick={selectPhoto}>{props.post.title}</Title>
             </Link>
-            <Location>{`${props.post.city}, ${props.post.country}`}</Location>
+            <Location>{props.post.location}</Location>
             {/* <Title>{props.post.previewDescription}</Title> */}
         </Container>
     )
