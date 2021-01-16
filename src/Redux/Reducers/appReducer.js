@@ -13,7 +13,7 @@ export const initialState = {
     searchQueries: 'all results',
     startAfter: '',
     sortCriteria: {
-        city: '',
+        location: '',
         country: '',
         continent: '',
         category: 'all categories',

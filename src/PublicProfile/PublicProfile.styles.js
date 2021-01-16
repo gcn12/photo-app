@@ -5,6 +5,7 @@ export const ProfileImage = styled.img`
     height: 150px;
     border-radius: 5px;
     overflow: hidden;
+    object-fit: cover;
     box-shadow:  0 5px 5px 0px  rgba(0, 0, 0, .2);
     @media(max-width: 700px) {
         margin-top: 10px;

@@ -79,4 +79,5 @@ export const ProfileImage = styled.img`
     height: 35px;
     width: 35px;
     cursor: pointer;
+    object-fit: cover;
 `

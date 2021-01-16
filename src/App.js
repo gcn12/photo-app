@@ -42,14 +42,11 @@ const App = (props) => {
   const sort = (criteriaObject, isNewSort) => {
     props.dispatch(sortCriteria(criteriaObject))
     let sortQuery = db.collection('preview-posts')
-    if(criteriaObject.city.length > 0) {
-      sortQuery = sortQuery.where('city', '==', criteriaObject.city)
+    if(criteriaObject.location.length > 0) {
+      sortQuery = sortQuery.where('location', '==', criteriaObject.location)
     }
     if(criteriaObject.country.length > 0) {
       sortQuery = sortQuery.where('country', '==', criteriaObject.country)
-    }
-    if(criteriaObject.continent.length > 0) {
-      sortQuery = sortQuery.where('continent', '==', criteriaObject.continent)
     }
     if(criteriaObject.category.length > 0 && criteriaObject.category!=='all categories') {
       sortQuery = sortQuery.where('category', '==', criteriaObject.category)
@@ -146,20 +143,12 @@ const App = (props) => {
   }, [])
 
   
-  const search = (resultCriteria, filter) => { 
+  const search = (resultCriteria, filter, query) => { 
+    console.log(query)
     const searchClient = algoliasearch(
       'VNSU9OYWB2',
       '6478d10ccc9941fe49a73aeb6ba2e73f'
     )
-
-    // const citiesQuery = {
-    //   indexName: 'cities',
-    //   query: props.query,
-    //   params: {
-    //     hitsPerPage: 6,
-    //     attributesToRetrieve: ['city', 'country', 'image'],
-    //   }
-    // }
 
     const citiesQuery = {
       indexName: 'locations',
@@ -169,14 +158,20 @@ const App = (props) => {
         attributesToRetrieve: ['location', 'image'],
       }
     }
+    if(query) {
+      citiesQuery['query'] = query
+    }
 
     const usersQuery = {
       indexName: 'users',
       query: props.query,
       params: {
         hitsPerPage: 10,
-        attributesToRetrieve: ['name', 'username', 'profileImage'],
+        attributesToRetrieve: ['name', 'username', 'profileImage', 'author'],
       }
+    }
+    if(query) {
+      usersQuery['query'] = query
     }
 
     const postsQuery = {
@@ -186,6 +181,9 @@ const App = (props) => {
         hitsPerPage: 6,
         attributesToRetrieve: ['postID', 'smallImage', 'category', 'title', 'country', 'image', 'username', 'url', 'location', 'previewDescription'],
       }
+    }
+    if(query) {
+      postsQuery['query'] = query
     }
 
     if (filter) {
@@ -200,12 +198,12 @@ const App = (props) => {
         attributesToRetrieve: ['country', 'image',],
       }
     }
+    if(query) {
+      countriesQuery['query'] = query
+    }
 
     const queries = [] 
 
-    // if(resultCriteria === 'posts' || resultCriteria === 'all results') {
-    //   queries.push(postsQuery)
-    // }
     if(resultCriteria === 'all results') {
       queries.push(postsQuery)
     }else if (resultCriteria === 'posts') {
@@ -229,7 +227,7 @@ const App = (props) => {
     }
 
     let resultsArray = []
-    if(props.query.length > 0) {
+    if(props.query.length > 0 || query.length > 0) {
       searchClient.multipleQueries(queries).then(({ results }) => {
         if(resultCriteria==='all results'){
           if(results[0]?.hits.length>0) {
@@ -247,12 +245,6 @@ const App = (props) => {
           }else{
             resultsArray.push([])
           }
-          // if(results[3]?.hits?.length>0) {
-          //   resultsArray.push([...results[3].hits])
-          // }else{
-          //   resultsArray.push([])
-          // }
-
         }else if(resultCriteria==='posts'){
           if(results[0]?.hits.length>0) {
             resultsArray = [results[0].hits, [], []]
@@ -277,6 +269,7 @@ const App = (props) => {
         }else{
           props.dispatch(searchResults(resultsArray))
         }
+        console.log(resultsArray)
       });
     }
   }
@@ -355,7 +348,7 @@ const App = (props) => {
         
       <Switch>
 
-        <Route exact path='/photo-app/search' render={(props) => (
+        <Route exact path='/photo-app/search/:searchQuery?' render={(props) => (
           <SearchPage {...props} search={search} getFeaturedPhotoInfo={getFeaturedPhotoInfo} sort={sort} />
         )} />
 

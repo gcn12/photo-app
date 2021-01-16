@@ -186,6 +186,7 @@ export const ProfileImage = styled.img`
     width: 120px;
     border-radius: 5px;
     margin-right: 15px;
+    object-fit: cover;
 `
 
 export const BioUsername = styled.div`

@@ -76,6 +76,7 @@ export const Cancel = styled.button`
 export const ProfileImage = styled.img`
     height: 100px;
     width: 100px;
+    object-fit: cover;
     border-radius: 5px;
     margin-bottom: 20px;
 `

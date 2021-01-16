@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PhotoDescriptionView from '../MainPhotoDisplay/PhotoDescriptionView'
 import CitiesDisplay from './CitiesDisplay'
 import UsersDisplay from './UsersDisplay'
 import { connect } from 'react-redux'
-import { searchQueries } from '../Redux/Actions/appActions'
+import { searchQueries, query } from '../Redux/Actions/appActions'
 import {
     CitiesDisplayContainer,
     PostsDisplayContainer,
@@ -15,6 +15,15 @@ import {
 } from './SearchPage.styles'
 
 const SearchPage = (props) => {
+
+    useEffect(()=> {
+        if(props.match.params.searchQuery.length > 0) {
+            console.log(props.match.params.searchQuery)
+            props.dispatch(query(props.match.params.searchQuery))
+            props.search('all results', false, props.match.params.searchQuery)
+        }
+        // eslint-disable-next-line
+    }, [])
 
     const seeMore = (type) => {
         props.dispatch(searchQueries(type))
@@ -64,6 +73,7 @@ const SearchPage = (props) => {
                     </TitleContainer>
                     <PostsDisplayContainer quantity={props?.searchResults[3]?.length < 4 ? 'center' : 'center'} >
                         {props?.searchResults[0]?.map((item, index)=> {
+                            // console.log(item)
                             return (
                                 <PhotoDescriptionView history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} photoInfo={item} key={index} />
                             )

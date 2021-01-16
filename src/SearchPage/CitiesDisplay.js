@@ -14,15 +14,15 @@ const CitiesDisplay = (props) => {
 
     const goToPlace = (place) => {
         props.dispatch(homePhotoInformation([]))
-        let sortCriteriaCopy = props.sortCriteria
-        if(place.countryOnly) {
-            props.dispatch(sortCriteria(place.countryOnly))
-            sortCriteriaCopy['country'] = place.countryOnly
-            sortCriteriaCopy['city'] = ''
-        }else{
-            props.dispatch(sortCriteria(place.city))
-            sortCriteriaCopy['city'] = place.city
+        let sortCriteriaCopy = {...props.sortCriteria}
+        if(place.location) {
+            props.dispatch(sortCriteria(place.location))
+            sortCriteriaCopy['location'] = place.location
             sortCriteriaCopy['country'] = ''
+        }else{
+            props.dispatch(sortCriteria(place.country))
+            sortCriteriaCopy['country'] = place.country
+            sortCriteriaCopy['location'] = ''
         }
         props.sort(sortCriteriaCopy, true)
     }

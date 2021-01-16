@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 // import algoliasearch from 'algoliasearch'
 import { ReactComponent as SearchIcon } from '../Icons/Search.svg'
 import { query, searchResults } from '../Redux/Actions/appActions'
@@ -11,15 +11,24 @@ import {
 
 const Search = (props) => {
 
+    const [searchQuery, setSearchQuery] = useState('')
+
     const enterQuery = (e) => {
         if(e.code==='Enter' && props.query.length > 0) {
             if(props.location.pathname !== '/photo-app/search'){
-                props.history.push('/photo-app/search')
+                props.history.push(`/photo-app/search/${searchQuery}`)
+            }else{
             }
+            props.search(props.searchQueries)
+            console.log(props.searchQueries)
             const results = []
             props.dispatch(searchResults([...results]))
-            props.search(props.searchQueries)
         }
+    }
+
+    const QueryInput = (e) => {
+        props.dispatch(query(e.target.value))
+        setSearchQuery(e.target.value)
     }
 
     return(
@@ -30,7 +39,7 @@ const Search = (props) => {
                 {/* <SearchIcon style={{transform: 'scale(1)'}}></SearchIcon> */}
             </IconContainer>
                 <div style={{position: 'absolute', left: '10%'}}></div>
-                <SearchBox autoComplete='off' onKeyDown={enterQuery} id='result-query-input' className='search-results' placeholder='search' onChange={(e)=>props.dispatch(query(e.target.value))}></SearchBox>
+                <SearchBox autoComplete='off' onKeyDown={enterQuery} id='result-query-input' className='search-results' placeholder='search' onChange={(e)=>QueryInput(e)}></SearchBox>
             </div>
             
         </Container>

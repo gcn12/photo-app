@@ -109,9 +109,8 @@ const Header = (props) => {
     const getAssortedAndDropOpacity = () => {
         props.dispatch(homePhotoInformation([]))
         let criteria = {
-            city: '',
+            location: '',
             country: '',
-            continent: '',
             category: 'all categories',
             views: true,
             new: false,

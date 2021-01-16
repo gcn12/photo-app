@@ -11,7 +11,6 @@ import {
 const DeletePost = (props) => {
     
     const deleteCollection = () => {
-        console.log(props)
         db.collection('preview-posts')
         .where('postID', '==', props.postID)
         .get()
@@ -28,6 +27,8 @@ const DeletePost = (props) => {
         .doc('delete-post')
         .collection('delete-post')
         .add({
+            smallImage: props.post.smallImage,
+            userID: props.userInformation.id,
             postID: props.postID,
             location: props.post.location,
             country: props.post.country,
@@ -73,6 +74,7 @@ const DeletePost = (props) => {
 
 const mapStateToProps = state => ({
     user: state.app.user,
+    userInformation: state.app.userInformation
 })
 
 export default connect(mapStateToProps)(DeletePost)
