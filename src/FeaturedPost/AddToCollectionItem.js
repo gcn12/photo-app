@@ -29,7 +29,7 @@ const AddToCollectionItem = (props) => {
                         image: props.photoInformation.image,
                         smallImage: props.photoInformation.smallImage,
                         country: props.photoInformation.country,
-                        city: props.photoInformation.city,
+                        location: props.photoInformation.location,
                         title: props.photoInformation.title,
                         url: props.photoInformation.url,
                         username: props.photoInformation.username,
