@@ -12,15 +12,27 @@ const DeletePost = (props) => {
     
     const deleteCollection = () => {
         console.log(props)
+        db.collection('preview-posts')
+        .where('postID', '==', props.postID)
+        .get()
+        .then(item=> {
+            item.docs[0].ref.delete()
+        })
+        db.collection('posts')
+        .where('postID', '==', props.postID)
+        .get()
+        .then(item=> {
+            item.docs[0].ref.delete()
+        })
         db.collection('pending-tasks')
         .doc('delete-post')
         .collection('delete-post')
         .add({
             postID: props.postID,
-            location: props.location,
-            country: props.country,
-            username: props.username,
-            url: props.url,
+            location: props.post.location,
+            country: props.post.country,
+            username: props.post.username,
+            url: props.post.url,
             image: props.image,
             id: props.user,
         }).then(()=> {

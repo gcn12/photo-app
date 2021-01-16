@@ -12,7 +12,7 @@ export const Container = styled.div`
 `
 
 export const ImageTextContainer = styled.div`
-    width: 600px;
+    max-width: 600px;
     display: flex;
     align-items: flex-end;
     @media (max-width: 600px) {

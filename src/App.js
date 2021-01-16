@@ -184,7 +184,7 @@ const App = (props) => {
       query: props.query,
       params: {
         hitsPerPage: 6,
-        attributesToRetrieve: ['smallImage', 'category', 'title', 'country', 'image', 'username', 'url', 'location', 'previewDescription'],
+        attributesToRetrieve: ['postID', 'smallImage', 'category', 'title', 'country', 'image', 'username', 'url', 'location', 'previewDescription'],
       }
     }
 

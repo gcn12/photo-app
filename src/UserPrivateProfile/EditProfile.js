@@ -17,7 +17,6 @@ import {
 
 const EditProfile = (props) => {
 
-    const [fileName, setFileName] = useState('')
     const [uploadProgressColor, setUploadProgressColor] = useState(false)
     const [isUploading, setIsUploading] = useState(false)
     const [username, setUsername] = useState('')
@@ -38,7 +37,6 @@ const EditProfile = (props) => {
     const displayImage = () => {
         const file = document.getElementById('edit-profile-input').files[0]
         const viewFile = new FileReader()
-        setFileName(file.name)
         viewFile.onload = (e) => {
             const uploadedImage = document.createElement('img')
             uploadedImage.src=e.target.result
@@ -86,7 +84,7 @@ const EditProfile = (props) => {
         const image = document.getElementById('edit-profile-image').src
         if(image !== props.userData.profileImage){
             const storageRef = firebase.storage().ref()
-            const imageRef = storageRef.child(`${props.userInformation.id}/${fileName}`)
+            const imageRef = storageRef.child(`${props.userInformation.id}/profileImage`)
             imageRef.putString(image, 'data_url')
             .then(snapshot=> {
                 snapshot.ref.getDownloadURL()
