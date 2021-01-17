@@ -105,7 +105,7 @@ const PhotoDescriptionView = (props) => {
             :
             null
             }
-            <Container id='description-view-container'>
+            <Container opacity='1' id='description-view-container'>
                 <Card>
                     <ImageLinkContainer display={showPost ? 'none' : 'initial'} opacity={showPost ? 0 : 1}>
                         <Link to={`/photo-app/post/${props.photoInfo.postID}`}>
