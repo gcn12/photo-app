@@ -77,14 +77,14 @@ const PhotoDescriptionView = (props) => {
 
     const openAddToCollection = () => {
         setShowAddToCollection(true)
-        // const toLock = document.getElementById('add-to-collection-container')
-        // disableBodyScroll(toLock)
+        const toLock = document.getElementById('add-to-collection-container')
+        disableBodyScroll(toLock)
     }
 
     const closeAddToCollection = () => {
         setShowAddToCollection(false)
-        // const toLock = document.getElementById('add-to-collection-container')
-        // enableBodyScroll(toLock)
+        const toLock = document.getElementById('add-to-collection-container')
+        enableBodyScroll(toLock)
     }
 
     const whenLoaded = () => {
@@ -100,7 +100,7 @@ const PhotoDescriptionView = (props) => {
             {showAddToCollection ? 
             <div>
                 <PopupDarken onClick={closeAddToCollection} />
-                <AddToCollection showAddToCollection={showAddToCollection} showSpinner={showSpinner} closeAddToCollection={closeAddToCollection} showAddToCollection={showAddToCollection} photoInfo={props.photoInfo} collectionsList={collectionsList} setIsAddToCollection={setShowAddToCollection} setCollectionsList={setCollectionsList} />
+                <AddToCollection showSpinner={showSpinner} closeAddToCollection={closeAddToCollection} showAddToCollection={showAddToCollection} photoInfo={props.photoInfo} collectionsList={collectionsList} setIsAddToCollection={setShowAddToCollection} setCollectionsList={setCollectionsList} />
             </div>
             :
             null

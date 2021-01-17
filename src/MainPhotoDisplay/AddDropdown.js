@@ -1,7 +1,5 @@
 import React from 'react'
 // import AddToCollection from '../FeaturedPost/AddToCollection'
-
-import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
 import { db } from '../Firebase'
 import { ReactComponent as Collections } from '../Icons/Collections.svg'
 import { connect } from 'react-redux'
@@ -31,7 +29,6 @@ const AddDropdown = (props) => {
         .orderBy('timestamp', 'desc')
         .get()
         .then(collections => {
-            disableBodyScroll(document.getElementById('add-to-collection-container'))
             if(collections.docs.length>0) {
                 collections.docs.forEach((collection, index)=> {
                     const mapArray = []

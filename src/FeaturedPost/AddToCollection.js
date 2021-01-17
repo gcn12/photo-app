@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
 import AddToCollectionItem from './AddToCollectionItem'
 import CollectionItemsShimmer from './CollectionItemsShimmer'
 // import SpinnerOnly from '../Spinner/SpinnerOnly'
@@ -21,12 +20,6 @@ const AddToCollection = (props) => {
 
     const [isCreateCollection, setIsCreateCollection] = useState(false)
     const [isCollectionExists, setIsCollectionExists] = useState(false)
-        
-    useEffect(() => {
-        if(document.getElementById('add-to-collection-container')){
-            disableBodyScroll(document.getElementById('add-to-collection-container'))
-        }
-    }, []); 
 
     const addToCollection = (name) => {
         const addRef = db.collection('users').doc(props.user).collection('collections')

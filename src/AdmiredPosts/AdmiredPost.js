@@ -37,16 +37,15 @@ const AdmiredPost = (props) => {
     }
 
     const openAddToCollection = () => {
-        console.log('wokring')
         setShowAddToCollection(true)
-        // const toNotLock = document.getElementById('add-to-collection-container')
-        // disableBodyScroll(toNotLock)
+        const toNotLock = document.getElementById('add-to-collection-container')
+        disableBodyScroll(toNotLock)
     }
 
     const closeAddToCollection = () => {
         setShowAddToCollection(false)
-        // const toNotLock = document.getElementById('add-to-collection-container')
-        // enableBodyScroll(toNotLock)
+        const toNotLock = document.getElementById('add-to-collection-container')
+        enableBodyScroll(toNotLock)
     }
 
     return(
