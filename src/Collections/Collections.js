@@ -72,7 +72,7 @@ const Collections = (props) => {
             <div>
                 { showRename ?
                 <div>
-                    <PopupDarken />
+                    <PopupDarken onClick={closeRename} />
                     <Rename closeRename={closeRename} showRename={showRename} getCollections={getCollections} collectionName={collectionName} setShowRename={setShowRename}></Rename>
                 </div>
                 : 
@@ -80,7 +80,7 @@ const Collections = (props) => {
                 }
                 {showDelete ? 
                 <div>
-                    <PopupDarken />
+                    <PopupDarken onClick={closeDelete} />
                     <Delete closeDelete={closeDelete} collectionIndex={collectionIndex} setCollectionInfo={setCollectionInfo} collectionInfo={collectionInfo} collectionName={collectionName} setShowDelete={setShowDelete} />
                 </div>
                 :

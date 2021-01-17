@@ -15,6 +15,7 @@ import {
 const AdmiredDropdown = (props) => {
 
     const getCollectionsList = () => {
+        props.openAddToCollection()
         const collectionsArray = []
         db.collection('users')
         .doc(props.user)
@@ -44,12 +45,12 @@ const AdmiredDropdown = (props) => {
                         if (index+1 === collections.docs.length) {
                             props.setCollectionsList(collectionsArray)
                             // props.dispatch(collectionsList(collectionsArray))
-                            props.openAddToCollection()
+                            props.setShowSpinner(false)
                         }
                     })
                 })
             }else{
-                props.openAddToCollection()
+                props.setShowSpinner(false)
             }
         }) 
     }

@@ -1,7 +1,7 @@
 import React from 'react'
 // import AddToCollection from '../FeaturedPost/AddToCollection'
-// import { ReactComponent as FilledBookmark } from '../Icons/FilledBookmark.svg'
-// import { ReactComponent as EmptyBookmark } from '../Icons/EmptyBookmark.svg'
+
+import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
 import { db } from '../Firebase'
 import { ReactComponent as Collections } from '../Icons/Collections.svg'
 import { connect } from 'react-redux'
@@ -31,6 +31,7 @@ const AddDropdown = (props) => {
         .orderBy('timestamp', 'desc')
         .get()
         .then(collections => {
+            disableBodyScroll(document.getElementById('add-to-collection-container'))
             if(collections.docs.length>0) {
                 collections.docs.forEach((collection, index)=> {
                     const mapArray = []

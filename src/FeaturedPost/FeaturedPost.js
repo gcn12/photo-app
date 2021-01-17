@@ -323,7 +323,7 @@ const FeaturedPost = (props) => {
                 }
                 {isAddToCollection ? 
                 <div>
-                    <PopupDarken />
+                    <PopupDarken onClick={closeAddToCollection} />
                     <AddToCollection showSpinner={showSpinner} closeAddToCollection={closeAddToCollection} photoInfo={props.photoInformation} setCollectionsList={setCollectionsList} collectionsList={collectionsList} setIsAddToCollection={setIsAddToCollection} />
                 </div>
                 :

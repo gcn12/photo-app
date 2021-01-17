@@ -22,6 +22,7 @@ const SavedPost = (props) => {
     const [showDropdown, setShowDropdown] = useState(false)
     const [showAddToCollection, setShowAddToCollection] = useState(false)
     const [isBookmarked, setIsBookmarked] = useState(true)
+    const [showSpinner, setShowSpinner] = useState(true)
 
     const [collectionsList, setCollectionsList] = useState([])
 
@@ -39,22 +40,22 @@ const SavedPost = (props) => {
 
     const openAddToCollection = () => {
         setShowAddToCollection(true)
-        const toNotLock = document.getElementById('add-to-collection-container')
-        disableBodyScroll(toNotLock)
+        // const toNotLock = document.getElementById('add-to-collection-container')
+        // disableBodyScroll(toNotLock)
     }
 
     const closeAddToCollection = () => {
         setShowAddToCollection(false)
-        const toNotLock = document.getElementById('add-to-collection-container')
-        enableBodyScroll(toNotLock)
+        // const toNotLock = document.getElementById('add-to-collection-container')
+        // enableBodyScroll(toNotLock)
     }
 
     return(
         <Container opacity={isVisible ? 1 : 0}>
             {showAddToCollection ? 
             <div>
-                <PopupDarken />
-                <AddToCollection closeAddToCollection={closeAddToCollection} removeFromSavedPostArray={removeFromSavedPostArray} photoInfo={props.post} collectionsList={collectionsList} setIsAddToCollection={setShowAddToCollection} setCollectionsList={setCollectionsList} />
+                <PopupDarken onClick={closeAddToCollection} />
+                <AddToCollection setShowSpinner={setShowSpinner} showSpinner={showSpinner} closeAddToCollection={closeAddToCollection} removeFromSavedPostArray={removeFromSavedPostArray} photoInfo={props.post} collectionsList={collectionsList} setIsAddToCollection={setShowAddToCollection} setCollectionsList={setCollectionsList} />
             </div>
             :
             null
@@ -73,7 +74,7 @@ const SavedPost = (props) => {
                     <div style={{position: 'relative'}}>
                         <More onClick={()=> setShowDropdown(!showDropdown)} className='add-dropdown'>&#8942;</More>
                         {showDropdown ? 
-                        <AddDropdown openAddToCollection={openAddToCollection} setShowDropdown={setShowDropdown} isRemoveFromSavedPage={true} index={props.index} removeFromSavedPostArray={removeFromSavedPostArray} translateContainer='translate(-90%, 5%)' setCollectionsList={setCollectionsList} id={props.post.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.post} />
+                        <AddDropdown setShowSpinner={setShowSpinner} openAddToCollection={openAddToCollection} setShowDropdown={setShowDropdown} isRemoveFromSavedPage={true} index={props.index} removeFromSavedPostArray={removeFromSavedPostArray} translateContainer='translate(-90%, 5%)' setCollectionsList={setCollectionsList} id={props.post.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.post} />
                         :
                         null
                         }

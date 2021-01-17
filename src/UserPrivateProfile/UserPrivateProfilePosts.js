@@ -65,7 +65,8 @@ const UserPrivateProfilesPosts = (props) => {
 
     const closeDelete = () => {
         setShowDelete(false)
-        enableBodyScroll(document.body)
+        const toNotLock = document.getElementById('edit-post-scroll-container')
+        enableBodyScroll(toNotLock)
     }
 
     const openEdit = () => {
@@ -84,7 +85,7 @@ const UserPrivateProfilesPosts = (props) => {
         <Container marginTop='30px' visibility={isPrivatePostVisible ? 1 : 0} >
             {showEdit ? 
             <div>
-                <PopupDarken />
+                <PopupDarken onClick={closeEdit} />
                 <EditPost closeEdit={closeEdit} getPosts={props.getUserProfile} setShowEdit={setShowEdit} postData={postData} />
             </div>
             :
@@ -92,7 +93,7 @@ const UserPrivateProfilesPosts = (props) => {
             }
             {showDelete ? 
             <div>
-                <PopupDarken />
+                <PopupDarken onClick={closeDelete} />
                 <DeletePost post={props.post} location={props.post.location} country={props.post.country} closeDelete={closeDelete} removePostFromPosts={removePostFromPosts} setShowGear={props.setShowGear} postID={props.post.postID} index={props.index} title={props.post.title} image={props.post.image} username={props.post.username} url={props.post.url} setShowDelete={setShowDelete} />
             </div>
             :
