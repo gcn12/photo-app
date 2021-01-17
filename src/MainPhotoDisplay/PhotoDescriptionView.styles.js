@@ -8,12 +8,12 @@ export const Container = styled.div`
 `
  
  export const Card = styled.div`
-    /* width: 350px; */
+    max-width: 400px;
     width: 100%;
     min-height: 420px;
     /* background-color: #f5f5f5; */
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
 `
 
 const fadeIn = keyframes`
@@ -26,17 +26,13 @@ const fadeIn = keyframes`
 `;
 
 export const Description = styled.div`
-    /* text-align: justify; */
     font-size: 17px;
     line-height: 30px;
     font-weight: 400;
-    /* padding: 0 5%; */
     color: #4D4D4D;
-    /* width: 350px; */
-    width: 100%;
+    /* width: 100%; */
     min-width: 300px;
     max-width: 400px;
-    /* height: 100px; */
 `
 
 export const Location = styled.div`
@@ -110,7 +106,6 @@ export const Image = styled.img`
     margin-bottom: 10px;
     object-fit: cover;
     width: 100%;
-    /* min-width: 320px; */
     max-width: 400px;
     height: 250px;
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .3);
@@ -124,9 +119,8 @@ export const Image = styled.img`
 export const PlaceholderImage = styled.div`
     cursor: pointer;
     margin-bottom: 10px;
-    /* object-fit: contain; */
     width: 100%;
-    /* min-width: 320px; */
+    object-fit: cover;
     max-width: 400px;
     height: 250px;
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .3);

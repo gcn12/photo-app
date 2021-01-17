@@ -77,14 +77,12 @@ const PhotoDescriptionView = (props) => {
 
     const openAddToCollection = () => {
         setShowAddToCollection(true)
-        // disableBodyScroll(document.body)
         const toLock = document.getElementById('add-to-collection-container')
         disableBodyScroll(toLock)
     }
 
     const closeAddToCollection = () => {
         setShowAddToCollection(false)
-        // enableBodyScroll(document.body)
         const toLock = document.getElementById('add-to-collection-container')
         enableBodyScroll(toLock)
     }

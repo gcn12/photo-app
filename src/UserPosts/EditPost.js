@@ -418,6 +418,7 @@ const EditPost = (props) => {
         let country 
 
         let previewDescriptionNoEllipsis = document.getElementById('edit-post-description').value
+        previewDescriptionNoEllipsis = previewDescriptionNoEllipsis.trim()
         if(previewDescriptionNoEllipsis[previewDescriptionNoEllipsis.length-1]!== '.') {
             previewDescriptionNoEllipsis += '...'
         }
