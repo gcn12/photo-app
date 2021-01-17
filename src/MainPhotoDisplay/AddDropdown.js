@@ -22,7 +22,8 @@ import {
 const AddDropdown = (props) => {
 
     const getCollectionsList = () => {
-        props.openAddToCollection()
+        props.setShowSpinner(false)
+        // props.openAddToCollection()
         const collectionsArray = []
         db.collection('users')
         .doc(props.user)
@@ -52,7 +53,7 @@ const AddDropdown = (props) => {
                         if (index+1 === collections.docs.length) {
                             props.setCollectionsList(collectionsArray)
                             props.setShowSpinner(false)
-                            // props.openAddToCollection()
+                            props.openAddToCollection()
                         }
                     })
                 })
