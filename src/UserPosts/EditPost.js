@@ -556,7 +556,7 @@ const EditPost = (props) => {
                     <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                         <X visibility={showCancel ? 'visible' : 'hidden'} display={showCancel ? 'initial' : 'none'} onClick={props.closeEdit}>&times;</X>
                     </div>
-                    <VerticalScroll height='10vh'>
+                    <VerticalScroll id='edit-post-scroll-container' height='10vh'>
                 <HideContent visibility={isUploading ? 'hidden' : 'visible'} display={isUploading ? 'none' : 'initial'}>
                         <div>
                             <Container2>

@@ -152,7 +152,7 @@ const EditProfile = (props) => {
     }
 
     return(
-        <Container>
+        <Container id='edit-profile-container'>
             {/* {console.log(props.userData)} */}
             {isUploading ? 
                 <CenterProgress>

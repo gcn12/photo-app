@@ -281,12 +281,14 @@ const FeaturedPost = (props) => {
 
     const openAddToCollection = () => {
         setIsAddToCollection(true)
-        disableBodyScroll(document.body)
+        const toNotLock = document.getElementById('add-to-collection-container')
+        disableBodyScroll(toNotLock)
     }
 
     const closeAddToCollection = () => {
         setIsAddToCollection(false)
-        enableBodyScroll(document.body)
+        const toNotLock = document.getElementById('add-to-collection-container')
+        enableBodyScroll(toNotLock)
     }
 
     // const getImageSize = (src) => {

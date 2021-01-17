@@ -42,12 +42,14 @@ const UserPrivateProfile = (props) => {
     const showDialog = () => {
         setShowEditProfile(true)
         // disableScroll.on()
-        disableBodyScroll(document.body)
+        const toNotLock = document.getElementById('edit-profile-container')
+        disableBodyScroll(toNotLock)
     }
 
     const closeDialog = () => {
         setShowEditProfile(false)
-        enableBodyScroll(document.body)
+        const toNotLock = document.getElementById('edit-profile-container')
+        enableBodyScroll(toNotLock)
         // disableScroll.off()
     }
     

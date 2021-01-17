@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     height: auto;
-    min-height: 400px;
+    max-height: 90vh;
     width: 40vw;
     background-color: #f5f5f5;
     margin: auto;
@@ -15,6 +15,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     padding: 10px 20px 20px 20px;
+    overflow-y: scroll;
     /* box-shadow: 0px 0px 1px 100vmax rgba(0,0,0,0.8); */
     z-index: 4;
     @media (max-width: 1100px) {
