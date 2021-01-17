@@ -107,7 +107,7 @@ const AddToCollection = (props) => {
                     })}
                 </CollectionsContainer>
                 :
-                <CollectionsContainer>
+                <CollectionsContainer id='add-to-collection-container'>
                     {props?.collectionsList?.map((collection, index) => {
                         return(
                             <AddToCollectionItem 
