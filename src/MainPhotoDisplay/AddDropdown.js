@@ -22,7 +22,7 @@ import {
 const AddDropdown = (props) => {
 
     const getCollectionsList = () => {
-        props.setShowSpinner(false)
+        // props.setShowSpinner(false)
         // props.openAddToCollection()
         const collectionsArray = []
         db.collection('users')
