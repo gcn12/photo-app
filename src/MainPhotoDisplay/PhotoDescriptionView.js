@@ -78,14 +78,14 @@ const PhotoDescriptionView = (props) => {
     const openAddToCollection = () => {
         setShowAddToCollection(true)
         // disableBodyScroll(document.body)
-        const toLock = document.getElementById('description-view-container')
+        const toLock = document.getElementById('add-to-collection-container')
         disableBodyScroll(toLock)
     }
 
     const closeAddToCollection = () => {
         setShowAddToCollection(false)
         // enableBodyScroll(document.body)
-        const toLock = document.getElementById('description-view-container')
+        const toLock = document.getElementById('add-to-collection-container')
         enableBodyScroll(toLock)
     }
 
@@ -107,7 +107,7 @@ const PhotoDescriptionView = (props) => {
             :
             null
             }
-            <Container opacity='1' id='description-view-container'>
+            <Container opacity='1'>
                 <Card>
                     <ImageLinkContainer display={showPost ? 'none' : 'initial'} opacity={showPost ? 0 : 1}>
                         <Link to={`/photo-app/post/${props.photoInfo.postID}`}>
