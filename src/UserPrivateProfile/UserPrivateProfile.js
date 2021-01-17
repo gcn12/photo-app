@@ -42,8 +42,8 @@ const UserPrivateProfile = (props) => {
     const showDialog = () => {
         setShowEditProfile(true)
         // disableScroll.on()
-        const toNotLock = document.getElementById('edit-profile-container')
-        disableBodyScroll(toNotLock)
+        // const toNotLock = document.getElementById('edit-profile-container')
+        // disableBodyScroll(toNotLock)
     }
 
     const closeDialog = () => {
@@ -59,7 +59,7 @@ const UserPrivateProfile = (props) => {
             {showEditProfile ? 
             <div>
                 <PopupDarken onClick={closeDialog} />
-                <EditProfile closeDialog={closeDialog} getUserProfile={props.getUserProfile} userData={userData[0]} setShowEditProfile={setShowEditProfile} />
+                <EditProfile showEditProfile={showEditProfile} closeDialog={closeDialog} getUserProfile={props.getUserProfile} userData={userData[0]} setShowEditProfile={setShowEditProfile} />
             </div>
             :
             null
