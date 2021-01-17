@@ -183,7 +183,7 @@ const EditProfile = (props) => {
                         <BioTextarea id='edit-profile-bio' onChange={(e)=>setBio(e.target.value)} defaultValue={bio}></BioTextarea>
                     </div>
                 </div>
-                <div style={{display: 'flex'}}>
+                <div style={{display: 'flex', justifyContent: 'center'}}>
                     <Cancel onClick={props.closeDialog}>Cancel</Cancel>
                     <ConfirmButton onClick={uploadProfileImage}>Confirm changes</ConfirmButton>
                 </div>

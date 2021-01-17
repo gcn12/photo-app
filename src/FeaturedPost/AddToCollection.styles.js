@@ -119,7 +119,7 @@ export const CreateNewButton = styled.button`
     height: auto;
     font-size: 20px;
     background-color: transparent;
-    padding: 5px 20px;
+    padding: 8px 15px;
     border-radius: 2px;
     border: 1px solid black;
     cursor: pointer;
