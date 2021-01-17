@@ -77,12 +77,14 @@ const PhotoDescriptionView = (props) => {
 
     const openAddToCollection = () => {
         setShowAddToCollection(true)
-        disableBodyScroll(document.body)
+        // disableBodyScroll(document.body)
+        disableBodyScroll('#description-view-container')
     }
 
     const closeAddToCollection = () => {
         setShowAddToCollection(false)
-        enableBodyScroll(document.body)
+        // enableBodyScroll(document.body)
+        enableBodyScroll('#description-view-container')
     }
 
     const whenLoaded = () => {
@@ -94,50 +96,52 @@ const PhotoDescriptionView = (props) => {
     }
 
     return(
-        <Container opacity={showPost ? 1 : 1}>
-            <Card>
-                {showAddToCollection ? 
-                <div>
-                    <PopupDarken />
-                    <AddToCollection showSpinner={showSpinner} closeAddToCollection={closeAddToCollection} showAddToCollection={showAddToCollection} photoInfo={props.photoInfo} collectionsList={collectionsList} setIsAddToCollection={setShowAddToCollection} setCollectionsList={setCollectionsList} />
-                </div>
-                :
-                null
-                }
-                <ImageLinkContainer display={showPost ? 'none' : 'initial'} opacity={showPost ? 0 : 1}>
-                    <Link to={`/photo-app/post/${props.photoInfo.postID}`}>
-                        <PlaceholderImage className='shine' onLoad={whenLoaded} />
-                    </Link>
-                </ImageLinkContainer>
-                <ImageLinkContainer onClick={goToPost} display={showPost ? 'initial' : 'none'} opacity={showPost ? 1 : 0}>
-                    <Link to={`/photo-app/post/${props.photoInfo.postID}`}>
-                        <Image onLoad={whenLoaded} src={props.photoInfo.smallImage} />
-                    </Link>
-                </ImageLinkContainer>
-                <BookmarkLocationContainer>
-                    <div style={{display: 'flex', alignItems: 'center'}}>
-                        <Location>{`${props.photoInfo.location}`}</Location>
-                        <Category>{props.photoInfo.category}</Category>
-                    </div>
-                    <div>
-                        <div className='add-dropdown' style={{cursor: 'pointer'}}>
-                            {showDropdown ? 
-                            <AddDropdown setShowSpinner={setShowSpinner} fontSize='20px' translateContainer='translate(-90%, 50%)' openAddToCollection={openAddToCollection} setCollectionsList={setCollectionsList}  id={props.photoInfo.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.photoInfo} />
-                            :
-                            null
-                            }
-                            <Ellipsis className='add-dropdown' onClick={checkIsBookmarked}>&#8942;</Ellipsis>
+        <div>
+            {showAddToCollection ? 
+            <div>
+                <PopupDarken />
+                <AddToCollection showSpinner={showSpinner} closeAddToCollection={closeAddToCollection} showAddToCollection={showAddToCollection} photoInfo={props.photoInfo} collectionsList={collectionsList} setIsAddToCollection={setShowAddToCollection} setCollectionsList={setCollectionsList} />
+            </div>
+            :
+            null
+            }
+            <Container id='description-view-container'>
+                <Card>
+                    <ImageLinkContainer display={showPost ? 'none' : 'initial'} opacity={showPost ? 0 : 1}>
+                        <Link to={`/photo-app/post/${props.photoInfo.postID}`}>
+                            <PlaceholderImage className='shine' onLoad={whenLoaded} />
+                        </Link>
+                    </ImageLinkContainer>
+                    <ImageLinkContainer onClick={goToPost} display={showPost ? 'initial' : 'none'} opacity={showPost ? 1 : 0}>
+                        <Link to={`/photo-app/post/${props.photoInfo.postID}`}>
+                            <Image onLoad={whenLoaded} src={props.photoInfo.smallImage} />
+                        </Link>
+                    </ImageLinkContainer>
+                    <BookmarkLocationContainer>
+                        <div style={{display: 'flex', alignItems: 'center'}}>
+                            <Location>{`${props.photoInfo.location}`}</Location>
+                            <Category>{props.photoInfo.category}</Category>
                         </div>
-                    </div>
-                </BookmarkLocationContainer>
-                {/* <Name>{props.photoInfo.author}</Name> */}
-                <Link onClick={goToPost} to={`/photo-app/post/${props.photoInfo.postID}`} style={{textDecoration: 'none'}}>
-                    {/* <Title onClick={goToPost} id={`description-view-title-${props.index}`}>{props.photoInfo.title}</Title> */}
-                    <Title id={`description-view-title-${props.index}`}>{props.photoInfo.title}</Title>
-                </Link>
-                <Description>{props.photoInfo.previewDescription}</Description>
-            </Card>
-        </Container>
+                        <div>
+                            <div className='add-dropdown' style={{cursor: 'pointer'}}>
+                                {showDropdown ? 
+                                <AddDropdown setShowSpinner={setShowSpinner} fontSize='20px' translateContainer='translate(-90%, 50%)' openAddToCollection={openAddToCollection} setCollectionsList={setCollectionsList}  id={props.photoInfo.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.photoInfo} />
+                                :
+                                null
+                                }
+                                <Ellipsis className='add-dropdown' onClick={checkIsBookmarked}>&#8942;</Ellipsis>
+                            </div>
+                        </div>
+                    </BookmarkLocationContainer>
+                    {/* <Name>{props.photoInfo.author}</Name> */}
+                    <Link onClick={goToPost} to={`/photo-app/post/${props.photoInfo.postID}`} style={{textDecoration: 'none'}}>
+                        {/* <Title onClick={goToPost} id={`description-view-title-${props.index}`}>{props.photoInfo.title}</Title> */}
+                        <Title id={`description-view-title-${props.index}`}>{props.photoInfo.title}</Title>
+                    </Link>
+                    <Description>{props.photoInfo.previewDescription}</Description>
+                </Card>
+            </Container>
+        </div>
     )
 }
 

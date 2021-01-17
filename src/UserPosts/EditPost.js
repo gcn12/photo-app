@@ -416,7 +416,6 @@ const EditPost = (props) => {
         let previewDescription 
         const location = document.getElementById('autocomplete').value
         let country 
-        let city
 
         let previewDescriptionNoEllipsis = document.getElementById('edit-post-description').value
         if(previewDescriptionNoEllipsis[previewDescriptionNoEllipsis.length-1]!== '.') {
@@ -460,10 +459,10 @@ const EditPost = (props) => {
         if(location.length > 2 && location !== postData.location) {
             const splitLocation = location.split(',')
             country = splitLocation[splitLocation.length-1].trim()
-            city = splitLocation[0].trim()
             fullPostUpdate['country'] = country
-            fullPostUpdate['city'] = city
             fullPostUpdate['location'] = location
+            previewPostUpdate['country'] = country
+            previewPostUpdate['location'] = location
         }
         if (previewDescription !== postData.previewDescription) {
             fullPostUpdate['previewDescription'] = previewDescription

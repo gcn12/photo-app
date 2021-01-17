@@ -29,16 +29,16 @@ export const Container = styled.div`
     }
 `
 
-export const Cancel = styled.button`
-    height: 50px;
-    width: 90px;
-    font-size: 15px;
-    background-color: #cfcfcf;
-    color: black;
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
-`
+// export const Cancel = styled.button`
+//     height: 50px;
+//     width: 90px;
+//     font-size: 15px;
+//     background-color: #cfcfcf;
+//     color: black;
+//     border: none;
+//     border-radius: 2px;
+//     cursor: pointer;
+// `
 
 export const Text = styled.div`
     font-size: ${props=> props.size};
@@ -49,6 +49,9 @@ export const CollectionsContainer = styled.div`
     min-height: 170px;
     max-height: 225px;
     overflow-y: scroll;
+    @media (max-width: 500px) {
+        padding: 0 10px;
+    }
 `
 
 export const X = styled.div`
@@ -74,23 +77,6 @@ export const ButtonContainer = styled.div`
     display: flex;
     justify-content: center;
 `
-
-
-
-
-
-
-
-
-// export const Container = styled.div`
-//     min-width: 230px;
-//     padding: 20px;
-//     background-color: #f5f5f5;
-//     position: absolute;
-//     top: 100%;
-//     border-radius: 5%;
-//     box-shadow: 10px 10px 8px rgba(10, 10, 10, .3);
-// `
 
 export const Collection = styled.div`
     display: flex;
@@ -128,6 +114,9 @@ export const Warning = styled.div`
 // `
 
 export const CreateNewButton = styled.button`
+    white-space: nowrap;
+    width: auto;
+    height: auto;
     font-size: 20px;
     background-color: transparent;
     padding: 5px 20px;
