@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     height: auto;
-    max-height: 90vh;
+    min-height: 400px;
     width: 40vw;
     background-color: #f5f5f5;
     margin: auto;
