@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import PhotoDescriptionView from '../MainPhotoDisplay/PhotoDescriptionView'
 import CitiesDisplay from './CitiesDisplay'
-import UsersDisplay from './UsersDisplay'
+// import UsersDisplay from './UsersDisplay'
+import UserProfileCard from '../UserProfileCard/UserProfileCard'
 import { connect } from 'react-redux'
 import { searchQueries, query } from '../Redux/Actions/appActions'
 import {
@@ -18,7 +19,6 @@ const SearchPage = (props) => {
 
     useEffect(()=> {
         if(props.match.params.searchQuery.length > 0) {
-            console.log(props.match.params.searchQuery)
             props.dispatch(query(props.match.params.searchQuery))
             props.search('all results', false, props.match.params.searchQuery)
         }
@@ -34,7 +34,9 @@ const SearchPage = (props) => {
         <div style={{margin: '100px 5% 0 5%'}}>
             {props?.searchResults !== 'No results' ? 
             <div>
-                
+                {/* <div style={{display: 'flex', justifyContent: 'center'}}>
+                    <NoResults>Showing results for: {props.query}</NoResults>
+                </div> */}
                 {props?.searchResults[3]?.length > 0 || props?.searchResults[2]?.length > 0 ? 
                 <div>
                     <TitleContainer>
@@ -93,10 +95,17 @@ const SearchPage = (props) => {
                         null
                         }
                     </TitleContainer>
-                    <UsersContainer quantity={props?.searchResults[1]?.length < 4 ? 'center' : 'center'}>
+                    {/* <UsersContainer quantity={props?.searchResults[1]?.length < 4 ? 'center' : 'center'}>
                         {props?.searchResults[1]?.map((item, index)=> {
                             return (
                                 <UsersDisplay item={item} key={index} />
+                            )
+                        })}
+                    </UsersContainer> */}
+                    <UsersContainer quantity={props?.searchResults[1]?.length < 4 ? 'center' : 'center'}>
+                        {props?.searchResults[1]?.map((item, index)=> {
+                            return (
+                                <UserProfileCard photoInformation={item} key={index}/>
                             )
                         })}
                     </UsersContainer>
@@ -118,6 +127,7 @@ const SearchPage = (props) => {
 const mapStateToProps = state => ({
     searchResults: state.app.searchResults,
     searchQueries: state.app.searchQueries,
+    query: state.app.query
 })
 
 export default connect(mapStateToProps)(SearchPage)

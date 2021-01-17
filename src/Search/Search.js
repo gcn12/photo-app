@@ -20,7 +20,6 @@ const Search = (props) => {
             }else{
             }
             props.search(props.searchQueries)
-            console.log(props.searchQueries)
             const results = []
             props.dispatch(searchResults([...results]))
         }

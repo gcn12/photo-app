@@ -144,7 +144,6 @@ const App = (props) => {
 
   
   const search = (resultCriteria, filter, query) => { 
-    console.log(query)
     const searchClient = algoliasearch(
       'VNSU9OYWB2',
       '6478d10ccc9941fe49a73aeb6ba2e73f'
@@ -167,7 +166,7 @@ const App = (props) => {
       query: props.query,
       params: {
         hitsPerPage: 10,
-        attributesToRetrieve: ['name', 'username', 'profileImage', 'author'],
+        attributesToRetrieve: ['name', 'bio', 'username', 'profileImage', 'author'],
       }
     }
     if(query) {
@@ -269,7 +268,6 @@ const App = (props) => {
         }else{
           props.dispatch(searchResults(resultsArray))
         }
-        console.log(resultsArray)
       });
     }
   }

@@ -36,7 +36,7 @@ export const Author = styled.div`
     color: #595959;
     font-size: 20px;
     /* color: #242424; */
-    cursor: pointer;
+    /* cursor: pointer; */
     font-weight: 300;
     font-family: ${props=> props.font};
     /* margin: 15px 0 40px 0; */
@@ -203,7 +203,7 @@ export const BioName = styled.div`
 
 export const Bio = styled.div`
     /* max-width: 30vw; */
-    width: 400px;
+    max-width: 400px;
     color: #4D4D4D;
     font-weight: 500;
     @media (max-width: 500px) {
@@ -262,4 +262,15 @@ export const PlaceholderImage = styled.img`
     /* display: block; */
     opacity: ${props=>props.opacity};
     display: ${props=>props.display};
+`
+
+export const Text = styled.div`
+    font-size: ${props=>props.size};
+    font-weight: ${props=>props.weight};
+`
+
+export const CenterDate = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-bottom: 35px;
 `

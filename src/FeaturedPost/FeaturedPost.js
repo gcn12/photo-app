@@ -10,6 +10,7 @@ import { ReactComponent as Collections } from '../Icons/Collections.svg'
 import { ReactComponent as EmptyBookmark } from '../Icons/EmptyBookmark.svg'
 import { ReactComponent as FilledBookmark } from '../Icons/FilledBookmark.svg'
 import { ReactComponent as SquareAvatar } from '../Icons/SquareAvatar.svg'
+import { ReactComponent as Compass } from '../Icons/Compass.svg'
 import firebase from 'firebase'
 import { PopupDarken } from '../Styles/PopupStyles.styles'
 import { connect } from 'react-redux'
@@ -39,7 +40,7 @@ import {
     Header,
     Caption,
     PostFooterContainer,
-    DateStyle,
+    // DateStyle,
     ButtonLabelContainer,
     ButtonLabel,
     UserBioContainer,
@@ -50,6 +51,8 @@ import {
     BioContainer,
     FeaturedPostContainer,
     PlaceholderImage,
+    Text,
+    CenterDate,
     // AddCollectionHeartContainer,
 } from './FeaturedPost.styles'
 
@@ -343,17 +346,20 @@ const FeaturedPost = (props) => {
                             id='featured-main-image' alt='display' src={props?.photoInformation?.image}>
                         </MainImage>
                         {/* <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MMMM Do YYYY')}</DateStyle> */}
-                        <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                        {/* <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                             <DateStyle font={props?.photoInformation?.font}>{moment(props.photoInformation?.timestamp).format('MM DD YY')}</DateStyle>
-                        </div>
+                        </div> */}
                     </div>
                         <div style={{display: 'flex', justifyContent: 'center'}}>
                             <Title font={props?.photoInformation?.font}>{props?.photoInformation?.title}</Title>
                         </div>
                         <InfoContainer justify='center'>
-                            <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} style={{textDecoration: 'none'}}>
+                            {/* <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} style={{textDecoration: 'none'}}>
                                 <Author font={props?.photoInformation?.font}>{props?.photoInformation?.author} | {props?.photoInformation?.username}</Author>
-                            </Link>
+                            </Link> */}
+                            <Compass style={{transform: 'scale(0.8)'}} />
+                            <div style={{marginRight: '5px'}}></div>
+                            <Author font={props?.photoInformation?.font}>{props?.photoInformation?.location}</Author>
                         </InfoContainer>
                 </Container>
                 {/* {console.log(props?.photoInformation)} */}
@@ -466,6 +472,15 @@ const FeaturedPost = (props) => {
                     </ButtonLabelContainer>
                 </PostFooterContainer>
 
+
+
+                <CenterDate>
+                    <Text size='20px'>Published on</Text>
+                    &nbsp;
+                    <Text size='20px' weight='600'>{moment(props.photoInformation?.timestamp).format('MMMM DD YYYY')}</Text> 
+                    &nbsp;
+                    <Text size='20px'>by:</Text>
+                </CenterDate>
                 <UserBioContainer>
                     <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} style={{textDecoration: 'none'}}>
                         {props?.photoInformation?.profileImage  ? 
