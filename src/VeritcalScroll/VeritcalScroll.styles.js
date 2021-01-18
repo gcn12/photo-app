@@ -5,4 +5,5 @@ export const Scroll = styled.div`
     height: ${props => props.scrollHeight};
     max-height: ${props => props.maxHeight};
     overflow-Y: scroll;
+    -webkit-overflow-scrolling: touch;
 `

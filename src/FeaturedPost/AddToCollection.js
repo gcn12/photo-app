@@ -91,6 +91,10 @@ const AddToCollection = (props) => {
         disableBodyScroll(toNotLock)
     }
 
+    window.addEventListener('load', function() {
+        // lockScroll()
+    })
+
     return(
         <div>
             <Container>

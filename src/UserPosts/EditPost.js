@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 // import VerticalScroll from '../VeritcalScroll/VerticalScroll'
 import firebase from 'firebase'
 import { db } from '../Firebase'
-import { disableBodyScroll } from 'body-scroll-lock'
+import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import Autocomplete from '../Autocomplete/Autocomplete'
 import UploadProgress from '../AddContent/UploadProgress'
 import {ReactComponent as Text} from '../Icons/Text.svg'
@@ -465,6 +465,27 @@ const EditPost = (props) => {
             fullPostUpdate['location'] = location
             previewPostUpdate['country'] = country
             previewPostUpdate['location'] = location
+
+            db.collection('pending-tasks')
+            .doc('location-add')
+            .collection('location-add')
+            .add({
+                location,
+                pastLocation: postData.location
+            })
+            .then(()=>null)
+            .catch(err=>console.log(err))
+
+            db.collection('pending-tasks')
+            .doc('country-add')
+            .collection('country-add')
+            .add({
+                country,
+                pastCountry: postData.country
+            })
+            .then(()=>null)
+            .catch(err=>console.log(err))
+            
         }
         if (previewDescription !== postData.previewDescription) {
             fullPostUpdate['previewDescription'] = previewDescription
@@ -520,6 +541,7 @@ const EditPost = (props) => {
                         props.getPosts(props.userInformation.id)
                         console.log('uploaded')
                         setUploadProgressColor(true)
+                        clearAllBodyScrollLocks()
                         setTimeout(()=>props.closeEdit(), 1200)
                     })
                 })

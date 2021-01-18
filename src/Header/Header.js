@@ -8,7 +8,7 @@ import SubheaderSearch from './SubheaderSearch'
 import Search from '../Search/Search'
 import ProfileDropdown from './ProfileDropdown'
 import { connect } from 'react-redux'
-import { homePhotoInformation } from '../Redux/Actions/appActions'
+import { homePhotoInformation, profileLoaded } from '../Redux/Actions/appActions'
 import { ReactComponent as Avatar } from '../Icons/Avatar.svg'
 import { searchTransition, searchVisibility, selected, selectedCategory } from '../Redux/Actions/headerActions'
 import { ReactComponent as SearchIcon } from '../Icons/Search.svg'
@@ -22,6 +22,7 @@ import {
     HeaderRight,
     IconContainer,
     ProfileImage,
+    CenterSearch,
 } from './Header.styles'
 
 const Header = (props) => {
@@ -151,11 +152,13 @@ const Header = (props) => {
                             </Link>
                         </LI>
                     </UL>
-                    <Search search={props.search} history={props.history} location={props.location} />
+                    <CenterSearch>
+                        <Search search={props.search} history={props.history} location={props.location} />
+                    </CenterSearch>
                     <IconContainer>
                         <SearchIcon onClick={startSearchTransition} style={{transform: 'scale(1)'}}></SearchIcon>
                     </IconContainer>
-                    <HeaderRight>
+                    <HeaderRight visibility={props.profileLoaded ? 'visible' : 'hidden'}>
                         {props.user ? 
                         <Link to='/photo-app/upload' style={{ textDecoration: 'none' }}>
                             <Navigation cursor='pointer'>Upload</Navigation>
@@ -169,7 +172,7 @@ const Header = (props) => {
                         {props.user ? 
                         <div style={{position: 'relative'}}>
                             {props.userInformation.profileImage ? 
-                            <ProfileImage className='profile-dropdown' onClick={()=> setShowProfileDropdown(!showProfileDropdown)} src={props.userInformation.profileImage} />
+                            <ProfileImage onLoad={()=>props.dispatch(profileLoaded(true))} className='profile-dropdown' onClick={()=> setShowProfileDropdown(!showProfileDropdown)} src={props.userInformation.profileImage} />
                             :
                             <Avatar className='profile-dropdown' onClick={()=> setShowProfileDropdown(!showProfileDropdown)} style={{transform: 'scale(1.3)', position: 'relative', top: 4, cursor: 'pointer', margin: '0 5px'}} />
                             }
@@ -230,6 +233,7 @@ const mapStateToProps = state => ({
     userInformation: state.app.userInformation,
     dropdownTransition: state.header.dropdownTransition,
     visibility: state.header.visibility,
+    profileLoaded: state.app.profileLoaded,
 })
 
 export default connect(mapStateToProps)(Header)

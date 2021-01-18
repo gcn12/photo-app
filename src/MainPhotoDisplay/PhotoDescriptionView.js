@@ -7,7 +7,7 @@ import AddDropdown from './AddDropdown'
 import AddToCollection from '../FeaturedPost/AddToCollection'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
+import { enableBodyScroll } from 'body-scroll-lock'
 import { PopupDarken } from '../Styles/PopupStyles.styles'
 import '../App.css'
 // import fitty from 'fitty'
@@ -77,8 +77,8 @@ const PhotoDescriptionView = (props) => {
 
     const openAddToCollection = () => {
         setShowAddToCollection(true)
-        const toLock = document.getElementById('add-to-collection-container')
-        disableBodyScroll(toLock)
+        // const toLock = document.getElementById('add-to-collection-container')
+        // disableBodyScroll(toLock)
     }
 
     const closeAddToCollection = () => {

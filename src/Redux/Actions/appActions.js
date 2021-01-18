@@ -11,6 +11,13 @@ export const SEARCH_QUERIES = 'SEARCH_QUERIES'
 export const START_AFTER = 'START_AFTER'
 export const SORT_CRITERIA = 'SORT_CRITERIA'
 export const USER_INFORMATION = 'USER_INFORMATION'
+export const PROFILE_LOADED = 'PROFILE_LOADED'
+
+export function profileLoaded(string) {
+    return(dispatch) => {
+        dispatch({type: PROFILE_LOADED, payload: string})
+    }
+}
 
 export function userInformation(string) {
     return(dispatch) => {

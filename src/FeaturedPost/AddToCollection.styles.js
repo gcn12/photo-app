@@ -49,6 +49,7 @@ export const CollectionsContainer = styled.div`
     min-height: 170px;
     max-height: 225px;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
     @media (max-width: 500px) {
         padding: 0 10px;
     }

@@ -58,7 +58,7 @@ const UserPrivateProfile = (props) => {
         <div id='dialog' style={{marginTop: '10px', position: 'relative'}}>
             {showEditProfile ? 
             <div>
-                <PopupDarken onClick={closeDialog} />
+                <PopupDarken />
                 <EditProfile showEditProfile={showEditProfile} closeDialog={closeDialog} getUserProfile={props.getUserProfile} userData={userData[0]} setShowEditProfile={setShowEditProfile} />
             </div>
             :

@@ -60,7 +60,7 @@ const UserPrivateProfilesPosts = (props) => {
 
     const openDelete = () => {
         setShowDelete(true)
-        disableBodyScroll(document.body)
+        disableBodyScroll()
     }
 
     const closeDelete = () => {
@@ -85,7 +85,7 @@ const UserPrivateProfilesPosts = (props) => {
         <Container marginTop='30px' visibility={isPrivatePostVisible ? 1 : 0} >
             {showEdit ? 
             <div>
-                <PopupDarken onClick={closeEdit} />
+                <PopupDarken />
                 <EditPost closeEdit={closeEdit} getPosts={props.getUserProfile} setShowEdit={setShowEdit} postData={postData} />
             </div>
             :

@@ -271,18 +271,18 @@ const FeaturedPost = (props) => {
     const openImage = (imageURL) => {
         enlarge(imageURL)
         setShowImageEnlarged(true)
-        disableBodyScroll(document.body)
+        disableBodyScroll()
     }
 
     const closeImage = () => {
         setShowImageEnlarged(false)
-        enableBodyScroll(document.body)
+        enableBodyScroll()
     }
 
     const openAddToCollection = () => {
         setIsAddToCollection(true)
-        const toNotLock = document.getElementById('add-to-collection-container')
-        disableBodyScroll(toNotLock)
+        // const toNotLock = document.getElementById('add-to-collection-container')
+        // disableBodyScroll(toNotLock)
     }
 
     const closeAddToCollection = () => {

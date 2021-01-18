@@ -4,6 +4,7 @@ export const initialState = {
     isLoadMore: true,
     query: '',
     user: '',
+    profileLoaded: false,
     photoInformation: null,
     homePhotoInformation: [],
     userData: [],
@@ -26,6 +27,8 @@ export const initialState = {
 
 export default function pageReducer(state=initialState, action) {
     switch(action.type) {
+        case actions.PROFILE_LOADED:
+            return {...state, profileLoaded: action.payload}
         case actions.USER_INFORMATION:
             return {...state, userInformation: action.payload}
         case actions.SORT_CRITERIA:

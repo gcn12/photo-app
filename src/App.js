@@ -14,8 +14,10 @@ import {
   startAfter,
   sortCriteria,
   userInformation,
+  profileLoaded
 } from './Redux/Actions/appActions'
 import Header from './Header/Header'
+import { clearAllBodyScrollLocks } from 'body-scroll-lock'
 import CollectionsComponent from './Collections/CollectionsComponent'
 // import NewLogin from './Login/NewLogin'
 // import VerticalScroll from './VeritcalScroll/VerticalScroll'
@@ -36,6 +38,17 @@ import { db } from './Firebase'
 import { Route, Switch } from 'react-router-dom'
 
 const App = (props) => {
+  
+  const { pathname } = props.location
+  useEffect(() => {
+    clearAllBodyScrollLocks() 
+    if(!pathname.includes('/search')) {
+      const searchInput = document.getElementById('result-query-input')
+      if(searchInput){
+        searchInput.value = ''
+      }
+    }
+  }, [pathname]);
 
   // const [showLogin, setShowLogin] = useState(false)
 
@@ -95,8 +108,14 @@ const App = (props) => {
         .doc(userData.uid)
         .get()
         .then(item=> {
-          props.dispatch(userInformation(item.data()))
+          // if(item.exists) {
+            props.dispatch(userInformation(item.data()))
+          // }else{
+          //   props.dispatch(profileLoaded(true))
+          // }
         })
+      }else{
+        props.dispatch(profileLoaded(true))
       }
     })
     if(props?.location?.pathname) {

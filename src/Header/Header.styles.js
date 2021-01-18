@@ -6,6 +6,7 @@ export const Container = styled.div`
     align-items: center;
     margin: 0px 40px 20px 30px;
     padding: 10px 0 0 0;
+    position: relative;
 
     @media(max-width: 550px) {
         /* margin: 0 0 10px; */
@@ -58,6 +59,7 @@ export const Navigation = styled.div`
 
 export const HeaderRight = styled.div`
     display: flex;
+    visibility: ${props=>props.visibility};
     /* align-items: flex-start; */
     @media(max-width: 550px){
         visibility: hidden;
@@ -80,4 +82,11 @@ export const ProfileImage = styled.img`
     width: 35px;
     cursor: pointer;
     object-fit: cover;
+`
+
+export const CenterSearch = styled.div`
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%)
 `

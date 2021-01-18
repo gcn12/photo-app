@@ -47,22 +47,22 @@ const Collections = (props) => {
 
     const openDelete = () => {
         setShowDelete(true)
-        disableBodyScroll(document.body)
+        disableBodyScroll()
     }
 
     const closeDelete = () => {
         setShowDelete(false)
-        enableBodyScroll(document.body)
+        enableBodyScroll()
     }
 
     const openRename = () => {
         setShowRename(true)
-        disableBodyScroll(document.body)
+        disableBodyScroll()
     }
 
     const closeRename = () => {
         setShowRename(false)
-        enableBodyScroll(document.body)
+        enableBodyScroll()
     }
 
     useEffect(getCollections, [props.user])
