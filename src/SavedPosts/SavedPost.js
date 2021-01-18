@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom' 
 import AddDropdown from '../MainPhotoDisplay/AddDropdown'
 import AddToCollection from '../FeaturedPost/AddToCollection'
-import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
+import { enableBodyScroll } from 'body-scroll-lock'
 
 // import { ReactComponent as TrashCan } from '../Icons/TrashCan.svg'
 import {
@@ -40,8 +40,8 @@ const SavedPost = (props) => {
 
     const openAddToCollection = () => {
         setShowAddToCollection(true)
-        const toNotLock = document.getElementById('add-to-collection-container')
-        disableBodyScroll(toNotLock)
+        // const toNotLock = document.getElementById('add-to-collection-container')
+        // disableBodyScroll(toNotLock)
     }
 
     const closeAddToCollection = () => {

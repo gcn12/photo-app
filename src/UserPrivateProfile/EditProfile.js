@@ -3,7 +3,7 @@ import { db } from '../Firebase'
 import { connect } from 'react-redux'
 import firebase from 'firebase'
 import UploadProgress from '../AddContent/UploadProgress'
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
+import { disableBodyScroll } from 'body-scroll-lock'
 import {
     Container,
     Cancel,
@@ -152,7 +152,7 @@ const EditProfile = (props) => {
         }
     }
 
-    const showDialog = () => {
+    const lockScroll = () => {
         const toNotLock = document.getElementById('edit-profile-container')
         disableBodyScroll(toNotLock)
     }
@@ -166,12 +166,13 @@ const EditProfile = (props) => {
                 </CenterProgress>
             :
             <div>
+                <img src='' alt='' onError={lockScroll} />
                 <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '20px'}}>
                     <Text size='40px'>Edit profile</Text>
                     <Text onClick={props.closeDialog} style={{cursor: 'pointer'}} size='40px'>&times;</Text>
                 </div>
                 <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
-                    <ProfileImage onLoad={showDialog} src={props?.userData?.profileImage} id='edit-profile-image' />
+                    <ProfileImage src={props?.userData?.profileImage} id='edit-profile-image' />
                     <EditButton htmlFor='edit-profile-input'>Change image</EditButton>
                     <input onChange={displayImage} hidden id='edit-profile-input' type='file'></input>
                 </div>

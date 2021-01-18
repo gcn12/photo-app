@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import AddToCollectionItem from './AddToCollectionItem'
 import CollectionItemsShimmer from './CollectionItemsShimmer'
 // import SpinnerOnly from '../Spinner/SpinnerOnly'
+import { disableBodyScroll } from 'body-scroll-lock'
 import { db } from '../Firebase'
 import {
     Container,
@@ -85,6 +86,11 @@ const AddToCollection = (props) => {
         }
     } 
 
+    const lockScroll = () => {
+        const toNotLock = document.getElementById('add-to-collection-container')
+        disableBodyScroll(toNotLock)
+    }
+
     return(
         <div>
             <Container>
@@ -102,6 +108,7 @@ const AddToCollection = (props) => {
                 </CollectionsContainer>
                 :
                 <CollectionsContainer id='add-to-collection-container'>
+                    <img src='' alt='' onError={lockScroll} />
                     {props?.collectionsList?.map((collection, index) => {
                         return(
                             <AddToCollectionItem 

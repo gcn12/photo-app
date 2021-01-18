@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import VerticalScroll from '../VeritcalScroll/VerticalScroll'
 import firebase from 'firebase'
 import { db } from '../Firebase'
+import { disableBodyScroll } from 'body-scroll-lock'
 import Autocomplete from '../Autocomplete/Autocomplete'
 import UploadProgress from '../AddContent/UploadProgress'
 import {ReactComponent as Text} from '../Icons/Text.svg'
@@ -547,6 +548,11 @@ const EditPost = (props) => {
         }
     }
 
+    const lockScroll = () => {
+        const toNotLock = document.getElementById('edit-post-scroll-container')
+        disableBodyScroll(toNotLock)
+    }
+
     return(
         <div style={{position: 'relative'}}>
             <CenterUploadProgress>
@@ -554,11 +560,12 @@ const EditPost = (props) => {
             </CenterUploadProgress>
             <Container height={isUploading ? '50vh' : '97vh'} width={isUploading ? '50vw' : '90vw'} opacity={1}>
                 {/* <button onClick={()=> console.log(postData)}>Log</button> */}
-                    <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                        <X visibility={showCancel ? 'visible' : 'hidden'} display={showCancel ? 'initial' : 'none'} onClick={props.closeEdit}>&times;</X>
-                    </div>
-                    <VerticalScroll id='edit-post-scroll-container' height='10vh'>
-                <HideContent visibility={isUploading ? 'hidden' : 'visible'} display={isUploading ? 'none' : 'initial'}>
+                <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                    <X visibility={showCancel ? 'visible' : 'hidden'} display={showCancel ? 'initial' : 'none'} onClick={props.closeEdit}>&times;</X>
+                </div>
+                <img src='' alt='' onError={lockScroll} />
+                <VerticalScroll height='10vh'>
+                <HideContent id='edit-post-scroll-container'  visibility={isUploading ? 'hidden' : 'visible'} display={isUploading ? 'none' : 'initial'}>
                         <div>
                             <Container2>
                                 <div id='edit-area'>

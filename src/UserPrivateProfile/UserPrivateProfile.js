@@ -3,7 +3,7 @@ import UserPrivateProfilesPosts from './UserPrivateProfilePosts'
 import { connect } from 'react-redux'
 import fitty from 'fitty'
 // import disableScroll from 'disable-scroll'
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
+import { enableBodyScroll } from 'body-scroll-lock'
 import EditProfile from './EditProfile'
 import {
     ProfileImage,
