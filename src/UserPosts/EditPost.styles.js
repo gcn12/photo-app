@@ -25,6 +25,7 @@ export const Container = styled.div`
 export const HideContent = styled.div`
     display: ${props=>props.display};
     visibility: ${props=>props.visibility};
+    overflow-y: scroll;
 `
 
 export const CenterUploadProgress = styled.div`

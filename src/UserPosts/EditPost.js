@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import VerticalScroll from '../VeritcalScroll/VerticalScroll'
+// import VerticalScroll from '../VeritcalScroll/VerticalScroll'
 import firebase from 'firebase'
 import { db } from '../Firebase'
 import { disableBodyScroll } from 'body-scroll-lock'
@@ -564,8 +564,8 @@ const EditPost = (props) => {
                     <X visibility={showCancel ? 'visible' : 'hidden'} display={showCancel ? 'initial' : 'none'} onClick={props.closeEdit}>&times;</X>
                 </div>
                 <img src='' alt='' onError={lockScroll} />
-                <VerticalScroll height='10vh'>
                 <HideContent id='edit-post-scroll-container'  visibility={isUploading ? 'hidden' : 'visible'} display={isUploading ? 'none' : 'initial'}>
+                {/* <VerticalScroll height='10vh'> */}
                         <div>
                             <Container2>
                                 <div id='edit-area'>
@@ -687,8 +687,8 @@ const EditPost = (props) => {
                                 </div>
                             </Container2>
                         </div>
+                    {/* </VerticalScroll> */}
                 </HideContent>
-                    </VerticalScroll>
             </Container>
         </div>
     )
