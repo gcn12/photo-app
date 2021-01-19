@@ -5,7 +5,7 @@ export const Container = styled.div`
     z-index: 4;
     width: 35vw;
     background-color: #f5f5f5;
-    margin: auto;
+    /* margin: auto; */
     position: fixed;
     left: 50%;
     top: 50%;
@@ -29,29 +29,20 @@ export const Container = styled.div`
     }
 `
 
-// export const Cancel = styled.button`
-//     height: 50px;
-//     width: 90px;
-//     font-size: 15px;
-//     background-color: #cfcfcf;
-//     color: black;
-//     border: none;
-//     border-radius: 2px;
-//     cursor: pointer;
-// `
-
 export const Text = styled.div`
     font-size: ${props=> props.size};
 `
 
 export const CollectionsContainer = styled.div`
-    padding: 0 60px;
+    margin: 0 40px;
+    padding: 0 10px;
     min-height: 170px;
     max-height: 225px;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     @media (max-width: 500px) {
         padding: 0 10px;
+        margin: 0 0px;
     }
 `
 
@@ -96,24 +87,6 @@ export const Warning = styled.div`
     color: red;
 `
 
-// export const CreateNewButton = styled.button`
-//     display:inline-block;
-//     padding: 0.35em 1.2em;
-//     border: 0.1em solid #242424;
-//     margin: 0 0.3em 0.3em 0;
-//     border-radius:0.12em;
-//     box-sizing: border-box;
-//     text-decoration:none;
-//     font-weight:300;
-//     text-align:center;
-//     transition: all 0.2s;
-//     background-color: transparent;
-//     width: 200px;
-//     font-size: 13px;
-//     transition: background-color 350ms;
-//     cursor: pointer;
-// `
-
 export const CreateNewButton = styled.button`
     white-space: nowrap;
     width: auto;
@@ -139,7 +112,7 @@ export const CreateNewInput = styled.input`
 export const CreateNewSubmit = styled.button`
     height: 35px;
     width: 110px;
-    font-size: 15px;
+    font-size: 16px;
     cursor: pointer;
     background-color: #242424;
     color: #e8e8e8;
@@ -148,7 +121,7 @@ export const CreateNewSubmit = styled.button`
 `
 
 export const RemoveAdd = styled.div`
-    font-size: 15px;
+    font-size: 16px;
     &:hover {
         border-bottom: .5px solid black;
     }

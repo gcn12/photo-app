@@ -38,7 +38,7 @@ const SubheaderCategories = (props) => {
     }
 
     return(
-        <Container fontSize='17px' translateContainer='translate(-15%, 5%)' className='categories-dropdown'>
+        <Container fontSize='18px' translateContainer='translate(-15%, 5%)' className='categories-dropdown'>
             <Triangle shift='translate(-280%, -90%)' />
             <Options>
                 <OptionIconContainer className='categories-dropdown'>

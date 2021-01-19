@@ -5,7 +5,7 @@ export const UserBioContainer = styled.div`
     justify-content: center;
     align-items: center;
     margin-bottom: 40px;
-    @media (max-width: 500px) {
+    @media (max-width: 550px) {
         flex-direction: column;
     }
 `
@@ -21,7 +21,7 @@ export const ProfileImage = styled.img`
 export const BioContainer = styled.div`
     display: flex;
     flex-direction: column;
-    @media (max-width: 500px) {
+    @media (max-width: 550px) {
         justify-content: center;
         align-items: center;
     }
@@ -35,17 +35,17 @@ export const BioUsername = styled.div`
 `
 
 export const BioName = styled.div`
-    font-size: 15px;
+    font-size: 16px;
     margin-bottom: 15px;
 `
 
 export const Bio = styled.div`
-    /* max-width: 30vw; */
-    max-width: 400px;
-    min-width: 300px;
+    width: 380px;
+    /* max-width: 400px;
+    min-width: 300px; */
     color: #4D4D4D;
     font-weight: 500;
-    @media (max-width: 500px) {
+    @media (max-width: 550px) {
         width: 350px;
         margin: 2% 5%;
         vertical-align: middle; 

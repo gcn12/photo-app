@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Title = styled.div`
     /* color: white; */
-    font-size: 25px;
+    font-size: 24px;
 `
 
 export const Photo = styled.img`
@@ -81,7 +81,7 @@ export const TitleEllipsisContainer = styled.div`
 
 export const Ellipsis = styled.div`
     margin-left: 5px;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 800;
     cursor: pointer;
 `

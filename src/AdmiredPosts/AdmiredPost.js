@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom' 
+import { connect } from 'react-redux'
+import { isPostVisible, isVisible } from '../Redux/Actions/featuredPostActions'
 import AdmiredDropdown from './AdmiredDropdown'
 import AddToCollection from '../FeaturedPost/AddToCollection'
 import { enableBodyScroll } from 'body-scroll-lock'
-// import { ReactComponent as TrashCan } from '../Icons/TrashCan.svg'
 import { PopupDarken } from '../Styles/PopupStyles.styles'
 import {
     Container,
@@ -16,7 +17,7 @@ import {
 
 const AdmiredPost = (props) => {
 
-    const [isVisible, setIsVisible] = useState(false)
+    const [isAdmiredPostVisible, setIsAdmiredPostVisible] = useState(false)
     const [showDropdown, setShowDropdown] = useState(false)
     const [showAddToCollection, setShowAddToCollection] = useState(false)
     const [isBookmarked, setIsBookmarked] = useState(true)
@@ -48,8 +49,13 @@ const AdmiredPost = (props) => {
         enableBodyScroll(toNotLock)
     }
 
+    const selectPost = () => {
+        props.dispatch(isPostVisible(false))
+        props.dispatch(isVisible(false))    
+    }
+
     return(
-        <Container opacity={isVisible ? 1 : 0}>
+        <Container opacity={isAdmiredPostVisible ? 1 : 0}>
             {showAddToCollection ? 
             <div>
                 <PopupDarken onClick={closeAddToCollection} />
@@ -59,12 +65,12 @@ const AdmiredPost = (props) => {
             null
             }
             <ImageTextContainer>
-            <Link to={`/photo-app/post/${props.post.postID}`}>
-                <Image onLoad={()=>setIsVisible(true)} src={props.post.smallImage} />
+            <Link onClick={selectPost} to={`/photo-app/post/${props.post.postID}`}>
+                <Image onLoad={()=>setIsAdmiredPostVisible(true)} src={props.post.smallImage} />
             </Link>
             <div style={{display: 'flex', alignItems: 'start'}}>
                 <div>
-                    <Link to={`/photo-app/post/${props.post.postID}`} style={{textDecoration: 'none'}}>
+                    <Link onClick={selectPost} to={`/photo-app/post/${props.post.postID}`} style={{textDecoration: 'none'}}>
                         <Title>{props.post.title}</Title>
                     </Link>
                     <Description>{props.post.previewDescription}</Description>
@@ -83,4 +89,6 @@ const AdmiredPost = (props) => {
     )
 }
 
-export default AdmiredPost
+const mapStateToProps = state => ({})
+
+export default connect(mapStateToProps)(AdmiredPost)

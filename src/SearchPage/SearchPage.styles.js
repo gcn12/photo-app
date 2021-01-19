@@ -33,7 +33,7 @@ export const UsersContainer = styled.div`
     display: grid;
     align-items: start;
     /* grid-template-columns: repeat(3, auto); */
-    grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
     grid-column-gap: 2%;
     grid-row-gap: 0%;
     align-items: start;
@@ -46,6 +46,7 @@ export const UsersContainer = styled.div`
 
 export const ResultTitle = styled.div`
     font-size: 30px;
+    margin: 8px 0;
 `
 
 export const TitleContainer = styled.div`

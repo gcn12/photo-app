@@ -1,22 +1,74 @@
 import React from 'react'
+import algoliasearch from 'algoliasearch'
+// import faker from 'faker'
+import { db } from './Firebase'
 import './App.css'
-import {
-    Container,
-    Image,
-} from './TestFile.styles'
+const APP_ID = ''
+const ADMIN_KEY = ''
+const client = algoliasearch(APP_ID, ADMIN_KEY)
 
 const GetPhotos = () => {
 
+    const addData = () => {
+
+        // let limit = 40
+        // for (let i = 0; i < limit; i++) {
+        //     let bio = faker.lorem.sentences()
+        //     bio = bio.slice(0, 100)
+        //     bio = bio.trim()
+        //     if(bio[bio.length - 1] !== '.') {
+        //         bio += '.'
+        //     }
+        //     const firstName = faker.name.firstName()
+        //     const lastName = faker.name.lastName()
+        //     const author = `${firstName} ${lastName}`
+        //     const username = `${firstName.toLocaleLowerCase()}.${lastName.toLocaleLowerCase()}`
+        //     const dataToSend = {
+        //         author,
+        //         username,
+        //         bio,
+        //         profileImage: '',
+        //     }
+        //     const objectID = faker.random.uuid()
+        //     console.log(dataToSend, objectID)
+        //     // index.saveObject({ ...dataToSend, objectID })
+        // }
+
+
+        const index = client.initIndex('users')
+        // index.search('', {hitsPerPage: 50}).then(({hits}) => {
+        //     hits.forEach(item=> {
+        //         let { objectID, author, _highlightResult, ...items } = item
+        //         // console.log(author, username)
+        //         index.saveObject({
+        //             objectID,
+        //             name: author,
+        //             ...items
+        //         })
+        //         .then(()=>console.log('updated'))
+        //     })
+        // })
+
+        db.collection('users')
+        .get()
+        .then(items=> {
+            items.forEach(item=> {
+                index.partialUpdateObject({
+                    bio: item.data().bio,
+                    objectID: item.data().id,
+                },
+                {
+                    createIfNotExists: true
+                })
+                .then(()=> console.log('uploaded'))
+                .catch(err=>console.log(err))
+            })
+        })
+    }
+    
     return(
-        <div style={{width: '60vw'}}>
-            <Container>
-
-                <Image src='https://firebasestorage.googleapis.com/v0/b/photos-634e7.appspot.com/o/jason_redfield%2Fbest-of-iceland%2Fc162773?alt=media&token=9d0acc37-b9d6-4875-ac75-8be49fb9a0fa' />
-
-                <Image src='https://firebasestorage.googleapis.com/v0/b/photos-634e7.appspot.com/o/jason_redfield%2Fbest-of-iceland%2Fe600998?alt=media&token=f4a97904-fe1e-4f00-b1e8-21b085fd2195' />
-   
-                <Image src='https://firebasestorage.googleapis.com/v0/b/photos-634e7.appspot.com/o/jason_redfield%2Fbest-of-iceland%2Fl286306?alt=media&token=eb5c4cf0-1532-4cde-84af-0bdcea6f608a' />
-            </Container>
+        <div style={{marginTop: '150px'}}>
+            <button onClick={addData}>Add profiles</button>
         </div>
     )
 }

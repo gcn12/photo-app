@@ -2,12 +2,9 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     height: auto;
-    /* overflow: hidden; */
-    /* max-width: ${props=>props.width}; */
     width: auto;
     position: absolute;
     background-color: white;
-    /* font-size: 20px; */
     font-size: ${props=>props.fontSize};
     transform: ${props=> props.translateContainer};
     color: black;
@@ -15,6 +12,7 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 5px;
+    z-index: 1;
     box-shadow: 0 5px 15px rgba(0, 0, 0, .3);
     /* transition: max-width 600ms; */
 `

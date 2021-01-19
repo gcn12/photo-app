@@ -26,13 +26,11 @@ const SavedPosts = (props) => {
     }, [props.user])
 
     return(
-        <div>
-            {savedPostsData.map((post, index) => {
-                return(
-                    <SavedPost index={index} savedPostsData={savedPostsData} setSavedPostsData={setSavedPostsData} post={post} key={index}></SavedPost>
-                )
-            })}
-        </div>
+        savedPostsData.map((post, index) => {
+            return(
+                <SavedPost index={index} savedPostsData={savedPostsData} setSavedPostsData={setSavedPostsData} post={post} key={index}></SavedPost>
+            )
+        })
     )
 }
 

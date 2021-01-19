@@ -99,7 +99,7 @@ const AddToCollection = (props) => {
         <div>
             <Container>
                 <X onClick={props.closeAddToCollection} style={{cursor: 'pointer'}} size='60px'>&times;</X>
-                <div style={{marginBottom: '15px', display: 'flex', justifyContent: 'center'}}>
+                <div style={{marginBottom: '5px', display: 'flex', justifyContent: 'center'}}>
                     <Text size='30px'>Add to collection</Text>
                 </div>
                 {props.showSpinner ? 

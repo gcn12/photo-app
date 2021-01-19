@@ -8,7 +8,7 @@ export const ProfileImage = styled.img`
     object-fit: cover;
     box-shadow:  0 5px 5px 0px  rgba(0, 0, 0, .2);
     @media(max-width: 700px) {
-        margin-top: 10px;
+        margin-top: 12px;
     }
 `
 
@@ -54,8 +54,8 @@ export const UserContainer = styled.div`
 export const Username = styled.div`
     /* font-family: montserrat; */
     font-weight: 500;
-    font-size: 25px;
-    margin-bottom: 10px;
+    font-size: 24px;
+    margin-bottom: 4px;
 
     white-space: pre-wrap;    
     white-space: -moz-pre-wrap;    
@@ -66,23 +66,18 @@ export const Username = styled.div`
 
 export const Name = styled.div`
     /* font-family: montserrat; */
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
-    margin-bottom: 30px;
+    margin-bottom: 24px;
     display: inline-block;
     white-space: nowrap;
-    /* white-space: pre-wrap;    
-    white-space: -moz-pre-wrap;    
-    white-space: -pre-wrap;       
-    white-space: -o-pre-wrap;     
-    word-wrap: break-word;  */
 `
 
 
 export const Bio = styled.div`
     /* font-family: montserrat; */
     font-weight: 500;
-    font-size: 17px;
+    font-size: 18px;
     line-height: 25px;
     vertical-align: middle; 
     text-align: center;

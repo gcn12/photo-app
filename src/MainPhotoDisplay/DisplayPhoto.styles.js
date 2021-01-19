@@ -24,7 +24,6 @@ export const PhotoTitle = styled.div`
     opacity: 0;
     transition: opacity 500ms;
     transition-delay: 250ms;
-    /* font-size: 30px; */
     white-space: nowrap;
 `
 

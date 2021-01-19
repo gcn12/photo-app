@@ -10,11 +10,11 @@ export const Container = styled(motion.div)`
 `
 
 export const Title = styled.div`
-    font-size: 40px;
+    font-size: 36px;
 `
 
 export const Paragraph = styled.div`
-    font-size: 22px;
+    font-size: 20px;
     padding: 20px 20%;
     font-family: ${props=> props.font};
     line-height: 40px;
@@ -26,7 +26,6 @@ export const Paragraph = styled.div`
 
 export const FontOption = styled.option`
     font-family: ${props=> props.font};
-    /* font-size: 20px; */
 `
 
 export const FontSelect = styled.select`

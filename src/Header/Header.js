@@ -9,7 +9,6 @@ import Search from '../Search/Search'
 import ProfileDropdown from './ProfileDropdown'
 import { connect } from 'react-redux'
 import { homePhotoInformation, profileLoaded } from '../Redux/Actions/appActions'
-import { ReactComponent as Avatar } from '../Icons/Avatar.svg'
 import { searchTransition, searchVisibility, selected, selectedCategory } from '../Redux/Actions/headerActions'
 import { ReactComponent as SearchIcon } from '../Icons/Search.svg'
 import { Link } from 'react-router-dom' 
@@ -172,9 +171,10 @@ const Header = (props) => {
                         {props.user ? 
                         <div style={{position: 'relative'}}>
                             {props.userInformation.profileImage ? 
+                            // <Avatar className='profile-dropdown' onClick={()=> setShowProfileDropdown(!showProfileDropdown)} style={{transform: 'scale(1.3)', position: 'relative', top: 4, cursor: 'pointer', margin: '0 5px'}} />
                             <ProfileImage onLoad={()=>props.dispatch(profileLoaded(true))} className='profile-dropdown' onClick={()=> setShowProfileDropdown(!showProfileDropdown)} src={props.userInformation.profileImage} />
                             :
-                            <Avatar className='profile-dropdown' onClick={()=> setShowProfileDropdown(!showProfileDropdown)} style={{transform: 'scale(1.3)', position: 'relative', top: 4, cursor: 'pointer', margin: '0 5px'}} />
+                            <ProfileImage onLoad={()=>props.dispatch(profileLoaded(true))} className='profile-dropdown' onClick={()=> setShowProfileDropdown(!showProfileDropdown)} src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMGMtNi42MjcgMC0xMiA1LjM3My0xMiAxMnM1LjM3MyAxMiAxMiAxMiAxMi01LjM3MyAxMi0xMi01LjM3My0xMi0xMi0xMnptNy43NTMgMTguMzA1Yy0uMjYxLS41ODYtLjc4OS0uOTkxLTEuODcxLTEuMjQxLTIuMjkzLS41MjktNC40MjgtLjk5My0zLjM5My0yLjk0NSAzLjE0NS01Ljk0Mi44MzMtOS4xMTktMi40ODktOS4xMTktMy4zODggMC01LjY0NCAzLjI5OS0yLjQ4OSA5LjExOSAxLjA2NiAxLjk2NC0xLjE0OCAyLjQyNy0zLjM5MyAyLjk0NS0xLjA4NC4yNS0xLjYwOC42NTgtMS44NjcgMS4yNDYtMS40MDUtMS43MjMtMi4yNTEtMy45MTktMi4yNTEtNi4zMSAwLTUuNTE0IDQuNDg2LTEwIDEwLTEwczEwIDQuNDg2IDEwIDEwYzAgMi4zODktLjg0NSA0LjU4My0yLjI0NyA2LjMwNXoiLz48L3N2Zz4=" />
                             }
                             {/* <Navigation className='profile-dropdown' onClick={()=> setShowProfileDropdown(!showProfileDropdown)} cursor='pointer'>
                             </Navigation> */}

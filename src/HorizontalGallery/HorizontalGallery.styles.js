@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Title = styled.div`
     /* color: white; */
-    font-size: 25px
+    font-size: 24px
 `
 
 export const TextContainer = styled.div`

@@ -66,6 +66,6 @@ export const Cancel = styled.div`
     position: absolute;
     right: 0;
     margin-right: 15px;
-    font-size: 70px;
+    font-size: 72px;
     cursor: pointer;
 `

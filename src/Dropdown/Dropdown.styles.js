@@ -12,7 +12,7 @@ export const Container = styled.div`
 
 export const Collection = styled.div`
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
     font-size: 18px;
     padding: 5px 10px;
@@ -40,23 +40,18 @@ export const CreateNewButton = styled.button`
     transition: all 0.2s;
     background-color: transparent;
     width: 200px;
-    font-size: 13px;
+    font-size: 14px;
     transition: background-color 350ms;
     cursor: pointer;
 `
 
 export const CreateNewInput = styled.input`
-    /* display:inline-block;
-    margin: 0 0.3em 0.3em 0;
-    border-radius:0.12em;
-    box-sizing: border-box; */
-    /* color: white; */
     border-radius: 5%;
     border: 1px solid #242424;
     background-color: #f5f5f5;
     height: 26px;
     width: 150px;
-    font-size: 15px;
+    font-size: 14px;
     margin-right: 5px;
 `
 
@@ -71,7 +66,8 @@ export const CreateNewSubmit = styled.button`
 `
 
 export const RemoveAdd = styled.div`
-    font-size: 15px;
+    font-size: 18px;
+    font-weight: 500;
     &:hover {
         /* border-bottom: .5px solid black; */
     }
@@ -81,6 +77,7 @@ export const RemoveAdd = styled.div`
 export const CollectionName = styled.div`
     font-size: 20px;
     margin-right: 20px;
+    
     /* color: white; */
 `
 
@@ -102,7 +99,7 @@ export const CollectionNameShimmer = styled.div`
 `
 
 export const RemoveAddShimmer = styled.div`
-    font-size: 15px;
+    font-size: 16px;
     background-color: #e8e8e8;
     height: 20px;
     width: 60px;

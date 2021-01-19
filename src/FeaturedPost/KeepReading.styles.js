@@ -4,12 +4,12 @@ export const PostsContainer = styled.div`
     display: grid;
     /* grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); */
     grid-template-columns: repeat(4, 1fr);
-    grid-column-gap: 30px;
+    grid-column-gap: 32px;
     justify-items: center;
     justify-content: center;
 
     @media(max-width: 900px) {
-        margin: 0px 10px 0 10px;
+        margin: 0px 12px;
         grid-template-columns: repeat(2, 1fr);
     }
 `

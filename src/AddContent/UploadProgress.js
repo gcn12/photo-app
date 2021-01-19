@@ -2,6 +2,9 @@ import React from 'react'
 import {
     ProgressContainer,
     UploadingTitle,
+    UploadingTitleAnimatedEllipses,
+    CenterUploadingProgress,
+    CircleContainer,
 } from './UploadProgress.styles'
 
 const UploadProgress = (props) => {
@@ -15,26 +18,9 @@ const UploadProgress = (props) => {
 
     return(
         <ProgressContainer visibility={props.variants[props.animate].opacity} animate={props.animate} variants={props.variants} initial='initial' transition='transition'>
-            {props.uploadProgressColor ? 
-            <svg
-            className="progress-ring"
-            height={radius * 2}
-            width={radius * 2}
-            >
-            <circle
-                className="progress-ring__circle"
-                strokeWidth={stroke}
-                strokeDasharray = {circumference + ' ' + circumference}
-                style = {{strokeDashoffset}}
-                stroke='green'
-                fill="transparent"
-                r={normalizedRadius}
-                cx={radius}
-                cy={radius}
-            />
-            </svg>
-            :
-            <svg
+            <CircleContainer>
+                {props.uploadProgressColor ? 
+                <svg
                 className="progress-ring"
                 height={radius * 2}
                 width={radius * 2}
@@ -44,19 +30,40 @@ const UploadProgress = (props) => {
                     strokeWidth={stroke}
                     strokeDasharray = {circumference + ' ' + circumference}
                     style = {{strokeDashoffset}}
-                    stroke='#242424'
+                    stroke='green'
                     fill="transparent"
                     r={normalizedRadius}
                     cx={radius}
                     cy={radius}
                 />
-            </svg>
-            }
-            <UploadingTitle style={{color: props.uploadProgressColor ? 'green' : '#242424'}}>{props.uploadProgressColor ? 'Upload succeeded' : 'Uploading...'}</UploadingTitle>
-            {/* {props.uploadProgressColor ? 
-            :
-            <UploadingTitle>Uploading...</UploadingTitle>
-            } */}
+                </svg>
+                :
+                <svg
+                    className="progress-ring"
+                    height={radius * 2}
+                    width={radius * 2}
+                    >
+                    <circle
+                        className="progress-ring__circle"
+                        strokeWidth={stroke}
+                        strokeDasharray = {circumference + ' ' + circumference}
+                        style = {{strokeDashoffset}}
+                        stroke='#242424'
+                        fill="transparent"
+                        r={normalizedRadius}
+                        cx={radius}
+                        cy={radius}
+                    />
+                </svg>
+                }
+            </CircleContainer>
+            <CenterUploadingProgress>
+                {props.uploadProgressColor ? 
+                <UploadingTitle style={{color: 'green'}}>Upload succeeded</UploadingTitle>
+                :
+                <UploadingTitleAnimatedEllipses>Uploading</UploadingTitleAnimatedEllipses>
+                }
+            </CenterUploadingProgress>
         </ProgressContainer>
     )
 }

@@ -58,7 +58,7 @@ export const RenameButton = styled.button`
 export const Cancel = styled.button`
     height: 50px;
     width: 90px;
-    font-size: 15px;
+    font-size: 16px;
     background-color: #cfcfcf;
     color: black;
     border: none;

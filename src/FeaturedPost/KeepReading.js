@@ -77,8 +77,8 @@ const KeepReading = (props) => {
 
     return(
         <div>
-            <div style={{display: 'flex', justifyContent: 'center', marginBottom: '40px'}}>
-                <Text size='40px' weight='600'>Keep reading</Text>
+            <div style={{display: 'flex', justifyContent: 'center', marginBottom: '32px'}}>
+                <Text size='36px' weight='600'>Keep reading</Text>
             </div>
             <ContentContainer>
                 {postType==='recommended' ? 
@@ -90,13 +90,13 @@ const KeepReading = (props) => {
                 </MoreFromContainer>
                 }
                 {/* <div style={{display: 'flex', justifyContent: 'center'}}> */}
-                    <PostsContainer>
-                        {posts.map((post, index) => {
-                            return(
-                                <PublicProfilePosts setShowSpinner={props.setShowSpinner} marginTop='10px' height='150px' minWidth='80px' history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} post={post} key={index} />
-                            )
-                        })}
-                    </PostsContainer>
+                <PostsContainer>
+                    {posts.map((post, index) => {
+                        return(
+                            <PublicProfilePosts setShowSpinner={props.setShowSpinner} marginTop='10px' height='150px' minWidth='80px' history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} post={post} key={index} />
+                        )
+                    })}
+                </PostsContainer>
                 {/* </div> */}
             </ContentContainer>
         </div>

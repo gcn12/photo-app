@@ -1,8 +1,7 @@
 import React from 'react'
-import moment from 'moment'
+import { ReactComponent as Compass } from '../Icons/Compass.svg'
 import {
     PreviewContainer,
-    BodyImagePreview,
 } from './Preview.styles'
 import {
     Author,
@@ -12,34 +11,11 @@ import {
     Container,
     BodyContainer,
     BodyImageContainer,
-    DateStyle,
     Header, 
     Caption,
-    // Container3,
+    InfoContainer,
+    BodyImage,
 } from '../FeaturedPost/FeaturedPost.styles'
-
-const BodyImage = (props) => {
-
-    // const image = () => {
-    //     const viewFile = new FileReader()
-    //     const file = props.image
-    //     viewFile.onload = (e) => {
-    //         const image = document.getElementById(`body-photo-${props.index}-${props.i}`)
-    //         image.src = e.target.result
-    //     }
-    //     viewFile.readAsDataURL(file)
-    // }
-
-    // image()
-
-    // console.log(65 * props.imageSizeRatio)
-    // console.log(props.imageSizeRatioLength)
-    return(
-        // <BodyImagePreview id={`body-photo-${props.index}-${props.i}`} width={65 / (props.bodyImages[props.index] ? props.bodyImages[props.index].length : 1)} ></BodyImagePreview>
-        // <BodyImagePreview id={`body-photo-${props.index}-${props.index}`} ></BodyImagePreview>
-        <BodyImagePreview src={props.image} id={`body-photo-${props.index}-${props.i}`}  width={props.imageSizeRatioLength > 1 ? `${65 * props.imageSizeRatio}vw` : 'auto'} ></BodyImagePreview>
-    )
-}
 
 const Preview = (props) => {
     return( 
@@ -53,7 +29,6 @@ const Preview = (props) => {
                     :
                     null
                     }
-                    <DateStyle font={props.font}>{moment(Date.now()).format('MMMM Do YYYY')}</DateStyle>
 
                 </div>
                 {document.getElementById('add-content-title') ? 
@@ -61,9 +36,18 @@ const Preview = (props) => {
                 :
                 null 
                 }
-                <div style={{margin: '15px 0 40px 0'}}>
-                    <Author font={props.font}>{'Dan Richards'}</Author>
-                </div>
+                <InfoContainer justify='center'>
+                    {/* <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} style={{textDecoration: 'none'}}>
+                        <Author font={props?.photoInformation?.font}>{props?.photoInformation?.author} | {props?.photoInformation?.username}</Author>
+                    </Link> */}
+                    <Compass style={{transform: 'scale(0.8)'}} />
+                    <div style={{marginRight: '4px'}}></div>
+                    {document.getElementById('autocomplete') ? 
+                    <Author font={props.font}>{document.getElementById('autocomplete').value}</Author>
+                    :
+                    null
+                    }
+                </InfoContainer>
                 </Container>
                 {Object.keys(props.itemsToUploadData).map((item, index)=> {
                     return(
@@ -86,15 +70,62 @@ const Preview = (props) => {
                                 }
                                 {Object.values(props.itemsToUploadData)[item][0] === 'images' ? 
                                 <BodyImageContainer> 
-                                {props.previewImages[item].map((image, index)=> {
+                                {props.previewImages[item].map((image, i)=> {
                                     return(
                                         // <img src={} key={index}></img>
-                                        <BodyImage imageSizeRatioLength={props.previewImageSizeRatio[item].length} imageSizeRatio={props.previewImageSizeRatio[item][index]} bodyImages={props.bodyImages} i={index} image={image} index={index} key={index}></BodyImage>
+                                        // <BodyImage imageSizeRatioLength={props.previewImageSizeRatio[item].length} imageSizeRatio={props.previewImageSizeRatio[item][index]} bodyImages={props.bodyImages} i={index} image={image} index={index} key={index}></BodyImage>
+                                        <div key={i}>
+                                            {/* <BodyImage length={props?.photoInformation?.photoBodyMap[item].length} margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 .5%' : '0%'} width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} src={image} key={i}></BodyImage> */}
+                                            {props.previewImageSizeRatio[item].length === 1 ? 
+                                            <div>
+                                                <BodyImage 
+                                                imageQuantity={props.previewImageSizeRatio[item].length} 
+                                                margin={props.previewImageSizeRatio[item].length > 1 ? '0 4px' : '0%'} 
+                                                imageSize={`${65 * props.previewImageSizeRatio[item][i]}vw`} 
+                                                // width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} 
+                                                width={props.previewImageSizeRatio[item][i]} 
+                                                imageGap='0px'
+                                                src={image} key={i} 
+                                                />
+                                            </div>
+                                            :
+                                            null}
+        
+                                            {props.previewImageSizeRatio[item].length === 2 ? 
+                                            <div>
+                                                <BodyImage 
+                                                imageQuantity={props.previewImageSizeRatio[item].length} 
+                                                margin={props.previewImageSizeRatio[item].length > 1 ? '0 4px' : '0%'} 
+                                                imageSize={`${65 * props.previewImageSizeRatio[item][i]}vw`} 
+                                                // width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} 
+                                                width={props.previewImageSizeRatio[item][i]} 
+                                                imageGap='8px'
+                                                src={image} key={i} 
+                                                />
+                                            </div>
+                                            :
+                                            null}
+        
+                                            {props.previewImageSizeRatio[item].length === 3 ? 
+                                            <div>
+                                                <BodyImage 
+                                                imageQuantity={props.previewImageSizeRatio[item].length} 
+                                                margin={props.previewImageSizeRatio[item].length > 1 ? '0 4px' : '0%'} 
+                                                imageSize={`${65 * props.previewImageSizeRatio[item][i]}vw`} 
+                                                // width={props?.photoInformation?.photoBodyMap[item].length > 1 ? `${65 * props?.photoInformation?.photoBodyMap[item][i]}vw` : 'auto'} 
+                                                width={props.previewImageSizeRatio[item][i]} 
+                                                imageGap='16px'
+                                                src={image} key={i} 
+                                                />
+                                            </div>
+                                            :
+                                            null}
+                                        </div>
                                         )
                                     })}
-                                    </BodyImageContainer>
-                                    :
-                                    null
+                                </BodyImageContainer>
+                                :
+                                null
                                 }
                         </BodyContainer>
                         )
@@ -106,53 +137,3 @@ const Preview = (props) => {
 }
  
 export default Preview
-
-
-
-// const Preview = (props) => {
-    
-//     return( 
-//         <PreviewContainer2>
-//             <PreviewContainer initial='initial' visibility={props.animationMap.preview[props.previewProps].opacity} transition='transition' animate={props.previewProps} variants={props.animationMap.preview}>
-//                 <Container>
-//                     {document.getElementById('add-content-title') ? 
-//                     <Title font={props.font}>{document.getElementById('add-content-title').value}</Title>
-//                     :
-//                     null 
-//                     }
-//                     <div> 
-//                     {props?.filesLarge[0] ? 
-//                     <MainImage id='test'  width={props.isImageHorizontal ? '80vw' : 'auto'} height={props.isImageHorizontal ? 'auto' : '80vh'} alt='display' src={props?.filesLarge[0][0]}></MainImage>
-//                     :
-//                     null
-//                     }
-//                     <InfoContainer>
-//                     <AddCollectionHeartContainer>
-//                         <SubmitButton className='dropdown'>
-//                             <div className='dropdown'>Add to collection</div>
-//                         </SubmitButton>
-//                         <FilledHeart style={{marginLeft: '10px'}} />
-//                     </AddCollectionHeartContainer>
-//                     <Author font={props.font}>{'Dan Richards'}</Author>
-//                     <DateStyle font={props.font}>{moment(Date.now()).format('MMMM Do YYYY')}</DateStyle>
-//                     </InfoContainer>
-//                     </div>
-//                 </Container> 
-//                 {props.bodyContent.map((item, index) => {
-//                     return(
-//                         <BodyContainer margin='0px' key={index}>
-//                             <Description font={props.font}>{item}</Description>
-//                             <BodyImageContainer>
-//                             {props?.bodyImages[index]?.map((image, i)=> {
-//                                 return(
-//                                     <BodyImage imageSizeRatioLength={props.imageSizeRatio[index].length} imageSizeRatio={props.imageSizeRatio[index][i]} bodyImages={props.bodyImages} i={i} image={image} index={index} key={i}></BodyImage>
-//                                 )
-//                             })}
-//                             </BodyImageContainer>
-//                         </BodyContainer>
-//                     )
-//                 })}
-//             </PreviewContainer>
-//         </PreviewContainer2>
-//     )
-// }

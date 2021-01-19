@@ -59,7 +59,7 @@ export const SortSelect = styled.select`
     border: none;
     border-radius: 5%;
     margin-bottom: 10px;
-    font-size: 15px;
+    font-size: 16px;
 `
 
 export const LoadMoreButtonContainer = styled.div`

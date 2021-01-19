@@ -4,6 +4,7 @@ export const Container = styled.div`
     opacity: ${props=> props.visibility};
     /* margin-top: 30px; */
     margin-top: ${props=>props.marginTop};
+    position: relative;
 `
 
 export const Image = styled.img`
@@ -30,12 +31,13 @@ export const Image = styled.img`
 `
 
 export const Title = styled.div`
-    font-size: 25px;
+    font-size: 24px;
     font-weight: 500;
     cursor: pointer;
     color: #242424;
+    margin-bottom: 4px;
     @media(max-width: 600px) {
-        font-size: 22px;
+        font-size: 20px;
     }
 `
 

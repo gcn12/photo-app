@@ -54,7 +54,7 @@ const Rename = (props) => {
                         &nbsp;
                         <Text>?</Text> 
                     </div>
-                    <Text onClick={props.closeRename} style={{cursor: 'pointer'}} size='40px'>&times;</Text>
+                    <Text onClick={props.closeRename} style={{cursor: 'pointer'}} size='36px'>&times;</Text>
                 </div>
                 <CollectionName autoComplete='off' id='new-collection-name'></CollectionName>
                 <div style={{display:'flex', justifyContent: 'flex-start', alignItems: 'center'}}>

@@ -10,6 +10,7 @@ import {ReactComponent as Image} from '../Icons/Image.svg'
 import {ReactComponent as Remove} from '../Icons/Remove.svg'
 import { ButtonIconContainer, NewItemButton } from '../AddContent/AddContent.styles'
 import { connect } from 'react-redux'
+import '../App.css'
 import {
     Container,
     MainImage,
@@ -53,7 +54,7 @@ const EditPost = (props) => {
     const [uploadProgressColor, setUploadProgressColor] = useState(false)
     const [uploadStatusProps, setUploadStatusProps] = useState('initial')
     const [imagesIndexMap, setImagesIndexMap] = useState({})
-    const [mainImageChangedSmallAndLarge, setMainImageChangedSmallAndLarge] = useState(['', ''])
+    const [mainImageChangedAllSizes, setMainImageChangedAllSizes] = useState(['', '', ''])
     const [imagesToUploadSmall, setImagesToUploadSmall] = useState({})
     const [imagesToUploadLarge, setImagesToUploadLarge] = useState({})
 
@@ -123,6 +124,7 @@ const EditPost = (props) => {
     useEffect(()=> {
         setPostData(props?.postData[0])
         setFont(props?.postData[0]?.font)
+        setAutocompleteFont(props?.postData[0]?.font)
 
         if(props?.postData[0]?.previewDescription) {
             const quanityCharacters = 100 - props?.postData[0]?.previewDescription.length 
@@ -140,9 +142,32 @@ const EditPost = (props) => {
         }
     }, [props?.postData])
 
+    const setAutocompleteFont = (font) => {
+        const autocomplete = document.getElementById('autocomplete')
+        if(font==="'Montserrat', sans-serif;") {
+            autocomplete.style.fontFamily = 'montserrat'
+        }
+        if(font==="'Work Sans', sans-serif;") {
+            autocomplete.style.fontFamily = 'work sans'
+        }
+        if(font==="'Heebo', sans-serif;") {
+            autocomplete.style.fontFamily = 'heebo'
+        }
+        if(font==="'Roboto', sans-serif;") {
+            autocomplete.style.fontFamily = 'roboto'
+        }
+        if(font==="'Raleway', sans-serif;") {
+            autocomplete.style.fontFamily = 'raleway'
+        }
+        if(font==="'Poppins', sans-serif;") {
+            autocomplete.style.fontFamily = 'poppins'
+        }
+    }
+ 
     const getFont = () => {
         const fontSelected =  document.getElementById('font-select').value
         setFont(fontSelected)
+        setAutocompleteFont(fontSelected)
     }
 
     const changeMainPhoto = () => {
@@ -163,33 +188,45 @@ const EditPost = (props) => {
                 let finalWidthLarge
                 let finalHeightSmall
                 let finalWidthSmall
+                let finalHeightSmallest
+                let finalWidthSmallest
                 if (height >= width) {
                     ratio = width / height
-                    finalHeightSmall = 850
-                    finalHeightLarge = 2000
-                    finalWidthLarge = Math.round(ratio * 2000)
+                    finalWidthSmallest = Math.round(ratio * 150)
+                    finalHeightSmallest = 150
                     finalWidthSmall = Math.round(ratio * 850)
+                    finalHeightSmall = 850
+                    finalWidthLarge = Math.round(ratio * 2000)
+                    finalHeightLarge = 2000
                 }else {
                     ratio = height / width
+                    finalWidthSmallest = 150
+                    finalHeightSmallest = Math.round(ratio * 150)
                     finalWidthSmall = 850
-                    finalWidthLarge = 2000
                     finalHeightSmall = Math.round(ratio * 850)
+                    finalWidthLarge = 2000
                     finalHeightLarge = Math.round(ratio * 2000)
                 }
+                let canvasSmallest = document.createElement('canvas'), ctx3;
                 let canvasSmall = document.createElement('canvas'), ctx;
                 let canvasLarge = document.createElement('canvas'), ctx2;
+                canvasSmallest.width = finalWidthSmallest;
+                canvasSmallest.height = finalHeightSmallest;
                 canvasSmall.width = finalWidthSmall;
                 canvasSmall.height = finalHeightSmall;
                 canvasLarge.width = finalWidthLarge;
                 canvasLarge.height = finalHeightLarge;
                 ctx = canvasSmall.getContext('2d');
                 ctx2 = canvasLarge.getContext('2d');
+                ctx3 = canvasSmallest.getContext('2d');
                 ctx.drawImage(mainImage, 0, 0, canvasSmall.width, canvasSmall.height);
                 ctx2.drawImage(mainImage, 0, 0, canvasLarge.width, canvasLarge.height);
+                ctx3.drawImage(mainImage, 0, 0, canvasSmallest.width, canvasSmallest.height);
+                const imageSrcSmallest = canvasSmallest.toDataURL('image/jpeg', 1)
                 const imageSrcSmall = canvasSmall.toDataURL('image/jpeg', 1)
                 const imageSrcLarge = canvasLarge.toDataURL('image/jpeg', 1)
 
-                setMainImageChangedSmallAndLarge([imageSrcSmall, imageSrcLarge])
+                setMainImageChangedAllSizes([imageSrcSmallest, imageSrcSmall, imageSrcLarge])
             }
         }
         viewFile.readAsDataURL(file)
@@ -318,8 +355,8 @@ const EditPost = (props) => {
     const upload2 = () => {
         let imagesSmallQuantity = 0
         let imagesIndexMapValues = []
-        if(mainImageChangedSmallAndLarge[0].length > 0) {
-            imagesIndexMapValues.push(mainImageChangedSmallAndLarge[0])
+        if(mainImageChangedAllSizes[1].length > 0) {
+            imagesIndexMapValues.push(mainImageChangedAllSizes[1])
         }
         if(Object.values(imagesToUploadSmall).length > 0){
             let allSmallFiles = []
@@ -329,8 +366,8 @@ const EditPost = (props) => {
             imagesSmallQuantity = allSmallFiles.length
             imagesIndexMapValues = [...imagesIndexMapValues, ...allSmallFiles]
         }
-        if(mainImageChangedSmallAndLarge[1].length > 0) {
-            imagesIndexMapValues.push(mainImageChangedSmallAndLarge[1])
+        if(mainImageChangedAllSizes[2].length > 0) {
+            imagesIndexMapValues.push(mainImageChangedAllSizes[2])
         }
         if(Object.values(imagesToUploadLarge).length > 0){
             let allLargeFiles = []
@@ -338,6 +375,9 @@ const EditPost = (props) => {
                 allLargeFiles = [...allLargeFiles, ...item]
             }
             imagesIndexMapValues = [...imagesIndexMapValues, ...allLargeFiles]
+        }
+        if(mainImageChangedAllSizes[0].length > 0) {
+            imagesIndexMapValues.push(mainImageChangedAllSizes[0])
         }
         setUploadCount(uploadCount => uploadCount + imagesIndexMapValues.length)
         // setUploadProgress(previousUploadProgress=> previousUploadProgress + imagesIndexMapValues.length)
@@ -374,6 +414,11 @@ const EditPost = (props) => {
     }
 
     const submit = (images, imagesSmallQuantity) => {
+        let mainImageSmallest 
+        if(images % 2 !== 0) {
+            mainImageSmallest = images[images.length-1]
+            images.pop()
+        }
         let mainImageLarge
         let mainImageSmall
         const imageMapKeys = Object.keys(imagesToUploadSmall)
@@ -493,6 +538,8 @@ const EditPost = (props) => {
         }
         if(mainImageLarge!==postData.image) {
             if(mainImageSmall){
+                fullPostUpdate['smallestImage'] = mainImageSmallest
+                previewPostUpdate['smallestImage'] = mainImageSmallest
                 fullPostUpdate['smallImage'] = mainImageSmall
                 previewPostUpdate['smallImage'] = mainImageSmall
                 fullPostUpdate['image'] = mainImageLarge
@@ -538,6 +585,7 @@ const EditPost = (props) => {
                         ...previewPostUpdate
                     })
                     .then(()=>{
+                        props.setPostData([])
                         props.getPosts(props.userInformation.id)
                         console.log('uploaded')
                         setUploadProgressColor(true)
@@ -683,7 +731,7 @@ const EditPost = (props) => {
                                 <PostDescriptionInput defaultValue={props?.postData[0]?.previewDescription} font={font} onChange={calculateRemainingCharacters} id='edit-post-description'></PostDescriptionInput>
                                 <div style={{marginBottom: '15px'}}>Remaining characters: {remainingCharacters}</div>
                                 <Label>Font:</Label>
-                                <FontSelect onChange={getFont} value={font} id='font-select'>
+                                <FontSelect font={font} onChange={getFont} value={font} id='font-select'>
                                     <FontOption value="'Montserrat', sans-serif;" font="'Montserrat', sans-serif;">Montserrat</FontOption>
                                     <FontOption value="'Work Sans', sans-serif;" font="'Work Sans', sans-serif;">Work Sans</FontOption>
                                     <FontOption value="'Heebo', sans-serif;" font="'Heebo', sans-serif;">Heebo</FontOption>
@@ -692,7 +740,7 @@ const EditPost = (props) => {
                                     <FontOption value="'Poppins', sans-serif;" font="'Poppins', sans-serif;">Poppins</FontOption>
                                 </FontSelect>
                                 <Label htmlFor='category'>Category:</Label>
-                                <SelectInput onChange={null} defaultValue={props?.postData[0]?.category} name='category' id='category'>
+                                <SelectInput font={font} onChange={null} defaultValue={props?.postData[0]?.category} name='category' id='category'>
                                     <option value='restaurant'>Restaurant</option>
                                     <option value='entertainment'>Entertainment</option>
                                     <option value='adventure'>Adventure</option>
@@ -701,7 +749,7 @@ const EditPost = (props) => {
                                     <option value='museum'>Museum</option>
                                 </SelectInput>
                                 <Label>Location:</Label>
-                                <Autocomplete defaultValue={props?.postData[0]?.location} id='autocomplete-component'/>
+                                <Autocomplete font={font} defaultValue={props?.postData[0]?.location} id='autocomplete-component'/>
                                 <div style={{marginBottom: '20px'}}></div>
                                 <div style={{display: 'flex'}}>
                                     <Cancel onClick={props.closeEdit}>Cancel</Cancel>

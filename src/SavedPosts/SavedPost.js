@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom' 
 import AddDropdown from '../MainPhotoDisplay/AddDropdown'
+import { connect } from 'react-redux'
+import { isPostVisible, isVisible } from '../Redux/Actions/featuredPostActions'
 import AddToCollection from '../FeaturedPost/AddToCollection'
 import { enableBodyScroll } from 'body-scroll-lock'
 
@@ -18,7 +20,7 @@ import { PopupDarken } from '../Styles/PopupStyles.styles'
 
 const SavedPost = (props) => {
 
-    const [isVisible, setIsVisible] = useState(false)
+    const [isSavedPostVisible, setIsSavedPostVisible] = useState(false)
     const [showDropdown, setShowDropdown] = useState(false)
     const [showAddToCollection, setShowAddToCollection] = useState(false)
     const [isBookmarked, setIsBookmarked] = useState(true)
@@ -50,8 +52,13 @@ const SavedPost = (props) => {
         enableBodyScroll(toNotLock)
     }
 
+    const selectPost = () => {
+        props.dispatch(isPostVisible(false))
+        props.dispatch(isVisible(false))    
+    }
+
     return(
-        <Container opacity={isVisible ? 1 : 0}>
+        <Container opacity={isSavedPostVisible ? 1 : 0}>
             {showAddToCollection ? 
             <div>
                 <PopupDarken onClick={closeAddToCollection} />
@@ -61,12 +68,12 @@ const SavedPost = (props) => {
             null
             }
             <ImageTextContainer>
-                <Link to={`/photo-app/post/${props.post.postID}`}>
-                    <Image onLoad={()=>setIsVisible(true)} src={props.post.smallImage} />
+                <Link onClick={selectPost} to={`/photo-app/post/${props.post.postID}`}>
+                    <Image onLoad={()=>setIsSavedPostVisible(true)} src={props.post.smallImage} />
                 </Link>
                 <div style={{display: 'flex', alignItems: 'start'}}>
                     <ContentContainer>
-                        <Link to={`/photo-app/post/${props.post.postID}/`} style={{textDecoration: 'none'}}>
+                        <Link onClick={selectPost} to={`/photo-app/post/${props.post.postID}/`} style={{textDecoration: 'none'}}>
                             <Title>{props.post.title}</Title>
                         </Link>
                         <Description>{props.post.previewDescription}</Description>
@@ -85,4 +92,6 @@ const SavedPost = (props) => {
     )
 }
 
-export default SavedPost
+const mapStateToProps = state => ({})
+
+export default connect(mapStateToProps)(SavedPost)

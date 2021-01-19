@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 
 export const Container = styled.div`
     display: flex;
@@ -12,7 +12,7 @@ export const InfoContainer = styled.div`
     display: flex;
     justify-content: ${props=> props.justify};
     align-items: center;
-    margin: 15px 0 40px 0; 
+    margin: 12px 0 48px 0; 
 `
 
 export const Title = styled.div`
@@ -20,14 +20,12 @@ export const Title = styled.div`
     font-size: 60px;
     font-family: ${props=> props.font};
     font-weight: 400;
-    margin-top: 20px;
+    margin-top: 16px;
     @media (max-width: 1000px) {
-        /* width: 85vw; */
-        font-size: 50px;
+        font-size: 48px;
     }
     @media (max-width: 500px) {
-        /* width: 90vw; */
-        font-size: 40px;
+        font-size: 36px;
     }
     
 `
@@ -51,13 +49,11 @@ export const DateStyle = styled.div`
 
 export const Description = styled.div`
     font-family: ${props=> props.font};
-    /* color: white; */
     width: 50vw;
-    margin: 10px 0 20px 0;
+    margin: 16px 0;
     font-size: 20px;
     white-space: pre-wrap;
-    line-height: 35px;
-    /* text-align: justify; */
+    line-height: 32px;
     text-justify: inter-word;
     @media (max-width: 1300px) {
         width: 60vw;
@@ -107,17 +103,17 @@ export const BodyImageContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 5px 0 5px 0;
+    margin: 4px 0 4px 0;
 `
 
 export const Header = styled.div`
-    font-size: 42px;
+    font-size: 36px;
     font-family: ${props=> props.font};
     font-weight: 400;
     width: 50vw;
     @media (max-width: 1000px) {
         width: 85vw;
-        font-size: 35px;
+        font-size: 30px;
     }
     @media (max-width: 500px) {
         width: 90vw;
@@ -128,7 +124,7 @@ export const Caption = styled.div`
     font-size: 20px;
     font-weight: 300;
     font-family: ${props=> props.font};
-    margin: 0 0 30px 0;
+    margin: 0 0 0 0;
     @media (max-width: 1000px) {
         width: 85vw;
     }
@@ -140,7 +136,7 @@ export const Caption = styled.div`
 export const PostFooterContainer = styled.div`
     display: flex;
     justify-content: space-evenly;
-    margin: 100px 0;
+    margin: 96px 0;
     @media (max-width: 500px) {
         flex-direction: column;
     }
@@ -158,7 +154,7 @@ export const ButtonLabelContainer = styled.div`
 
 export const ButtonLabel = styled.div`
     margin-top: 10px;
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 300;
 `
 
@@ -166,7 +162,7 @@ export const UserBioContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 100px;
+    margin-bottom: 96px;
     @media (max-width: 500px) {
         flex-direction: column;
     }
@@ -191,14 +187,14 @@ export const ProfileImage = styled.img`
 
 export const BioUsername = styled.div`
     font-weight: 500;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
     font-size: 30px;
     color: #242424;
 `
 
 export const BioName = styled.div`
-    font-size: 15px;
-    margin-bottom: 15px;
+    font-size: 16px;
+    margin-bottom: 12px;
 `
 
 export const Bio = styled.div`
@@ -219,15 +215,6 @@ export const FeaturedPostContainer = styled.div`
     /* transition: opacity 400ms ease-in-out; */
 `
 
-const fadeIn = keyframes`
-    from { opacity: 0; }
-        to { opacity: 1; }
-    }
-    from { opacity: 0; }
-        to { opacity: 1; }
-    }
-`;
-
 export const MainImage = styled.img`
     /* height: 90vh; */
     /* height: ${props=> props.height};
@@ -236,13 +223,7 @@ export const MainImage = styled.img`
     width: auto;
     max-height: 90vh;
     max-width: 90vw;
-    /* display: block; */
     display: ${props=>props.display};
-    /* -webkit-animation: ${fadeIn} 1s; 
-    -moz-animation: ${fadeIn} 1s; 
-    -ms-animation: ${fadeIn} 1s; 
-    -o-animation: ${fadeIn} 1s; 
-    animation: ${fadeIn} 1s; */
 `
 
 export const PlaceholderImage = styled.img`
@@ -272,5 +253,5 @@ export const Text = styled.div`
 export const CenterDate = styled.div`
     display: flex;
     justify-content: center;
-    margin-bottom: 35px;
+    margin-bottom: 32px;
 `

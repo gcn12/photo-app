@@ -12,7 +12,7 @@ export const Container = styled.div`
 `
 
 export const ImageTextContainer = styled.div`
-    width: 600px;
+    /* width: 600px; */
     display: flex;
     align-items: flex-end;
     @media (max-width: 600px) {
@@ -48,7 +48,7 @@ export const Title = styled.div`
     display: inline-block;
     color: #242424;
     cursor: pointer;
-    font-size: 25px;
+    font-size: 26px;
     margin: 0 0 20px 0;
     font-weight: 500;
 `
@@ -58,6 +58,10 @@ export const Description = styled.div`
     color: #4D4D4D;
     line-height: 27px;
     /* width: 40vw; */
+    width: 400px;
+    @media(max-width: 600px) {
+        width: 300px;
+    }
 `
 
 export const More = styled.div`

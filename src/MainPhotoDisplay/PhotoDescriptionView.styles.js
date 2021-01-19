@@ -2,9 +2,8 @@ import styled, { keyframes } from 'styled-components'
 
 export const Container = styled.div`
     overflow: none;
-    opacity: ${props=> props.opacity ? 1 : 0};
     transition: opacity 350ms ease-in-out;
-    margin-bottom: 25px;
+    margin-bottom: 24px;
 `
  
  export const Card = styled.div`
@@ -26,7 +25,7 @@ const fadeIn = keyframes`
 `;
 
 export const Description = styled.div`
-    font-size: 17px;
+    font-size: 16px;
     line-height: 30px;
     font-weight: 400;
     color: #4D4D4D;
@@ -61,7 +60,7 @@ export const Category = styled.div`
 
 export const Name = styled.div`
     cursor: pointer;
-    font-size: 15px;
+    font-size: 16px;
     margin-top: 5px;
     /* padding: 0 5%; */
 `
@@ -118,7 +117,7 @@ export const Image = styled.img`
 
 export const PlaceholderImage = styled.div`
     cursor: pointer;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     width: 100%;
     object-fit: cover;
     max-width: 400px;

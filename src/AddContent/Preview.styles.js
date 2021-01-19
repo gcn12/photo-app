@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { motion } from 'framer-motion'
 
 export const Title = styled.div`
-    font-size: 40px;
+    font-size: 36px;
     font-family: ${props=> props.font};
 ` 
 

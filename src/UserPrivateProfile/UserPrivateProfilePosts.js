@@ -36,7 +36,7 @@ const UserPrivateProfilesPosts = (props) => {
             data.forEach(item=> {
                 dataArray.push(item.data())
             })
-            setPostData(dataArray)
+            setPostData([...dataArray])
         })
     }
 
@@ -86,7 +86,7 @@ const UserPrivateProfilesPosts = (props) => {
             {showEdit ? 
             <div>
                 <PopupDarken />
-                <EditPost closeEdit={closeEdit} getPosts={props.getUserProfile} setShowEdit={setShowEdit} postData={postData} />
+                <EditPost setPostData={setPostData} closeEdit={closeEdit} getPosts={props.getUserProfile} setShowEdit={setShowEdit} postData={postData} />
             </div>
             :
             null
@@ -117,7 +117,6 @@ const UserPrivateProfilesPosts = (props) => {
                 </div>
             </TitleGearContainer>
             <Location>{props.post.location}</Location>
-            {/* <Title>{props.post.previewDescription}</Title> */}
         </Container>
     )
 }

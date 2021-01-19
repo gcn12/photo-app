@@ -20,7 +20,7 @@ export const UL = styled.ul`
     margin: 0;
     list-style-type: none;
     display: flex;
-    font-size: 25px;
+    font-size: 24px;
     &:hover{
         color: #4a4a4a
     }
@@ -50,7 +50,7 @@ export const Navigation = styled.div`
     text-decoration: none;
     white-space: nowrap;
     cursor: ${props=>props.cursor};
-    font-size: 25px;
+    font-size: 24px;
     margin: 0 5px;
     &:hover{
         color: #4a4a4a

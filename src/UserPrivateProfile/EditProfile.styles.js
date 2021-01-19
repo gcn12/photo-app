@@ -68,7 +68,7 @@ export const ConfirmButton = styled.button`
 export const Cancel = styled.button`
     height: 50px;
     width: 90px;
-    font-size: 15px;
+    font-size: 16px;
     background-color: #cfcfcf;
     color: black;
     border: none;
@@ -88,7 +88,7 @@ export const EditButton = styled.label`
     color: #242424;
     height: 40px;
     width: 180px;
-    font-size: 17px;
+    font-size: 18px;
     background-color: transparent;
     /* border-radius: 5px; */
     /* border: 1px solid black; */

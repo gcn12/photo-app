@@ -45,7 +45,7 @@ export const HeaderImage = styled.img`
 `
 
 export const Username = styled.div`
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 600;
     margin: 10px 0 5px 0;
 `
@@ -68,6 +68,6 @@ export const Follow = styled.button`
     border: 1px solid black;
     padding: 5px 10px;
     background-color: #fafafa;
-    font-size: 17px;
+    font-size: 18px;
     cursor: pointer;
 `

@@ -3,7 +3,7 @@ import { db } from '../Firebase'
 import { connect } from 'react-redux'
 import firebase from 'firebase'
 import UploadProgress from '../AddContent/UploadProgress'
-import { disableBodyScroll } from 'body-scroll-lock'
+import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import {
     Container,
     Cancel,
@@ -15,6 +15,7 @@ import {
     EditButton,
     CenterProgress,
 } from './EditProfile.styles'
+import { userInformation } from '../Redux/Actions/appActions'
 
 const EditProfile = (props) => {
 
@@ -91,6 +92,10 @@ const EditProfile = (props) => {
                 snapshot.ref.getDownloadURL()
                 .then(url=> {
                     updateProfile(url)
+                    let userInformationCopy = {...userInformation}
+                    userInformationCopy['profileImage'] = url
+                    props.dispatch(userInformation({...userInformationCopy}))
+                    clearAllBodyScrollLocks()
                 })
             })
         }else{
@@ -112,7 +117,7 @@ const EditProfile = (props) => {
         if(name !== props.userData.name){
             isEmpty = false
             updateObject['name'] = name
-            cloudUpdateObject['author'] = name
+            cloudUpdateObject['name'] = name
         }
         if(bio !== props.userData.bio){
             isEmpty = false
@@ -168,8 +173,8 @@ const EditProfile = (props) => {
             <div>
                 <img src='' alt='' onError={lockScroll} />
                 <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '20px'}}>
-                    <Text size='40px'>Edit profile</Text>
-                    <Text onClick={props.closeDialog} style={{cursor: 'pointer'}} size='40px'>&times;</Text>
+                    <Text size='36px'>Edit profile</Text>
+                    <Text onClick={props.closeDialog} style={{cursor: 'pointer'}} size='36px'>&times;</Text>
                 </div>
                 <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
                     <ProfileImage src={props?.userData?.profileImage} id='edit-profile-image' />

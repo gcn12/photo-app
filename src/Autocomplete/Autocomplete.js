@@ -35,6 +35,8 @@ const Autocomplete = (props) => {
             <input autoComplete='off' defaultValue={props.defaultValue} onChange={initAutocomplete} id='autocomplete'></input>
         </div>
     )
+    
 }
+
 
 export default Autocomplete

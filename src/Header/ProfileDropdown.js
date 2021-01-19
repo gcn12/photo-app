@@ -9,7 +9,7 @@ import { ReactComponent as Plane } from '../Icons/Plane.svg'
 import { ReactComponent as Gear } from '../Icons/Gear.svg'
 import { connect } from 'react-redux'
 import { profilePage } from '../Redux/Actions/profileActions'
-import { user } from '../Redux/Actions/appActions'
+import { user, userPosts, userData } from '../Redux/Actions/appActions'
 import {
     Container,
     OptionIconContainer,
@@ -39,8 +39,16 @@ const ProfileDropdown = (props) => {
     } 
 
     const pageRoute = (pageName) => {
+        if(pageName==='my-profile') {
+            clearDataOnProfileView()
+        }
         props.dispatch(profilePage(pageName))
         props.setShowProfileDropdown(false)
+    }
+
+    const clearDataOnProfileView = () => {
+        props.dispatch(userData([]))
+        props.dispatch(userPosts([]))
     }
 
     return(

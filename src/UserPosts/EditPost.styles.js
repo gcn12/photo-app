@@ -110,7 +110,7 @@ export const Submit = styled.button`
 export const Cancel = styled.button`
     height: 50px;
     width: 100px;
-    font-size: 15px;
+    font-size: 16px;
     background-color: #cfcfcf;
     color: black;
     border: none;
@@ -130,10 +130,10 @@ export const Container2 = styled.div`
 
 export const FontOption = styled.option`
     font-family: ${props=> props.font};
-    /* font-size: 20px; */
 `
 
 export const FontSelect = styled.select`
+    font-family: ${props=>props.font};
     font-size: 20px;
     padding: 10px;
     margin-bottom: 20px;
@@ -141,7 +141,7 @@ export const FontSelect = styled.select`
 
 export const X = styled.div`
     position: absolute;
-    font-size: 70px;
+    font-size: 72px;
     cursor: pointer;
     margin-right: 30px;
     display: ${props=>props.display};
@@ -157,15 +157,6 @@ export const ImageNew = styled.img`
     height: 200px;
     width: auto;
     padding: 0 10px;
-    /* line-height: 150px;
-    background: #EC985A;
-    color: white;
-    margin: 0 1rem 1rem 0;
-    text-align: center;
-    font-family: system-ui;
-    font-weight: 900;
-    font-size: 2rem;
-    flex: 1 0 auto; */
 `
 
 export const BodyButtonContainer = styled.div`
@@ -229,6 +220,7 @@ export const SelectInput = styled.select`
     width: 60vw;
     height: 40px;
     font-size: 20px;
+    font-family: ${props=>props.font};
 `
 
 export const PostDescriptionInput = styled.textarea`
