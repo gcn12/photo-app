@@ -2,8 +2,6 @@ import React from 'react'
 import {
     ProgressContainer,
     UploadingTitle,
-    UploadingTitleAnimatedEllipses,
-    CenterUploadingProgress,
     CircleContainer,
 } from './UploadProgress.styles'
 
@@ -13,11 +11,11 @@ const UploadProgress = (props) => {
     const stroke = 4
     const normalizedRadius = radius - stroke * 2
     const circumference = Math.PI * normalizedRadius * 2
-    // const strokeDashoffset = circumference - props.uploadProgress / 100 * circumference
     const strokeDashoffset = circumference - props.uploadProgress / props.uploadCount * circumference
 
     return(
-        <ProgressContainer visibility={props.variants[props.animate].opacity} animate={props.animate} variants={props.variants} initial='initial' transition='transition'>
+        // <ProgressContainer visibility={props.variants[props.animate].opacity} animate={props.animate} variants={props.variants} initial='initial' transition='transition'>
+        <ProgressContainer display={props.display}>
             <CircleContainer>
                 {props.uploadProgressColor ? 
                 <svg
@@ -57,13 +55,11 @@ const UploadProgress = (props) => {
                 </svg>
                 }
             </CircleContainer>
-            <CenterUploadingProgress>
                 {props.uploadProgressColor ? 
                 <UploadingTitle style={{color: 'green'}}>Upload succeeded</UploadingTitle>
                 :
-                <UploadingTitleAnimatedEllipses>Uploading</UploadingTitleAnimatedEllipses>
+                <UploadingTitle>Uploading...</UploadingTitle>
                 }
-            </CenterUploadingProgress>
         </ProgressContainer>
     )
 }

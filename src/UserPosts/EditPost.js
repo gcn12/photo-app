@@ -50,8 +50,10 @@ const EditPost = (props) => {
     const [uploadCount, setUploadCount] = useState(3)
     const [uploadProgress, setUploadProgress] = useState(0)
     const [isUploading, setIsUploading] = useState(true)
+    const [showUploadProgress, setShowUploadProgress] = useState(false)
     const [showCancel, setShowCancel] = useState(true)
     const [uploadProgressColor, setUploadProgressColor] = useState(false)
+    // eslint-disable-next-line
     const [uploadStatusProps, setUploadStatusProps] = useState('initial')
     const [imagesIndexMap, setImagesIndexMap] = useState({})
     const [mainImageChangedAllSizes, setMainImageChangedAllSizes] = useState(['', '', ''])
@@ -340,13 +342,9 @@ const EditPost = (props) => {
     }
 
     const fileUpload = () => {
+        setShowUploadProgress(true)
         setIsUploading(true)
         setShowCancel(false)
-        // filesArray.forEach(files=> {
-        //     if(files?.length > 0) {
-        //         setUploadCount(uploadCount => uploadCount + files.length)
-        //     }
-        // })
         setTimeout(()=>setUploadStatusProps('transitionStart'), 400)
         setTimeout(()=>setUploadProgress(previousUploadProgress=> previousUploadProgress + 1), 200)
         upload2()
@@ -603,20 +601,20 @@ const EditPost = (props) => {
         setRemainingCharacters(characterQuantity)
     }
 
-    const animationMap = {
-        uploadStatus: {
-            initial: {
-                x: 0,
-                y: 50,
-                opacity: 0,
-            },
-            transitionStart: {
-                x: 0,
-                y: 50,
-                opacity: 1,
-            }
-        }
-    }
+    // const animationMap = {
+    //     uploadStatus: {
+    //         initial: {
+    //             x: 0,
+    //             y: 50,
+    //             opacity: 0,
+    //         },
+    //         transitionStart: {
+    //             x: 0,
+    //             y: 50,
+    //             opacity: 1,
+    //         }
+    //     }
+    // }
 
     const lockScroll = () => {
         const toNotLock = document.getElementById('edit-post-scroll-container')
@@ -626,7 +624,7 @@ const EditPost = (props) => {
     return(
         <div style={{position: 'relative'}}>
             <CenterUploadProgress>
-                <UploadProgress uploadProgressColor={uploadProgressColor} animate={uploadStatusProps} variants={animationMap.uploadStatus} uploadCount={uploadCount} uploadProgress={uploadProgress} />
+                <UploadProgress uploadProgressColor={uploadProgressColor} display={showUploadProgress ? 'visible' : 'hidden'} uploadCount={uploadCount} uploadProgress={uploadProgress} />
             </CenterUploadProgress>
             <Container height={isUploading ? '50vh' : '97vh'} width={isUploading ? '50vw' : '90vw'} opacity={1}>
                 {/* <button onClick={()=> console.log(postData)}>Log</button> */}

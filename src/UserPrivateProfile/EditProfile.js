@@ -95,7 +95,7 @@ const EditProfile = (props) => {
                     let userInformationCopy = {...userInformation}
                     userInformationCopy['profileImage'] = url
                     props.dispatch(userInformation({...userInformationCopy}))
-                    clearAllBodyScrollLocks()
+                    // clearAllBodyScrollLocks()
                 })
             })
         }else{
@@ -150,6 +150,8 @@ const EditProfile = (props) => {
                 setUploadProgressColor(true)
                 setTimeout(props.closeDialog, 1200)
                 props.getUserProfile(props.userInformation.id)
+                clearAllBodyScrollLocks()
+
             })
             .catch(err=>console.log(err))
         }else{

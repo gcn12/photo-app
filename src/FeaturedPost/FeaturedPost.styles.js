@@ -50,7 +50,6 @@ export const DateStyle = styled.div`
 export const Description = styled.div`
     font-family: ${props=> props.font};
     width: 50vw;
-    margin: 16px 0;
     font-size: 20px;
     white-space: pre-wrap;
     line-height: 32px;
@@ -85,7 +84,6 @@ export const BodyImage = styled.img`
     display: block;
     cursor: zoom-in;
     @media (max-width: 1000px) {
-        /* margin: 0; */
         /* width: ${props=> props.imageQuantity > 1 ? `calc(${props.width} * 90vw)` : 'auto'}; */
         width: ${props=> props.imageQuantity > 1 ? `calc(${props.width} * 90vw - ${props.imageGap} * ${props.width})` : 'auto'};
         max-width: 90vw;
@@ -96,14 +94,14 @@ export const BodyContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: ${props=> props.margin};
+    /* margin-bottom: ${props=> props.margin}; */
 `
 
 export const BodyImageContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 4px 0 4px 0;
+    /* margin: 4px 0 4px 0; */
 `
 
 export const Header = styled.div`
@@ -148,12 +146,12 @@ export const ButtonLabelContainer = styled.div`
     align-items: center;
     cursor: pointer;
     @media (max-width: 500px) {
-        margin-bottom: 45px;
+        margin-bottom: 48px;
     }
 `
 
 export const ButtonLabel = styled.div`
-    margin-top: 10px;
+    margin-top: 8px;
     font-size: 18px;
     font-weight: 300;
 `
@@ -162,7 +160,7 @@ export const UserBioContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 96px;
+    margin-bottom: 64px;
     @media (max-width: 500px) {
         flex-direction: column;
     }
@@ -181,7 +179,7 @@ export const ProfileImage = styled.img`
     height: 120px;
     width: 120px;
     border-radius: 5px;
-    margin-right: 15px;
+    margin-right: 16px;
     object-fit: cover;
 `
 
@@ -253,5 +251,9 @@ export const Text = styled.div`
 export const CenterDate = styled.div`
     display: flex;
     justify-content: center;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
+`
+
+export const ElementSpacings = styled.div`
+    margin-bottom: ${props=>props.spacing};
 `

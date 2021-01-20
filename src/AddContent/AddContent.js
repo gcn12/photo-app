@@ -15,6 +15,7 @@ import React, {
 import {
     NextButton,
     ButtonContainer,
+    UploadProgressContainer,
 } from './AddContent.styles'
 import { photoInformation } from '../Redux/Actions/appActions'
 
@@ -190,12 +191,12 @@ const animationMap = {
     uploadStatus: {
         initial: {
             x: 30,
-            y: '35vh',
+            y: '50vh',
             opacity: 0,
         },
         transitionStart: {
             x: 0,
-            y: '35vh',
+            y: '50vh',
             opacity: 1,
         },
         transitionEnd: {
@@ -700,7 +701,9 @@ const AddContent = (props) => {
     return(
         <div>
             {/* <button onClick={()=>console.log(filesSmall, filesLarge, fileNames)}>Upload test</button> */}
-            <UploadProgress uploadProgressColor={uploadProgressColor} animate={uploadStatusProps} variants={animationMap.uploadStatus} uploadCount={uploadCount} uploadProgress={uploadProgress}/>
+            <UploadProgressContainer visibility={animationMap.uploadStatus[uploadStatusProps].opacity} animate={uploadStatusProps} variants={animationMap.uploadStatus} initial='initial' transition='transition'>
+                <UploadProgress display='initial' uploadProgressColor={uploadProgressColor} uploadCount={uploadCount} uploadProgress={uploadProgress}/>
+            </UploadProgressContainer>
             {switchValue === 7 ? 
             null
             :

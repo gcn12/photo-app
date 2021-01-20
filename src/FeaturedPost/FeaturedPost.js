@@ -47,6 +47,7 @@ import {
     PlaceholderImage,
     Text,
     CenterDate,
+    ElementSpacings,
 } from './FeaturedPost.styles'
 
 const FeaturedPost = (props) => {
@@ -324,17 +325,38 @@ const FeaturedPost = (props) => {
                 return(
                     <BodyContainer key={index}>
                         {Object.values(props?.photoInformation?.dataObj)[item][0]==='caption' && Object.values(props?.photoInformation?.dataObj)[item][1].length>0 ? 
-                        <Caption font={props.photoInformation.font}>{Object.values(props?.photoInformation?.dataObj)[item][1]}</Caption>
+                        <div>
+                            <Caption font={props.photoInformation.font}>{Object.values(props?.photoInformation?.dataObj)[item][1]}</Caption>
+                            {Object.values(props?.photoInformation?.dataObj)[index+1] &&
+                            <PostSpacings element={Object.values(props?.photoInformation?.dataObj)[index+1][0]} imagesSpacing='32px' captionSpacing='00px' headerSpacing='32px' paragraphSpacing='32px'  />
+                            }
+                        </div>
                         :
                         null
                         }
                         {Object.values(props?.photoInformation?.dataObj)[item][0]==='paragraph' && Object.values(props?.photoInformation?.dataObj)[item][1].length>0 ? 
-                        <Description font={props.photoInformation.font}>{Object.values(props?.photoInformation?.dataObj)[item][1]}</Description>
+                        <div>
+                            <Description font={props.photoInformation.font}>{Object.values(props?.photoInformation?.dataObj)[item][1]}</Description>
+                            {Object.values(props?.photoInformation?.dataObj)[index+1]
+                            ?
+                            <PostSpacings element={Object.values(props?.photoInformation?.dataObj)[index+1][0]} imagesSpacing='32px' captionSpacing='00px' headerSpacing='32px' paragraphSpacing='16px'  />
+                            :
+                            null
+                            }
+                        </div>
                         :
                         null
                         }
                         {Object.values(props?.photoInformation?.dataObj)[item][0]==='header' && Object.values(props?.photoInformation?.dataObj)[item][1].length>0 ? 
-                        <Header font={props.photoInformation.font}>{Object.values(props?.photoInformation?.dataObj)[item][1]}</Header>
+                        <div>
+                            <Header font={props.photoInformation.font}>{Object.values(props?.photoInformation?.dataObj)[item][1]}</Header>
+                            {Object.values(props?.photoInformation?.dataObj)[index+1]
+                            ?
+                            <PostSpacings element={Object.values(props?.photoInformation?.dataObj)[index+1][0]} imagesSpacing='0px' captionSpacing='00px' headerSpacing='0px' paragraphSpacing='8px'  />
+                            :
+                            null
+                            }
+                        </div>
                         :
                         null
                         }
@@ -386,6 +408,12 @@ const FeaturedPost = (props) => {
                                         </div>
                                         :
                                         null}
+                                        {Object.values(props?.photoInformation?.dataObj)[index+1]
+                                        ?
+                                        <PostSpacings element={Object.values(props?.photoInformation?.dataObj)[index+1][0]} imagesSpacing='4px' captionSpacing='4px' headerSpacing='32px' paragraphSpacing='32px'  />
+                                        :
+                                        null
+                                        }
                                     </div>
                                 )
                             })}
@@ -459,6 +487,25 @@ const FeaturedPost = (props) => {
             </div>
 
         </FeaturedPostContainer>
+    )
+}
+
+const PostSpacings = (props) => {
+    return(
+        <div>
+            {props.element==='images' && 
+            <ElementSpacings spacing={props.imagesSpacing}></ElementSpacings>
+            }
+            {props.element==='caption' && 
+            <ElementSpacings spacing={props.captionSpacing}></ElementSpacings>
+            }
+            {props.element==='header' && 
+            <ElementSpacings spacing={props.headerSpacing}></ElementSpacings>
+            }
+            {props.element==='paragraph' && 
+            <ElementSpacings spacing={props.paragraphSpacing}></ElementSpacings>
+            }
+        </div>
     )
 }
 

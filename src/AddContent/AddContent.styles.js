@@ -1,6 +1,11 @@
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 
+export const UploadProgressContainer = styled(motion.div)`
+    visibility: ${props=> props.visibility ? 'visible' : 'hidden'};
+    display: ${props=> props.visibility ? 'flex' : 'none'};
+`
+
 export const ButtonContainer = styled.div`
     background-color: #dedede;
     border-top: 1px solid #b3b3b3;

@@ -33,8 +33,8 @@ export const CenterUploadProgress = styled.div`
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -75%);
-    z-index: 5
+    transform: translate(-50%, -50%);
+    z-index: 5;
 `
 
 export const ContentContainer = styled.div`

@@ -349,6 +349,9 @@ const App = (props) => {
 
       {/* <TestFile user={user}  />  */}
 
+        {/* <div style={{marginTop: '200px'}}></div> */}
+      {/* <UploadProgress uploadCount={1} uploadProgress={1} uploadProgressColor={false} /> */}
+
       {/* {showLogin ? 
       <NewLogin />
       :

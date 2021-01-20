@@ -4,7 +4,12 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif; */
   /* font-family: 'Prata', serif; */
-  font-family: 'Playfair Display', serif;
+  /* font-family: 'Playfair Display', serif; */
+  /* font-family: 'Source Serif Pro', serif; */
+  /* font-family: 'EB Garamond', serif; */
+  /* font-family: 'Noto Serif JP', serif; */
+  /* font-family: 'Cormorant Garamond', serif; */
+  font-family: 'Spectral', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #242424;
