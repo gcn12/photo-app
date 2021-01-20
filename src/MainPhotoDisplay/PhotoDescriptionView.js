@@ -106,13 +106,13 @@ const PhotoDescriptionView = (props) => {
             <Container>
                 <Card>
                     <ImageLinkContainer display={showPost ? 'none' : 'initial'} opacity={showPost ? 0 : 1}>
-                        <Link to={`/photo-app/post/${props.photoInfo.postID}`}>
+                        <Link to={`/photo-app/post/${props.photoInfo.postID}`} onClick={goToPost}  >
                             <PlaceholderImage className='shine' onLoad={whenLoaded} />
                         </Link>
                     </ImageLinkContainer>
-                    <ImageLinkContainer onClick={goToPost} display={showPost ? 'initial' : 'none'} opacity={showPost ? 1 : 0}>
-                        <Link to={`/photo-app/post/${props.photoInfo.postID}`}>
-                            <Image onLoad={whenLoaded} src={props.photoInfo.smallImage} />
+                    <ImageLinkContainer display={showPost ? 'initial' : 'none'} opacity={showPost ? 1 : 0}>
+                        <Link onClick={goToPost}  to={`/photo-app/post/${props.photoInfo.postID}`}>
+                            <Image onLoad={whenLoaded} id='photo-test' src={props.photoInfo.smallImage} />
                         </Link>
                     </ImageLinkContainer>
                     <BookmarkLocationContainer>

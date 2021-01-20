@@ -185,6 +185,7 @@ export const ProfileImage = styled.img`
 
 export const BioUsername = styled.div`
     font-weight: 500;
+    line-height: 30px;
     margin-bottom: 4px;
     font-size: 30px;
     color: #242424;

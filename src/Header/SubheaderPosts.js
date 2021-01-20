@@ -82,15 +82,15 @@ const Subheader = (props) => {
             <Container>
                 <UL>
                     <div style={{display: 'flex', alignItems: 'center'}}>
-                        <Link to='/photo-app/posts/popular' style={{textDecoration: 'none'}}>
+                        <Link onClick={()=>changeSort('views')} to='/photo-app/posts/popular' style={{textDecoration: 'none'}}>
                             {/* <LI onClick={()=>changeSort('views')} underline={props.selected === 'views' ? true : false}>Popular</LI> */}
-                            <LI onClick={()=>changeSort('views')} underline={props.sortCriteria.views===true ? true : false}>Popular</LI>
+                            <LI underline={props.sortCriteria.views===true ? true : false}>Popular</LI>
                         </Link>
-                        <Link to='/photo-app/posts/new' style={{textDecoration: 'none'}}>
-                            <LI onClick={()=>changeSort('timestamp')} underline={props.sortCriteria.new  ? true : false}>Newest</LI>
+                        <Link to='/photo-app/posts/new' onClick={()=>changeSort('timestamp')} style={{textDecoration: 'none'}}>
+                            <LI  underline={props.sortCriteria.new  ? true : false}>Newest</LI>
                         </Link>
-                        <Link to='/photo-app/posts/rating' style={{textDecoration: 'none'}}>
-                            <LI onClick={()=>changeSort('ratio')} underline={props.sortCriteria.rating ? true : false}>Highest rated</LI>
+                        <Link to='/photo-app/posts/rating' onClick={()=>changeSort('ratio')} style={{textDecoration: 'none'}}>
+                            <LI  underline={props.sortCriteria.rating ? true : false}>Highest rated</LI>
                         </Link>
                     </div>
                     <div style={{display: 'flex', marginRight: '10px'}} >

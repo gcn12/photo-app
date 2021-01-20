@@ -33,7 +33,6 @@ const Collection = (props) => {
                 imageArray.push(doc.data())
             })
             props.dispatch(homePhotoInformation(imageArray))
-            // props.history.push('/photo-app/posts')
             props.dispatch(collectionsData(imageArray))
         })
     }

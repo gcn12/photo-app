@@ -35,7 +35,9 @@ export const Title = styled.div`
     font-weight: 500;
     cursor: pointer;
     color: #242424;
-    margin-bottom: 4px;
+    line-height: 25px;
+    /* height: 24px; */
+    /* margin-bottom: 4px; */
     @media(max-width: 600px) {
         font-size: 20px;
     }

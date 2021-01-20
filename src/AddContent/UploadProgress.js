@@ -24,7 +24,7 @@ const UploadProgress = (props) => {
                 width={radius * 2}
                 >
                 <circle
-                    className="progress-ring__circle"
+                    className="progress-ring__circle progress-ring-circle-color"
                     strokeWidth={stroke}
                     strokeDasharray = {circumference + ' ' + circumference}
                     style = {{strokeDashoffset}}
@@ -42,7 +42,7 @@ const UploadProgress = (props) => {
                     width={radius * 2}
                     >
                     <circle
-                        className="progress-ring__circle"
+                        className="progress-ring__circle progress-ring-circle-color"
                         strokeWidth={stroke}
                         strokeDasharray = {circumference + ' ' + circumference}
                         style = {{strokeDashoffset}}
@@ -58,7 +58,7 @@ const UploadProgress = (props) => {
                 {props.uploadProgressColor ? 
                 <UploadingTitle style={{color: 'green'}}>Upload succeeded</UploadingTitle>
                 :
-                <UploadingTitle>Uploading...</UploadingTitle>
+                <UploadingTitle className='shine'>Uploading...</UploadingTitle>
                 }
         </ProgressContainer>
     )

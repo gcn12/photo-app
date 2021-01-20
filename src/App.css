@@ -82,18 +82,23 @@ background-clip: padding-box;
 
 @keyframes circleColor {
     0%   {stroke: #dedede;}
-    /* 25%  {stroke: green;} */
-    50%  {stroke: #4D4D4D;}
-    /* 75%  {stroke: yellow;} */
-    100% {stroke: #242424;}
-  }
+    25%  {stroke: #4D4D4D;}
+    50%  {stroke: #242424;}
+    75%  {stroke: #4D4D4D;}
+    100% {stroke: #dedede;}
+}
+
+.progress-ring-circle-color {
+    animation: circleColor 4s;
+    animation-iteration-count: infinite;
+}
 
 .progress-ring__circle {
     transition: .8s;
     transform: rotate(-90deg);
     transform-origin: 50% 50%;
-    stroke: #242424;
-    animation: circleColor 2s ease-in-out infinite;
+    /* stroke: #242424; */
+    
 }
 
 .upload-button-label {

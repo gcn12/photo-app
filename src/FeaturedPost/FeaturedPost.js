@@ -361,63 +361,69 @@ const FeaturedPost = (props) => {
                         null
                         }
                         {Object.values(props?.photoInformation?.dataObj)[item][0]==='images' ? 
-                        <BodyImageContainer>
-                            {props?.photoInformation?.imagesSmall[item]?.map((image, i)=> {
-                                return(
-                                    <div key={i}>
-                                        {props.photoInformation.photoBodyMap[item].length === 1 ? 
-                                        <BodyImage 
-                                        onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])}
-                                        imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
-                                        margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 4px' : '0%'} 
-                                        imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
-                                        width={props?.photoInformation?.photoBodyMap[item][i]} 
-                                        imageGap='0px'
-                                        src={image} key={i} 
-                                        />
+                        <div>
+                            <BodyImageContainer>
+                                {props?.photoInformation?.imagesSmall[item]?.map((image, i)=> {
+                                    return(
+                                        <div key={i}>
+                                            {props.photoInformation.photoBodyMap[item].length === 1 ? 
+                                            <BodyImage 
+                                            onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])}
+                                            imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
+                                            margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 4px' : '0%'} 
+                                            imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
+                                            width={props?.photoInformation?.photoBodyMap[item][i]} 
+                                            imageGap='0px'
+                                            src={image} key={i} 
+                                            />
 
-                                        :
-                                        null}
-    
-                                        {props.photoInformation.photoBodyMap[item].length === 2 ? 
-                                        <div>
-                                            <BodyImage 
-                                            onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])}
-                                            imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
-                                            margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 4px' : '0%'} 
-                                            imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
-                                            width={props?.photoInformation?.photoBodyMap[item][i]} 
-                                            imageGap='8px'
-                                            src={image} key={i} 
-                                            />
+                                            :
+                                            null}
+        
+                                            {props.photoInformation.photoBodyMap[item].length === 2 ? 
+                                            <div>
+                                                <BodyImage 
+                                                onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])}
+                                                imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
+                                                margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 4px' : '0%'} 
+                                                imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
+                                                width={props?.photoInformation?.photoBodyMap[item][i]} 
+                                                imageGap='8px'
+                                                src={image} key={i} 
+                                                />
+                                            </div>
+                                            :
+                                            null}
+        
+                                            {props.photoInformation.photoBodyMap[item].length === 3 ? 
+                                            <div>
+                                                <BodyImage 
+                                                onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])}
+                                                imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
+                                                margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 4px' : '0%'} 
+                                                imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
+                                                width={props?.photoInformation?.photoBodyMap[item][i]} 
+                                                imageGap='16px'
+                                                src={image} key={i} 
+                                                />
+                                            </div>
+                                            :
+                                            null}
                                         </div>
-                                        :
-                                        null}
-    
-                                        {props.photoInformation.photoBodyMap[item].length === 3 ? 
-                                        <div>
-                                            <BodyImage 
-                                            onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])}
-                                            imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
-                                            margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 4px' : '0%'} 
-                                            imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
-                                            width={props?.photoInformation?.photoBodyMap[item][i]} 
-                                            imageGap='16px'
-                                            src={image} key={i} 
-                                            />
-                                        </div>
-                                        :
-                                        null}
-                                        {Object.values(props?.photoInformation?.dataObj)[index+1]
-                                        ?
-                                        <PostSpacings element={Object.values(props?.photoInformation?.dataObj)[index+1][0]} imagesSpacing='4px' captionSpacing='4px' headerSpacing='32px' paragraphSpacing='32px'  />
-                                        :
-                                        null
-                                        }
-                                    </div>
-                                )
-                            })}
-                        </BodyImageContainer>
+                                    )
+                                })}
+                            </BodyImageContainer>
+                            {Object.values(props?.photoInformation?.dataObj)[index+1]
+                            ?
+                            Object.values(props?.photoInformation?.dataObj)[index+1][1].length > 0 ?  
+                            <div style={{marginBottom: '4px'}}></div>
+                            :
+                            Object.values(props?.photoInformation?.dataObj)[index+2] &&
+                            <PostSpacings element={Object.values(props?.photoInformation?.dataObj)[index+2][0]} imagesSpacing='8px' captionSpacing='4px' headerSpacing='32px' paragraphSpacing='32px'  />
+                            :
+                            null
+                            }
+                        </div>
                         :
                         null
                         }
@@ -494,16 +500,16 @@ const PostSpacings = (props) => {
     return(
         <div>
             {props.element==='images' && 
-            <ElementSpacings spacing={props.imagesSpacing}></ElementSpacings>
+            <ElementSpacings spacing={props.imagesSpacing} />
             }
             {props.element==='caption' && 
-            <ElementSpacings spacing={props.captionSpacing}></ElementSpacings>
+            <ElementSpacings spacing={props.captionSpacing} />
             }
             {props.element==='header' && 
-            <ElementSpacings spacing={props.headerSpacing}></ElementSpacings>
+            <ElementSpacings spacing={props.headerSpacing} />
             }
             {props.element==='paragraph' && 
-            <ElementSpacings spacing={props.paragraphSpacing}></ElementSpacings>
+            <ElementSpacings spacing={props.paragraphSpacing} />
             }
         </div>
     )

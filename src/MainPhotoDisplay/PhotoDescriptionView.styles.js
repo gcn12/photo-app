@@ -4,12 +4,15 @@ export const Container = styled.div`
     overflow: none;
     transition: opacity 350ms ease-in-out;
     margin-bottom: 24px;
+    width: 100%;
+    object-fit: cover;
 `
  
  export const Card = styled.div`
     max-width: 400px;
     width: 100%;
     min-height: 420px;
+    /* display: flex; */
     /* background-color: #f5f5f5; */
     /* display: flex;
     flex-direction: column; */
@@ -26,11 +29,11 @@ const fadeIn = keyframes`
 
 export const Description = styled.div`
     font-size: 16px;
-    line-height: 30px;
+    line-height: 26px;
     font-weight: 400;
     color: #4D4D4D;
     /* width: 100%; */
-    min-width: 300px;
+    /* min-width: 300px; */
     max-width: 400px;
 `
 
@@ -70,6 +73,7 @@ export const Title = styled.div`
     font-size: 30px;
     font-weight: 500;
     text-decoration: none;
+    line-height: 36px;
     color: #242424;
     /* width: 120px; */
     /* padding: 0 5%; */
@@ -104,6 +108,7 @@ export const Image = styled.img`
     cursor: pointer;
     margin-bottom: 10px;
     object-fit: cover;
+    /* width: 400px; */
     width: 100%;
     max-width: 400px;
     height: 250px;
@@ -114,12 +119,13 @@ export const Image = styled.img`
     }
     animation: ${fadeIn} 1s;
 `
-
 export const PlaceholderImage = styled.div`
+    
     cursor: pointer;
     margin-bottom: 12px;
     width: 100%;
-    object-fit: cover;
+    /* object-fit: cover; */
+    /* width: 400px; */
     max-width: 400px;
     height: 250px;
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .3);

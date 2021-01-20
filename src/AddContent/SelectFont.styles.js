@@ -7,6 +7,10 @@ export const Container = styled(motion.div)`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    /* position: fixed;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
 `
 
 export const Title = styled.div`

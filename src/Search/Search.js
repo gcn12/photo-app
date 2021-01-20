@@ -34,7 +34,7 @@ const Search = (props) => {
         <Container>
             <div style={{position: 'relative'}} className='search-results'>
             <IconContainer>
-                <SearchIcon style={{position: 'absolute', top: '7', left: '5', transform: 'scale(.6)'}}></SearchIcon>
+                <SearchIcon style={{position: 'absolute', top: '6', left: '5', transform: 'scale(.6)'}}></SearchIcon>
                 {/* <SearchIcon style={{transform: 'scale(1)'}}></SearchIcon> */}
             </IconContainer>
                 <div style={{position: 'absolute', left: '10%'}}></div>

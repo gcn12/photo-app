@@ -139,20 +139,22 @@ const animationMap = {
     selectFont: {
         initial: {
             x: 100,
-            y: '10vh',
+            y: '20vh',
             opacity: 0,
         },
         transitionStart: {
             x: 0,
-            y: '10vh',
+            y: '20vh',
             opacity: 1,
         },
         transitionBack: {
             x: 0,
+            y: '20vh',
             opacity: 1,
         },
         transitionEnd: {
             opacity: 0,
+            y: '20vh',
             x: -100
         },
         transition: {

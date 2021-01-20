@@ -10,15 +10,15 @@ export const PhotoDescriptionViewContainer = styled.div`
     margin: 0% 4%;
     display: grid;
     /* grid-template-columns: repeat(3, auto); */
-    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, max-content));
     grid-column-gap: 4%;
     grid-row-gap: 0%;
-    align-items: start;
-    justify-items: center;
+    /* align-items: center; */
+    /* justify-items: center; */
     justify-content: center;
 
     @media (max-width: 750px){
-        margin: 0% 4%;
+        /* margin: 0% 4%; */
     } 
 
     /* @media (max-width: 1100px){
