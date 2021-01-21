@@ -10,6 +10,7 @@ import {
     ULMobile,
     CategoriesButton,
     TriangleIcon,
+    Margin, 
 } from './SubheaderPosts.styles'
 import SubheaderCategories from './SubheaderCategories'
 
@@ -74,11 +75,11 @@ const Subheader = (props) => {
                         <Link onClick={()=>changeSort('views')} to='/photo-app/posts/popular' style={{textDecoration: 'none'}}>
                             <LI underline={props.sortCriteria.views===true ? true : false}>Popular</LI>
                         </Link>
-                        <div style={{marginRight: '25px'}}></div>
+                        <Margin></Margin>
                         <Link to='/photo-app/posts/new' onClick={()=>changeSort('timestamp')} style={{textDecoration: 'none'}}>
                             <LI  underline={props.sortCriteria.new  ? true : false}>Newest</LI>
                         </Link>
-                        <div style={{marginRight: '25px'}}></div>
+                        <Margin></Margin>
                         <Link to='/photo-app/posts/rating' onClick={()=>changeSort('ratio')} style={{textDecoration: 'none'}}>
                             <LI  underline={props.sortCriteria.rating ? true : false}>Highest rated</LI>
                         </Link>

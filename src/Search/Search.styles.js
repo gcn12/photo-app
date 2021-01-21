@@ -27,6 +27,7 @@ export const SearchBox = styled.input`
     height: 28px;
     font-size: 20px;
     width: 300px;
+    /* width: 100%; */
     /* float: right; 
     clear: both;  */
     /* box-shadow: 0px 5px 6px rgba(0, 0, 0, .1); */
@@ -51,11 +52,11 @@ export const SearchBox = styled.input`
     }
 
     @media (max-width: 690px) {
-        width: 130px;
+        width: 20vw;
     }
     @media (max-width: 550px) {
-        visibility: hidden;
-        display: none;
+        /* visibility: hidden;
+        display: none; */
     }
 `
 
@@ -72,7 +73,7 @@ export const MoreResults = styled.div`
 
 export const IconContainer = styled.div`
     @media (max-width: 550px) {
-        visibility: hidden;
-        display: none;
+        /* visibility: hidden;
+        display: none; */
     }
 `

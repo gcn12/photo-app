@@ -80,3 +80,10 @@ export const TriangleIcon = styled.div`
     position: relative;
     top: 7;
 `
+
+export const Margin = styled.div`
+    margin-right: 25px;
+    @media(max-width: 550px) {
+        margin-right: 12px
+    }
+`
