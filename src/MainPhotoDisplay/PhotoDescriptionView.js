@@ -128,7 +128,6 @@ const PhotoDescriptionView = (props) => {
                         </div>
                     </BookmarkLocationContainer>
                     <Link onClick={goToPost} to={`/photo-app/post/${props.photoInfo.postID}`} style={{textDecoration: 'none'}}>
-                        {/* <Title onClick={goToPost} id={`description-view-title-${props.index}`}>{props.photoInfo.title}</Title> */}
                         <Title id={`description-view-title-${props.index}`}>{props.photoInfo.title}</Title>
                     </Link>
                     <Description>{props.photoInfo.previewDescription}</Description>

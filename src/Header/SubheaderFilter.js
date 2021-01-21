@@ -10,7 +10,6 @@ const SubheaderFilter = (props) => {
     const getPhotos = (result) => {
         if(result !== props.category) {
             props.setHomePhotoInformation([])
-            // props.setIsMainPhotosVisible(false)
             props.setSearchQueries(result)
             props.search(result)
         }

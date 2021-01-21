@@ -13,7 +13,7 @@ const GetPhotos = (props) => {
 
     return(
         <div style={{position: 'relative'}}>
-            <DisplayContainer opacity={1} style={{marginTop: '120px'}}>
+            <DisplayContainer>
                 <PhotoDescriptionViewContainer>
                     {props.homePhotoInformation.map((photo, index)=> {
                         return( 

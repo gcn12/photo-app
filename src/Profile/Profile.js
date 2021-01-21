@@ -7,16 +7,13 @@ import UserPrivateProfile from '../UserPrivateProfile/UserPrivateProfile'
 import SavedPosts from '../SavedPosts/SavedPostsComponent'
 import AdmiredPosts from '../AdmiredPosts/AdmiredPostsComponent'
 import{ profilePage } from '../Redux/Actions/profileActions'
-import { Link } from 'react-router-dom'
+import ProfileHeaderMobile from './ProfileHeaderDesktop'
+import ProfileHeaderDesktop from './ProfileHeaderMobile'
 import { 
-    UL, 
-    HeaderContainer,
     Container,
-    LI,
 } from './Profile.styles'
 
 const Profile = (props) => {
-    // const [profilePage, setProfilePage] = useState(props.match.params.route)
 
     const route = props.match.params
     useEffect(()=> {
@@ -28,28 +25,11 @@ const Profile = (props) => {
         <div style={{marginTop: '85px'}}>
             {/* <SubmitButton onClick={()=>props.history.goBack()}>Back</SubmitButton> */}
             <Container>
-                <HeaderContainer>
-                    <UL>
-                        <Link to='/photo-app/profile/my-profile' style={{textDecoration: 'none'}}>
-                            <LI style={{borderBottom: props.profilePage==='my-profile'  ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('my-profile'))}>My profile</LI>
-                        </Link>
-                        <Link to='/photo-app/profile/saved' style={{textDecoration: 'none'}}>
-                            <LI style={{borderBottom: props.profilePage==='saved'  ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('saved'))}>Saved</LI>
-                        </Link>
-                        <Link to='/photo-app/profile/admired' style={{textDecoration: 'none'}}>
-                            <LI style={{borderBottom: props.profilePage==='admired'  ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('admired'))}>Admired</LI>
-                        </Link>
-                        <Link to='/photo-app/profile/collections' style={{textDecoration: 'none'}}>
-                            <LI style={{borderBottom: props.profilePage==='collections'  ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('collections'))}>Collections</LI>
-                        </Link>
-                        <Link to='/photo-app/profile/settings' style={{textDecoration: 'none'}}>
-                            <LI style={{borderBottom: props.profilePage==='settings' ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('settings'))}>Settings</LI>
-                        </Link>
-                    </UL>
-                </HeaderContainer>
+                <ProfileHeaderMobile />
+                <ProfileHeaderDesktop />
                 {(()=> {
                     switch (props.profilePage) {
-                        case 'my-profile':
+                        case 'my profile':
                             return( 
                                 <UserPrivateProfile getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} getUserProfile={props.getUserProfile} history={props.history} />
                             )

@@ -36,9 +36,6 @@ const variants = {
 const SubheaderDropdown = (props) => {
 
     const closeDropdown = (isCancel) => {
-        if(!isCancel) {
-            props.setIsMainPhotosVisible(false)
-        }
         props.dispatch(dropdownTransition('transitionEnd'))
         // props.setDropdownTransition('transitionEnd')
         setTimeout(()=> props.dispatch(visibility(false)), 300)
@@ -51,12 +48,6 @@ const SubheaderDropdown = (props) => {
         closeDropdown(false)
     }
 
-    const getAssortedPhotosAndClose = () => {
-        props.setIsMainPhotosVisible(false)
-        closeDropdown()
-        props.getAssortedPhotos()
-    }
-
     const { selected } = props
 
     return(
@@ -66,7 +57,6 @@ const SubheaderDropdown = (props) => {
             </CancelContainer>
             <CenterList>
                 <UL>
-                    <LI onClick={getAssortedPhotosAndClose} underline={selected === 'assorted' ? true : false}>ASSORTED</LI>
                     <LI onClick={()=>sortPosts('views')} underline={selected === 'views' ? true : false}>POPULAR</LI>
                     <LI onClick={()=>sortPosts('timestamp')} underline={selected === 'timestamp' ? true : false}>NEWEST</LI>
                     <LI onClick={()=>sortPosts('ratio')} underline={selected === 'ratio' ? true : false}>HIGHEST RATED</LI>

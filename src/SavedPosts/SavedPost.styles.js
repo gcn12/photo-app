@@ -98,3 +98,9 @@ export const Option = styled.div`
         background-color: #dedede;
     }
 `
+
+export const ComponentContainer = styled.div`
+    @media (max-width: 550px){
+        margin-bottom: 60px;
+    }
+`

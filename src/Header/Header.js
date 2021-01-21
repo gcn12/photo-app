@@ -135,19 +135,19 @@ const Header = (props) => {
         <div style={{position: 'fixed', top: 0, width: '100%', marginBottom: '20px', zIndex:2}}>
             {!props.location.pathname.includes('/photo-app/upload') ? 
             <Border>
-                <SubheaderDropdown setIsMainPhotosVisible={props.setIsMainPhotosVisible} getAssortedPhotos={getAssortedPhotos} sort={sort}  />
-                <CategoriesDropdown setIsMainPhotosVisible={props.setIsMainPhotosVisible} getCategoryPhotos={getCategoryPhotos} />
+                <SubheaderDropdown getAssortedPhotos={getAssortedPhotos} sort={sort}  />
+                <CategoriesDropdown getCategoryPhotos={getCategoryPhotos} />
                 <SearchDropdown  />
                 <Container>
                     <UL>
                         <LI>
                             <Link onClick={getAssortedAndDropOpacity} to='/photo-app/posts/popular' style={{ textDecoration: 'none', color: '#242424' }}>
-                                Wall
+                                <Navigation>Wall</Navigation>
                             </Link>
                         </LI>
                         <LI>
                             <Link to='/photo-app/discover' style={{ textDecoration: 'none', color: '#242424' }}>
-                                Discover
+                                <Navigation>Discover</Navigation>
                             </Link>
                         </LI>
                     </UL>
@@ -198,7 +198,6 @@ const Header = (props) => {
                     showCategories={showCategories}
                     location={props.location}
                     sort={props.sort} 
-                    setIsMainPhotosVisible={props.setIsMainPhotosVisible} 
                     getCategoryPhotos={getCategoryPhotos} 
                     getAssortedPhotos={getAssortedPhotos} 
                 />
@@ -212,7 +211,6 @@ const Header = (props) => {
                     search={props.search}
                     location={props.location}
                     sort={props.sort}  
-                    setIsMainPhotosVisible={props.setIsMainPhotosVisible} 
                     getCategoryPhotos={getCategoryPhotos} 
                     getAssortedPhotos={getAssortedPhotos} 
                 />

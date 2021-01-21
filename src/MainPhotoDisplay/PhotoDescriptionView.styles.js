@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components'
 export const Container = styled.div`
     overflow: none;
     transition: opacity 350ms ease-in-out;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
     width: 100%;
     object-fit: cover;
 `
@@ -11,7 +11,8 @@ export const Container = styled.div`
  export const Card = styled.div`
     max-width: 400px;
     width: 100%;
-    min-height: 420px;
+    /* min-height: 420px; */
+    margin-bottom: 32px;
     /* display: flex; */
     /* background-color: #f5f5f5; */
     /* display: flex;
@@ -40,19 +41,21 @@ export const Description = styled.div`
 export const Location = styled.div`
     cursor: pointer;
     font-size: 14px;
-    margin-bottom: 5px;
-    /* border: 1px solid black; */
+    margin-bottom: 4px;
     border-radius: 1px;
     padding: 2px 7px;
     color: #f2f2f2;
     background-color: #242424;
-    /* padding: 0 5%; */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
 `
 
 export const Category = styled.div`
     text-transform: capitalize;
-    margin-left: 10px;
-    margin-bottom: 5px;
+    margin-left: 8px;
+    margin-bottom: 4px;
     font-size: 14px;
     border-radius: 1px;
     border: 1px solid black;
@@ -64,7 +67,7 @@ export const Category = styled.div`
 export const Name = styled.div`
     cursor: pointer;
     font-size: 16px;
-    margin-top: 5px;
+    margin-top: 4px;
     /* padding: 0 5%; */
 `
 
@@ -106,12 +109,13 @@ export const ImageLinkContainer = styled.div`
 
 export const Image = styled.img`
     cursor: pointer;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     object-fit: cover;
     /* width: 400px; */
     width: 100%;
-    max-width: 400px;
-    height: 250px;
+    max-width: 450px;
+    height: 10vw;
+    min-height: 250px;
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .3);
     transition: box-shadow 300ms ease-in-out, opacity 400ms ease-in-out;
     &:hover {
@@ -126,8 +130,11 @@ export const PlaceholderImage = styled.div`
     width: 100%;
     /* object-fit: cover; */
     /* width: 400px; */
-    max-width: 400px;
-    height: 250px;
+    max-width: 450px;
+    /* height: 250px; */
+    max-height: 300px;
+    height: 10vw;
+    min-height: 250px;
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .3);
     transition: box-shadow 300ms ease-in-out;
     &:hover {

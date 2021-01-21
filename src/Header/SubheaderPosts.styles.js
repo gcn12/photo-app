@@ -44,7 +44,7 @@ export const LI = styled.ul`
     color: #242424;
     font-size: 18px;
     padding: 0;
-    margin: 0 25px 0 0px;
+    /* margin: 0 25px 0 0px; */
     /* text-decoration: ${props=> props.underline ? 'underline' : null}; */
     border-bottom: ${props=> props.underline ? '1px solid black' : null};
     cursor: pointer;

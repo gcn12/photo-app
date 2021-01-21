@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import AdmiredPost from './AdmiredPost'
 import { db } from '../Firebase'
+import { ComponentContainer } from '../SavedPosts/SavedPost.styles'
 
 const AdmiredPosts = (props) => {
 
@@ -26,13 +27,13 @@ const AdmiredPosts = (props) => {
     }, [props.user])
 
     return(
-        <div>
+        <ComponentContainer>
             {savedPostsData.map((post, index) => {
                 return(
                     <AdmiredPost index={index} savedPostsData={savedPostsData} setSavedPostsData={setSavedPostsData} post={post} key={index} />
                 )
             })}
-        </div>
+        </ComponentContainer>
     )
 }
 

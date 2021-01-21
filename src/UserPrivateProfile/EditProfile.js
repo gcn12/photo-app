@@ -122,7 +122,24 @@ const EditProfile = (props) => {
         if(bio !== props.userData.bio){
             isEmpty = false
             updateObject['bio'] = bio
-            cloudUpdateObject['bio'] = bio
+            if(bio.length > 100) {
+                let bioCloud = bio
+                bioCloud = bioCloud.trim()
+                bioCloud = bioCloud.slice(0, 100)
+                bioCloud = bioCloud.trim()
+                if(bioCloud[bioCloud.length-1] !=='.') {
+                    bioCloud = bioCloud.slice(0, 97)
+                    bioCloud = bioCloud.trim()
+                    if(bioCloud[bioCloud.length-1] !=='.') {
+                        bioCloud += '...'
+                        cloudUpdateObject['bio'] = bioCloud
+                    }else{
+                        cloudUpdateObject['bio'] = bioCloud
+                    }
+                }else{
+                    cloudUpdateObject['bio'] = bioCloud
+                }
+            }
         }
         if(profileImageUrl){
             isEmpty = false

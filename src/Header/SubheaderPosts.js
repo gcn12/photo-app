@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
-import { ReactComponent as PhotoGrid } from '../Icons/PhotoGrid.svg'
-import { ReactComponent as DescriptionGrid } from '../Icons/DescriptionGrid.svg'
-import { homePhotoInformation, displayView, sortCriteria } from '../Redux/Actions/appActions'
+import { homePhotoInformation, sortCriteria } from '../Redux/Actions/appActions'
 import { dropdownTransition, visibility, dropdownCategoriesTransition, categoriesVisibility, selected } from '../Redux/Actions/headerActions'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -22,7 +20,6 @@ const Subheader = (props) => {
         props.dispatch(dropdownTransition('transitionStart'))
         props.dispatch(visibility(true))
         document.body.style.overflowY = 'hidden'
-        // document.body.style.position = 'fixed'
     }
 
     useEffect(()=> {
@@ -42,14 +39,7 @@ const Subheader = (props) => {
         props.dispatch(dropdownCategoriesTransition('transitionStart'))
         props.dispatch(categoriesVisibility(true))
         document.body.style.overflowY = 'hidden'
-        // document.body.style.position = 'fixed'
     }
-
-    // window.onclick = (e) => {
-    //     if (!e.target.matches('.categories-dropdown')) {
-    //         setShowCategories(false)
-    //     }
-    // }
 
     const changeSort = (sortCriteriaInput) => {
         props.dispatch(homePhotoInformation([]))
@@ -76,19 +66,19 @@ const Subheader = (props) => {
         props.sort(finalCriteria, true)
     }
     
-
     return(
         <div>
             <Container>
                 <UL>
                     <div style={{display: 'flex', alignItems: 'center'}}>
                         <Link onClick={()=>changeSort('views')} to='/photo-app/posts/popular' style={{textDecoration: 'none'}}>
-                            {/* <LI onClick={()=>changeSort('views')} underline={props.selected === 'views' ? true : false}>Popular</LI> */}
                             <LI underline={props.sortCriteria.views===true ? true : false}>Popular</LI>
                         </Link>
+                        <div style={{marginRight: '25px'}}></div>
                         <Link to='/photo-app/posts/new' onClick={()=>changeSort('timestamp')} style={{textDecoration: 'none'}}>
                             <LI  underline={props.sortCriteria.new  ? true : false}>Newest</LI>
                         </Link>
+                        <div style={{marginRight: '25px'}}></div>
                         <Link to='/photo-app/posts/rating' onClick={()=>changeSort('ratio')} style={{textDecoration: 'none'}}>
                             <LI  underline={props.sortCriteria.rating ? true : false}>Highest rated</LI>
                         </Link>
@@ -104,7 +94,6 @@ const Subheader = (props) => {
                             {props.showCategories ? 
                             <div style={{position: 'relative'}}>
                                 <SubheaderCategories 
-                                    setIsMainPhotosVisible={props.setIsMainPhotosVisible} 
                                     getCategoryPhotos={props.getCategoryPhotos} 
                                     className='categories-dropdown' 
                                     location={props.location}
@@ -115,8 +104,6 @@ const Subheader = (props) => {
                             null
                             }
                         </div>
-                        {/* <div style={{cursor: props.displayView ? 'default' : 'pointer' }} onClick={()=>props.setDisplayView(true)} ><DescriptionGrid style={{fill: props.displayView ? 'gray' : 'black'}} /></div> */}
-                        {/* <div style={{margin: '0 10px 0 15px', cursor: props.displayView ? 'pointer' : 'default'}}  onClick={()=>props.setDisplayView(false)} ><PhotoGrid style={{fill: props.displayView ? 'black' : 'gray'}}/></div> */}
                     </div>
                 </UL>
             </Container>
@@ -125,10 +112,6 @@ const Subheader = (props) => {
                     <div style={{display: 'flex'}}>
                         <LI onClick={openDropdown}>Sort &#x25BC;</LI>
                         <LI onClick={openDropdownCategories}>{props.sortCriteria.category} &#x25BC;</LI>
-                    </div>
-                    <div style={{display: 'flex'}} >
-                        <div style={{cursor: props.displayView ? 'default' : 'pointer' }} onClick={()=>props.dispatch(displayView(true))} ><DescriptionGrid style={{fill: props.displayView ? 'gray' : 'black'}} /></div>
-                        <div style={{margin: '0 10px 0 15px', cursor: props.displayView ? 'pointer' : 'default'}}  onClick={()=>props.dispatch(displayView(false))} ><PhotoGrid style={{fill: props.displayView ? 'black' : 'gray'}}/></div>
                     </div>
                 </ULMobile>
             </Container>

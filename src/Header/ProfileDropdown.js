@@ -39,7 +39,7 @@ const ProfileDropdown = (props) => {
     } 
 
     const pageRoute = (pageName) => {
-        if(pageName==='my-profile') {
+        if(pageName==='my profile') {
             clearDataOnProfileView()
         }
         props.dispatch(profilePage(pageName))
@@ -57,7 +57,7 @@ const ProfileDropdown = (props) => {
             <Triangle shift='translate(-130%, -90%)' />
             <Options>
 
-                <Link onClick={()=> pageRoute('my-profile')} to='/photo-app/profile/my-profile' style={{ textDecoration: 'none' }}>
+                <Link onClick={()=> pageRoute('my profile')} to='/photo-app/profile/my-profile' style={{ textDecoration: 'none' }}>
                     <OptionIconContainer>
                         <OptionIcon>
                             <Profile style={{transform: 'scale(.8)', position: 'relative', top: 4}} />

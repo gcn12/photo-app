@@ -60,13 +60,13 @@ const UserPrivateProfilesPosts = (props) => {
 
     const openDelete = () => {
         setShowDelete(true)
-        disableBodyScroll()
+        disableBodyScroll(document.body)
     }
 
     const closeDelete = () => {
         setShowDelete(false)
-        const toNotLock = document.getElementById('edit-post-scroll-container')
-        enableBodyScroll(toNotLock)
+        // const toNotLock = document.getElementById('edit-post-scroll-container')
+        enableBodyScroll(document.body)
     }
 
     const openEdit = () => {

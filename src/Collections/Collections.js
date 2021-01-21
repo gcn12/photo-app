@@ -69,44 +69,42 @@ const Collections = (props) => {
  
     return(
         <div>
+            { showRename ?
             <div>
-                { showRename ?
-                <div>
-                    <PopupDarken onClick={closeRename} />
-                    <Rename closeRename={closeRename} showRename={showRename} getCollections={getCollections} collectionName={collectionName} setShowRename={setShowRename}></Rename>
-                </div>
-                : 
-                null
-                }
-                {showDelete ? 
-                <div>
-                    <PopupDarken onClick={closeDelete} />
-                    <Delete closeDelete={closeDelete} collectionIndex={collectionIndex} setCollectionInfo={setCollectionInfo} collectionInfo={collectionInfo} collectionName={collectionName} setShowDelete={setShowDelete} />
-                </div>
-                :
-                null
-                }
-                <Container>
-                    {collectionInfo?.map((collection, index)=> {
-                        return(
-                            <Collection 
-                                openRename={openRename}
-                                openDelete={openDelete}
-                                setCollectionIndex={setCollectionIndex}
-                                setShowDelete={setShowDelete}
-                                setCollectionName={setCollectionName}
-                                setShowRename={setShowRename}
-                                history={props.history}
-                                collectionInfo={collectionInfo}
-                                setCollectionInfo={setCollectionInfo}
-                                index={index}
-                                collection={collection} 
-                                key={index}
-                            />
-                        )
-                    })}
-                </Container>
+                <PopupDarken onClick={closeRename} />
+                <Rename closeRename={closeRename} showRename={showRename} getCollections={getCollections} collectionName={collectionName} setShowRename={setShowRename}></Rename>
             </div>
+            : 
+            null
+            }
+            {showDelete ? 
+            <div>
+                <PopupDarken onClick={closeDelete} />
+                <Delete closeDelete={closeDelete} collectionIndex={collectionIndex} setCollectionInfo={setCollectionInfo} collectionInfo={collectionInfo} collectionName={collectionName} setShowDelete={setShowDelete} />
+            </div>
+            :
+            null
+            }
+            <Container>
+                {collectionInfo?.map((collection, index)=> {
+                    return(
+                        <Collection 
+                            openRename={openRename}
+                            openDelete={openDelete}
+                            setCollectionIndex={setCollectionIndex}
+                            setShowDelete={setShowDelete}
+                            setCollectionName={setCollectionName}
+                            setShowRename={setShowRename}
+                            history={props.history}
+                            collectionInfo={collectionInfo}
+                            setCollectionInfo={setCollectionInfo}
+                            index={index}
+                            collection={collection} 
+                            key={index}
+                        />
+                    )
+                })}
+            </Container>
         </div>
     )
 }

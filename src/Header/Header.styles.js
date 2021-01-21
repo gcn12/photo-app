@@ -27,7 +27,7 @@ export const UL = styled.ul`
 `
 
 export const LI = styled.li`
-    margin-right: 15px;
+    /* margin-right: 15px; */
     font-weight: 500;
     color: #242424;
     cursor: pointer;

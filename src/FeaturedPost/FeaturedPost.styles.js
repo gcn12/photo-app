@@ -21,6 +21,10 @@ export const Title = styled.div`
     font-family: ${props=> props.font};
     font-weight: 400;
     margin-top: 16px;
+    text-align: center;
+    @media (min-width: 1000px) {
+        max-width: 80vw;
+    }
     @media (max-width: 1000px) {
         font-size: 48px;
     }
@@ -61,10 +65,12 @@ export const Description = styled.div`
     @media (max-width: 1000px) {
         width: 85vw;
         margin: 0px;
+        font-size: 18px;
     }
     @media (max-width: 500px) {
         width: 90vw;
         margin: 0px;
+        font-size: 16px;
     }
 `
 

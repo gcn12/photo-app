@@ -20,7 +20,6 @@ const SubheaderCategories = (props) => {
         if(props.location.pathname.includes('/photo-app/posts')){
             if(category !== props.sortCriteria.category) {
                 props.dispatch(homePhotoInformation([]))
-                // props.setIsMainPhotosVisible(false)
                 let criteria = props.sortCriteria
                 criteria['category'] = category
                 props.dispatch(sortCriteria(criteria))

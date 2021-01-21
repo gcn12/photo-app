@@ -93,6 +93,7 @@ export const PreviewImage = styled.img`
 export const SubmitButton = styled.button`
     cursor: pointer;
     color: white;
+    font-size: 18px;
     background-color: #141414;
     border: none;
     width: 140px;

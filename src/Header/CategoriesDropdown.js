@@ -44,7 +44,6 @@ const CategoriesDropdown = (props) => {
     const sortPosts = (value) => {
         props.getCategoryPhotos(value)
         closeDropdown()
-        props.setIsMainPhotosVisible(false)
     }
 
     const { selectedCategory } = props
@@ -56,6 +55,7 @@ const CategoriesDropdown = (props) => {
             </CancelContainer>
             <CenterList>
                 <UL>
+                    <LI onClick={()=>sortPosts('all categories')} underline={selectedCategory === 'all categories' ? true : false}>All categories</LI>
                     <LI onClick={()=>sortPosts('entertainment')} underline={selectedCategory === 'entertainment' ? true : false}>Entertainment</LI>
                     <LI onClick={()=>sortPosts('adventure')} underline={selectedCategory === 'adventure' ? true : false}>Adventure</LI>
                     <LI onClick={()=>sortPosts('restaurant')} underline={selectedCategory === 'restaurant' ? true : false}>Restaurant</LI>

@@ -1,9 +1,11 @@
 import styled from 'styled-components'
 
 export const DisplayContainer = styled.div`
-    /* transition-delay: 1s; */
-    opacity: ${props=>props.opacity};
-    /* transition: opacity 700ms ease-in-out; */
+    margin-top: 125px;
+    @media (max-width: 550px){
+        margin-bottom: 60px;
+        margin-top: 105px;
+    }
 `
 
 export const PhotoDescriptionViewContainer = styled.div`
@@ -20,13 +22,6 @@ export const PhotoDescriptionViewContainer = styled.div`
     @media (max-width: 750px){
         /* margin: 0% 4%; */
     } 
-
-    /* @media (max-width: 1100px){
-        grid-template-columns: repeat(2, auto);
-    }
-    @media (max-width: 750px){
-        grid-template-columns: repeat(1, auto);
-    } */
 ` 
 
 export const LazyButtonContainer = styled.div`

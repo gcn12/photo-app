@@ -3,12 +3,12 @@ import firebase from 'firebase'
 import { Link } from 'react-router-dom'
 import { db } from '../Firebase'
 import { ReactComponent as Add } from '../Icons/Add.svg'
-import { ReactComponent as Profile } from '../Icons/Profile.svg'
 import { connect } from 'react-redux'
 import {
     Container,
     ProfileImage,
     Text,
+    FooterContainer,
 } from './Footer.styles'
 
 const Footer = (props) => {
@@ -23,7 +23,11 @@ const Footer = (props) => {
                 .get()
                 .then(doc=> {
                     const data = doc.data()
-                    setImageURL(data.profileImage)
+                    if(data.profileImage) {
+                        setImageURL(data.profileImage)
+                    } else{
+                        setImageURL("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMGMtNi42MjcgMC0xMiA1LjM3My0xMiAxMnM1LjM3MyAxMiAxMiAxMiAxMi01LjM3MyAxMi0xMi01LjM3My0xMi0xMi0xMnptNy43NTMgMTguMzA1Yy0uMjYxLS41ODYtLjc4OS0uOTkxLTEuODcxLTEuMjQxLTIuMjkzLS41MjktNC40MjgtLjk5My0zLjM5My0yLjk0NSAzLjE0NS01Ljk0Mi44MzMtOS4xMTktMi40ODktOS4xMTktMy4zODggMC01LjY0NCAzLjI5OS0yLjQ4OSA5LjExOSAxLjA2NiAxLjk2NC0xLjE0OCAyLjQyNy0zLjM5MyAyLjk0NS0xLjA4NC4yNS0xLjYwOC42NTgtMS44NjcgMS4yNDYtMS40MDUtMS43MjMtMi4yNTEtMy45MTktMi4yNTEtNi4zMSAwLTUuNTE0IDQuNDg2LTEwIDEwLTEwczEwIDQuNDg2IDEwIDEwYzAgMi4zODktLjg0NSA0LjU4My0yLjI0NyA2LjMwNXoiLz48L3N2Zz4=")
+                    }
                 })
             }
         })
@@ -36,7 +40,7 @@ const Footer = (props) => {
 
 
     return(
-        <div>
+        <FooterContainer visibility={props.profileLoaded ? 'visible' : 'hidden'}>
             {props.location.pathname.includes('/upload') ? 
             null
             :
@@ -46,11 +50,7 @@ const Footer = (props) => {
                     <Add style={{cursor: 'pointer'}} />
                 </Link>
                 <Link to='/photo-app/profile'>
-                    {imageURL.length>0 ? 
                     <ProfileImage src={imageURL} alt='profile'></ProfileImage>
-                    :
-                    <Profile style={{cursor: 'pointer'}} />
-                    }
                 </Link>
             </Container>
             :
@@ -63,12 +63,13 @@ const Footer = (props) => {
                 </Link>
             </Container>
             }
-        </div>
+        </FooterContainer>
         )
 }
 
 const mapStateToProps = state => ({
-    user: state.app.user
+    user: state.app.user,
+    profileLoaded: state.app.profileLoaded,
 })
 
 export default connect(mapStateToProps)(Footer)

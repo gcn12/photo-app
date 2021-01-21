@@ -85,8 +85,7 @@ const Subheader = (props) => {
                                     <SubheaderCategories 
                                         search={props.search}
                                         category={category}
-                                        setCategory={setCategory}
-                                        setIsMainPhotosVisible={props.setIsMainPhotosVisible} 
+                                        setCategory={setCategory} 
                                         getCategoryPhotos={props.getCategoryPhotos} 
                                         className='categories-dropdown' 
                                         location={props.location}

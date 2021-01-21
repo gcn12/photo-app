@@ -6,6 +6,7 @@ import {
     Text,
     MoreFromContainer,
     ContentContainer,
+    Container,
 } from './KeepReading.styles'
 
 const KeepReading = (props) => {
@@ -76,7 +77,7 @@ const KeepReading = (props) => {
     }, [props.photoInformation])
 
     return(
-        <div>
+        <Container>
             <div style={{display: 'flex', justifyContent: 'center', marginBottom: '32px'}}>
                 <Text size='36px' weight='600'>Keep reading</Text>
             </div>
@@ -99,7 +100,7 @@ const KeepReading = (props) => {
                 </PostsContainer>
                 {/* </div> */}
             </ContentContainer>
-        </div>
+        </Container>
     )
 }
 
