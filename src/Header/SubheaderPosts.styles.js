@@ -14,7 +14,7 @@ export const UL = styled.ul`
     display: flex;
     justify-content: space-between;
     
-    @media (max-width: 0px) {
+    @media (max-width: 690px) {
         display: none;
         visibility: hidden;
         /* list-style-type: none; */
@@ -30,8 +30,7 @@ export const ULMobile = styled.ul`
     display: flex;
     justify-content: space-between;
     
-    /* @media (min-width: 690px) { */
-    @media (min-width: 0px) {
+    @media (min-width: 690px) {
         display: none;
         visibility: hidden;
     }
@@ -85,5 +84,15 @@ export const Margin = styled.div`
     margin-right: 25px;
     @media(max-width: 550px) {
         margin-right: 12px
+    }
+`
+
+export const ArrowIcon = styled.img`
+    transform: scale(.6);
+`
+
+export const CategorySelected = styled.div`
+    &::first-letter {
+        text-transform: capitalize;
     }
 `

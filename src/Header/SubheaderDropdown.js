@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { dropdownTransition, visibility } from '../Redux/Actions/headerActions'
+import { dropdownTransition, visibility, selected } from '../Redux/Actions/headerActions'
+import { homePhotoInformation, sortCriteria } from '../Redux/Actions/appActions'
+import { Link } from 'react-router-dom'
 import {
     Container,
     CenterList,
@@ -43,12 +45,31 @@ const SubheaderDropdown = (props) => {
         document.body.style.position = 'initial'
     }
 
-    const sortPosts = (value) => {
-        props.sort(value)
+    const changeSort = (sortCriteriaInput) => {
+        props.dispatch(homePhotoInformation([]))
+        let criteria = props.sortCriteria
+        let newCriteria = {}
+        if(sortCriteriaInput === 'views') {
+            newCriteria['views'] = true
+        }else {
+            newCriteria['views'] = false
+        }
+        if (sortCriteriaInput === 'timestamp') {
+            newCriteria['new'] = true
+        }else {
+            newCriteria['new'] = false
+        }
+        if (sortCriteriaInput === 'ratio') { 
+            newCriteria['rating'] = true
+        } else {
+            newCriteria['rating'] = false
+        }
+        let finalCriteria = {...criteria, ...newCriteria}
+        props.dispatch(selected(sortCriteriaInput))
+        props.dispatch(sortCriteria(finalCriteria))
+        props.sort(finalCriteria, true)
         closeDropdown(false)
     }
-
-    const { selected } = props
 
     return(
         <Container visibility={props.visibility ? 1 : 0} transition='transition' variants={variants} initial='initial' animate={props.dropdownTransition}>
@@ -57,9 +78,15 @@ const SubheaderDropdown = (props) => {
             </CancelContainer>
             <CenterList>
                 <UL>
-                    <LI onClick={()=>sortPosts('views')} underline={selected === 'views' ? true : false}>POPULAR</LI>
-                    <LI onClick={()=>sortPosts('timestamp')} underline={selected === 'timestamp' ? true : false}>NEWEST</LI>
-                    <LI onClick={()=>sortPosts('ratio')} underline={selected === 'ratio' ? true : false}>HIGHEST RATED</LI>
+                <Link onClick={()=>changeSort('views')} to='/photo-app/posts/popular' style={{textDecoration: 'none'}}>
+                    <LI underline={props.selected === 'views' ? true : false}>POPULAR</LI>
+                </Link>
+                <Link to='/photo-app/posts/new' onClick={()=>changeSort('timestamp')} style={{textDecoration: 'none'}}>
+                    <LI underline={props.selected === 'timestamp' ? true : false}>NEWEST</LI>
+                </Link>
+                <Link to='/photo-app/posts/rating' onClick={()=>changeSort('ratio')} style={{textDecoration: 'none'}}>
+                    <LI underline={props.selected === 'ratio' ? true : false}>HIGHEST RATED</LI>
+                </Link>
                 </UL>
             </CenterList>
         </Container>
@@ -69,7 +96,8 @@ const SubheaderDropdown = (props) => {
 const mapStateToProps = state => ({
     dropdownTransition: state.header.dropdownTransition,
     visibility: state.header.visibility,    
-    selected: state.header.selected
+    selected: state.header.selected,
+    sortCriteria: state.app.sortCriteria,
 })
 
 export default connect(mapStateToProps)(SubheaderDropdown)

@@ -88,5 +88,5 @@ export const MobileContainer = styled.div`
 
 export const ArrowIcon = styled.img`
     transform: ${props=>props.rotate} scale(.6);
-    transition: transform 380ms ease-in-out;;
+    transition: transform 380ms ease-in-out;
 `

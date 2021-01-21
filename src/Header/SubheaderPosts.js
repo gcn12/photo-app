@@ -9,8 +9,9 @@ import {
     LI,
     ULMobile,
     CategoriesButton,
-    TriangleIcon,
     Margin, 
+    ArrowIcon,
+    CategorySelected,
 } from './SubheaderPosts.styles'
 import SubheaderCategories from './SubheaderCategories'
 
@@ -90,7 +91,8 @@ const Subheader = (props) => {
                                 <CategoriesButton className='categories-dropdown'>
                                     {props.sortCriteria.category} 
                                 </CategoriesButton>
-                                <TriangleIcon className='categories-dropdown'>&#x25BC;</TriangleIcon>
+                                <ArrowIcon className='categories-dropdown' alt='' src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yMy4yNDUgNGwtMTEuMjQ1IDE0LjM3NC0xMS4yMTktMTQuMzc0LS43ODEuNjE5IDEyIDE1LjM4MSAxMi0xNS4zOTEtLjc1NS0uNjA5eiIvPjwvc3ZnPg==" />
+                                {/* <TriangleIcon className='categories-dropdown'>&#x25BC;</TriangleIcon> */}
                             </div>
                             {props.showCategories ? 
                             <div style={{position: 'relative'}}>
@@ -110,9 +112,31 @@ const Subheader = (props) => {
             </Container>
             <Container>
                 <ULMobile>
+                    {console.log(props.sortCriteria)}
                     <div style={{display: 'flex'}}>
-                        <LI onClick={openDropdown}>Sort &#x25BC;</LI>
-                        <LI onClick={openDropdownCategories}>{props.sortCriteria.category} &#x25BC;</LI>
+                        <LI onClick={openDropdown}>
+                            <div style={{display: 'flex', alignItems: 'center'}}>
+                                Sort by:
+                                &nbsp;
+                                {props.sortCriteria.new &&
+                                <div>Newest</div>
+                                }
+                                {props.sortCriteria.views &&
+                                <div>Popular</div>
+                                }
+                                {props.sortCriteria.rating &&
+                                <div>Highest rated</div>
+                                }
+                                <ArrowIcon alt='' src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yMy4yNDUgNGwtMTEuMjQ1IDE0LjM3NC0xMS4yMTktMTQuMzc0LS43ODEuNjE5IDEyIDE1LjM4MSAxMi0xNS4zOTEtLjc1NS0uNjA5eiIvPjwvc3ZnPg==" />
+                            </div>
+                        </LI>
+                        <div style={{marginRight: '12px'}}></div>
+                        <LI onClick={openDropdownCategories}>
+                            <div style={{display: 'flex', alignItems: 'center'}}>
+                                <CategorySelected>{props.sortCriteria.category}</CategorySelected>
+                                <ArrowIcon alt='' src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yMy4yNDUgNGwtMTEuMjQ1IDE0LjM3NC0xMS4yMTktMTQuMzc0LS43ODEuNjE5IDEyIDE1LjM4MSAxMi0xNS4zOTEtLjc1NS0uNjA5eiIvPjwvc3ZnPg==" />
+                            </div>
+                        </LI>
                     </div>
                 </ULMobile>
             </Container>

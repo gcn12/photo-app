@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { dropdownCategoriesTransition, categoriesVisibility } from '../Redux/Actions/headerActions'
+import { homePhotoInformation, sortCriteria } from '../Redux/Actions/appActions'
 import {
     Container,
     CenterList,
@@ -41,9 +42,26 @@ const CategoriesDropdown = (props) => {
         document.body.style.position = 'initial'
     }
 
-    const sortPosts = (value) => {
-        props.getCategoryPhotos(value)
-        closeDropdown()
+    const getPhotos = (category) => {
+        if(props.location.pathname.includes('/photo-app/posts')){
+            if(category !== props.sortCriteria.category) {
+                props.dispatch(homePhotoInformation([]))
+                let criteria = props.sortCriteria
+                criteria['category'] = category
+                props.dispatch(sortCriteria(criteria))
+                props.sort(criteria, true)
+            }
+            closeDropdown()
+        }
+        if(props.location.pathname.includes('/photo-app/search')){ 
+            if(category !== props.sortCriteria.category) {
+                let criteria = props.sortCriteria
+                criteria['category'] = category
+                props.dispatch(sortCriteria(criteria))
+                props.search(props.searchQueries, `category: ${category}`)
+            }
+            closeDropdown()
+        }
     }
 
     const { selectedCategory } = props
@@ -55,13 +73,13 @@ const CategoriesDropdown = (props) => {
             </CancelContainer>
             <CenterList>
                 <UL>
-                    <LI onClick={()=>sortPosts('all categories')} underline={selectedCategory === 'all categories' ? true : false}>All categories</LI>
-                    <LI onClick={()=>sortPosts('entertainment')} underline={selectedCategory === 'entertainment' ? true : false}>Entertainment</LI>
-                    <LI onClick={()=>sortPosts('adventure')} underline={selectedCategory === 'adventure' ? true : false}>Adventure</LI>
-                    <LI onClick={()=>sortPosts('restaurant')} underline={selectedCategory === 'restaurant' ? true : false}>Restaurant</LI>
-                    <LI onClick={()=>sortPosts('sightseeing')} underline={selectedCategory === 'sightseeing' ? true : false}>Sightseeing</LI>
-                    <LI onClick={()=>sortPosts('shopping')} underline={selectedCategory === 'shopping' ? true : false}>Shopping</LI>
-                    <LI onClick={()=>sortPosts('museum')} underline={selectedCategory === 'museum' ? true : false}>Museum</LI>
+                    <LI onClick={()=>getPhotos('all categories')} underline={selectedCategory === 'all categories' ? true : false}>All categories</LI>
+                    <LI onClick={()=>getPhotos('entertainment')} underline={selectedCategory === 'entertainment' ? true : false}>Entertainment</LI>
+                    <LI onClick={()=>getPhotos('adventure')} underline={selectedCategory === 'adventure' ? true : false}>Adventure</LI>
+                    <LI onClick={()=>getPhotos('restaurant')} underline={selectedCategory === 'restaurant' ? true : false}>Restaurant</LI>
+                    <LI onClick={()=>getPhotos('sightseeing')} underline={selectedCategory === 'sightseeing' ? true : false}>Sightseeing</LI>
+                    <LI onClick={()=>getPhotos('shopping')} underline={selectedCategory === 'shopping' ? true : false}>Shopping</LI>
+                    <LI onClick={()=>getPhotos('museum')} underline={selectedCategory === 'museum' ? true : false}>Museum</LI>
                 </UL>
             </CenterList>
         </Container>
@@ -72,6 +90,7 @@ const mapStateToProps = state => ({
     dropdownCategoriesTransition: state.header.dropdownCategoriesTransition,
     categoriesVisibility: state.header.categoriesVisibility,
     selectedCategory: state.header.selectedCategory,
+    sortCriteria: state.app.sortCriteria,
 })
 
 export default connect(mapStateToProps)(CategoriesDropdown)

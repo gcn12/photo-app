@@ -100,6 +100,7 @@ export const Option = styled.div`
 `
 
 export const ComponentContainer = styled.div`
+    margin-bottom: 24px;
     @media (max-width: 550px){
         margin-bottom: 60px;
     }

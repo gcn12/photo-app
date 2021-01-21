@@ -23,6 +23,7 @@ export const LI = styled.li`
     padding: 0;
     font-size: 30px;
     margin: 0 0 15px 0px;
+    color: #242424;
     border-bottom: ${props=> props.underline ? '1px solid black' : null};
     cursor: pointer;
     -webkit-touch-callout: none; 
@@ -31,7 +32,6 @@ export const LI = styled.li`
     -moz-user-select: none; 
     -ms-user-select: none; 
     user-select: none; 
-    
 
     &:hover {
         color: #4a4a4a;

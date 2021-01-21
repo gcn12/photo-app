@@ -4,7 +4,7 @@ export const DisplayContainer = styled.div`
     margin-top: 125px;
     @media (max-width: 550px){
         margin-bottom: 60px;
-        margin-top: 105px;
+        margin-top: 125px;
     }
 `
 

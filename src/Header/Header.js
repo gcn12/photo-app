@@ -28,21 +28,6 @@ const Header = (props) => {
     const [showProfileDropdown, setShowProfileDropdown] = useState(false)
     const [showCategories, setShowCategories] = useState(false)
 
-    const sort = (value) => {
-        props.dispatch(selected(value))
-        db.collection('preview-posts')
-        .orderBy(value, 'desc')
-        .limit(10)
-        .get()
-        .then(data=> {
-            const photoArray = []
-            data.docs.forEach(item=> {
-                photoArray.push(item.data())
-            })
-            setTimeout(()=> props.dispatch(homePhotoInformation([...photoArray])), 700)
-        })
-    }
-
     const getAssortedPhotos = () => {
         props.dispatch(selected('assorted'))
         let randomString = ''
@@ -135,8 +120,8 @@ const Header = (props) => {
         <div style={{position: 'fixed', top: 0, width: '100%', marginBottom: '20px', zIndex:2}}>
             {!props.location.pathname.includes('/photo-app/upload') ? 
             <Border>
-                <SubheaderDropdown getAssortedPhotos={getAssortedPhotos} sort={sort}  />
-                <CategoriesDropdown getCategoryPhotos={getCategoryPhotos} />
+                <SubheaderDropdown getAssortedPhotos={getAssortedPhotos} sort={props.sort} />
+                <CategoriesDropdown sort={props.sort} location={props.location} getCategoryPhotos={getCategoryPhotos} />
                 <SearchDropdown  />
                 <Container>
                     <UL>
