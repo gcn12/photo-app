@@ -18,7 +18,7 @@ const ProfileHeaderMobile = (props) => {
 
     return(
         <MobileContainer>
-            <MobileNavigation height={toggleNavigation ? '180px' : '0px'}>
+            <MobileNavigation height={toggleNavigation ? '200px' : '0px'}>
                 <MobileUL>
                     <Link onClick={()=>setToggleNavigation(false)} to='/photo-app/profile/my-profile' style={{textDecoration: 'none'}}>
                         <MobileLI style={{borderBottom: props.profilePage==='my profile'  ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('my profile'))}>My profile</MobileLI>

@@ -45,7 +45,7 @@ export const MobileLI = styled.li`
     -moz-user-select: none; 
     -ms-user-select: none; 
     user-select: none; 
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 `
 
 export const MobileUL = styled.ul`
