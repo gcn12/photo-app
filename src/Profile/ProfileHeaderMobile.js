@@ -39,7 +39,7 @@ const ProfileHeaderMobile = (props) => {
                 {/* <hr></hr> */}
             </MobileNavigation>
             <Navigation onClick={()=>setToggleNavigation(!toggleNavigation)}>
-                <PageName>{props.profilePage}</PageName>
+                <PageName>{props.profilePage ? props.profilePage : 'My profile'}</PageName>
                 <div style={{marginRight: '4px'}}></div>
                 <ArrowIcon alt='' rotate={toggleNavigation ? 'rotate(180deg)' : 'rotate(0deg)'} src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yMy4yNDUgNGwtMTEuMjQ1IDE0LjM3NC0xMS4yMTktMTQuMzc0LS43ODEuNjE5IDEyIDE1LjM4MSAxMi0xNS4zOTEtLjc1NS0uNjA5eiIvPjwvc3ZnPg==" />
                 </Navigation>
