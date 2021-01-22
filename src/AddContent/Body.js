@@ -28,7 +28,7 @@ const Body = (props) => {
         let sizeMapArray = new Array(images.files.length).fill('')
         if(images.files.length<4) {
             if(images.files.length>0) {
-                props.setBody('shiftUp')
+                // props.setBodyStyles('shiftUp')
                 setIsTooManyImages(false)
                 let loopIndex = 0
                 let imagesLength = images.files.length
@@ -226,8 +226,8 @@ const Body = (props) => {
     }
 
     return(
-        <CategoryLocationContainer visibility={props.animationMap.body[props.bodyProps].opacity} variants={props.animationMap.body} animate={props.bodyProps} transition='transition' initial={'initial'}>
-            <Container visibility={props.animationMap.body[props.bodyProps].opacity} id='content-form'>
+        <CategoryLocationContainer styles={props.styles}>
+            <Container id='content-form'>
                 <Label>Body content</Label>
                 <DescriptionInput onChange={checkProceed} className='content-paragraph item-to-upload' id='content-paragraph-original'></DescriptionInput>
             </Container>

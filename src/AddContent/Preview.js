@@ -19,10 +19,9 @@ import {
 } from '../FeaturedPost/FeaturedPost.styles'
 
 const Preview = (props) => {
-    console.log(props)
     return( 
-        <PreviewContainer initial='initial' visibility={props.animationMap.preview[props.previewProps].opacity} transition='transition' animate={props.previewProps} variants={props.animationMap.preview}>
-        <div style={{margin: '10px 0 65px 0'}}>
+        <PreviewContainer styles={props.styles}>
+        {/* <div style={{margin: '10px 0 105px 0'}}> */}
             <Container>
             {/* <PreviewContainer2> */}
                 <div>
@@ -170,7 +169,8 @@ const Preview = (props) => {
                         )
                     })}
             {/* </PreviewContainer2> */}
-        </div>
+        {/* </div> */}
+        <div style={{marginBottom: '100px'}}></div>
         </PreviewContainer>
     )
 }

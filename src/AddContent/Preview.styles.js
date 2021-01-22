@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { motion } from 'framer-motion'
 
 export const Title = styled.div`
     font-size: 36px;
@@ -28,10 +27,19 @@ export const Author = styled.div`
     /* color: #242424; */
 `
 
-export const PreviewContainer = styled(motion.div)`
+export const PreviewContainer = styled.div`
     /* border: 10px solid black; */
-    visibility: ${props=> props.visibility ? 'null' : 'hidden'};
-    display: ${props=> props.visibility ? 'null' : 'none'};
+    margin: 18px 0px 0px 0px;
+    visibility: ${props=> props?.styles?.visibility};
+    transition: opacity 200ms ease-in-out, left 200ms ease-in-out;
+    top: 50%;
+    left: ${props=>props?.styles?.left};
+    display: ${props=>props.styles.display};
+    position: absolute;
+    transform: translate(-50%, -50%);
+    opacity: ${props=> props?.styles?.opacity};
+    height: 90vh;
+    overflow-y: scroll;
     /* position: absolute; 
     top: 2%;
     left: 10%; */

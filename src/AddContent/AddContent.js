@@ -2,13 +2,13 @@ import TitlePhoto from './TitlePhoto'
 import CategoryLocation from './CategoryLocation'
 import Preview from './Preview'
 import Body from './Body'
-import Scroll from './Scroll'
 import PostDescription from './PostDescription'
 import SelectFont from './SelectFont'
 import { db } from '../Firebase'
 import firebase from 'firebase'
 import UploadProgress from './UploadProgress'
 import { connect } from 'react-redux'
+// import Scroll from './Scroll'
 import React, { 
     useState 
 } from 'react'
@@ -19,211 +19,14 @@ import {
 } from './AddContent.styles'
 import { photoInformation } from '../Redux/Actions/appActions'
 
-const animationMap = {
-    titlePhoto: {
-        initial: {
-            x: 0,
-            y: '20vh',
-            opacity: 1,
-        },
-        shiftUp: {
-            x: 0,
-            y: '1vh',
-            opacity: 1,
-        }, 
-        transitionEnd: {
-            x: -100,
-            y: '1vh',
-            opacity: 0,
-        },
-        transitionBack: {
-            x: 0,
-            // y: 10,
-            opacity: 1,
-        }, 
-        transition: {
-            opacity: {
-                delay: 1,
-            },
-            x: {
-                type: 'spring',
-                stiffness: 1000,
-            }
-        }
-    },
-    categoryLocation: {
-        initial: {
-            x: 100,
-            y: '20vh',
-            opacity: 0,
-        },
-        transitionStart: {
-            x: 0,
-            y: '20vh',
-            opacity: 1,
-        },
-        transitionBack: {
-            x: 0,
-            y: '20vh',
-            opacity: 1,
-        },
-        transitionEnd: {
-            x: -100,
-            opacity: 0
-        },
-        transition: {
-            x: {
-                type: 'spring',
-                stiffness: 1000,
-            }
-        }
-    },
-    createDescription: {
-        initial: {
-            x: 100,
-            y: '20vh',
-            opacity: 0,
-        },
-        transitionStart: {
-            x: 0,
-            y: '20vh',
-            opacity: 1,
-        },
-        transitionBack: {
-            x: 0,
-            y: '20vh',
-            opacity: 1,
-        },
-        transitionEnd: {
-            x: -100,
-            opacity: 0
-        },
-        transition: {
-            x: {
-                type: 'spring',
-                stiffness: 1000,
-            }
-        }
-    },
-    body: {
-        initial: {
-            x: 100,
-            y: '20vh',
-            opacity: 0,
-        },
-        transitionStart: {
-            x: 0,
-            y: '20vh',
-            opacity: 1,
-        },
-        shiftUp: {
-            x: 0,
-            y: '0',
-            opacity: 1,
-        },
-        transitionBack: {
-            x: 0,
-            opacity: 1,
-        },
-        transitionEnd: {
-            x: -100,
-            opacity: 0
-        },
-        transition: {
-            x: {
-                type: 'spring',
-                stiffness: 1000,
-            }
-        }
-    },
-    selectFont: {
-        initial: {
-            x: 100,
-            y: '20vh',
-            opacity: 0,
-        },
-        transitionStart: {
-            x: 0,
-            y: '20vh',
-            opacity: 1,
-        },
-        transitionBack: {
-            x: 0,
-            y: '20vh',
-            opacity: 1,
-        },
-        transitionEnd: {
-            opacity: 0,
-            y: '20vh',
-            x: -100
-        },
-        transition: {
-            x: {
-                type: 'spring',
-                stiffness: 1000,
-            }
-        }
-    },
-    preview: {
-        initial: {
-            x: 100,
-            y: '10',
-            opacity: 0,
-        },
-        transitionStart: {
-            x: 0,
-            y: 0,
-            opacity: 1,
-        },
-        transitionBack: {
-            x: 0,
-            opacity: 1,
-        },
-        transitionEnd: {
-            x: -100,
-            opacity: 0
-        },
-        transition: {
-            x: {
-                type: 'spring',
-                stiffness: 1000,
-            }
-        }
-    },
-    uploadStatus: {
-        initial: {
-            x: 30,
-            y: '50vh',
-            opacity: 0,
-        },
-        transitionStart: {
-            x: 0,
-            y: '50vh',
-            opacity: 1,
-        },
-        transitionEnd: {
-            opacity: 0
-        },
-        transition: {
-            x: {
-                type: 'spring',
-                stiffness: 1000,
-            }
-        }
-    }
-}
-
-
 const AddContent = (props) => {
-    // const [mainImage, setMainImage] = useState(null)
-    // const [mainImageSmall, setMainImageSmall] = useState(null)
-    const [titlePhotoProps, setTitlePhotoProps] = useState('initial')
-    const [categoryLocationProps, setCategoryLocationProps] = useState('initial')
-    const [bodyProps, setBody] = useState('initial')
-    const [previewProps, setPreviewProps] = useState('initial')
-    const [uploadStatusProps, setUploadStatusProps] = useState('initial')
-    const [selectFontProps, setSelectFontProps] = useState('initial')
-    const [createDescriptionProps, setCreateDescriptionProps] = useState('initial')
+    const [titlePhotoStyles, setTitlePhotoStyles] = useState({opacity: 1, display: 'initial', left: '50%', visibility: 'visible'})
+    const [categoryLocationStyles, setCategoryLocationStyles] = useState({opacity: 0, display: 'none', left: '90%', visibility: 'hidden'})
+    const [bodyStyles, setBodyStyles] = useState({opacity: 0, display: 'none', left: '90%', visibility: 'hidden'})
+    const [previewStyles, setPreviewStyles] = useState({opacity: 0, display: 'none', left: '90%', visibility: 'hidden'})
+    const [uploadStatusStyles, setUploadStatusStyles] = useState({opacity: 0, display: 'none', left: '90%', visibility: 'hidden'})
+    const [selectFontStyles, setSelectFontStyles] = useState({opacity: 0, display: 'none', left: '90%', visibility: 'hidden'})
+    const [createDescriptionStyles, setCreateDescriptionStyles] = useState({opacity: 0, left: '50%', visibility: 'hidden'})
     const [switchValue, setSwitchValue] = useState(1)
     const [bodyContent, setBodyContent] = useState([])
     const [bodyImages, setBodyImages] = useState([])
@@ -449,14 +252,6 @@ const AddContent = (props) => {
                 })
                 if(dataArray.length===0) {
 
-
-
-                    // const title = document.getElementById('add-content-title').value
-                    // let url = title.split(' ')
-                    // url = url.join('-')
-                    // url = url.toLowerCase()
-                    // const random = Math.round(Math.random()*1000000)
-
                     let photoIndexes = []
                     let fileArray = []
                     const photoUrlArraySortedSmall = []
@@ -596,8 +391,8 @@ const AddContent = (props) => {
                 setTitlePhotoProceed(false)
             }else{
                 setIsDuplicate(false)
-                setTitlePhotoProps('transitionEnd')
-                setCategoryLocationProps('transitionStart')
+                setTitlePhotoStyles({...titlePhotoStyles, left: '10%', opacity: 0, display: 'none', visibility: 'hidden'})
+                setCategoryLocationStyles({opacity: 1, left: '50%', visibility: 'visible', display: 'initial'})
                 setSwitchValue(2)
             }
         })
@@ -627,39 +422,39 @@ const AddContent = (props) => {
                 break
             case 2:
                 if(categoryLocationProceed) {
-                    setCategoryLocationProps('transitionEnd')
-                    setCreateDescriptionProps('transitionStart')
+                    setCategoryLocationStyles({opacity: 0, left: '20%', visibility: 'hidden', display: 'none',})
+                    setCreateDescriptionStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',})
                     setSwitchValue(3)
                 }
                 break
             case 3: 
             if (numberCharacters >= 0) {
-                setCreateDescriptionProps('transitionEnd')
-                setBody('transitionStart')
+                setCreateDescriptionStyles({opacity: 0, visibility: 'hidden', left: '20%', display: 'none',})
+                setBodyStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',})
                 setSwitchValue(4)
             }
                 break
             case 4:
                 if(bodyProceed) {
                     getItemsToUploadData()
-                    setBody('transitionEnd')
-                    setSelectFontProps('transitionStart')
+                    setBodyStyles({opacity: 0, visibility: 'hidden', left: '20%', display: 'none',})
+                    setSelectFontStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',})
                     getParagraphSample()
                     setSwitchValue(5)
                 }
                 break
             case 5:
-                setSelectFontProps('transitionEnd')
-                setPreviewProps('transitionStart')
+                setSelectFontStyles({opacity: 0, visibility: 'hidden', left: '20%', display: 'none',})
+                setPreviewStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',})
                 getBodyContent()
                 getBodyImages()
                 setSwitchValue(6)
                 props.dispatch(photoInformation([]))
             break
                 case 6: 
-                setPreviewProps('transitionEnd')
+                setPreviewStyles({opacity: 0, visibility: 'hidden', left: '20%', display: 'none',})
                 fileUpload1(imageSizeRatio)
-                setUploadStatusProps('transitionStart')
+                setUploadStatusStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',})
                 setSwitchValue(7)
                 break
             default: 
@@ -670,28 +465,28 @@ const AddContent = (props) => {
     const transitionSwitchBack = () => {
         switch(switchValue) {
             case 2:
-                setTitlePhotoProps('transitionBack')
-                setCategoryLocationProps('initial')
+                setTitlePhotoStyles({display: 'initial', left: '50%', opacity: 1, visibility: 'visible'})
+                setCategoryLocationStyles({opacity: 0, visibility: 'hidden', left: '80%', display: 'none',})
                 setSwitchValue(1)
                 break
             case 3:
-                setCategoryLocationProps('transitionBack')
-                setCreateDescriptionProps('initial')
+                setCategoryLocationStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',})
+                setCreateDescriptionStyles({opacity: 0, visibility: 'hidden', left: '50%', display: 'none',})
                 setSwitchValue(2)
                 break
             case 4: 
-                setCreateDescriptionProps('transitionBack')
-                setBody('initial')
+                setCreateDescriptionStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',})
+                setBodyStyles({opacity: 0, visibility: 'hidden', left: '50%', display: 'none',})
                 setSwitchValue(3)
                 break
             case 5:
-                setBody('transitionBack')
-                setSelectFontProps('initial')
+                setBodyStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',})
+                setSelectFontStyles({opacity: 0, visibility: 'hidden', left: '50%', display: 'none',})
                 setSwitchValue(4)
                 break
             case 6: 
-                setSelectFontProps('transitionBack')
-                setPreviewProps('initial')
+                setSelectFontStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',})
+                setPreviewStyles({opacity: 0, visibility: 'hidden', left: '50%', display: 'none',})
                 setSwitchValue(5)
                 break
             default: 
@@ -702,37 +497,25 @@ const AddContent = (props) => {
 
     return(
         <div>
-            {/* <button onClick={()=>console.log(filesSmall, filesLarge, fileNames)}>Upload test</button> */}
-            <UploadProgressContainer visibility={animationMap.uploadStatus[uploadStatusProps].opacity} animate={uploadStatusProps} variants={animationMap.uploadStatus} initial='initial' transition='transition'>
+            {/* <button onClick={()=>console.log(categoryLocationStyles)}>Upload test</button> */}
+            <UploadProgressContainer styles={uploadStatusStyles}>
                 <UploadProgress display='initial' uploadProgressColor={uploadProgressColor} uploadCount={uploadCount} uploadProgress={uploadProgress}/>
             </UploadProgressContainer>
             {switchValue === 7 ? 
             null
             :
             <div>
+
                 <NextButton proceed={1} width='130px' onClick={()=>props.history.goBack()}>Back</NextButton>
-                <Scroll scrollHeight='90vh' visibility={animationMap.preview[previewProps].opacity}>
-                    <Preview previewImageSizeRatio={previewImageSizeRatio} previewImages={previewImages} filesSmall={filesSmall} itemsToUploadData={itemsToUploadData} font={font} isImageHorizontal={isImageHorizontal} imageSizeRatio={imageSizeRatio} bodyImages={bodyImages} bodyContent={bodyContent} filesLarge={filesLarge} previewProps={previewProps} animationMap={animationMap}></Preview>
-                </Scroll>
+                <Preview previewImageSizeRatio={previewImageSizeRatio} previewImages={previewImages} filesSmall={filesSmall} itemsToUploadData={itemsToUploadData} font={font} isImageHorizontal={isImageHorizontal} imageSizeRatio={imageSizeRatio} bodyImages={bodyImages} bodyContent={bodyContent} filesLarge={filesLarge} styles={previewStyles}></Preview>
             </div>
             }
-            <Scroll scrollHeight='90vh' visibility={animationMap.titlePhoto[titlePhotoProps].opacity}>
-                <TitlePhoto setFilesSmallest={setFilesSmallest} fileNames={fileNames} setFileNames={setFileNames}  filesLarge={filesLarge} filesSmall={filesSmall} setFilesLarge={setFilesLarge} setFilesSmall={setFilesSmall} isDuplicate={isDuplicate} setTitlePhotoProceed={setTitlePhotoProceed} setIsImageHorizontal={setIsImageHorizontal} animationMap={animationMap} setTitlePhotoProps={setTitlePhotoProps} titlePhotoProps={titlePhotoProps}/>
-            </Scroll>
-            <Scroll scrollHeight='90vh' visibility={animationMap.categoryLocation[categoryLocationProps].opacity}>
-                <CategoryLocation setCategoryLocationProceed={setCategoryLocationProceed} animationMap={animationMap} categoryLocation={categoryLocationProps}/>
-            </Scroll>
-            <Scroll scrollHeight='90vh' visibility={animationMap.body[bodyProps].opacity}>
-                <Body fileNames={fileNames} setFileNames={setFileNames} filesSmall={filesSmall} filesLarge={filesLarge} setFilesSmall={setFilesSmall} setFilesLarge={setFilesLarge} setBodyProceed={setBodyProceed} imageSizeRatio={imageSizeRatio} setImageSizeRatio={setImageSizeRatio} setBody={setBody} animationMap={animationMap} bodyProps={bodyProps}></Body>
-            </Scroll>
-            <Scroll scrollHeight='90vh' visibility={animationMap.selectFont[selectFontProps].opacity}>
-                <SelectFont setFontProceed={setFontProceed} font={font} setFont={setFont} paragraph={paragraph} animationMap={animationMap} selectFontProps={selectFontProps}/>
-            </Scroll>
-            
+            <TitlePhoto setFilesSmallest={setFilesSmallest} fileNames={fileNames} setFileNames={setFileNames}  filesLarge={filesLarge} filesSmall={filesSmall} setFilesLarge={setFilesLarge} setFilesSmall={setFilesSmall} isDuplicate={isDuplicate} setTitlePhotoProceed={setTitlePhotoProceed} setIsImageHorizontal={setIsImageHorizontal} setTitlePhotoStyles={setTitlePhotoStyles} styles={titlePhotoStyles}/>
+            <CategoryLocation setCategoryLocationProceed={setCategoryLocationProceed} styles={categoryLocationStyles}/>
+            <Body fileNames={fileNames} setFileNames={setFileNames} filesSmall={filesSmall} filesLarge={filesLarge} setFilesSmall={setFilesSmall} setFilesLarge={setFilesLarge} setBodyProceed={setBodyProceed} imageSizeRatio={imageSizeRatio} setImageSizeRatio={setImageSizeRatio} setBodyStyles={setBodyStyles} styles={bodyStyles}></Body>
+            <SelectFont setFontProceed={setFontProceed} font={font} setFont={setFont} paragraph={paragraph} styles={selectFontStyles}/>
+            <PostDescription setNumberCharacters={setNumberCharacters} styles={createDescriptionStyles} />
 
-            <Scroll scrollHeight='90vh' visibility={animationMap.createDescription[createDescriptionProps].opacity}>
-                <PostDescription setNumberCharacters={setNumberCharacters} animationMap={animationMap} createDescriptionProps={createDescriptionProps} />
-            </Scroll>
 
             {switchValue === 7 ? 
             null

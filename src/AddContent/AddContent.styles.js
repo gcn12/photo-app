@@ -1,9 +1,14 @@
 import styled from 'styled-components'
-import { motion } from 'framer-motion'
 
-export const UploadProgressContainer = styled(motion.div)`
-    visibility: ${props=> props.visibility ? 'visible' : 'hidden'};
-    display: ${props=> props.visibility ? 'flex' : 'none'};
+export const UploadProgressContainer = styled.div`
+    visibility: ${props=> props.styles.visibility};
+    opacity: ${props=> props.styles.opacity};
+    display: ${props=>props.styles.display};
+    transition: opacity 200ms ease-in-out, left 200ms ease-in-out;
+    top: 50%;
+    left: ${props=>props?.styles?.left};
+    position: absolute;
+    transform: translate(-50%, -50%);
 `
 
 export const ButtonContainer = styled.div`
@@ -13,9 +18,6 @@ export const ButtonContainer = styled.div`
     padding: 15px;
     bottom: 0px;
     width: 100%;
-    /* position:absolute; */
-    /* bottom:30px; */
-    /* width:100%; */
     display: flex;
     justify-content: space-evenly;
 `
@@ -29,6 +31,7 @@ export const NextButton = styled.button`
     /* background-color: #141414; */
     background-color: ${props=> props.proceed ? '#141414' : '#6e6e6e'};
     border: none;
+    /* position: absolute; */
     width: ${props => props.width};
     /* width: 120px; */
     height: 50px;
@@ -40,10 +43,10 @@ export const NextButton = styled.button`
     } */
 `
 
-export const Container = styled(motion.div)`
+export const Container = styled.div`
     /* height: 110vh; */
-    visibility: ${props=> props.visibility ? 'null' : 'hidden'};
-    display: ${props=> props.visibility ? 'null' : 'none'};
+    /* visibility: ${props=> props.visibility ? 'null' : 'hidden'};
+    display: ${props=> props.visibility ? 'null' : 'none'}; */
     /* left: 20%;
     top: 40%;
     position: absolute;  */
@@ -54,19 +57,27 @@ export const Container = styled(motion.div)`
     justify-content: center;
 `
 
-export const CategoryLocationContainer = styled(motion.div)`
+export const CategoryLocationContainer = styled.div`
     /* height: 110vh; */
     /* position: relative;  */
-    visibility: ${props=> props.visibility ? 'null' : 'hidden'};
-    display: ${props=> props.visibility ? 'flex' : 'none'};
-    /* top: 3%;
-    left: 20%;
-    position: absolute; */
+    margin-top: 48px;
+    opacity: ${props=> props?.styles?.opacity};
+    visibility: ${props=> props?.styles?.visibility}; 
+    /* display: ${props=> props?.styles?.display}; */
+    transition: opacity 200ms ease-in-out, left 200ms ease-in-out;
+    top: 45%;
+    left: ${props=>props?.styles?.left};
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: ${props=>props.styles.display};
+    height: 90vh;
+    overflow-y: scroll;
+
     /* display: flex; */
-    flex-wrap: wrap;
+    /* flex-wrap: wrap;
     flex-direction: column; 
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
 `
 
 export const FileUpload = styled.label`
@@ -144,13 +155,6 @@ export const FormContainer = styled.div`
     flex-direction: column;
 `
 
-export const TextInput = styled.input`
-    width: 60vw;
-    height: 40px;
-    font-size: 20px;
-    margin-bottom: 20px;
-`
-
 export const DescriptionInput = styled.textarea`
     width: 60vw;
     height: 150px;
@@ -187,12 +191,19 @@ export const BodyButtonContainer = styled.div`
     margin: 20px 0 70px 0;
 `
 
-export const PostDescriptionContainer = styled(motion.div)`
-    visibility: ${props=> props.visibility ? 'null' : 'hidden'};
-    display: ${props=> props.visibility ? 'flex' : 'none'};
+export const PostDescriptionContainer = styled.div`
+    visibility: ${props=> props?.styles?.visibility};
+    opacity: ${props=> props?.styles?.opacity};
+    display: ${props=>props.styles.display==='initial' ? 'flex' : 'none'};
+    /* display: flex; */
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    transition: opacity 200ms ease-in-out, left 200ms ease-in-out;
+    top: 45%;
+    left: ${props=>props?.styles?.left};
+    position: absolute;
+    transform: translate(-50%, -50%);
 `
 
 export const PostDescriptionInput = styled.textarea`

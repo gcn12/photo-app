@@ -5,7 +5,8 @@ import {
     Container,
     Label,
     FileUpload,
-} from './AddContent.styles'
+    CenterContainer,
+} from './TitlePhoto.styles'
 
 const TitlePhoto = (props) => {
 
@@ -19,7 +20,7 @@ const TitlePhoto = (props) => {
         viewFile.onload = (e) => {
             const uploadedImage = document.createElement('img')
             uploadedImage.src=e.target.result
-            props.setTitlePhotoProps('shiftUp')
+            // props.setTitlePhotoStyles('shiftUp')
             uploadedImage.onload = function () {
                 const height = this.height;
                 const width = this.width;
@@ -127,8 +128,8 @@ const TitlePhoto = (props) => {
     }
 
     return(
-        <div>
-            <Container visibility={props.animationMap.titlePhoto[props.titlePhotoProps].opacity} initial='initial' transition='transition' variants={props.animationMap.titlePhoto} animate={props.titlePhotoProps}>
+        <CenterContainer styles={props.styles}>
+            <Container>
                 <Label>Create a title:</Label>
                 <div>
                     <TextInput onChange={checkProceed} autoComplete='off' id='add-content-title'></TextInput>
@@ -142,11 +143,11 @@ const TitlePhoto = (props) => {
                 <input hidden onChange={displayImage} id='photo-input' type='file' className='photo-input'></input>
                 <FileUpload htmlFor='photo-input'>Select image</FileUpload>
                 <br></br>
-                <PreviewImage onLoad={()=>setIsVisible(true)} opacity={isVisible ? 1 : 0} alt='preview' id='previewImage'></PreviewImage>
+                <PreviewImage onLoad={()=>setIsVisible(true)} display={isVisible ? 'initial' : 'none'} opacity={isVisible ? 1 : 0} alt='preview' id='previewImage'></PreviewImage>
                 
                 <br></br>
             </Container>
-        </div>
+        </CenterContainer>
     )
 }
 

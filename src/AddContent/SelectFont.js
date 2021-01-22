@@ -15,7 +15,7 @@ const SelectFont = (props) => {
     }
 
     return(
-        <Container visibility={props.animationMap.selectFont[props.selectFontProps].opacity} variants={props.animationMap.selectFont} initial='initial' animate={props.selectFontProps} transition='transition'>
+        <Container styles={props.styles}>
         {/* <Container visibility={props.animationMap.selectFont[props.selectFontProps].opacity}> */}
             <Title>Select font:</Title>
             <Paragraph font={props.font}>{props.paragraph}</Paragraph>

@@ -16,7 +16,7 @@ const PostDescription = (props) => {
     }
 
     return(
-        <PostDescriptionContainer visibility={props.animationMap.selectFont[props.createDescriptionProps].opacity} variants={props.animationMap.createDescription} initial='initial' animate={props.createDescriptionProps} transition='transition'>
+        <PostDescriptionContainer styles={props.styles}>
             <Label>Create a short post description (optional):</Label>
             <PostDescriptionInput id='post-description-input' onChange={calculateRemainingCharacters}></PostDescriptionInput>
             <div>Remaining characters: {remainingCharacters}</div>
