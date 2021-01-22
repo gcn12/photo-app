@@ -3,9 +3,25 @@ import styled from 'styled-components'
 export const Container = styled.div`
     margin: 0 30px;
 
-    @media (max-width: 550px) {
+    @media (max-width: 720px) {
         margin: 0 16px;
     }
+`
+
+export const ULSearch = styled.ul`
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    
+    @media (max-width: 690px) {
+        /* display: none;
+        visibility: hidden; */
+        /* list-style-type: none; */
+        /* flex-direction: column; */
+        /* display: block; */
+    }
+    /* justify-content: space-evenly; */
 `
 
 export const UL = styled.ul`
@@ -92,6 +108,7 @@ export const ArrowIcon = styled.img`
 `
 
 export const CategorySelected = styled.div`
+    font-weight: 500;
     &::first-letter {
         text-transform: capitalize;
     }

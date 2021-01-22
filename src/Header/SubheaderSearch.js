@@ -1,32 +1,35 @@
-import React, { useState, useEffect } from 'react'
-import { ReactComponent as PhotoGrid } from '../Icons/PhotoGrid.svg'
-import { ReactComponent as DescriptionGrid } from '../Icons/DescriptionGrid.svg'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { homePhotoInformation, displayView, searchQueries } from '../Redux/Actions/appActions'
-import { dropdownTransition, visibility, dropdownCategoriesTransition, categoriesVisibility, selected } from '../Redux/Actions/headerActions'
-// import SubheaderFilter from './SubheaderFilter'
-// import { Link } from 'react-router-dom'
+import { 
+    homePhotoInformation, 
+    searchQueries,
+} from '../Redux/Actions/appActions'
+import { 
+    // dropdownTransition, 
+    // visibility, 
+    // dropdownCategoriesTransition, 
+    // categoriesVisibility, 
+    selected } from '../Redux/Actions/headerActions'
 import {
     Container,
-    UL,
     LI,
-    ULMobile,
-    CategoriesButton,
+    Margin,
+    ULSearch,
 } from './SubheaderPosts.styles'
-import SubheaderCategories from './SubheaderCategories'
+// import SubheaderCategories from './SubheaderCategories'
 
 
 const Subheader = (props) => {
-    const [category, setCategory] = useState('all categories')
+    // const [category, setCategory] = useState('all categories')
     // const [result, setResult] = useState('all results')
     // const [showCategories, setShowCategories] = useState(false)
     // const [showResults, setShowResults] = useState(false)
-    const openDropdown = () => {
-        props.dispatch(dropdownTransition('transitionStart'))
-        props.dispactch(visibility(true))
-        document.body.style.overflowY = 'hidden'
-        // document.body.style.position = 'fixed'
-    }
+    // const openDropdown = () => {
+    //     props.dispatch(dropdownTransition('transitionStart'))
+    //     props.dispactch(visibility(true))
+    //     document.body.style.overflowY = 'hidden'
+    //     // document.body.style.position = 'fixed'
+    // }
 
     useEffect(()=> {
         if (props?.location?.pathname.includes('new')) {
@@ -41,12 +44,12 @@ const Subheader = (props) => {
         // eslint-disable-next-line
     }, [])
 
-    const openDropdownCategories = () => {
-        props.dispatch(dropdownCategoriesTransition('transitionStart'))
-        props.dispatch(categoriesVisibility(true))
-        document.body.style.overflowY = 'hidden'
-        // document.body.style.position = 'fixed'
-    }
+    // const openDropdownCategories = () => {
+    //     props.dispatch(dropdownCategoriesTransition('transitionStart'))
+    //     props.dispatch(categoriesVisibility(true))
+    //     document.body.style.overflowY = 'hidden'
+    //     // document.body.style.position = 'fixed'
+    // }
 
     // window.onclick = (e) => {
     //     if (!e.target.matches('.categories-dropdown')) {
@@ -66,16 +69,19 @@ const Subheader = (props) => {
     return(
         <div>
             <Container>
-                <UL>
+                <ULSearch>
                     <div style={{display: 'flex', alignItems: 'center'}}>
                         <LI onClick={()=>changeSort('all results')} underline={props.searchQueries === 'all results' ? true : false}>All results</LI>
+                        <Margin></Margin>
                         <LI onClick={()=>changeSort('places')} underline={props.searchQueries === 'places' ? true : false}>Places</LI>
+                        <Margin></Margin>
                         <LI onClick={()=>changeSort('posts')} underline={props.searchQueries === 'posts' ? true : false}>Posts</LI>
+                        <Margin></Margin>
                         <LI onClick={()=>changeSort('people')} underline={props.searchQueries === 'people' ? true : false}>People</LI>
                     </div>
                     <div style={{display: 'flex'}} >
                         <div style={{display: 'flex'}} className='categories-dropdown'>
-                            {props.searchQueries === 'posts' ? 
+                            {/* {props.searchQueries === 'posts' ? 
                             <div>
                                 <div onClick={()=>props.setShowCategories(!props.showCategories)}>
                                     <CategoriesButton className='categories-dropdown'>{props.sortCriteria.category} &#x25BC;</CategoriesButton>
@@ -98,23 +104,19 @@ const Subheader = (props) => {
                             </div>
                             :
                             null
-                            }
+                            } */}
                         </div>
                     </div>
-                </UL>
+                </ULSearch>
             </Container>
-            <Container>
+            {/* <Container>
                 <ULMobile>
                     <div style={{display: 'flex'}}>
                         <LI onClick={openDropdown}>Sort &#x25BC;</LI>
                         <LI onClick={openDropdownCategories}>{props.sortCriteria.category} &#x25BC;</LI>
                     </div>
-                    <div style={{display: 'flex'}} >
-                        <div style={{cursor: props.displayView ? 'default' : 'pointer' }} onClick={()=>props.dispatch(displayView(true))} ><DescriptionGrid style={{fill: props.displayView ? 'gray' : 'black'}} /></div>
-                        <div style={{margin: '0 10px 0 15px', cursor: props.displayView ? 'pointer' : 'default'}}  onClick={()=>props.dispatch(displayView(false))} ><PhotoGrid style={{fill: props.displayView ? 'black' : 'gray'}}/></div>
-                    </div>
                 </ULMobile>
-            </Container>
+            </Container> */}
         </div>
     )
 }

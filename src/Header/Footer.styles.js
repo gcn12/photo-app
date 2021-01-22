@@ -11,7 +11,7 @@ export const Container = styled.div`
     justify-content: space-evenly;
     z-index: 1;
     align-items: center;
-    @media (min-width: 550px) {
+    @media (min-width: 720px) {
         display: none;
         visibility: hidden;
     }

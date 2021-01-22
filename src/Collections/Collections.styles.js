@@ -53,7 +53,7 @@ export const Container = styled.div`
     grid-gap: 20px;
     align-items: stretch;
     justify-items: center;
-    @media (max-width: 550px){
+    @media (max-width: 720px){
         margin-bottom: 60px;
     }
 `

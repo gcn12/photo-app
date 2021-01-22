@@ -8,7 +8,7 @@ export const Container = styled.div`
     padding: 10px 0 0 0;
     position: relative;
 
-    @media(max-width: 550px) {
+    @media(max-width: 720px) {
         /* margin: 0 0 10px; */
         margin: 0 10px 20px 10px;
     }
@@ -61,7 +61,7 @@ export const HeaderRight = styled.div`
     display: flex;
     visibility: ${props=>props.visibility};
     /* align-items: flex-start; */
-    @media(max-width: 550px){
+    @media(max-width: 720px){
         visibility: hidden;
         display: none;
     }
@@ -69,7 +69,7 @@ export const HeaderRight = styled.div`
 
 export const IconContainer = styled.div`
     cursor: pointer;
-    @media (min-width: 550px) {
+    @media (min-width: 720px) {
         visibility: hidden;
         display: none;
     }

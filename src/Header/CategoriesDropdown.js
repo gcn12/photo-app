@@ -64,8 +64,6 @@ const CategoriesDropdown = (props) => {
         }
     }
 
-    const { selectedCategory } = props
-
     return(
         <Container visibility={props.categoriesVisibility ? 1 : 0} transition='transition' variants={variants} initial='initial' animate={props.dropdownCategoriesTransition}>
             <CancelContainer>
@@ -73,13 +71,13 @@ const CategoriesDropdown = (props) => {
             </CancelContainer>
             <CenterList>
                 <UL>
-                    <LI onClick={()=>getPhotos('all categories')} underline={selectedCategory === 'all categories' ? true : false}>All categories</LI>
-                    <LI onClick={()=>getPhotos('entertainment')} underline={selectedCategory === 'entertainment' ? true : false}>Entertainment</LI>
-                    <LI onClick={()=>getPhotos('adventure')} underline={selectedCategory === 'adventure' ? true : false}>Adventure</LI>
-                    <LI onClick={()=>getPhotos('restaurant')} underline={selectedCategory === 'restaurant' ? true : false}>Restaurant</LI>
-                    <LI onClick={()=>getPhotos('sightseeing')} underline={selectedCategory === 'sightseeing' ? true : false}>Sightseeing</LI>
-                    <LI onClick={()=>getPhotos('shopping')} underline={selectedCategory === 'shopping' ? true : false}>Shopping</LI>
-                    <LI onClick={()=>getPhotos('museum')} underline={selectedCategory === 'museum' ? true : false}>Museum</LI>
+                    <LI onClick={()=>getPhotos('all categories')} underline={props.sortCriteria.category === 'all categories' ? true : false}>All categories</LI>
+                    <LI onClick={()=>getPhotos('entertainment')} underline={props.sortCriteria.category === 'entertainment' ? true : false}>Entertainment</LI>
+                    <LI onClick={()=>getPhotos('adventure')} underline={props.sortCriteria.category === 'adventure' ? true : false}>Adventure</LI>
+                    <LI onClick={()=>getPhotos('restaurant')} underline={props.sortCriteria.category === 'restaurant' ? true : false}>Restaurant</LI>
+                    <LI onClick={()=>getPhotos('sightseeing')} underline={props.sortCriteria.category === 'sightseeing' ? true : false}>Sightseeing</LI>
+                    <LI onClick={()=>getPhotos('shopping')} underline={props.sortCriteria.category === 'shopping' ? true : false}>Shopping</LI>
+                    <LI onClick={()=>getPhotos('museum')} underline={props.sortCriteria.category === 'museum' ? true : false}>Museum</LI>
                 </UL>
             </CenterList>
         </Container>
@@ -89,7 +87,6 @@ const CategoriesDropdown = (props) => {
 const mapStateToProps = state => ({
     dropdownCategoriesTransition: state.header.dropdownCategoriesTransition,
     categoriesVisibility: state.header.categoriesVisibility,
-    selectedCategory: state.header.selectedCategory,
     sortCriteria: state.app.sortCriteria,
 })
 

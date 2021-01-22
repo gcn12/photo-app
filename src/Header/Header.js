@@ -9,8 +9,13 @@ import Search from '../Search/Search'
 import ProfileDropdown from './ProfileDropdown'
 import { connect } from 'react-redux'
 import { homePhotoInformation, profileLoaded } from '../Redux/Actions/appActions'
-import { searchTransition, searchVisibility, selected, selectedCategory } from '../Redux/Actions/headerActions'
-import { ReactComponent as SearchIcon } from '../Icons/Search.svg'
+import { 
+    selected, 
+    selectedCategory, 
+    // searchTransition, 
+    // searchVisibility, 
+} from '../Redux/Actions/headerActions'
+// import { ReactComponent as SearchIcon } from '../Icons/Search.svg'
 import { Link } from 'react-router-dom' 
 import {
     Container,
@@ -19,9 +24,9 @@ import {
     Border,
     Navigation,
     HeaderRight,
-    IconContainer,
     ProfileImage,
-    CenterSearch,
+    // IconContainer,
+    // CenterSearch,
 } from './Header.styles'
 
 const Header = (props) => {
@@ -84,12 +89,12 @@ const Header = (props) => {
         })
     }
 
-    const startSearchTransition = () => {
-        props.dispatch(searchVisibility(true))
-        props.dispatch(searchTransition('transitionStart'))
-        document.body.style.overflowY = 'hidden'
-        // document.body.style.position = 'fixed'
-    }
+    // const startSearchTransition = () => {
+    //     props.dispatch(searchVisibility(true))
+    //     props.dispatch(searchTransition('transitionStart'))
+    //     document.body.style.overflowY = 'hidden'
+    //     // document.body.style.position = 'fixed'
+    // }
 
     const getAssortedAndDropOpacity = () => {
         props.dispatch(homePhotoInformation([]))
@@ -136,12 +141,12 @@ const Header = (props) => {
                             </Link>
                         </LI>
                     </UL>
-                    <CenterSearch>
+                    {/* <CenterSearch> */}
                         <Search search={props.search} history={props.history} location={props.location} />
-                    </CenterSearch>
-                    <IconContainer>
+                    {/* </CenterSearch> */}
+                    {/* <IconContainer>
                         <SearchIcon onClick={startSearchTransition} style={{transform: 'scale(1)'}}></SearchIcon>
-                    </IconContainer>
+                    </IconContainer> */}
                     <HeaderRight visibility={props.profileLoaded ? 'visible' : 'hidden'}>
                         {props.user ? 
                         <Link to='/photo-app/upload' style={{ textDecoration: 'none' }}>

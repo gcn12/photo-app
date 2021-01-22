@@ -51,12 +51,9 @@ export const SearchBox = styled.input`
         color: #707070;
     }
 
-    @media (max-width: 690px) {
-        width: 20vw;
-    }
-    @media (max-width: 550px) {
-        /* visibility: hidden;
-        display: none; */
+    @media (max-width: 720px) {
+        width: 40vw;
+        min-width: 250px;
     }
 `
 

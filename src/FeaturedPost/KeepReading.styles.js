@@ -37,7 +37,7 @@ export const ContentContainer = styled.div`
 `
 
 export const Container = styled.div`
-    @media(max-width: 550px) {
+    @media(max-width: 720px) {
         margin-bottom: 40px;
     }
 `

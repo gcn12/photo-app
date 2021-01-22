@@ -33,14 +33,13 @@ const Search = (props) => {
     return(
         <Container>
             <div style={{position: 'relative'}} className='search-results'>
-            <IconContainer>
-                <SearchIcon style={{position: 'absolute', top: '6', left: '5', transform: 'scale(.6)'}}></SearchIcon>
-                {/* <SearchIcon style={{transform: 'scale(1)'}}></SearchIcon> */}
-            </IconContainer>
+                <IconContainer>
+                    <SearchIcon style={{position: 'absolute', top: '6', left: '5', transform: 'scale(.6)'}}></SearchIcon>
+                    {/* <SearchIcon style={{transform: 'scale(1)'}}></SearchIcon> */}
+                </IconContainer>
                 <div style={{position: 'absolute', left: '10%'}}></div>
                 <SearchBox autoComplete='off' onKeyDown={enterQuery} id='result-query-input' className='search-results' placeholder='search' onChange={(e)=>QueryInput(e)}></SearchBox>
             </div>
-            
         </Container>
     )
 }
