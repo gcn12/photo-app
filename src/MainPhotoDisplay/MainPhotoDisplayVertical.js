@@ -6,6 +6,7 @@ import {
     PhotoDescriptionViewContainer,
     DisplayContainer,
     LoadMoreButtonContainer,
+    CenterLocation,
 } from './MainPhotoDisplayVertical.styles'
 import { SubmitButton } from '../AddContent/AddContent.styles'
 
@@ -14,6 +15,16 @@ const GetPhotos = (props) => {
     return(
         <div style={{position: 'relative'}}>
             <DisplayContainer>
+                {props.sortCriteria.location ? 
+                <CenterLocation>{props.sortCriteria.location}</CenterLocation>
+                :
+                null
+                }
+                {props.sortCriteria.country ? 
+                <CenterLocation>{props.sortCriteria.country}</CenterLocation>
+                :
+                null
+                }
                 <PhotoDescriptionViewContainer>
                     {props.homePhotoInformation.map((photo, index)=> {
                         return( 

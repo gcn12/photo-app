@@ -104,11 +104,12 @@ export const Margin = styled.div`
 `
 
 export const ArrowIcon = styled.img`
-    transform: scale(.6);
+    transform: scale(.55);
 `
 
 export const CategorySelected = styled.div`
     font-weight: 500;
+    font-size: 18px;
     &::first-letter {
         text-transform: capitalize;
     }

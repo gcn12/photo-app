@@ -34,9 +34,6 @@ const SearchPage = (props) => {
         <div style={{margin: '100px 5% 0 5%'}}>
             {props?.searchResults !== 'No results' ? 
             <div>
-                {/* <div style={{display: 'flex', justifyContent: 'center'}}>
-                    <NoResults>Showing results for: {props.query}</NoResults>
-                </div> */}
                 {props?.searchResults[3]?.length > 0 || props?.searchResults[2]?.length > 0 ? 
                 <div>
                     <TitleContainer>
@@ -48,11 +45,6 @@ const SearchPage = (props) => {
                         }
                     </TitleContainer>
                     <CitiesDisplayContainer quantity={props?.searchResults[2]?.length < 4 ? 'center' : 'center'}>
-                        {/* {props?.searchResults[3]?.map((item, index)=> {
-                            return (
-                                <CitiesDisplay item={item} key={index} />
-                            )
-                        })} */}
                         {props?.searchResults[2]?.map((item, index)=> {
                             return (
                                 <CitiesDisplay sort={props.sort} item={item} key={index} />
@@ -75,7 +67,6 @@ const SearchPage = (props) => {
                     </TitleContainer>
                     <PostsDisplayContainer quantity={props?.searchResults[3]?.length < 4 ? 'center' : 'center'} >
                         {props?.searchResults[0]?.map((item, index)=> {
-                            // console.log(item)
                             return (
                                 <PhotoDescriptionView history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} photoInfo={item} key={index} />
                             )
@@ -95,13 +86,6 @@ const SearchPage = (props) => {
                         null
                         }
                     </TitleContainer>
-                    {/* <UsersContainer quantity={props?.searchResults[1]?.length < 4 ? 'center' : 'center'}>
-                        {props?.searchResults[1]?.map((item, index)=> {
-                            return (
-                                <UsersDisplay item={item} key={index} />
-                            )
-                        })}
-                    </UsersContainer> */}
                     <UsersContainer quantity={props?.searchResults[1]?.length < 4 ? 'center' : 'center'}>
                         {props?.searchResults[1]?.map((item, index)=> {
                             return (

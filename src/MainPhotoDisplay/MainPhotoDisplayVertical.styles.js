@@ -62,3 +62,11 @@ export const LoadMoreButtonContainer = styled.div`
     display: flex;
     justify-content: center;
 `
+
+export const CenterLocation = styled.div`
+    font-size: 20px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 14px;
+`

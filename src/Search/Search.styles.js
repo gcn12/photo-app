@@ -53,7 +53,7 @@ export const SearchBox = styled.input`
 
     @media (max-width: 720px) {
         width: 40vw;
-        min-width: 250px;
+        min-width: 100px;
     }
 `
 

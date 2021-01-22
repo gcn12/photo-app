@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const CitiesDisplayContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, max-content));
-    grid-column-gap: 1%;
+    grid-column-gap: 2%;
     align-items: start;
     justify-content: center;
     /* justify-items: ${props=> props.quantity}; */
@@ -62,4 +62,5 @@ export const SeeMore = styled.div`
 export const NoResults = styled.div`
     font-size: 30px;
     cursor: pointer;
+    margin-top: 12px;
 `
