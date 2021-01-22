@@ -29,6 +29,7 @@ const GetPhotos = (props) => {
                     {props.homePhotoInformation.map((photo, index)=> {
                         return( 
                             <PhotoDescriptionView 
+                            sort={props.sort}
                             history={props.history}
                             index={index}
                             photoLength={props.homePhotoInformation.length}

@@ -30,7 +30,7 @@ export const UL = styled.ul`
     display: flex;
     justify-content: space-between;
     
-    @media (max-width: 690px) {
+    @media (max-width: 720px) {
         display: none;
         visibility: hidden;
         /* list-style-type: none; */
@@ -46,7 +46,7 @@ export const ULMobile = styled.ul`
     display: flex;
     justify-content: space-between;
     
-    @media (min-width: 690px) {
+    @media (min-width: 720px) {
         display: none;
         visibility: hidden;
     }

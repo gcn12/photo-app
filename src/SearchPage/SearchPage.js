@@ -18,7 +18,7 @@ import {
 const SearchPage = (props) => {
 
     useEffect(()=> {
-        if(props.match.params.searchQuery.length > 0) {
+        if(props.match.params.searchQuery.length > 0 && props.query.length === 0) {
             props.dispatch(query(props.match.params.searchQuery))
             props.search('all results', false, props.match.params.searchQuery)
         }

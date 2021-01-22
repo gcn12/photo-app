@@ -12,7 +12,10 @@ export const Image = styled.img`
     /* width: 300px; */
     width: 100%;
     /* min-width: 200px; */
+    /* max-width: 400px; */
     height: 14vw;
+    min-height: 200px;
+    max-width: 400px;
     min-width: ${props=>props.minWidth};
     /* height: ${props=>props.height}; */
     object-fit: cover;

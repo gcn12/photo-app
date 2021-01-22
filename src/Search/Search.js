@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 // import algoliasearch from 'algoliasearch'
 import { ReactComponent as SearchIcon } from '../Icons/Search.svg'
-import { query, searchResults } from '../Redux/Actions/appActions'
+import { query, searchResults, searchQueries } from '../Redux/Actions/appActions'
 import { connect } from 'react-redux'
 import {
     Container,
@@ -11,15 +11,17 @@ import {
 
 const Search = (props) => {
 
-    const [searchQuery, setSearchQuery] = useState('')
+    // const [searchQuery, setSearchQuery] = useState('')
 
     const enterQuery = (e) => {
         if(e.code==='Enter' && props.query.length > 0) {
             if(props.location.pathname !== '/photo-app/search'){
-                props.history.push(`/photo-app/search/${searchQuery}`)
-            }else{
+                props.history.push(`/photo-app/search/${props.query}`)
+                props.search('all results')
+                props.dispatch(searchQueries('all results'))
+            }else {
+                props.search(props.searchQueries)
             }
-            props.search(props.searchQueries)
             const results = []
             props.dispatch(searchResults([...results]))
         }
@@ -27,7 +29,7 @@ const Search = (props) => {
 
     const QueryInput = (e) => {
         props.dispatch(query(e.target.value))
-        setSearchQuery(e.target.value)
+        // setSearchQuery(e.target.value)
     }
 
     return(

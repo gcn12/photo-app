@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import firebase from 'firebase'
 import { Link } from 'react-router-dom'
 import { db } from '../Firebase'
+import { userPosts, userData } from '../Redux/Actions/appActions'
 import { ReactComponent as Add } from '../Icons/Add.svg'
 import { connect } from 'react-redux'
 import {
@@ -33,6 +34,11 @@ const Footer = (props) => {
         })
     }
 
+    const clearProfileData = () => {
+        props.dispatch(userData([]))
+        props.dispatch(userPosts([]))
+    }
+
     useEffect(()=> {
         getProfileImage()
     }, [])
@@ -49,7 +55,7 @@ const Footer = (props) => {
                 <Link to='/photo-app/upload'>
                     <Add style={{cursor: 'pointer'}} />
                 </Link>
-                <Link to='/photo-app/profile'>
+                <Link to='/photo-app/profile' onClick={clearProfileData}>
                     <ProfileImage src={imageURL} alt='profile'></ProfileImage>
                 </Link>
             </Container>

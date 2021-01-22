@@ -15,7 +15,6 @@ export const CitiesDisplayContainer = styled.div`
 
 export const PostsDisplayContainer = styled.div`
     display: grid;
-    align-items: start;
     margin-bottom: 30px;
     /* grid-template-columns: repeat(3, auto); */
     grid-template-columns: repeat(auto-fit, minmax(310px, max-content));
@@ -24,9 +23,9 @@ export const PostsDisplayContainer = styled.div`
     align-items: start;
     justify-content: center;
     /* justify-items: ${props=> props.quantity}; */
-    @media (max-width: 675px){
+    /* @media (max-width: 675px){
         justify-items: center;
-    }
+    } */
 `
 
 export const UsersContainer = styled.div`

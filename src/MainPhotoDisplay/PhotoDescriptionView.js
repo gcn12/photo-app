@@ -3,6 +3,7 @@ import { db } from '../Firebase'
 import { incrementViewCount } from '../Functions' 
 // import { photoInformation } from '../Redux/Actions/appActions'
 import { isVisible, isPostVisible } from '../Redux/Actions/featuredPostActions'
+import { homePhotoInformation, sortCriteria } from '../Redux/Actions/appActions'
 import AddDropdown from './AddDropdown'
 import AddToCollection from '../FeaturedPost/AddToCollection'
 import { connect } from 'react-redux'
@@ -92,7 +93,15 @@ const PhotoDescriptionView = (props) => {
             // props.dispatch(isMainPhotoDisplayVisible(true))
         }
         setShowPost(true)
+    }
 
+    const goToPlace = (place) => {
+        props.dispatch(homePhotoInformation([]))
+        let sortCriteriaCopy = {...props.sortCriteria}
+        props.dispatch(sortCriteria(place.location))
+        sortCriteriaCopy['location'] = place.location
+        sortCriteriaCopy['country'] = ''
+        props.sort(sortCriteriaCopy, true)
     }
 
     return(
@@ -117,7 +126,7 @@ const PhotoDescriptionView = (props) => {
                     </ImageLinkContainer>
                     <BookmarkLocationContainer>
                         <div style={{display: 'flex', alignItems: 'center'}}>
-                            <Location>{`${props.photoInfo.location}`}</Location>
+                            <Location onClick={()=>goToPlace(props.photoInfo)}>{`${props.photoInfo.location}`}</Location>
                             <Category>{props.photoInfo.category}</Category>
                         </div>
                         <div className='add-dropdown' style={{cursor: 'pointer'}}>
@@ -139,6 +148,7 @@ const PhotoDescriptionView = (props) => {
 
 const mapStateToProps = state => ({
     user: state.app.user,
+    sortCriteria: state.app.sortCriteria
 })
 
 export default connect(mapStateToProps)(PhotoDescriptionView)
