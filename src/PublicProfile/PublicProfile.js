@@ -11,6 +11,7 @@ import {
     Name, 
     Bio,
     UserContainer,
+    PublicProfileContainer,
 } from './PublicProfile.styles'
 
 const PublicProfile = (props) => {
@@ -40,7 +41,7 @@ const PublicProfile = (props) => {
     
     const { userData, userPosts } = props
     return(
-        <div style={{marginTop: '55px'}}>
+        <PublicProfileContainer>
             <UserContainer visibility={isVisible ? 1 : 0}>
 
                 <ProfileImage onLoad={()=>setIsVisible(true)} alt='profile' src='' id='public-profile-image' />
@@ -59,7 +60,7 @@ const PublicProfile = (props) => {
                 )
             })}
             </PostsContainer>
-        </div>
+        </PublicProfileContainer>
     )
 }
 

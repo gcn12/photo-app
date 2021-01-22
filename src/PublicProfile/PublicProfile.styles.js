@@ -7,7 +7,7 @@ export const ProfileImage = styled.img`
     overflow: hidden;
     object-fit: cover;
     box-shadow:  0 5px 5px 0px  rgba(0, 0, 0, .2);
-    @media(max-width: 700px) {
+    @media(max-width: 720px) {
         margin-top: 12px;
     }
 `
@@ -32,7 +32,7 @@ export const PostsContainer = styled.div`
     /* justify-items: end; */
     justify-content: center;
 
-    @media(max-width: 700px) {
+    @media(max-width: 720px) {
         margin: 30px 50px 0 50px;
     }
 `
@@ -46,7 +46,7 @@ export const UserContainer = styled.div`
     flex-direction: column;
     align-items: center;
 
-    @media(max-width: 700px) {
+    @media(max-width: 720px) {
         position: initial;
     }
 `
@@ -92,9 +92,11 @@ export const EditButton = styled.button`
     border: 1px solid black;
     padding: 5px 10px;
     cursor: pointer; 
-    /* height: 140px;
-    width: 180px;
-    font-size: 20px;
-    border-radius: 5px;
-    background-color: transparent; */
+`
+
+export const PublicProfileContainer = styled.div`
+    margin-top: 55px;
+    @media(max-width: 720px) {
+        margin-top: 65px;
+    }
 `
