@@ -9,7 +9,7 @@ import {
     Container,
     Label,
     BodyButtonContainer,
-    CategoryLocationContainer,
+    BodyContainer,
     ButtonIconContainer,
 } from './AddContent.styles'
 
@@ -226,7 +226,7 @@ const Body = (props) => {
     }
 
     return(
-        <CategoryLocationContainer styles={props.styles}>
+        <BodyContainer styles={props.styles}>
             <Container id='content-form'>
                 <Label>Body content</Label>
                 <DescriptionInput onChange={checkProceed} className='content-paragraph item-to-upload' id='content-paragraph-original'></DescriptionInput>
@@ -257,7 +257,7 @@ const Body = (props) => {
                 </NewItemButton>
             </BodyButtonContainer>
             <div id='body-scroll-here'></div>
-        </CategoryLocationContainer>
+        </BodyContainer>
     )
 }
 

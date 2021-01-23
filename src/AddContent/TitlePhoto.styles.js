@@ -1,14 +1,18 @@
 import styled from 'styled-components'
 
 export const CenterContainer = styled.div`
+    margin-top: 24px;
     position: absolute;
     left: ${props=>props.styles.left};
-    top: 50%;
+    top: 45%;
     display: ${props=>props.styles.display};
     transform: translate(-50%, -50%);
     transition: opacity 200ms ease-in-out, left 200ms ease-in-out;
     opacity: ${props=> props.styles.opacity}; 
     visibility: ${props=> props.styles.visibility}; 
+    overflow-y: scroll;
+    max-height: 80vh;
+    /* margin-top: 18px; */
     /* display: ${props=> props.styles.visibility}; */
 `
 

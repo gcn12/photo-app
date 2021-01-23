@@ -57,10 +57,10 @@ export const Container = styled.div`
     justify-content: center;
 `
 
-export const CategoryLocationContainer = styled.div`
+export const BodyContainer = styled.div`
     /* height: 110vh; */
     /* position: relative;  */
-    margin-top: 48px;
+    margin-top: 56px;
     opacity: ${props=> props?.styles?.opacity};
     visibility: ${props=> props?.styles?.visibility}; 
     /* display: ${props=> props?.styles?.display}; */
@@ -70,14 +70,25 @@ export const CategoryLocationContainer = styled.div`
     position: absolute;
     transform: translate(-50%, -50%);
     display: ${props=>props.styles.display};
-    height: 90vh;
+    max-height: 90vh;
     overflow-y: scroll;
+`
 
-    /* display: flex; */
-    /* flex-wrap: wrap;
-    flex-direction: column; 
-    align-items: center;
-    justify-content: center; */
+export const CategoryLocationContainer = styled.div`
+    /* height: 110vh; */
+    /* position: relative;  */
+    margin-top: 48px;
+    opacity: ${props=> props?.styles?.opacity};
+    visibility: ${props=> props?.styles?.visibility}; 
+    /* display: ${props=> props?.styles?.display}; */
+    transition: opacity 200ms ease-in-out, left 200ms ease-in-out;
+    top: 35%;
+    left: ${props=>props?.styles?.left};
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: ${props=>props.styles.display};
+    max-height: 90vh;
+    overflow-y: scroll;
 `
 
 export const FileUpload = styled.label`
@@ -204,6 +215,7 @@ export const PostDescriptionContainer = styled.div`
     left: ${props=>props?.styles?.left};
     position: absolute;
     transform: translate(-50%, -50%);
+    width: 60vw;
 `
 
 export const PostDescriptionInput = styled.textarea`

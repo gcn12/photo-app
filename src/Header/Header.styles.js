@@ -49,6 +49,7 @@ export const Navigation = styled.div`
     color: #242424;
     text-decoration: none;
     white-space: nowrap;
+    /* line-height: 48px; */
     cursor: ${props=>props.cursor};
     font-size: 24px;
     margin: 0 5px;
