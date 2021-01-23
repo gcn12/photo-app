@@ -4,10 +4,10 @@ import { connect } from 'react-redux'
 import {
     Container,
     CollectionName,
-    Text,
     RenameButton,
     Cancel,
 } from './Rename.styles'
+import { Text } from '../Styles/GlobalStyles.styles'
 
 const Rename = (props) => {
     const submitRename = (collectionName) => {

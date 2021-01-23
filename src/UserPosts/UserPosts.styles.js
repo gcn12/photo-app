@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const Title = styled.div`
-    /* color: white; */
     font-size: 24px;
 `
 
@@ -20,7 +19,6 @@ export const GearIcon = styled.img`
     transform: translate(270%, 10%);
     z-index: 0;
     visibility: ${props=> props.visibility};
-    /* display: ${props=> props.display}; */
     opacity: ${props=> props.opacity};
     transition: opacity 500ms ease-in-out;
     transition-delay: 150ms;
@@ -32,14 +30,9 @@ export const GearIcon = styled.img`
 `
 
 export const PostsContainer = styled.div`
-    /* display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between; */
-    /* margin: 0 5%; */
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
     grid-gap: 20px;
-    /* align-items: stretch; */
     justify-items: center;
     align-items: start;
 `
@@ -50,24 +43,12 @@ export const PostContainer = styled.div`
     margin: 20px;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
     opacity: ${props=> props.opacity};
     transition: opacity 500ms ease-in-out;
-    /* ${props => props.shouldHover 
-        ? `&:hover ${GearIcon} {
-            visibility: visible;
-            // display: initial;
-        }` 
-        : ''
-    }
-    &:hover ${GearIcon} {
-        opacity: 1; 
-    } */
 `
 
 export const PostTitle = styled.div`
-    /* color: white; */
     font-size: 20px;
     justify-self: center;
     cursor: pointer;
@@ -76,7 +57,6 @@ export const PostTitle = styled.div`
 export const TitleEllipsisContainer = styled.div`
     display: flex;
     align-items: center;
-    /* position: relative; */
 `
 
 export const Ellipsis = styled.div`

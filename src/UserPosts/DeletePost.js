@@ -3,10 +3,10 @@ import { db } from '../Firebase'
 import { connect } from 'react-redux' 
 import {
     Container,
-    Text,
     DeleteButton,
     Cancel,
 } from './DeletePost.styles'
+import { Text } from '../Styles/GlobalStyles.styles'
 
 const DeletePost = (props) => {
     
@@ -41,11 +41,9 @@ const DeletePost = (props) => {
         })
         props.setShowDelete(false)
         props.closeDelete()
-        // props.setShowGear(false)
     }
 
     const cancelDelete = () => {
-        // props.setShowGear(false)
         props.closeDelete()
         props.setShowDelete(false)
     }

@@ -45,10 +45,10 @@ import {
     BioContainer,
     FeaturedPostContainer,
     PlaceholderImage,
-    Text,
     CenterDate,
     ElementSpacings,
 } from './FeaturedPost.styles'
+import { Text } from '../Styles/GlobalStyles.styles'
 
 const FeaturedPost = (props) => {
 
@@ -79,7 +79,6 @@ const FeaturedPost = (props) => {
         .doc(props.user)
         .collection('bookmarked')
         .where('postID', '==', props.photoInformation.postID)
-        // .where('url', '==', props.photoInformation.url)
         .get()
         .then(data=> {
             data.docs[0].ref.delete()
@@ -113,9 +112,7 @@ const FeaturedPost = (props) => {
         .get()
         .then(data=> {
             let post = data.docs[0].data()
-            // getImageSize(post.smallestImage)
             props.dispatch(photoInformation(post))
-            // window.scrollTo({top: 0})
             firebase.auth().onAuthStateChanged((user)=> {
                 if(user) {
                 db.collection('users')

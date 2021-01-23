@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-// import { SubmitButton } from '../AddContent/AddContent.styles'
 import Collections from '../Collections/Collections'
 import { connect } from 'react-redux'
 import Settings from '../Settings/Settings'
@@ -23,7 +22,6 @@ const Profile = (props) => {
     }, [])
     return(
         <div style={{marginTop: '85px'}}>
-            {/* <SubmitButton onClick={()=>props.history.goBack()}>Back</SubmitButton> */}
             <Container>
                 <ProfileHeaderMobile />
                 <ProfileHeaderDesktop />

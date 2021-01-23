@@ -250,11 +250,6 @@ export const PlaceholderImage = styled.img`
     display: ${props=>props.display};
 `
 
-export const Text = styled.div`
-    font-size: ${props=>props.size};
-    font-weight: ${props=>props.weight};
-`
-
 export const CenterDate = styled.div`
     display: flex;
     justify-content: center;

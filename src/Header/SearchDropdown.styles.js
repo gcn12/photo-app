@@ -74,7 +74,3 @@ export const ResultContainer = styled.div`
         background-color: #d9d7d7;
     }
 `
-
-export const Text = styled.div`
-    color: #242424;
-`

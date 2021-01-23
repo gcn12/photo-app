@@ -14,7 +14,6 @@ const UploadProgress = (props) => {
     const strokeDashoffset = circumference - props.uploadProgress / props.uploadCount * circumference
 
     return(
-        // <ProgressContainer visibility={props.variants[props.animate].opacity} animate={props.animate} variants={props.variants} initial='initial' transition='transition'>
         <ProgressContainer display={props.display}>
             <CircleContainer>
                 {props.uploadProgressColor ? 

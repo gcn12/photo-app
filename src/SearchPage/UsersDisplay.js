@@ -14,11 +14,9 @@ const UsersDisplay = (props) => {
 
     return(
         <Container opacity={isVisble ? 1 : 0}>
-            {/* <BackgroundHeader></BackgroundHeader> */}
             <Link to={`/photo-app/profiles/${props.item.username}`}>
                     <Image onLoad={()=>setIsVisible(true)} src={props.item.profileImage} alt=''></Image>
             </Link>
-            {/* <div style={{marginTop: '10px'}}></div> */}
             <Username>{props.item.username}</Username>
             <Name>{props.item.name}</Name>
             <Bio>Quis imperdiet massa tincidunt nunc. Pellentesque adipiscing commodo elit at.</Bio>

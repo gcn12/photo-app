@@ -2,13 +2,11 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import AddToCollectionItem from './AddToCollectionItem'
 import CollectionItemsShimmer from './CollectionItemsShimmer'
-// import SpinnerOnly from '../Spinner/SpinnerOnly'
 import { disableBodyScroll } from 'body-scroll-lock'
 import { db } from '../Firebase'
 import {
     Container,
     X,
-    Text,
     CollectionsContainer,
     Warning,
     CreateNewButton,
@@ -16,6 +14,7 @@ import {
     CreateNewSubmit,
     CreateNewContainer,
 } from './AddToCollection.styles'
+import { Text } from '../Styles/GlobalStyles.styles'
 
 const AddToCollection = (props) => {
 
@@ -91,10 +90,6 @@ const AddToCollection = (props) => {
         disableBodyScroll(toNotLock)
     }
 
-    window.addEventListener('load', function() {
-        // lockScroll()
-    })
-
     return(
         <div>
             <Container>
@@ -150,7 +145,6 @@ const AddToCollection = (props) => {
 const mapStateToProps = state => ({
     user: state.app.user,
     photoInformation: state.app.photoInformation,
-    // collectionsList: state.featuredPost.collectionsList,
 })
 
 export default connect(mapStateToProps)(AddToCollection)

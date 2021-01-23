@@ -4,7 +4,6 @@ import { collectionsList } from '../Redux/Actions/featuredPostActions'
 import { db } from '../Firebase'
 import { connect } from 'react-redux'
 import DropdownItem from './DropdownItem'
-// import firebase from 'firebase'
 import { 
     Container,
     Warning,

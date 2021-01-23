@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { db } from '../Firebase'
 import { incrementViewCount } from '../Functions' 
-// import { photoInformation } from '../Redux/Actions/appActions'
 import { isVisible, isPostVisible } from '../Redux/Actions/featuredPostActions'
 import { homePhotoInformation, sortCriteria } from '../Redux/Actions/appActions'
 import AddDropdown from './AddDropdown'
@@ -11,7 +10,6 @@ import { Link } from 'react-router-dom'
 import { enableBodyScroll } from 'body-scroll-lock'
 import { PopupDarken } from '../Styles/PopupStyles.styles'
 import '../App.css'
-// import fitty from 'fitty'
 import {
     Image,
     Card,
@@ -24,8 +22,6 @@ import {
     Category,
     PlaceholderImage,
     ImageLinkContainer,
-    // Name,
-    // LocationNameContainer,
 } from './PhotoDescriptionView.styles'
 
 const PhotoDescriptionView = (props) => {
@@ -59,10 +55,6 @@ const PhotoDescriptionView = (props) => {
     const goToPost = () => {
         props.dispatch(isVisible(false))
         props.dispatch(isPostVisible(false))
-        // props.dispatch(photoInformation(props.photoInfo))
-        // props.getFeaturedPhotoInfo(props.photoInfo.postID)
-        // window.scrollTo({top: 0})
-        // props.history.push(`/photo-app/post/${props.photoInfo.postID}`)
         db.collection('preview-posts').where('image', '==', props.photoInfo.image)
         .get()
         .then(reference=> {
@@ -78,8 +70,6 @@ const PhotoDescriptionView = (props) => {
 
     const openAddToCollection = () => {
         setShowAddToCollection(true)
-        // const toLock = document.getElementById('add-to-collection-container')
-        // disableBodyScroll(toLock)
     }
 
     const closeAddToCollection = () => {
@@ -90,7 +80,6 @@ const PhotoDescriptionView = (props) => {
 
     const whenLoaded = () => {
         if(props.index===0){
-            // props.dispatch(isMainPhotoDisplayVisible(true))
         }
         setShowPost(true)
     }

@@ -10,8 +10,6 @@ const Autocomplete = (props) => {
             document.getElementById('autocomplete'),
             {
                 types: ['(regions)'],
-                // componentRestrictions: {'country': ['au']},
-                // fields: ['geometry', 'name']
             }
             )
         autocomplete.addListener('place_changed', onPlaceChanged)

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import firebase from 'firebase'
-// import signout from './Signout'
 import { user } from '../Redux/Actions/appActions'
 import { connect } from 'react-redux'
 import { 
@@ -34,7 +33,6 @@ const Login = (props) => {
             <TextField onChange={e => setPassword(e.target.value)} type='password'></TextField>
             <br></br>
             <SubmitButton onClick={submit}>Login</SubmitButton>
-            {/* <SubmitButton onClick={signout}>Signout</SubmitButton> */}
         </Container>
     )
 }

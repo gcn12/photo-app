@@ -12,10 +12,7 @@ import { homePhotoInformation, profileLoaded } from '../Redux/Actions/appActions
 import { 
     selected, 
     selectedCategory, 
-    // searchTransition, 
-    // searchVisibility, 
 } from '../Redux/Actions/headerActions'
-// import { ReactComponent as SearchIcon } from '../Icons/Search.svg'
 import { Link } from 'react-router-dom' 
 import {
     Container,
@@ -25,8 +22,6 @@ import {
     Navigation,
     HeaderRight,
     ProfileImage,
-    // IconContainer,
-    // CenterSearch,
 } from './Header.styles'
 
 const Header = (props) => {
@@ -47,7 +42,6 @@ const Header = (props) => {
         .limit(28)
         .get()
         .then(snapshot => {
-            // setStartAfter(snapshot.docs[snapshot.docs.length-1])
             const photosArray = []
             snapshot.docs.forEach(doc => {
                 photosArray.push(doc.data())
@@ -59,7 +53,6 @@ const Header = (props) => {
                 .limit(28)
                 .get()
                 .then(snapshot => {
-                    // setStartAfter(snapshot.docs[snapshot.docs.length-1])
                     const photosArray = []
                     snapshot.docs.forEach(doc => {
                         photosArray.push(doc.data())
@@ -80,7 +73,6 @@ const Header = (props) => {
         .limit(28)
         .get()
         .then(snapshot => {
-            // setStartAfter(snapshot.docs[snapshot.docs.length-1])
             const photosArray = []
             snapshot.docs.forEach(doc => {
                 photosArray.push(doc.data())
@@ -88,13 +80,6 @@ const Header = (props) => {
             setTimeout(()=> props.dispatch(homePhotoInformation([...photosArray])), 700)
         })
     }
-
-    // const startSearchTransition = () => {
-    //     props.dispatch(searchVisibility(true))
-    //     props.dispatch(searchTransition('transitionStart'))
-    //     document.body.style.overflowY = 'hidden'
-    //     // document.body.style.position = 'fixed'
-    // }
 
     const getAssortedAndDropOpacity = () => {
         props.dispatch(homePhotoInformation([]))
@@ -116,9 +101,6 @@ const Header = (props) => {
         if (!e.target.matches('.categories-dropdown')) {
             setShowCategories(false)
         }
-        // if (!e.target.matches('.user-post-dropdown')) {
-        //     props.setShowOptions(false)
-        // }
     } 
 
     return(
@@ -141,12 +123,7 @@ const Header = (props) => {
                             </Link>
                         </LI>
                     </UL>
-                    {/* <CenterSearch> */}
                         <Search search={props.search} history={props.history} location={props.location} />
-                    {/* </CenterSearch> */}
-                    {/* <IconContainer>
-                        <SearchIcon onClick={startSearchTransition} style={{transform: 'scale(1)'}}></SearchIcon>
-                    </IconContainer> */}
                     <HeaderRight visibility={props.profileLoaded ? 'visible' : 'hidden'}>
                         {props.user ? 
                         <Link to='/photo-app/upload' style={{ textDecoration: 'none' }}>
@@ -160,14 +137,7 @@ const Header = (props) => {
                         <Navigation>|</Navigation>
                         {props.user ? 
                         <div style={{position: 'relative'}}>
-
-                            {/* <Avatar className='profile-dropdown' onClick={()=> setShowProfileDropdown(!showProfileDropdown)} style={{transform: 'scale(1.3)', position: 'relative', top: 4, cursor: 'pointer', margin: '0 5px'}} /> */}
-
                             <ProfileImage onClick={()=> setShowProfileDropdown(!showProfileDropdown)} onLoad={()=>props.dispatch(profileLoaded(true))} id='header-profile-image' className='profile-dropdown' src={props.userInformation.profileImage} />
-                            {/* <button onClick={()=> setShowProfileDropdown(!showProfileDropdown)}></button> */}
-                            
-                            {/* <Navigation className='profile-dropdown' onClick={()=> setShowProfileDropdown(!showProfileDropdown)} cursor='pointer'>
-                            </Navigation> */}
                             {showProfileDropdown ? 
                             <ProfileDropdown setShowProfileDropdown={setShowProfileDropdown} history={props.history} />
                             :
@@ -177,7 +147,6 @@ const Header = (props) => {
                         :
                         <Link to='/photo-app/login' style={{ textDecoration: 'none' }}>
                             <Navigation cursor='pointer'>Log in</Navigation>
-                            {/* <Navigation onClick={()=>props.setShowLogin(true)} cursor='pointer'>Log in</Navigation> */}
                         </Link>
                         } 
                     </HeaderRight>

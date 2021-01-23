@@ -3,10 +3,10 @@ import { db } from '../Firebase'
 import { connect } from 'react-redux'
 import {
     Container,
-    Text,
     DeleteButton,
     Cancel,
 } from './Delete.styles'
+import { Text } from '../Styles/GlobalStyles.styles'
 
 const Delete = (props) => {
     

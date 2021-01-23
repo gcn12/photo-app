@@ -22,8 +22,3 @@ export const Container2 = styled.div`
         background-color: #d1d1d1;
     }
 `
-
-export const Text = styled.div`
-    color: #242424;
-`
-

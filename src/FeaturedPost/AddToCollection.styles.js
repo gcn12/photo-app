@@ -29,10 +29,6 @@ export const Container = styled.div`
     }
 `
 
-export const Text = styled.div`
-    font-size: ${props=> props.size};
-`
-
 export const CollectionsContainer = styled.div`
     margin: 0 40px;
     padding: 0 10px;

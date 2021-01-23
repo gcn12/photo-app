@@ -6,7 +6,6 @@ import { isPostVisible, isVisible } from '../Redux/Actions/featuredPostActions'
 import AddToCollection from '../FeaturedPost/AddToCollection'
 import { enableBodyScroll } from 'body-scroll-lock'
 
-// import { ReactComponent as TrashCan } from '../Icons/TrashCan.svg'
 import {
     Container,
     Image,
@@ -42,8 +41,6 @@ const SavedPost = (props) => {
 
     const openAddToCollection = () => {
         setShowAddToCollection(true)
-        // const toNotLock = document.getElementById('add-to-collection-container')
-        // disableBodyScroll(toNotLock)
     }
 
     const closeAddToCollection = () => {

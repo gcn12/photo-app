@@ -8,7 +8,6 @@ import {
     Container,
     Cancel,
     ConfirmButton,
-    Text,
     CollectionName,
     BioTextarea,
     ProfileImage,
@@ -16,6 +15,7 @@ import {
     CenterProgress,
 } from './EditProfile.styles'
 import { userInformation } from '../Redux/Actions/appActions'
+import { Text } from '../Styles/GlobalStyles.styles'
 
 const EditProfile = (props) => {
 
@@ -95,7 +95,6 @@ const EditProfile = (props) => {
                     let userInformationCopy = {...userInformation}
                     userInformationCopy['profileImage'] = url
                     props.dispatch(userInformation({...userInformationCopy}))
-                    // clearAllBodyScrollLocks()
                 })
             })
         }else{
@@ -108,7 +107,6 @@ const EditProfile = (props) => {
         const updateObject = {}
         const cloudUpdateObject = {}
         cloudUpdateObject['id'] = props.userData.id
-        // cloudUpdateObject['userID'] = props.userInformation.id
         if(username !== props.userData.username){
             isEmpty = false
             updateObject['username'] = username
@@ -183,7 +181,6 @@ const EditProfile = (props) => {
 
     return(
         <Container id='edit-profile-container'>
-            {/* {console.log(props.userData)} */}
             {isUploading ? 
                 <CenterProgress>
                     <UploadProgress uploadProgressColor={uploadProgressColor} animate={uploadStatusProps} variants={animationMap.uploadStatus} uploadCount={uploadCount} uploadProgress={uploadProgress} />

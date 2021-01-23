@@ -32,11 +32,6 @@ export const Container = styled.div`
     }
 `
 
-export const Text = styled.div`
-    font-size: ${props=> props.size};
-    font-weight: ${props=>props.weight};
-`
-
 export const CollectionName = styled.input`
     height: 40px;
     font-size: 20px;

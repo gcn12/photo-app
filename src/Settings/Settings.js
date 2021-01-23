@@ -1,5 +1,4 @@
 import React from 'react'
-// import { signout } from '../Login/Signout'
 import { SubmitButton } from '../Login/Login.styles'
 import { Container } from './Settings.styles'
 import { user } from '../Redux/Actions/appActions'
@@ -13,7 +12,6 @@ const Settings = (props) => {
         firebase.auth().signOut()
         .then(()=>props.dispatch(user('')))
         .catch(error=>console.log(error))
-        // signout()
     }
     
     return(

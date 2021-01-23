@@ -1,5 +1,4 @@
 import React from 'react'
-// import AddToCollection from '../FeaturedPost/AddToCollection'
 import { db } from '../Firebase'
 import { ReactComponent as Collections } from '../Icons/Collections.svg'
 import { connect } from 'react-redux'
@@ -11,16 +10,10 @@ import {
     OptionText,
     Triangle,
 } from '../Styles/DropdownStyles.styles'
-// import {
-//     Container,
-//     Option,
-//     Options,
-// } from './AddDropdown.styles'
 
 const AddDropdown = (props) => {
 
     const getCollectionsList = () => {
-        // props.setShowSpinner(false)
         props.openAddToCollection()
         const collectionsArray = []
         db.collection('users')
@@ -55,8 +48,6 @@ const AddDropdown = (props) => {
                         }
                     })
                 })
-            }else{
-                // props.openAddToCollection()
             }
         }) 
     }

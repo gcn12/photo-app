@@ -39,8 +39,6 @@ const AdmiredPost = (props) => {
 
     const openAddToCollection = () => {
         setShowAddToCollection(true)
-        // const toNotLock = document.getElementById('add-to-collection-container')
-        // disableBodyScroll(toNotLock)
     }
 
     const closeAddToCollection = () => {

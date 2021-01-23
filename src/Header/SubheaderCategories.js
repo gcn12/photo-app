@@ -1,11 +1,6 @@
 import React from 'react'
 import { homePhotoInformation, sortCriteria } from '../Redux/Actions/appActions'
 import { connect } from 'react-redux'
-// import {
-//     Container,
-//     LI,
-//     UL,
-// } from './SubheaderCategories.styles'
 import {
     Container, 
     Options, 

@@ -14,11 +14,6 @@ export const PostsContainer = styled.div`
     }
 `
 
-export const Text = styled.div`
-    font-size: ${props=>props.size};
-    font-weight: ${props=>props.weight};
-`
-
 export const MoreFromContainer = styled.div`
     display: flex;
     @media(max-width: 700px) {

@@ -39,7 +39,6 @@ const SubheaderDropdown = (props) => {
 
     const closeDropdown = (isCancel) => {
         props.dispatch(dropdownTransition('transitionEnd'))
-        // props.setDropdownTransition('transitionEnd')
         setTimeout(()=> props.dispatch(visibility(false)), 300)
         document.body.style.overflowY = 'auto'
         document.body.style.position = 'initial'

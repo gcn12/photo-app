@@ -13,8 +13,6 @@ import {
 const PostDropdown = (props) => {
 
     const editPost = () => {
-        // props.setShowRename(true)
-        // props.setCollectionName(props.collectionName)
         props.openEdit()
         props.getPostData()
     }
@@ -22,7 +20,6 @@ const PostDropdown = (props) => {
     const deletePost = () => {
         props.openDelete()
         props.setShowOptions(false)
-        // props.setShowGear(true)
     }
 
     return(

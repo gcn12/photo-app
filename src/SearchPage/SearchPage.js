@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import PhotoDescriptionView from '../MainPhotoDisplay/PhotoDescriptionView'
 import CitiesDisplay from './CitiesDisplay'
-// import UsersDisplay from './UsersDisplay'
 import UserProfileCard from '../UserProfileCard/UserProfileCard'
 import { connect } from 'react-redux'
 import { searchQueries, query } from '../Redux/Actions/appActions'

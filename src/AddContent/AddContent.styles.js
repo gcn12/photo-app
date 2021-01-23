@@ -12,10 +12,8 @@ export const UploadProgressContainer = styled.div`
 `
 
 export const TopButtonContainer = styled.div`
-    /* background-color: #dedede; */
-    /* border-bottom: 1px solid #b3b3b3; */
+    background-color: #f2f2f2;
     position: fixed;
-    /* padding-bottom: 15px; */
     top: 0px;
     width: 100%;
     display: flex;
@@ -34,33 +32,17 @@ export const ButtonContainer = styled.div`
 `
 
 export const NextButton = styled.button`
-    /* position: absolute; */
-    /* right: 150px; */
     justify-content: flex-end;
     cursor: ${props=> props.proceed ? 'pointer' : 'default'};
     color: white;
-    /* background-color: #141414; */
     background-color: ${props=> props.proceed ? '#141414' : '#6e6e6e'};
     border: none;
-    /* position: fixed; */
     width: ${props => props.width};
-    /* width: 120px; */
     height: 50px;
-    /* cursor: pointer; */
     transition: background-color 400ms;
-
-    /* &:hover {
-        background-color: #212121;
-    } */
 `
 
 export const Container = styled.div`
-    /* height: 110vh; */
-    /* visibility: ${props=> props.visibility ? 'null' : 'hidden'};
-    display: ${props=> props.visibility ? 'null' : 'none'}; */
-    /* left: 20%;
-    top: 40%;
-    position: absolute;  */
     display: flex;
     flex-wrap: wrap;
     flex-direction: column; 
@@ -74,9 +56,6 @@ export const BodyContainer2 = styled.div`
 `
 
 export const EmptyBodyContainer = styled.div`
-    /* height: 110vh; */
-    /* position: relative;  */
-    /* padding-top: 100px; */
     opacity: ${props=> props?.styles?.opacity};
     visibility: ${props=> props?.styles?.visibility}; 
     display: ${props=> props?.styles?.display};
@@ -86,45 +65,20 @@ export const EmptyBodyContainer = styled.div`
     position: absolute;
     transform: translate(-50%, -50%);
     display: ${props=>props.styles.display};
-    /* max-height: calc(100vh - 150px);
-    max-height: calc(-webkit-fill-available - 150px);
-    overflow-y: scroll; */
 `
 
 export const BodyContainer = styled.div`
-    /* height: 110vh; */
-    /* position: relative;  */
-    /* padding-top: 100px; */
     margin-top: 80px;
     opacity: ${props=> props?.styles?.opacity};
     visibility: ${props=> props?.styles?.visibility}; 
     display: ${props=> props?.styles?.display};
     transition: opacity 200ms ease-in-out, left 200ms ease-in-out;
-    /* top: 50%; */
-    /* left: ${props=>props?.styles?.left}; */
-    /* position: absolute; */
-    /* transform: translate(-50%, -50%); */
-    /* max-height: calc(100vh - 150px);
-    max-height: calc(-webkit-fill-available - 150px);
-    overflow-y: scroll; */
 `
 
-// const slide = keyframes`
-//     from {
-//         transform: translate(-10%);
-//     }
-//     to {
-//         transform: translate(-50%);
-//     }
-// `;
-
 export const CategoryLocationContainer = styled.div`
-    /* height: 110vh; */
-    /* position: relative;  */
     margin-top: 48px;
     opacity: ${props=> props?.styles?.opacity};
     visibility: ${props=> props?.styles?.visibility}; 
-    /* display: ${props=> props?.styles?.display}; */
     transition: opacity 200ms ease-in-out, left 200ms ease-in-out;
     top: 35%;
     left: ${props=>props?.styles?.left};
@@ -149,7 +103,6 @@ export const PreviewContainer = styled.div`
 `
 
 export const PreviewImage = styled.img`
-    /* height: 450px; */
     height: 45vh;
     width: auto;
     opacity: ${props => props.opacity};
@@ -220,11 +173,9 @@ export const DescriptionInput = styled.textarea`
     @media(max-width: 720px) {
         width: 80vw;
     } 
-    /* margin-bottom: 20px; */
 `
 
 export const SelectInput = styled.select`
-    /* -webkit-appearance: menulist-button; */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -267,7 +218,6 @@ export const PostDescriptionContainer = styled.div`
     visibility: ${props=> props?.styles?.visibility};
     opacity: ${props=> props?.styles?.opacity};
     display: ${props=>props.styles.display==='initial' ? 'flex' : 'none'};
-    /* display: flex; */
     justify-content: center;
     align-items: center;
     flex-direction: column;

@@ -3,7 +3,6 @@ import {ReactComponent as Text} from '../Icons/Text.svg'
 import {ReactComponent as Image} from '../Icons/Image.svg'
 import {ReactComponent as Remove} from '../Icons/Remove.svg'
 import {
-    // DescriptionInput,
     NewItemButton,
     RemoveLastElement,
     Container,
@@ -30,7 +29,6 @@ const Body = (props) => {
         let sizeMapArray = new Array(images.files.length).fill('')
         if(images.files.length<4) {
             if(images.files.length>0) {
-                // props.setBodyStyles('shiftUp')
                 setIsTooManyImages(false)
                 let loopIndex = 0
                 let imagesLength = images.files.length
@@ -46,9 +44,6 @@ const Body = (props) => {
                             const displayImage = document.createElement("img");
                             displayImage.src = e.target.result;
                             displayImage.className = `upload-gallery-image upload-gallery-image-${inputDiv}`
-                            // document.getElementById(inputDiv).appendChild(displayImage);
-    
-    
                             displayImage.src = e.target.result;
                             displayImage.onload = function () {
                                 const fileName = file.name
@@ -219,28 +214,18 @@ const Body = (props) => {
         }
     }
 
-    // const checkProceed = () => {
-    //     if(document.getElementById('content-paragraph-original').value.length > 10) {
-    //         props.setBodyProceed(true)
-    //     }else{
-    //         props.setBodyProceed(false)
-    //     }
-    // }
-
     return(
         <div style={{marginTop: '64px'}}>
             <BodyContainer styles={props.styles}>
                 <BodyContainer2 visibility={isAdditionalElements ? 'visible' : 'hidden'} display={isAdditionalElements ? 'initial' : 'none'} >
                     <Container id='content-form'>
                         <Label>Body content</Label>
-                        {/* <DescriptionInput onChange={checkProceed} className='content-paragraph item-to-upload' id='content-paragraph-original'></DescriptionInput> */}
                     </Container>
                     {isTooManyImages ? <div>Exceeded image limit of three</div> : null}
                     <BodyButtonContainer id='add-content-body-buttons'>
                         {isAdditionalElements ? 
                         <RemoveLastElement type="button" onClick={removeLastElement}>
                             <ButtonIconContainer>
-                            {/* {`Remove last item`} */}
                             <Remove />
                             </ButtonIconContainer>
                         </RemoveLastElement>
@@ -250,13 +235,11 @@ const Body = (props) => {
                         <NewItemButton long={!isAdditionalElements} type="button" onClick={newParagraph}>
                             <ButtonIconContainer>
                                 <Text />
-                                {/* Add paragraph */}
                             </ButtonIconContainer>
                         </NewItemButton>
                         <NewItemButton border='1px solid white' long={!isAdditionalElements} type="button" onClick={newImage}>
                             <ButtonIconContainer>
                                 <Image />
-                                {/* Add image */}
                             </ButtonIconContainer>
                         </NewItemButton>
                     </BodyButtonContainer>
@@ -275,13 +258,11 @@ const Body = (props) => {
                 <NewItemButton long={!isAdditionalElements} type="button" onClick={newParagraph}>
                     <ButtonIconContainer>
                         <Text />
-                        {/* Add paragraph */}
                     </ButtonIconContainer>
                 </NewItemButton>
                 <NewItemButton border='1px solid white' long={!isAdditionalElements} type="button" onClick={newImage}>
                     <ButtonIconContainer>
                         <Image />
-                        {/* Add image */}
                     </ButtonIconContainer>
                 </NewItemButton>
             </BodyButtonContainer>

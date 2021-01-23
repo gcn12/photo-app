@@ -10,7 +10,6 @@ import {
 const DisplayPhoto = (props) => {
 
     const selectPhoto = () => {
-        // props.getPost(props.info.id)
         props.dispatch(collectionsList([]))
         props.getFeaturedPhotoInfo(props.info.url, props.info.username)
         db.collection('preview-posts')

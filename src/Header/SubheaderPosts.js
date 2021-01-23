@@ -17,7 +17,6 @@ import SubheaderCategories from './SubheaderCategories'
 
 
 const Subheader = (props) => {
-    // const [showCategories, setShowCategories] = useState(false)
     const openDropdown = () => {
         props.dispatch(dropdownTransition('transitionStart'))
         props.dispatch(visibility(true))
@@ -92,7 +91,6 @@ const Subheader = (props) => {
                                     {props.sortCriteria.category} 
                                 </CategoriesButton>
                                 <ArrowIcon className='categories-dropdown' alt='' src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yMy4yNDUgNGwtMTEuMjQ1IDE0LjM3NC0xMS4yMTktMTQuMzc0LS43ODEuNjE5IDEyIDE1LjM4MSAxMi0xNS4zOTEtLjc1NS0uNjA5eiIvPjwvc3ZnPg==" />
-                                {/* <TriangleIcon className='categories-dropdown'>&#x25BC;</TriangleIcon> */}
                             </div>
                             {props.showCategories ? 
                             <div style={{position: 'relative'}}>

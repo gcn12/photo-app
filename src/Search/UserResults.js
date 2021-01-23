@@ -2,9 +2,9 @@ import React from 'react'
 import {
     Photo,
     Container,
-    Text,
     Container2,
 } from './UserResults.styles'
+import { Text } from '../Styles/GlobalStyles.styles'
 
 const SearchResults = (props) => {
     return(
@@ -13,7 +13,6 @@ const SearchResults = (props) => {
             <div>
             <Container>
                 <Text>{props.hit.name}</Text>
-                {/* <Text>{props.hit.username}</Text> */}
             </Container>
             <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                 <Text>{props.hit.username}</Text>

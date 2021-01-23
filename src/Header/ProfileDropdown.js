@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import firebase from 'firebase'
 import { ReactComponent as FilledBookmark } from '../Icons/FilledBookmark.svg'
 import { ReactComponent as Profile } from '../Icons/Profile.svg'
-// import { ReactComponent as FilledHeart } from '../Icons/FilledHeart.svg'
 import { ReactComponent as Collections } from '../Icons/Collections.svg'
 import { ReactComponent as Plane } from '../Icons/Plane.svg'
 import { ReactComponent as Gear } from '../Icons/Gear.svg'
@@ -18,10 +17,6 @@ import {
     Triangle,
     OptionIcon,
 } from '../Styles/DropdownStyles.styles'
-// import {
-//     Container,
-//     Item,
-// } from './ProfileDropdown.styles'
 
 const ProfileDropdown = (props) => {
 
@@ -81,7 +76,6 @@ const ProfileDropdown = (props) => {
                     <OptionIconContainer radius='5px 5px 0 0'>
                         <OptionIcon>
                         <img alt='' style={{transform: 'scale(.8)', position: 'relative', top: 4}} src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgNC4yNDhjLTMuMTQ4LTUuNDAyLTEyLTMuODI1LTEyIDIuOTQ0IDAgNC42NjEgNS41NzEgOS40MjcgMTIgMTUuODA4IDYuNDMtNi4zODEgMTItMTEuMTQ3IDEyLTE1LjgwOCAwLTYuNzkyLTguODc1LTguMzA2LTEyLTIuOTQ0eiIvPjwvc3ZnPg==" />
-                            {/* <FilledHeart  /> */}
                         </OptionIcon>
                         <OptionText>Admired posts</OptionText>
                     </OptionIconContainer>

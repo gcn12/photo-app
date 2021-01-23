@@ -1,7 +1,6 @@
 import React from 'react'
 import { db } from '../Firebase'
 import { connect } from 'react-redux'
-// import { collectionsList } from '../Redux/Actions/featuredPostActions'
 import { 
     Collection, 
     CollectionName,
@@ -115,9 +114,7 @@ const AddToCollectionItem = (props) => {
 }
 
 const mapStateToProps = state => ({
-    // collectionsList: state.featuredPost.collectionsList,
     user: state.app.user,
-    // photoInformation: state.app.photoInformation,
 })
 
 export default connect(mapStateToProps)(AddToCollectionItem)

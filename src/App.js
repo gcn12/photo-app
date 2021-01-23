@@ -1,6 +1,5 @@
 import React, { 
   useEffect, 
-// useState,
 } from 'react'
 import { connect } from 'react-redux'
 import { 
@@ -19,8 +18,6 @@ import {
 import Header from './Header/Header'
 import { clearAllBodyScrollLocks } from 'body-scroll-lock'
 import CollectionsComponent from './Collections/CollectionsComponent'
-// import NewLogin from './Login/NewLogin'
-// import VerticalScroll from './VeritcalScroll/VerticalScroll'
 import Discover from './Discover/Discover'
 import FeaturedPost from './FeaturedPost/FeaturedPost'
 import MainPhotoDisplay from './MainPhotoDisplay/MainPhotoDisplayVertical'
@@ -30,7 +27,6 @@ import Login from './Login/Login'
 import PublicProfile from './PublicProfile/PublicProfile'
 import Footer from './Header/Footer'
 import algoliasearch from 'algoliasearch'
-// import TestFile from './TestFile'
 import AddContent from './AddContent/AddContent'
 import Signup from './SignUp/SignUp'
 import firebase from 'firebase'
@@ -50,7 +46,6 @@ const App = (props) => {
     }
   }, [pathname]);
 
-  // const [showLogin, setShowLogin] = useState(false)
 
   const sort = (criteriaObject, isNewSort) => {
     props.dispatch(sortCriteria(criteriaObject))
@@ -347,36 +342,17 @@ const App = (props) => {
       })
       const info = arr[0]
       props.dispatch(photoInformation(info))
-      // props.history.push(`/photo-app/post/${postID}`)
-
-
-      // info['username'] = username
-      // window.scrollTo({top: 0})
     })
   }
-
-  // const test = () => {
-  //   console.log(props)
-  // }
 
   return (
     <div>
       <Route path='/photo-app/' render={(props)=> (
         <Header search={search} 
-        // setShowLogin={setShowLogin} 
         {...props} sort={sort} />
       )} />
 
       {/* <TestFile user={user}  />  */}
-
-        {/* <div style={{marginTop: '200px'}}></div> */}
-      {/* <UploadProgress uploadCount={1} uploadProgress={1} uploadProgressColor={false} /> */}
-
-      {/* {showLogin ? 
-      <NewLogin />
-      :
-      null
-      } */}
 
       <Route path='/photo-app/profile/collections/:collectionName' render={(props)=> (
         <CollectionsComponent {...props} getFeaturedPhotoInfo={getFeaturedPhotoInfo}  />
@@ -443,8 +419,6 @@ const App = (props) => {
             />
         )} />
       </Switch>
-      {/* <button onClick={()=>console.log(props.user)}>Press</button> */}
-      
     </div>
   );
 }

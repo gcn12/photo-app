@@ -36,7 +36,6 @@ const ProfileHeaderMobile = (props) => {
                         <MobileLI style={{borderBottom: props.profilePage==='settings' ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('settings'))}>Settings</MobileLI>
                     </Link>
                 </MobileUL>
-                {/* <hr></hr> */}
             </MobileNavigation>
             <Navigation onClick={()=>setToggleNavigation(!toggleNavigation)}>
                 <PageName>{props.profilePage ? props.profilePage : 'My profile'}</PageName>

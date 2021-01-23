@@ -9,7 +9,6 @@ import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
 import { 
     Container,
 } from './Collections.styles'
-// import { collectionsData } from '../Redux/Actions/collectionsActions'
 
 const Collections = (props) => {
 

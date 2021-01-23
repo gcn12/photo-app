@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-// import VerticalScroll from '../VeritcalScroll/VerticalScroll'
 import firebase from 'firebase'
 import { db } from '../Firebase'
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
@@ -53,8 +52,6 @@ const EditPost = (props) => {
     const [showUploadProgress, setShowUploadProgress] = useState(false)
     const [showCancel, setShowCancel] = useState(true)
     const [uploadProgressColor, setUploadProgressColor] = useState(false)
-    // eslint-disable-next-line
-    const [uploadStatusProps, setUploadStatusProps] = useState('initial')
     const [imagesIndexMap, setImagesIndexMap] = useState({})
     const [mainImageChangedAllSizes, setMainImageChangedAllSizes] = useState(['', '', ''])
     const [imagesToUploadSmall, setImagesToUploadSmall] = useState({})
@@ -345,7 +342,6 @@ const EditPost = (props) => {
         setShowUploadProgress(true)
         setIsUploading(true)
         setShowCancel(false)
-        setTimeout(()=>setUploadStatusProps('transitionStart'), 400)
         setTimeout(()=>setUploadProgress(previousUploadProgress=> previousUploadProgress + 1), 200)
         upload2()
     }
@@ -378,7 +374,6 @@ const EditPost = (props) => {
             imagesIndexMapValues.push(mainImageChangedAllSizes[0])
         }
         setUploadCount(uploadCount => uploadCount + imagesIndexMapValues.length)
-        // setUploadProgress(previousUploadProgress=> previousUploadProgress + imagesIndexMapValues.length)
 
         let index = 0
         let finalArray = []
@@ -478,23 +473,6 @@ const EditPost = (props) => {
         const fullPostUpdate = {}
         const previewPostUpdate = {}
 
-        
-        // const postDataValues = Object.values(postData.dataObj)
-        // const originalDataValues = Object.values(props.postData[0].dataObj)
-        // console.log(postDataValues)
-        // console.log(originalDataValues)
-        // if (postDataValues.length !== originalDataValues.length) {
-        //     fullPostUpdate['dataObj'] = postData.dataObj
-        // }else{
-        //     originalDataValues.forEach((item, index) => {
-        //         if (item[1] !== postDataValues[index][1]) {
-        //             fullPostUpdate['dataObj'] = postData.dataObj
-        //         }
-        //     })
-        // }
-        // console.log(fullPostUpdate)
-        // if(Object.keys(imagesSmallObj)?.length > 0) {
-            // }
         fullPostUpdate['dataObj'] = postData.dataObj
         const imagesFinalSmall = {...postData.imagesSmall, ...imagesSmallObj}
         const imagesFinalLarge = {...postData.imagesLarge, ...imagesLargeObj}
@@ -601,21 +579,6 @@ const EditPost = (props) => {
         setRemainingCharacters(characterQuantity)
     }
 
-    // const animationMap = {
-    //     uploadStatus: {
-    //         initial: {
-    //             x: 0,
-    //             y: 50,
-    //             opacity: 0,
-    //         },
-    //         transitionStart: {
-    //             x: 0,
-    //             y: 50,
-    //             opacity: 1,
-    //         }
-    //     }
-    // }
-
     const lockScroll = () => {
         const toNotLock = document.getElementById('edit-post-scroll-container')
         disableBodyScroll(toNotLock)
@@ -627,13 +590,11 @@ const EditPost = (props) => {
                 <UploadProgress uploadProgressColor={uploadProgressColor} display={showUploadProgress ? 'visible' : 'hidden'} uploadCount={uploadCount} uploadProgress={uploadProgress} />
             </CenterUploadProgress>
             <Container height={isUploading ? '50vh' : '97vh'} width={isUploading ? '50vw' : '90vw'} opacity={1}>
-                {/* <button onClick={()=> console.log(postData)}>Log</button> */}
                 <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                     <X visibility={showCancel ? 'visible' : 'hidden'} display={showCancel ? 'initial' : 'none'} onClick={props.closeEdit}>&times;</X>
                 </div>
                 <img src='' alt='' onError={lockScroll} />
                 <HideContent id='edit-post-scroll-container'  visibility={isUploading ? 'hidden' : 'visible'} display={isUploading ? 'none' : 'initial'}>
-                {/* <VerticalScroll height='10vh'> */}
                         <div>
                             <Container2>
                                 <div id='edit-area'>
@@ -701,7 +662,6 @@ const EditPost = (props) => {
                                 <BodyButtonContainer id='add-content-body-buttons'>
                                     {isAdditionalElements ? 
                                     <RemoveLastElement type="button" onClick={removeLastElement}>
-                                        {/* {`Remove last ${isAddImage ? 'image' : 'text block'}`} */}
                                         <ButtonIconContainer>
                                             <Remove />
                                         </ButtonIconContainer>
@@ -711,14 +671,12 @@ const EditPost = (props) => {
                                     }
 
                                     <NewItemButton long={!isAdditionalElements} type="button" onClick={newParagraph}>
-                                        {/* Add paragraph */}
                                         <ButtonIconContainer>
                                             <Text />
                                         </ButtonIconContainer>
                                     </NewItemButton>
 
                                     <NewItemButton border='1px solid white' long={!isAdditionalElements} type="button" onClick={newImage}>
-                                        {/* Add image */}
                                         <ButtonIconContainer>
                                             <Image />
                                         </ButtonIconContainer>
@@ -755,7 +713,6 @@ const EditPost = (props) => {
                                 </div>
                             </Container2>
                         </div>
-                    {/* </VerticalScroll> */}
                 </HideContent>
             </Container>
         </div>

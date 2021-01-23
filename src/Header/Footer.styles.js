@@ -26,11 +26,6 @@ export const ProfileImage = styled.img`
     object-fit: cover;
 `
 
-export const Text = styled.div`
-    color: #242424;
-    font-size: 24px;
-`
-
 export const FooterContainer = styled.div`
     visibility: ${props=>props.visibility};
 `

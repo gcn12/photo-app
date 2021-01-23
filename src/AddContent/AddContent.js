@@ -8,7 +8,6 @@ import { db } from '../Firebase'
 import firebase from 'firebase'
 import UploadProgress from './UploadProgress'
 import { connect } from 'react-redux'
-// import Scroll from './Scroll'
 import React, { 
     useState 
 } from 'react'
@@ -116,7 +115,6 @@ const AddContent = (props) => {
                 mainImageSmall = unsortedImagesSmall[i]
             }else{
                 if(i<imageMap.length+1) {
-                // if(i<imageMapCopy.length) {
                     imagesEmptyArraysLarge[imageMap[i-1]].push(unsortedImagesLarge[i])
                     imagesEmptyArraysSmall[imageMap[i-1]].push(unsortedImagesSmall[i])
                 }
@@ -132,8 +130,6 @@ const AddContent = (props) => {
             urlObjectLarge[filesIndex[i]] = imagesEmptyArraysLarge[i]
             urlObjectSmall[filesIndex[i]] = imagesEmptyArraysSmall[i]
             imageSizeArrayWithIndex[filesIndex[i]] = imageSizeArrayValues[i]
-            // urlObjectLarge[i] = imagesEmptyArraysLarge[i]
-            // urlObjectSmall[i] = imagesEmptyArraysSmall[i]
         }
         db.collection('users').doc(props.user)
         .get()
@@ -150,7 +146,6 @@ const AddContent = (props) => {
                     font,
                     profileImage,
                     photoBodyMap: imageSizeArrayWithIndex,
-                    // content: descriptionArray,
                     imagesLarge: urlObjectLarge,
                     imagesSmall: urlObjectSmall,
                     title,
@@ -166,7 +161,6 @@ const AddContent = (props) => {
                     locationArray,
                     dataObj,
                     postID,
-                    // views: 0, change back later
                     url,
                     username,
                     userID: props.userInformation.id,
@@ -195,7 +189,6 @@ const AddContent = (props) => {
                             locationArray,
                             location,
                             url,
-                            // views: 0,
                             views,
                             hearts,
                             ratio,
@@ -361,7 +354,6 @@ const AddContent = (props) => {
 
     const getParagraphSample = () => {
         let paragraphArr = []
-        // const paragraph = document.getElementById('content-paragraph-original').value
         const paragraph = document.getElementsByClassName('add-content-description-input')[0].value
         const splitParagraph = paragraph.split('\n')
         let finalParagraph = splitParagraph[0].slice(0, 400)
@@ -375,7 +367,6 @@ const AddContent = (props) => {
 
     const checkTitleDuplicates = () => {
         const title = document.getElementById('add-content-title').value
-        // let url = title.replaceAll(' ', '-')
         let url = title.split(' ')
         url = url.join('-')
         url = url.toLowerCase()
@@ -402,12 +393,10 @@ const AddContent = (props) => {
 
     const getBodyImages = () => {
         const images = document.getElementsByClassName('body-photos')
-        // let count = 0
         let imagesArray = []
         for (let i = 0; i < images.length; i++) {
             let subArray = []
             for(let j = 0; j<images[i].files.length; j++) {
-                // count += 1
                 subArray.push(images[i].files[j])
             }
             imagesArray.push(subArray)
@@ -499,7 +488,6 @@ const AddContent = (props) => {
 
     return(
         <div>
-            {/* <button onClick={()=>console.log(categoryLocationStyles)}>Upload test</button> */}
             <UploadProgressContainer styles={uploadStatusStyles}>
                 <UploadProgress display='initial' uploadProgressColor={uploadProgressColor} uploadCount={uploadCount} uploadProgress={uploadProgress}/>
             </UploadProgressContainer>

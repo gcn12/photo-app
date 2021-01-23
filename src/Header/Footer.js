@@ -8,9 +8,9 @@ import { connect } from 'react-redux'
 import {
     Container,
     ProfileImage,
-    Text,
     FooterContainer,
 } from './Footer.styles'
+import { Text } from '../Styles/GlobalStyles.styles'
 
 const Footer = (props) => {
 
@@ -62,10 +62,10 @@ const Footer = (props) => {
             :
             <Container>
                 <Link to='/photo-app/signup' style={{textDecoration: 'none'}}>
-                    <Text>Sign up</Text>
+                    <Text size='24px'>Sign up</Text>
                 </Link>
                 <Link to='/photo-app/login' style={{textDecoration: 'none'}}>
-                    <Text>Log in</Text>
+                    <Text size='24px'>Log in</Text>
                 </Link>
             </Container>
             }

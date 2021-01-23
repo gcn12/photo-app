@@ -11,9 +11,9 @@ import {
     ResultsContainer,
     Image,
     ResultContainer,
-    Text,
     ProfileImage,
 } from './SearchDropdown.styles'
+import { Text } from '../Styles/GlobalStyles.styles'
 
 const variants = {
     initial: {
@@ -88,35 +88,6 @@ const SearchDropdown = (props) => {
         return ()=> clearTimeout(timeout)
         // eslint-disable-next-line 
     }, [query])
-
-    //Single index search:
-    // useEffect(()=> {
-    //     const searchClient = algoliasearch(
-    //         'VNSU9OYWB2',
-    //         '6478d10ccc9941fe49a73aeb6ba2e73f'
-    //     )
-    //     const search = (querySearch) => {
-    //         const index = searchClient.initIndex('posts')
-    //         if(query.length > 0) {
-    //             setShowResults(true)
-    //             index.search(query, {
-    //                 attributesToRetrieve: ['title', 'country', 'image', 'username', 'url', 'city'],
-    //                 hitsPerPage: 5,
-    //             }).then(({ hits }) => {
-    //                 console.log(hits);
-    //                 if(hits.length>0) {
-    //                     setHits([...hits])
-    //                 }else{
-    //                     setHits('No results')
-    //                 }
-    //             });
-    //         }else{
-    //             setHits([])
-    //         }
-    //     }
-    //     const timeout = setTimeout(()=> search(query), 300)
-    //     return ()=> clearTimeout(timeout)
-    // }, [query])
 
     const clearResults = () => {
         setShowResults(false)

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { db } from '../Firebase'
 import PublicProfilesPosts from '../PublicProfile/PublicProfilePosts'
-// import { collectionsData } from '../Redux/Actions/collectionsActions'
 import {
     Title,
     Container,

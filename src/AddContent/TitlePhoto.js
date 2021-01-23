@@ -20,7 +20,6 @@ const TitlePhoto = (props) => {
         viewFile.onload = (e) => {
             const uploadedImage = document.createElement('img')
             uploadedImage.src=e.target.result
-            // props.setTitlePhotoStyles('shiftUp')
             uploadedImage.onload = function () {
                 const height = this.height;
                 const width = this.width;
@@ -110,9 +109,6 @@ const TitlePhoto = (props) => {
                 const imageSrcSmallest = canvasSmallest.toDataURL('image/jpeg', 1)
 
                 props.setFileNames(fileName)
-
-                // const filesSmallestCopy = props.filesSmallest
-                // filesSmallestCopy[0] = [imageSrcSmallest]
                 props.setFilesSmallest(imageSrcSmallest)
             }
         }

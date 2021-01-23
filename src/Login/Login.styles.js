@@ -43,7 +43,6 @@ export const SubmitButton = styled.button`
 `
 
 export const Text = styled.div`
-    /* color: white; */
     margin-bottom: 5px;
 `
 

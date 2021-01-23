@@ -23,7 +23,6 @@ const PublicProfilesPosts = (props) => {
         props.dispatch(isPostVisible(false))
         props.dispatch(isVisible(false))
         props.getFeaturedPhotoInfo(props.post.postID)
-        // props.history.push(`/photo-app/post/${props.post.postID}`)
     }
 
     return(
@@ -35,7 +34,6 @@ const PublicProfilesPosts = (props) => {
                 <Title>{props.post.title}</Title>
             </Link>
             <Location>{props.post.location}</Location>
-            {/* <Title>{props.post.previewDescription}</Title> */}
         </Container>
     )
 }

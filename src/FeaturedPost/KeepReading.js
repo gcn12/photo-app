@@ -3,15 +3,14 @@ import { db } from '../Firebase'
 import PublicProfilePosts from '../PublicProfile/PublicProfilePosts'
 import {
     PostsContainer,
-    Text,
     MoreFromContainer,
     ContentContainer,
     Container,
 } from './KeepReading.styles'
+import { Text } from '../Styles/GlobalStyles.styles'
 
 const KeepReading = (props) => {
 
-    // const [cities, setCities] = useState([])
     const [postType, setPostType] = useState('')
     const [posts, setPosts] = useState([])
 
@@ -90,7 +89,6 @@ const KeepReading = (props) => {
                     <Text size='20px' weight='600'>&nbsp;{props?.photoInformation?.username}</Text>
                 </MoreFromContainer>
                 }
-                {/* <div style={{display: 'flex', justifyContent: 'center'}}> */}
                 <PostsContainer>
                     {posts.map((post, index) => {
                         return(
@@ -98,7 +96,6 @@ const KeepReading = (props) => {
                         )
                     })}
                 </PostsContainer>
-                {/* </div> */}
             </ContentContainer>
         </Container>
     )
