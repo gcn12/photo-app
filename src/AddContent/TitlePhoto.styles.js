@@ -4,10 +4,10 @@ export const CenterContainer = styled.div`
     margin-top: 24px;
     position: absolute;
     left: ${props=>props.styles.left};
+    transform: translate(-50%, -50%);
     top: 45%;
     margin: 30px 0;
     display: ${props=>props.styles.display};
-    transform: translate(-50%, -50%);
     transition: opacity 200ms ease-in-out, left 200ms ease-in-out;
     opacity: ${props=> props.styles.opacity}; 
     visibility: ${props=> props.styles.visibility}; 
@@ -40,11 +40,19 @@ export const FileUpload = styled.label`
 
 export const PreviewImage = styled.img`
     /* height: 450px; */
-    height: 45vh;
+    max-height: 45vh;
+    max-width: 90vw;
     width: auto;
     display: ${props => props.display};
     opacity: ${props => props.opacity};
     transition: 500ms ease-in-out;
+    object-fit: contain;
+    @media(max-height: 700px) {
+        max-height: 30vh;
+    }
+    @media(max-height: 450px) {
+        max-height: 20vh;
+    }
 `
 
 export const TextInput = styled.input`
@@ -57,4 +65,10 @@ export const TextInput = styled.input`
 export const Label = styled.label`
     font-size: 30px;
     color: #242424;
+    @media(max-width: 900px) {
+        font-size: 24px;
+    }
+    @media(max-width: 720px) {
+        font-size: 20px;
+    }
 `

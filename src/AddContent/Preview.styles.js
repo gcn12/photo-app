@@ -32,11 +32,11 @@ export const PreviewContainer = styled.div`
     margin: 18px 0px 0px 0px;
     visibility: ${props=> props?.styles?.visibility};
     transition: opacity 200ms ease-in-out, left 200ms ease-in-out;
-    top: 50%;
-    left: ${props=>props?.styles?.left};
     display: ${props=>props.styles.display};
+    /* top: 50%;
+    left: ${props=>props?.styles?.left};
     position: absolute;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
     opacity: ${props=> props?.styles?.opacity};
     height: 90vh;
     overflow-y: scroll;

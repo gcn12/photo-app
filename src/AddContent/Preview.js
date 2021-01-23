@@ -30,7 +30,6 @@ const Preview = (props) => {
                     :
                     null
                     }
-
                 </div>
                 {document.getElementById('add-content-title') ? 
                 <Title font={props.font}>{document.getElementById('add-content-title').value}</Title>
