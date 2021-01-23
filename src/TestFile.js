@@ -2,7 +2,7 @@ import React from 'react'
 import algoliasearch from 'algoliasearch'
 // import faker from 'faker'
 import { db } from './Firebase'
-import './App.css'
+// import './App.css'
 const APP_ID = ''
 const ADMIN_KEY = ''
 const client = algoliasearch(APP_ID, ADMIN_KEY)
