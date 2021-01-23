@@ -3,7 +3,7 @@ import {ReactComponent as Text} from '../Icons/Text.svg'
 import {ReactComponent as Image} from '../Icons/Image.svg'
 import {ReactComponent as Remove} from '../Icons/Remove.svg'
 import {
-    DescriptionInput,
+    // DescriptionInput,
     NewItemButton,
     RemoveLastElement,
     Container,
@@ -11,6 +11,8 @@ import {
     BodyButtonContainer,
     BodyContainer,
     ButtonIconContainer,
+    EmptyBodyContainer,
+    BodyContainer2,
 } from './AddContent.styles'
 
 const Body = (props) => {
@@ -163,7 +165,6 @@ const Body = (props) => {
         parent.appendChild(imageAndInputDiv)
         parent.appendChild(uploadButtonLabel)
         setIsAddImage(true)
-        checkAdditionalElement()
         image.onchange = ()=> {
             getImageMap(`image-input-${numberInputs}`, `image-div-${numberInputs}`, numberInputs)
             if(!document.getElementById(`image-caption-${numberInputs}`)){
@@ -177,6 +178,7 @@ const Body = (props) => {
             const buttons = document.getElementById('body-scroll-here');
             buttons.scrollIntoView();
         }
+        checkAdditionalElement()
     }
     
     const removeLastElement = () => {
@@ -217,32 +219,59 @@ const Body = (props) => {
         }
     }
 
-    const checkProceed = () => {
-        if(document.getElementById('content-paragraph-original').value.length > 10) {
-            props.setBodyProceed(true)
-        }else{
-            props.setBodyProceed(false)
-        }
-    }
+    // const checkProceed = () => {
+    //     if(document.getElementById('content-paragraph-original').value.length > 10) {
+    //         props.setBodyProceed(true)
+    //     }else{
+    //         props.setBodyProceed(false)
+    //     }
+    // }
 
     return(
-        <BodyContainer styles={props.styles}>
-            <Container id='content-form'>
+        <div style={{marginTop: '64px'}}>
+            <BodyContainer styles={props.styles}>
+                <BodyContainer2 visibility={isAdditionalElements ? 'visible' : 'hidden'} display={isAdditionalElements ? 'initial' : 'none'} >
+                    <Container id='content-form'>
+                        <Label>Body content</Label>
+                        {/* <DescriptionInput onChange={checkProceed} className='content-paragraph item-to-upload' id='content-paragraph-original'></DescriptionInput> */}
+                    </Container>
+                    {isTooManyImages ? <div>Exceeded image limit of three</div> : null}
+                    <BodyButtonContainer id='add-content-body-buttons'>
+                        {isAdditionalElements ? 
+                        <RemoveLastElement type="button" onClick={removeLastElement}>
+                            <ButtonIconContainer>
+                            {/* {`Remove last item`} */}
+                            <Remove />
+                            </ButtonIconContainer>
+                        </RemoveLastElement>
+                        :
+                        null
+                        }
+                        <NewItemButton long={!isAdditionalElements} type="button" onClick={newParagraph}>
+                            <ButtonIconContainer>
+                                <Text />
+                                {/* Add paragraph */}
+                            </ButtonIconContainer>
+                        </NewItemButton>
+                        <NewItemButton border='1px solid white' long={!isAdditionalElements} type="button" onClick={newImage}>
+                            <ButtonIconContainer>
+                                <Image />
+                                {/* Add image */}
+                            </ButtonIconContainer>
+                        </NewItemButton>
+                    </BodyButtonContainer>
+                    <div id='body-scroll-here'></div>
+                </BodyContainer2>
+                <div style={{marginTop: '72px'}}></div>
+            </BodyContainer>
+        {isAdditionalElements ? 
+        null
+        :
+        <EmptyBodyContainer styles={props.styles}>
+            <Container>
                 <Label>Body content</Label>
-                <DescriptionInput onChange={checkProceed} className='content-paragraph item-to-upload' id='content-paragraph-original'></DescriptionInput>
             </Container>
-            {isTooManyImages ? <div>Exceeded image limit of three</div> : null}
             <BodyButtonContainer id='add-content-body-buttons'>
-                {isAdditionalElements ? 
-                <RemoveLastElement type="button" onClick={removeLastElement}>
-                    <ButtonIconContainer>
-                    {/* {`Remove last item`} */}
-                    <Remove />
-                    </ButtonIconContainer>
-                </RemoveLastElement>
-                :
-                null
-                }
                 <NewItemButton long={!isAdditionalElements} type="button" onClick={newParagraph}>
                     <ButtonIconContainer>
                         <Text />
@@ -256,8 +285,9 @@ const Body = (props) => {
                     </ButtonIconContainer>
                 </NewItemButton>
             </BodyButtonContainer>
-            <div id='body-scroll-here'></div>
-        </BodyContainer>
+        </EmptyBodyContainer>}
+        </div>
+        
     )
 }
 

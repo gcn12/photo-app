@@ -29,7 +29,7 @@ export const Author = styled.div`
 
 export const PreviewContainer = styled.div`
     /* border: 10px solid black; */
-    margin: 18px 0px 0px 0px;
+    margin: 200px 0px 0px 0px;
     visibility: ${props=> props?.styles?.visibility};
     transition: opacity 200ms ease-in-out, left 200ms ease-in-out;
     display: ${props=>props.styles.display};
@@ -38,8 +38,8 @@ export const PreviewContainer = styled.div`
     position: absolute;
     transform: translate(-50%, -50%); */
     opacity: ${props=> props?.styles?.opacity};
-    height: 90vh;
-    overflow-y: scroll;
+    /* height: 90vh;
+    overflow-y: scroll; */
     /* position: absolute; 
     top: 2%;
     left: 10%; */

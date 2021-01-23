@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components'
+import styled, {  } from 'styled-components'
 
 export const UploadProgressContainer = styled.div`
     visibility: ${props=> props.styles.visibility};
@@ -12,10 +12,10 @@ export const UploadProgressContainer = styled.div`
 `
 
 export const TopButtonContainer = styled.div`
-    background-color: #dedede;
-    border-bottom: 1px solid #b3b3b3;
+    /* background-color: #dedede; */
+    /* border-bottom: 1px solid #b3b3b3; */
     position: fixed;
-    padding-bottom: 15px;
+    /* padding-bottom: 15px; */
     top: 0px;
     width: 100%;
     display: flex;
@@ -68,37 +68,59 @@ export const Container = styled.div`
     justify-content: center;
 `
 
-export const BodyContainer = styled.div`
+export const BodyContainer2 = styled.div`
+    visibility: ${props=> props.visibility}; 
+    display: ${props=> props.display};
+`
+
+export const EmptyBodyContainer = styled.div`
     /* height: 110vh; */
     /* position: relative;  */
     /* padding-top: 100px; */
     opacity: ${props=> props?.styles?.opacity};
     visibility: ${props=> props?.styles?.visibility}; 
-    /* display: ${props=> props?.styles?.display}; */
+    display: ${props=> props?.styles?.display};
     transition: opacity 200ms ease-in-out, left 200ms ease-in-out;
-    top: 50%;
+    top: 45%;
     left: ${props=>props?.styles?.left};
     position: absolute;
     transform: translate(-50%, -50%);
     display: ${props=>props.styles.display};
-    max-height: calc(100vh - 150px);
+    /* max-height: calc(100vh - 150px);
     max-height: calc(-webkit-fill-available - 150px);
-    overflow-y: scroll;
+    overflow-y: scroll; */
 `
 
-const slide = keyframes`
-    from {
-        transform: translate(-10%);
-    }
-    to {
-        transform: translate(-50%);
-    }
-`;
+export const BodyContainer = styled.div`
+    /* height: 110vh; */
+    /* position: relative;  */
+    /* padding-top: 100px; */
+    margin-top: 80px;
+    opacity: ${props=> props?.styles?.opacity};
+    visibility: ${props=> props?.styles?.visibility}; 
+    display: ${props=> props?.styles?.display};
+    transition: opacity 200ms ease-in-out, left 200ms ease-in-out;
+    /* top: 50%; */
+    /* left: ${props=>props?.styles?.left}; */
+    /* position: absolute; */
+    /* transform: translate(-50%, -50%); */
+    /* max-height: calc(100vh - 150px);
+    max-height: calc(-webkit-fill-available - 150px);
+    overflow-y: scroll; */
+`
+
+// const slide = keyframes`
+//     from {
+//         transform: translate(-10%);
+//     }
+//     to {
+//         transform: translate(-50%);
+//     }
+// `;
 
 export const CategoryLocationContainer = styled.div`
     /* height: 110vh; */
     /* position: relative;  */
-    animation: ${slide} 1s;
     margin-top: 48px;
     opacity: ${props=> props?.styles?.opacity};
     visibility: ${props=> props?.styles?.visibility}; 

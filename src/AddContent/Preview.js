@@ -21,7 +21,7 @@ import {
 const Preview = (props) => {
     return( 
         <PreviewContainer styles={props.styles}>
-        {/* <div style={{margin: '10px 0 105px 0'}}> */}
+        <div style={{margin: '80px 0 0 0'}}></div>
             <Container>
             {/* <PreviewContainer2> */}
                 <div>

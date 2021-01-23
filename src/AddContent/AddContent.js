@@ -40,7 +40,7 @@ const AddContent = (props) => {
     const [font, setFont] = useState("'Montserrat', sans-serif;")
     const [titlePhotoProceed, setTitlePhotoProceed] = useState(false)
     const [categoryLocationProceed, setCategoryLocationProceed] = useState(false)
-    const [bodyProceed, setBodyProceed] = useState(false)
+    const [bodyProceed, setBodyProceed] = useState(true)
     const [fontProceed, setFontProceed] = useState(true)
     const [isDuplicate, setIsDuplicate] = useState(false)
     const [numberCharacters, setNumberCharacters] = useState(100)
@@ -361,7 +361,8 @@ const AddContent = (props) => {
 
     const getParagraphSample = () => {
         let paragraphArr = []
-        const paragraph = document.getElementById('content-paragraph-original').value
+        // const paragraph = document.getElementById('content-paragraph-original').value
+        const paragraph = document.getElementsByClassName('add-content-description-input')[0].value
         const splitParagraph = paragraph.split('\n')
         let finalParagraph = splitParagraph[0].slice(0, 400)
         finalParagraph = finalParagraph.trim()
@@ -505,9 +506,7 @@ const AddContent = (props) => {
             {switchValue === 7 ? 
             null
             :
-            <div>
                 <Preview previewImageSizeRatio={previewImageSizeRatio} previewImages={previewImages} filesSmall={filesSmall} itemsToUploadData={itemsToUploadData} font={font} isImageHorizontal={isImageHorizontal} imageSizeRatio={imageSizeRatio} bodyImages={bodyImages} bodyContent={bodyContent} filesLarge={filesLarge} styles={previewStyles}></Preview>
-            </div>
             }
             <TitlePhoto setFilesSmallest={setFilesSmallest} fileNames={fileNames} setFileNames={setFileNames}  filesLarge={filesLarge} filesSmall={filesSmall} setFilesLarge={setFilesLarge} setFilesSmall={setFilesSmall} isDuplicate={isDuplicate} setTitlePhotoProceed={setTitlePhotoProceed} setIsImageHorizontal={setIsImageHorizontal} setTitlePhotoStyles={setTitlePhotoStyles} styles={titlePhotoStyles}/>
             <CategoryLocation setCategoryLocationProceed={setCategoryLocationProceed} styles={categoryLocationStyles}/>
@@ -521,7 +520,7 @@ const AddContent = (props) => {
             :
             <div>
                 <TopButtonContainer>
-                    <NextButton proceed={1} width='130px' onClick={()=>props.history.goBack()}>Back</NextButton>
+                    <NextButton proceed={1} width='130px' onClick={()=>props.history.goBack()}>Cancel</NextButton>
                 </TopButtonContainer>
                 <ButtonContainer>
                     {switchValue === 1 ? 
