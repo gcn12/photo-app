@@ -71,17 +71,17 @@ export const Container = styled.div`
 export const BodyContainer = styled.div`
     /* height: 110vh; */
     /* position: relative;  */
-    margin-top: 56px;
+    /* margin-top: 56px; */
     opacity: ${props=> props?.styles?.opacity};
     visibility: ${props=> props?.styles?.visibility}; 
     /* display: ${props=> props?.styles?.display}; */
     transition: opacity 200ms ease-in-out, left 200ms ease-in-out;
-    top: 45%;
+    top: 50%;
     left: ${props=>props?.styles?.left};
     position: absolute;
     transform: translate(-50%, -50%);
     display: ${props=>props.styles.display};
-    max-height: 90vh;
+    max-height: calc(100vh - 150px);
     overflow-y: scroll;
 `
 
@@ -237,7 +237,7 @@ export const BodyButtonContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 20px 0 70px 0;
+    margin: 20px 0 20px 0;
 `
 
 export const PostDescriptionContainer = styled.div`

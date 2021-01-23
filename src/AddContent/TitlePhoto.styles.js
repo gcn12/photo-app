@@ -11,9 +11,12 @@ export const CenterContainer = styled.div`
     opacity: ${props=> props.styles.opacity}; 
     visibility: ${props=> props.styles.visibility}; 
     overflow-y: scroll;
-    max-height: 80vh;
+    max-height: calc(100vh - 150px);
     /* margin-top: 18px; */
     /* display: ${props=> props.styles.visibility}; */
+    /* @media(max-height: 800px) {
+        max-height: 60vh;
+    } */
 `
 
 export const Container = styled.div`
