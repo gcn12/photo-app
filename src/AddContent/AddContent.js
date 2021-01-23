@@ -16,6 +16,7 @@ import {
     NextButton,
     ButtonContainer,
     UploadProgressContainer,
+    TopButtonContainer,
 } from './AddContent.styles'
 import { photoInformation } from '../Redux/Actions/appActions'
 
@@ -391,7 +392,7 @@ const AddContent = (props) => {
                 setTitlePhotoProceed(false)
             }else{
                 setIsDuplicate(false)
-                setTitlePhotoStyles({...titlePhotoStyles, left: '10%', opacity: 0, display: 'none', visibility: 'hidden'})
+                setTitlePhotoStyles({...titlePhotoStyles, left: '20%', opacity: 0, display: 'none', visibility: 'hidden'})
                 setCategoryLocationStyles({opacity: 1, left: '50%', visibility: 'visible', display: 'initial'})
                 setSwitchValue(2)
             }
@@ -471,7 +472,7 @@ const AddContent = (props) => {
                 break
             case 3:
                 setCategoryLocationStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',})
-                setCreateDescriptionStyles({opacity: 0, visibility: 'hidden', left: '50%', display: 'none',})
+                setCreateDescriptionStyles({opacity: 0, visibility: 'hidden', left: '80%', display: 'none',})
                 setSwitchValue(2)
                 break
             case 4: 
@@ -505,8 +506,6 @@ const AddContent = (props) => {
             null
             :
             <div>
-
-                <NextButton proceed={1} width='130px' onClick={()=>props.history.goBack()}>Back</NextButton>
                 <Preview previewImageSizeRatio={previewImageSizeRatio} previewImages={previewImages} filesSmall={filesSmall} itemsToUploadData={itemsToUploadData} font={font} isImageHorizontal={isImageHorizontal} imageSizeRatio={imageSizeRatio} bodyImages={bodyImages} bodyContent={bodyContent} filesLarge={filesLarge} styles={previewStyles}></Preview>
             </div>
             }
@@ -520,31 +519,36 @@ const AddContent = (props) => {
             {switchValue === 7 ? 
             null
             :
-            <ButtonContainer>
-                {switchValue === 1 ? 
-                null
-                :
-                <NextButton proceed={1} width='150px' onClick={transitionSwitchBack}>Back</NextButton>
-                }
-                {(()=> {
-                    switch (switchValue) {
-                        case 1: 
-                            return <NextButton proceed={titlePhotoProceed} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
-                        case 2: 
-                            return <NextButton proceed={categoryLocationProceed} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
-                        case 3:
-                            return <NextButton proceed={numberCharacters >= 0 ? true : false} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
-                        case 4: 
-                            return <NextButton proceed={bodyProceed} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
-                        case 5: 
-                            return <NextButton proceed={fontProceed} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Preview</NextButton>
-                        case 6:
-                            return <NextButton proceed={true} width={switchValue === 1 ? '300px' :'150px'} onClick={transitionSwitchNext}>Submit</NextButton>
-                        default: 
-                            return null
+            <div>
+                <TopButtonContainer>
+                    <NextButton proceed={1} width='130px' onClick={()=>props.history.goBack()}>Back</NextButton>
+                </TopButtonContainer>
+                <ButtonContainer>
+                    {switchValue === 1 ? 
+                    null
+                    :
+                    <NextButton proceed={1} width='150px' onClick={transitionSwitchBack}>Back</NextButton>
                     }
-                })()}
-            </ButtonContainer>
+                    {(()=> {
+                        switch (switchValue) {
+                            case 1: 
+                                return <NextButton proceed={titlePhotoProceed} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
+                            case 2: 
+                                return <NextButton proceed={categoryLocationProceed} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
+                            case 3:
+                                return <NextButton proceed={numberCharacters >= 0 ? true : false} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
+                            case 4: 
+                                return <NextButton proceed={bodyProceed} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
+                            case 5: 
+                                return <NextButton proceed={fontProceed} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Preview</NextButton>
+                            case 6:
+                                return <NextButton proceed={true} width={switchValue === 1 ? '300px' :'150px'} onClick={transitionSwitchNext}>Submit</NextButton>
+                            default: 
+                                return null
+                        }
+                    })()}
+                </ButtonContainer>
+            </div>
             }     
         </div>
     )

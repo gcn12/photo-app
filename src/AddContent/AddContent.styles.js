@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 export const UploadProgressContainer = styled.div`
     visibility: ${props=> props.styles.visibility};
@@ -9,6 +9,17 @@ export const UploadProgressContainer = styled.div`
     left: ${props=>props?.styles?.left};
     position: absolute;
     transform: translate(-50%, -50%);
+`
+
+export const TopButtonContainer = styled.div`
+    background-color: #dedede;
+    border-bottom: 1px solid #b3b3b3;
+    position: fixed;
+    padding-bottom: 15px;
+    top: 0px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
 `
 
 export const ButtonContainer = styled.div`
@@ -31,7 +42,7 @@ export const NextButton = styled.button`
     /* background-color: #141414; */
     background-color: ${props=> props.proceed ? '#141414' : '#6e6e6e'};
     border: none;
-    /* position: absolute; */
+    /* position: fixed; */
     width: ${props => props.width};
     /* width: 120px; */
     height: 50px;
@@ -74,9 +85,19 @@ export const BodyContainer = styled.div`
     overflow-y: scroll;
 `
 
+const slide = keyframes`
+    from {
+        transform: translate(-10%);
+    }
+    to {
+        transform: translate(-50%);
+    }
+`;
+
 export const CategoryLocationContainer = styled.div`
     /* height: 110vh; */
     /* position: relative;  */
+    animation: ${slide} 1s;
     margin-top: 48px;
     opacity: ${props=> props?.styles?.opacity};
     visibility: ${props=> props?.styles?.visibility}; 
@@ -143,6 +164,9 @@ export const NewItemButton = styled.button`
     &:hover {
         background-color: #212121;
     }
+    @media(max-width: 720px) {
+        width: ${props=> props.long ? '40vw ': '32vw'};
+    }
 `
 
 export const RemoveLastElement = styled.button`
@@ -155,8 +179,8 @@ export const RemoveLastElement = styled.button`
     transition: background-color 400ms;
     margin: 20px 0;
 
-    &:hover {
-        /* background-color: #212121; */
+    @media(max-width: 720px) {
+        width: 16vw;
     }
 `
 
@@ -170,6 +194,9 @@ export const DescriptionInput = styled.textarea`
     width: 60vw;
     height: 150px;
     font-size: 20px;
+    @media(max-width: 720px) {
+        width: 80vw;
+    } 
     /* margin-bottom: 20px; */
 `
 
@@ -195,6 +222,17 @@ export const Label = styled.label`
     color: #242424;
 `
 
+export const DescriptionLabel = styled.label`
+    font-size: 30px;
+    color: #242424;
+    @media(max-width: 900px) {
+        font-size: 24px;
+    }
+    @media(max-width: 730px) {
+        font-size: 20px;
+    }
+`
+
 export const BodyButtonContainer = styled.div`
     display: flex;
     align-items: center;
@@ -215,13 +253,15 @@ export const PostDescriptionContainer = styled.div`
     left: ${props=>props?.styles?.left};
     position: absolute;
     transform: translate(-50%, -50%);
-    width: 60vw;
 `
 
 export const PostDescriptionInput = styled.textarea`
-    width: 600px;
+    width: 60vw;
     height: 150px;
     font-size: 20px;
+    @media(max-width: 720px) {
+        width: 80vw;
+    }
 `
 
 export const ButtonIconContainer = styled.div`
