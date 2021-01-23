@@ -3,10 +3,10 @@ import {
     PreviewImage,
     TextInput,
     Container,
-    Label,
     FileUpload,
     CenterContainer,
 } from './TitlePhoto.styles'
+import { Label } from './AddContent.styles'
 
 const TitlePhoto = (props) => {
 
@@ -140,7 +140,6 @@ const TitlePhoto = (props) => {
                 <FileUpload htmlFor='photo-input'>Select image</FileUpload>
                 <br></br>
                 <PreviewImage onLoad={()=>setIsVisible(true)} display={isVisible ? 'initial' : 'none'} opacity={isVisible ? 1 : 0} alt='preview' id='previewImage'></PreviewImage>
-                
                 <br></br>
             </Container>
         </CenterContainer>

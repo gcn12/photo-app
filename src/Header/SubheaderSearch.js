@@ -51,7 +51,7 @@ const Subheader = (props) => {
                     </div>
                     <div style={{display: 'flex'}} >
                         <div style={{display: 'flex'}} className='categories-dropdown'>
-                        </div>
+                    </div>
                     </div>
                 </ULSearch>
             </Container>

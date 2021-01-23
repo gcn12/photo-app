@@ -5,7 +5,6 @@ import { ReactComponent as FilledBookmark } from '../Icons/FilledBookmark.svg'
 import { ReactComponent as Profile } from '../Icons/Profile.svg'
 import { ReactComponent as Collections } from '../Icons/Collections.svg'
 import { ReactComponent as Plane } from '../Icons/Plane.svg'
-import { ReactComponent as Gear } from '../Icons/Gear.svg'
 import { connect } from 'react-redux'
 import { profilePage } from '../Redux/Actions/profileActions'
 import { user, userPosts, userData } from '../Redux/Actions/appActions'
@@ -89,14 +88,6 @@ const ProfileDropdown = (props) => {
                     </OptionIconContainer>
                 </Link>
                 <div style={{marginBottom: '10px'}}></div>
-                <Link onClick={()=> pageRoute('settings')} to='/photo-app/profile/settings' style={{ textDecoration: 'none' }}>
-                    <OptionIconContainer>
-                        <OptionIcon>
-                            <Gear style={{transform: 'scale(.8)', position: 'relative', top: 4}} />
-                        </OptionIcon>
-                        <OptionText>Settings</OptionText>
-                    </OptionIconContainer>
-                </Link>
                 <OptionIconContainer radius='0 0 5px 5px'>
                     <OptionIcon>
                         <Plane style={{transform: 'scale(.8)', position: 'relative', top: 4}} />

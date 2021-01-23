@@ -24,9 +24,6 @@ const ProfileHeaderDesktop = (props) => {
                 <Link to='/photo-app/profile/collections' style={{textDecoration: 'none'}}>
                     <LI style={{borderBottom: props.profilePage==='collections'  ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('collections'))}>Collections</LI>
                 </Link>
-                <Link to='/photo-app/profile/settings' style={{textDecoration: 'none'}}>
-                    <LI style={{borderBottom: props.profilePage==='settings' ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('settings'))}>Settings</LI>
-                </Link>
             </UL>
         </HeaderContainer>
     )

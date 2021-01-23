@@ -61,14 +61,3 @@ export const TextInput = styled.input`
     font-size: 20px;
     margin-bottom: 20px;
 `
-
-export const Label = styled.label`
-    font-size: 30px;
-    color: #242424;
-    @media(max-width: 900px) {
-        font-size: 24px;
-    }
-    @media(max-width: 720px) {
-        font-size: 20px;
-    }
-`

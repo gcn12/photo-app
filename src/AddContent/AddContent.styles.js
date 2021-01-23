@@ -84,9 +84,9 @@ export const CategoryLocationContainer = styled.div`
     left: ${props=>props?.styles?.left};
     position: absolute;
     transform: translate(-50%, -50%);
-    display: ${props=>props.styles.display};
-    max-height: 90vh;
-    overflow-y: scroll;
+    display: ${props=>props.styles.display === 'none' ? 'none' : 'flex'};
+    align-items: center;
+    flex-direction: column;
 `
 
 export const FileUpload = styled.label`
@@ -96,10 +96,6 @@ export const FileUpload = styled.label`
     color: black;
     cursor: pointer;
     font-size: 20px;
-`
-
-export const PreviewContainer = styled.div`
-
 `
 
 export const PreviewImage = styled.img`
@@ -194,6 +190,12 @@ export const SelectInput = styled.select`
 export const Label = styled.label`
     font-size: 30px;
     color: #242424;
+    @media(max-width: 900px) {
+        font-size: 24px;
+    }
+    @media(max-width: 720px) {
+        font-size: 20px;
+    }
 `
 
 export const DescriptionLabel = styled.label`

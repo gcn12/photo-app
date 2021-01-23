@@ -32,9 +32,6 @@ const ProfileHeaderMobile = (props) => {
                     <Link onClick={()=>setToggleNavigation(false)} to='/photo-app/profile/collections' style={{textDecoration: 'none'}}>
                         <MobileLI style={{borderBottom: props.profilePage==='collections'  ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('collections'))}>Collections</MobileLI>
                     </Link>
-                    <Link onClick={()=>setToggleNavigation(false)} to='/photo-app/profile/settings' style={{textDecoration: 'none'}}>
-                        <MobileLI style={{borderBottom: props.profilePage==='settings' ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('settings'))}>Settings</MobileLI>
-                    </Link>
                 </MobileUL>
             </MobileNavigation>
             <Navigation onClick={()=>setToggleNavigation(!toggleNavigation)}>

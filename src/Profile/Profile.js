@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import Collections from '../Collections/Collections'
 import { connect } from 'react-redux'
-import Settings from '../Settings/Settings'
 import UserPrivateProfile from '../UserPrivateProfile/UserPrivateProfile'
 import SavedPosts from '../SavedPosts/SavedPostsComponent'
 import AdmiredPosts from '../AdmiredPosts/AdmiredPostsComponent'
@@ -43,8 +42,6 @@ const Profile = (props) => {
                             return(
                                 <Collections history={props.history} />
                             )
-                        case 'settings':
-                            return <Settings history={props.history} setUser={props.setUser} />
                         default:
                             return <UserPrivateProfile getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} getUserProfile={props.getUserProfile} history={props.history} />
                     }
