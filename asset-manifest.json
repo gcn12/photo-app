@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/photo-app/static/css/main.4bafdd83.chunk.css",
-    "main.js": "/photo-app/static/js/main.5aa0a362.chunk.js",
-    "main.js.map": "/photo-app/static/js/main.5aa0a362.chunk.js.map",
+    "main.css": "/photo-app/static/css/main.ce582b76.chunk.css",
+    "main.js": "/photo-app/static/js/main.2cc96807.chunk.js",
+    "main.js.map": "/photo-app/static/js/main.2cc96807.chunk.js.map",
     "runtime-main.js": "/photo-app/static/js/runtime-main.0f9c0224.js",
     "runtime-main.js.map": "/photo-app/static/js/runtime-main.0f9c0224.js.map",
-    "static/js/2.e9adf778.chunk.js": "/photo-app/static/js/2.e9adf778.chunk.js",
-    "static/js/2.e9adf778.chunk.js.map": "/photo-app/static/js/2.e9adf778.chunk.js.map",
+    "static/js/2.77feeedd.chunk.js": "/photo-app/static/js/2.77feeedd.chunk.js",
+    "static/js/2.77feeedd.chunk.js.map": "/photo-app/static/js/2.77feeedd.chunk.js.map",
     "static/js/3.b886a80e.chunk.js": "/photo-app/static/js/3.b886a80e.chunk.js",
     "static/js/3.b886a80e.chunk.js.map": "/photo-app/static/js/3.b886a80e.chunk.js.map",
     "index.html": "/photo-app/index.html",
-    "static/css/main.4bafdd83.chunk.css.map": "/photo-app/static/css/main.4bafdd83.chunk.css.map",
-    "static/js/2.e9adf778.chunk.js.LICENSE.txt": "/photo-app/static/js/2.e9adf778.chunk.js.LICENSE.txt",
+    "static/css/main.ce582b76.chunk.css.map": "/photo-app/static/css/main.ce582b76.chunk.css.map",
+    "static/js/2.77feeedd.chunk.js.LICENSE.txt": "/photo-app/static/js/2.77feeedd.chunk.js.LICENSE.txt",
     "static/media/Add.9e5fd29d.svg": "/photo-app/static/media/Add.9e5fd29d.svg",
     "static/media/Collections.d3c075e6.svg": "/photo-app/static/media/Collections.d3c075e6.svg",
     "static/media/Compass.9614c832.svg": "/photo-app/static/media/Compass.9614c832.svg",
@@ -20,7 +20,6 @@
     "static/media/EmptyHeart.0c52fcba.svg": "/photo-app/static/media/EmptyHeart.0c52fcba.svg",
     "static/media/FilledBookmark.4ae6cdc3.svg": "/photo-app/static/media/FilledBookmark.4ae6cdc3.svg",
     "static/media/FilledHeart.246dfe67.svg": "/photo-app/static/media/FilledHeart.246dfe67.svg",
-    "static/media/Gear.6f0dcc66.svg": "/photo-app/static/media/Gear.6f0dcc66.svg",
     "static/media/Image.89d37a67.svg": "/photo-app/static/media/Image.89d37a67.svg",
     "static/media/Plane.a3046dd8.svg": "/photo-app/static/media/Plane.a3046dd8.svg",
     "static/media/Profile.a85c8195.svg": "/photo-app/static/media/Profile.a85c8195.svg",
@@ -31,8 +30,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.0f9c0224.js",
-    "static/js/2.e9adf778.chunk.js",
-    "static/css/main.4bafdd83.chunk.css",
-    "static/js/main.5aa0a362.chunk.js"
+    "static/js/2.77feeedd.chunk.js",
+    "static/css/main.ce582b76.chunk.css",
+    "static/js/main.2cc96807.chunk.js"
   ]
 }
