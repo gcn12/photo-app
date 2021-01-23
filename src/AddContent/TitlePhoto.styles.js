@@ -5,6 +5,7 @@ export const CenterContainer = styled.div`
     position: absolute;
     left: ${props=>props.styles.left};
     top: 45%;
+    margin: 30px 0;
     display: ${props=>props.styles.display};
     transform: translate(-50%, -50%);
     transition: opacity 200ms ease-in-out, left 200ms ease-in-out;
@@ -12,6 +13,7 @@ export const CenterContainer = styled.div`
     visibility: ${props=> props.styles.visibility}; 
     overflow-y: scroll;
     max-height: calc(100vh - 150px);
+    max-height: calc(-webkit-fill-available - 150px);
     /* margin-top: 18px; */
     /* display: ${props=> props.styles.visibility}; */
     /* @media(max-height: 800px) {

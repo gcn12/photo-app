@@ -71,7 +71,7 @@ export const Container = styled.div`
 export const BodyContainer = styled.div`
     /* height: 110vh; */
     /* position: relative;  */
-    /* margin-top: 56px; */
+    /* padding-top: 100px; */
     opacity: ${props=> props?.styles?.opacity};
     visibility: ${props=> props?.styles?.visibility}; 
     /* display: ${props=> props?.styles?.display}; */
@@ -82,6 +82,7 @@ export const BodyContainer = styled.div`
     transform: translate(-50%, -50%);
     display: ${props=>props.styles.display};
     max-height: calc(100vh - 150px);
+    max-height: calc(-webkit-fill-available - 150px);
     overflow-y: scroll;
 `
 

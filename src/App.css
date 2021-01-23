@@ -70,6 +70,18 @@ background-clip: padding-box;
     width: 60vw;
 }
 
+@media only screen and (max-width: 720px) {
+    .image-caption-input {
+        width: 80vw;
+    }
+    .add-content-description-input {
+        width: 80vw;
+    }
+    .new-header-input {
+        width: 80vw;
+    }
+}
+
 .upload-gallery-image {
     height: 200px;
     color: white;
