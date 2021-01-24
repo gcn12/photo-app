@@ -25,9 +25,9 @@ const TitlePhoto = (props) => {
             uploadedImage.onload = function () {
                 const height = this.height;
                 const width = this.width;
-                if(height / width > 1)  {
-                    props.setIsImageHorizontal(false)
-                }
+                // if(height / width > 1)  {
+                //     props.setIsImageHorizontal(false)
+                // }
                 const image = document.getElementById('previewImage')
                 let ratio
                 if(height < width) {

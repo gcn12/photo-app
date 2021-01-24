@@ -111,12 +111,14 @@ export const Image = styled.img`
     }
     animation: ${fadeIn} 1s;
 `
+
 export const PlaceholderImage = styled.div`
-    
+    object-fit: cover;
     cursor: pointer;
     margin-bottom: 12px;
     width: 100%;
-    max-width: 450px;
+    min-width: 350px;
+    max-width: 400px;
     max-height: 300px;
     height: 10vw;
     min-height: 250px;

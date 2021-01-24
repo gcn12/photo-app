@@ -3,7 +3,7 @@ import {ReactComponent as Text} from '../Icons/Text.svg'
 import {ReactComponent as Image} from '../Icons/Image.svg'
 import {ReactComponent as Remove} from '../Icons/Remove.svg'
 import { connect } from 'react-redux'
-import { imageSizeRatio, filesSmall, filesLarge, fileNames } from '../Redux/Actions/addContentActions'
+import { imageSizeRatio, filesSmall, filesLarge, fileNames, bodyProceed } from '../Redux/Actions/addContentActions'
 import {
     NewItemButton,
     RemoveLastElement,
@@ -61,7 +61,7 @@ const Body = (props) => {
                                     const index = inputID[inputID.length-1]
                                     const imageSizeRatioCopy = props.imageSizeRatio 
                                     imageSizeRatioCopy[index] = percentageArray
-                                    props.dispacth(imageSizeRatio(imageSizeRatioCopy))
+                                    props.dispatch(imageSizeRatio(imageSizeRatioCopy))
                                 }
     
                                 let ratio
@@ -211,8 +211,10 @@ const Body = (props) => {
         const additionalElements = document.getElementsByClassName('additional-item')
         if(additionalElements.length > 0) {
             setIsAdditionalElements(true)
+            props.dispatch(bodyProceed(true))
         }else{
             setIsAdditionalElements(false)
+            props.dispatch(bodyProceed(false))
         }
     }
 

@@ -17,6 +17,7 @@ import {
     ButtonContainer,
     UploadProgressContainer,
     TopButtonContainer,
+    CancelButton,
 } from './AddContent.styles'
 import { 
     titlePhotoStyles,
@@ -37,6 +38,7 @@ import {
     filesIndex,
     previewImages,
     previewImageSizeRatio,
+    resetState,
 } from '../Redux/Actions/addContentActions'
 import { photoInformation } from '../Redux/Actions/appActions'
 
@@ -46,7 +48,7 @@ const AddContent = (props) => {
 
     const submit = (imagesEmptyArraysSmall, imagesEmptyArraysLarge, unsortedImages, imageMap, imageSizeArray, dataObj, filesIndex, postID) => {
 
-        const title = document.getElementById('add-content-title').value
+        let title = document.getElementById('add-content-title').value.trim()
         const location = document.getElementById('autocomplete').value
         const locationArray = location.split(',')
         const country = locationArray[locationArray.length-1].trim()
@@ -55,10 +57,6 @@ const AddContent = (props) => {
         const descriptionArray = []
         const content = document.getElementsByClassName('content-paragraph')
 
-        let titleNoBlankSpace = title.trim()
-        let url = titleNoBlankSpace.split(' ')
-        url = url.join('-')
-        url = url.toLowerCase()
     
         for (let i=0; i<content.length; i++) {
             descriptionArray.push(String(content[i].value))
@@ -127,7 +125,7 @@ const AddContent = (props) => {
                 setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                 db.collection('posts').add({
                     bio,
-                    [props.font]: props.font,
+                    font: props.font,
                     profileImage,
                     photoBodyMap: imageSizeArrayWithIndex,
                     imagesLarge: urlObjectLarge,
@@ -142,10 +140,8 @@ const AddContent = (props) => {
                     country,
                     name,
                     location,
-                    locationArray,
                     dataObj,
                     postID,
-                    url,
                     username,
                     userID: props.userInformation.id,
                 }).then(docRef => {
@@ -165,14 +161,11 @@ const AddContent = (props) => {
                             name,
                             previewDescription,
                             smallImage: mainImageSmall,
-                            smallestImage: mainImageSmallest,
                             title,
                             image: mainImage,
                             category,
                             postID,
-                            locationArray,
                             location,
-                            url,
                             views,
                             hearts,
                             ratio,
@@ -184,8 +177,9 @@ const AddContent = (props) => {
                             .collection('post-names')
                             .doc('post-names')
                             .set({
-                                'post-names': firebase.firestore.FieldValue.arrayUnion(url)
+                                'post-names': firebase.firestore.FieldValue.arrayUnion(title)
                             }, {merge: true})
+                            props.dispatch(resetState())
                             setTimeout(()=>props.dispatch(uploadProgressColor(true), 300))
                             setTimeout(()=>props.getFeaturedPhotoInfo(postID), 2000)
                             setTimeout(()=>props.history.push(`/photo-app/post/${postID}`), 2000)
@@ -351,12 +345,9 @@ const AddContent = (props) => {
 
     const checkTitleDuplicates = () => {
         const title = document.getElementById('add-content-title').value
-        let url = title.split(' ')
-        url = url.join('-')
-        url = url.toLowerCase()
         db.collection('users').doc(props.user)
         .collection('post-names')
-        .where('post-names', 'array-contains', url)
+        .where('post-names', 'array-contains', title)
         .get()
         .then(data=> {
             let dataArray = []
@@ -386,6 +377,11 @@ const AddContent = (props) => {
             imagesArray.push(subArray)
         }
         props.dispatch(bodyImages(imagesArray))
+    }
+
+    const cancelUpload = () => {
+        props.history.goBack()
+        props.dispatch(resetState())
     }
 
     const transitionSwitchNext = () => {
@@ -491,7 +487,7 @@ const AddContent = (props) => {
             :
             <div>
                 <TopButtonContainer>
-                    <NextButton proceed={1} width='130px' onClick={()=>props.history.goBack()}>Cancel</NextButton>
+                    <CancelButton backgroundColor='#fa4670' proceed={true} width='130px' onClick={cancelUpload}>Cancel</CancelButton>
                 </TopButtonContainer>
                 <ButtonContainer>
                     {props.switchValue === 1 ? 
@@ -544,7 +540,6 @@ const mapStateToProps = state => ({
     filesLarge: state.addContent.filesLarge,
     fileNames: state.addContent.fileNames,
     itemsToUploadData: state.addContent.itemsToUploadData,
-    // imageSizeArray: state.addContent.imageSizeArray,
     filesIndex: state.addContent.filesIndex,
     imageSizeRatio: state.addContent.imageSizeRatio,
 })

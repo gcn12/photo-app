@@ -23,20 +23,15 @@ const UserPrivateProfilesPosts = (props) => {
     const [showOptions, setShowOptions] = useState(false)
     const [showDelete, setShowDelete] = useState(false)
     const [showEdit, setShowEdit] = useState(false)
-    const [postData, setPostData] = useState([])
+    const [postData, setPostData] = useState({})
 
 
     const getPostData = () => {
         db.collection('posts')
-        .where('username', '==', props.post.username)
-        .where('url', '==', props.post.url)
+        .doc(props.post.id)
         .get()
-        .then(data=> {
-            const dataArray = []
-            data.forEach(item=> {
-                dataArray.push(item.data())
-            })
-            setPostData([...dataArray])
+        .then(post=> {
+            setPostData({...post.data()})
         })
     }
 

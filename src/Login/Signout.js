@@ -5,5 +5,3 @@ export const signout = () => {
     .then(()=>null)
     .catch(error=>console.log(error))
 }
-
-export default signout

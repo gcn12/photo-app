@@ -55,7 +55,7 @@ const AdmiredDropdown = (props) => {
     }
 
     const bookmark = () => {
-        const { views, hearts, ratio, ...data } = props.photoInfo
+        const { views, hearts, ratio, image, font, bio, category, country, location, profileImage, smallestImage, ...data } = props.photoInfo
         db.collection('users')
         .doc(props.user)
         .collection('admired')
@@ -76,7 +76,7 @@ const AdmiredDropdown = (props) => {
         .doc(props.user)
         .collection('admired')
         .where('username', '==', props.photoInfo.username)
-        .where('url', '==', props.photoInfo.url)
+        .where('postID', '==', props.photoInfo.postID)
         .get()
         .then(data=> {
             data.docs[0].ref.delete()

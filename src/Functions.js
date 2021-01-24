@@ -45,20 +45,3 @@ export const decrementHeartCount = (docID) => {
     })
     .then(()=>null)
 }
-
-export const calculateLikeRatio = (docID) => {
-    const collectionRef = db.collection('preview-posts').doc(docID)
-    collectionRef.get()
-    .then(info=> {
-        const data = info.data()
-        let ratio
-        if(data.hearts > 0 && data.views > 0) {
-            ratio = data.hearts / data.views
-        }else{
-            ratio = 0
-        }
-        collectionRef.update({
-            ratio
-        })
-    })
-}

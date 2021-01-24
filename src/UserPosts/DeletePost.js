@@ -33,7 +33,6 @@ const DeletePost = (props) => {
             location: props.post.location,
             country: props.post.country,
             username: props.post.username,
-            url: props.post.url,
             image: props.image,
             id: props.user,
         }).then(()=> {

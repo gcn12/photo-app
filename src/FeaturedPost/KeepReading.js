@@ -35,7 +35,7 @@ const KeepReading = (props) => {
                 }else{
                     db.collection('preview-posts')
                     .orderBy('ratio', 'desc')
-                    .where('country', '==', props.photoInformation.locationArray[props.photoInformation.locationArray.length-1])
+                    .where('country', '==', props.photoInformation.country)
                     .limit(5)
                     .get()
                     .then(countryData=> {
@@ -48,7 +48,7 @@ const KeepReading = (props) => {
                         })
                         if (dataArray.length===4) {
                             setPosts(dataArray)
-                            setPostType(props.photoInformation.locationArray[props.photoInformation.locationArray.length-1])
+                            setPostType(props.photoInformation.country)
                         }else{
                             db.collection('preview-posts')
                             .orderBy('ratio', 'desc')

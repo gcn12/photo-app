@@ -26,6 +26,13 @@ export const ITEMS_TO_UPLOAD_DATA = 'ITEMS_TO_UPLOAD_DATA'
 export const FILES_INDEX = 'FILES_INDEX'
 export const PREVIEW_IMAGES = 'PREVIEW_IMAGES'
 export const PREVIEW_IMAGE_SIZE_RATIO = 'PREVIEW_IMAGE_SIZE_RATIO'
+export const RESET_STATE = 'RESET_STATE'
+
+export function resetState() {
+    return {
+        type: RESET_STATE
+    }
+}
 
 export function previewImageSizeRatio(data) {
     return(dispatch) => {

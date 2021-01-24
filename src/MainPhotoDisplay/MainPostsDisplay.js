@@ -7,7 +7,7 @@ import {
     DisplayContainer,
     LoadMoreButtonContainer,
     CenterLocation,
-} from './MainPhotoDisplayVertical.styles'
+} from './MainPostsDisplay.styles'
 import { SubmitButton } from '../AddContent/AddContent.styles'
 
 const GetPhotos = (props) => {

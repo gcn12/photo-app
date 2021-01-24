@@ -11,7 +11,7 @@ import {
     Triangle,
 } from '../Styles/DropdownStyles.styles'
 
-const AddDropdown = (props) => {
+const DescriptionViewDropdown = (props) => {
 
     const getCollectionsList = () => {
         props.openAddToCollection()
@@ -53,7 +53,7 @@ const AddDropdown = (props) => {
     }
 
     const bookmark = () => {
-        const { views, hearts, ratio, ...data } = props.photoInfo
+        const { views, category, country, location, image, hearts, ratio, ...data } = props.photoInfo
         db.collection('users')
         .doc(props.user)
         .collection('bookmarked')
@@ -74,7 +74,7 @@ const AddDropdown = (props) => {
         .doc(props.user)
         .collection('bookmarked')
         .where('username', '==', props.photoInfo.username)
-        .where('url', '==', props.photoInfo.url)
+        .where('postID', '==', props.photoInfo.postID)
         .get()
         .then(data=> {
             data.docs[0].ref.delete()
@@ -121,4 +121,4 @@ const mapStateToProps = state => ({
     user: state.app.user,
 })
 
-export default connect(mapStateToProps)(AddDropdown)
+export default connect(mapStateToProps)(DescriptionViewDropdown)

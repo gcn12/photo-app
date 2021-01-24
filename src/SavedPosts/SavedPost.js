@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom' 
-import AddDropdown from '../MainPhotoDisplay/AddDropdown'
+import DescriptionViewDropdown from '../MainPhotoDisplay/DescriptionViewDropdown'
 import { connect } from 'react-redux'
 import { isPostVisible, isVisible } from '../Redux/Actions/featuredPostActions'
 import AddToCollection from '../FeaturedPost/AddToCollection'
@@ -78,7 +78,7 @@ const SavedPost = (props) => {
                     <div style={{position: 'relative'}}>
                         <More onClick={()=> setShowDropdown(!showDropdown)} className='add-dropdown'>&#8942;</More>
                         {showDropdown ? 
-                        <AddDropdown setShowSpinner={setShowSpinner} openAddToCollection={openAddToCollection} setShowDropdown={setShowDropdown} isRemoveFromSavedPage={true} index={props.index} removeFromSavedPostArray={removeFromSavedPostArray} translateContainer='translate(-90%, 5%)' setCollectionsList={setCollectionsList} id={props.post.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.post} />
+                        <DescriptionViewDropdown setShowSpinner={setShowSpinner} openAddToCollection={openAddToCollection} setShowDropdown={setShowDropdown} isRemoveFromSavedPage={true} index={props.index} removeFromSavedPostArray={removeFromSavedPostArray} translateContainer='translate(-90%, 5%)' setCollectionsList={setCollectionsList} id={props.post.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.post} />
                         :
                         null
                         }

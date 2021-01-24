@@ -19,7 +19,6 @@ import KeepReading from './KeepReading'
 import { 
     incrementHeartCount, 
     decrementHeartCount,
-    calculateLikeRatio,
 } from '../Functions'
 import moment from 'moment'
 import {
@@ -62,7 +61,7 @@ const FeaturedPost = (props) => {
     const [showSpinner, setShowSpinner] = useState(true)
 
     const bookmark = () => {
-        const {views, hearts, ratio, dataObj, font, imagesLarge, imagesSmall, photoBodyMap, ...data } = props.photoInformation
+        const {views, font, bio, category, country, image, location, profileImage, smallestImage, hearts, ratio, dataObj, imagesLarge, imagesSmall, photoBodyMap, ...data } = props.photoInformation
         db.collection('users')
         .doc(props.user)
         .collection('bookmarked')
@@ -174,8 +173,8 @@ const FeaturedPost = (props) => {
 
     
 
-    const heartImage = () => {
-        const {views, hearts, ratio, dataObj, font, imagesLarge, imagesSmall, photoBodyMap, ...data } = props.photoInformation
+    const admireImage = () => {
+        const {profileImage, country, location, views, hearts, ratio, dataObj, bio, category, smallestImage, font, image, imagesLarge, imagesSmall, photoBodyMap, ...data } = props.photoInformation
         db.collection('users')
         .doc(props.user)
         .collection('admired')
@@ -197,7 +196,6 @@ const FeaturedPost = (props) => {
                 .get()
                 .then(ref=> {
                     incrementHeartCount(ref.docs[0].ref.id)
-                    calculateLikeRatio(ref.docs[0].ref.id)
                 })
             })
         })
@@ -205,7 +203,7 @@ const FeaturedPost = (props) => {
         
     }
 
-    const unheartImage = () => {
+    const unadmireImage = () => {
         db.collection('users')
         .doc(props.user)
         .collection('hearts')
@@ -218,7 +216,6 @@ const FeaturedPost = (props) => {
             .get()
             .then(ref=> {
                 decrementHeartCount(ref.docs[0].ref.id)
-                calculateLikeRatio(ref.docs[0].ref.id)
             })
         })
     }
@@ -276,7 +273,7 @@ const FeaturedPost = (props) => {
     return(
         <FeaturedPostContainer 
         opacity={props.isPostVisible ? 1 : 0} 
-        style={{marginTop: '85px'}}>
+        style={{marginTop: '75px'}}>
             {showImageEnlarged ? 
             <div>
                 <PopupDarken onClick={closeImage} />
@@ -432,7 +429,7 @@ const FeaturedPost = (props) => {
 
 
             <PostFooterContainer>
-                <ButtonLabelContainer onClick={isHeart ? unheartImage : heartImage}>
+                <ButtonLabelContainer onClick={isHeart ? unadmireImage : admireImage}>
                     {isHeart ? 
                     <FilledHeart style={{cursor: 'pointer'}} />
                     :
@@ -467,7 +464,7 @@ const FeaturedPost = (props) => {
             <UserBioContainer>
                 <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} onClick={clearDataOnProfileView} style={{textDecoration: 'none'}}>
                     {props?.photoInformation?.profileImage  ? 
-                    <ProfileImage src={props.photoInformation.profileImage } />
+                    <ProfileImage src={props.photoInformation.profileImage} />
                     :
                     <ProfileImage src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yNCAyNGgtMjR2LTI0aDI0djI0em0tMi0yMmgtMjB2MjBoMjB2LTIwem0tNC4xMTggMTQuMDY0Yy0yLjI5My0uNTI5LTQuNDI3LS45OTMtMy4zOTQtMi45NDUgMy4xNDYtNS45NDIuODM0LTkuMTE5LTIuNDg4LTkuMTE5LTMuMzg4IDAtNS42NDMgMy4yOTktMi40ODggOS4xMTkgMS4wNjQgMS45NjMtMS4xNSAyLjQyNy0zLjM5NCAyLjk0NS0yLjA0OC40NzMtMi4xMjQgMS40OS0yLjExOCAzLjI2OWwuMDA0LjY2N2gxNS45OTNsLjAwMy0uNjQ2Yy4wMDctMS43OTItLjA2Mi0yLjgxNS0yLjExOC0zLjI5eiIvPjwvc3ZnPg==" />
                     }

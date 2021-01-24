@@ -3,7 +3,7 @@ import { db } from '../Firebase'
 import { incrementViewCount } from '../Functions' 
 import { isVisible, isPostVisible } from '../Redux/Actions/featuredPostActions'
 import { homePhotoInformation, sortCriteria } from '../Redux/Actions/appActions'
-import AddDropdown from './AddDropdown'
+import DescriptionViewDropdown from './DescriptionViewDropdown'
 import AddToCollection from '../FeaturedPost/AddToCollection'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -39,7 +39,7 @@ const PhotoDescriptionView = (props) => {
             .doc(props.user)
             .collection('bookmarked')
             .where('username', '==', props.photoInfo.username)
-            .where('url', '==', props.photoInfo.url)
+            .where('postID', '==', props.photoInfo.postID)
             .get()
             .then(data=> {
                 if(data.docs[0]) {
@@ -105,7 +105,7 @@ const PhotoDescriptionView = (props) => {
                 <Card>
                     <ImageLinkContainer display={showPost ? 'none' : 'initial'} opacity={showPost ? 0 : 1}>
                         <Link to={`/photo-app/post/${props.photoInfo.postID}`} onClick={goToPost}  >
-                            <PlaceholderImage className='shine' onLoad={whenLoaded} />
+                            <PlaceholderImage className='shine' />
                         </Link>
                     </ImageLinkContainer>
                     <ImageLinkContainer display={showPost ? 'initial' : 'none'} opacity={showPost ? 1 : 0}>
@@ -120,7 +120,7 @@ const PhotoDescriptionView = (props) => {
                         </div>
                         <div className='add-dropdown' style={{cursor: 'pointer'}}>
                             {showDropdown && 
-                            <AddDropdown setShowSpinner={setShowSpinner} fontSize='20px' translateContainer='translate(-90%, 50%)' openAddToCollection={openAddToCollection} setCollectionsList={setCollectionsList}  id={props.photoInfo.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.photoInfo} />
+                            <DescriptionViewDropdown setShowSpinner={setShowSpinner} fontSize='20px' translateContainer='translate(-90%, 50%)' openAddToCollection={openAddToCollection} setCollectionsList={setCollectionsList}  id={props.photoInfo.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.photoInfo} />
                             }
                             <Ellipsis className='add-dropdown' onClick={checkIsBookmarked}>&#8942;</Ellipsis>
                         </div>

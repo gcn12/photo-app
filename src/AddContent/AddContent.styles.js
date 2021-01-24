@@ -39,6 +39,21 @@ export const NextButton = styled.button`
     border: none;
     width: ${props => props.width};
     height: 50px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 400ms;
+`
+
+export const CancelButton = styled.button`
+    justify-content: flex-end;
+    cursor: ${props=> props.proceed ? 'pointer' : 'default'};
+    color: white;
+    background-color: #fa4670;
+    border: none;
+    width: ${props => props.width};
+    height: 50px;
+    font-size: 16px;
+    font-weight: 500;
     transition: background-color 400ms;
 `
 
@@ -229,9 +244,9 @@ export const PostDescriptionContainer = styled.div`
     transform: translate(-50%, -50%);
 `
 
-export const PostDescriptionInput = styled.textarea`
+export const PostDescriptionInput = styled.input`
     width: 60vw;
-    height: 150px;
+    height: 40px;
     font-size: 20px;
     @media(max-width: 720px) {
         width: 80vw;

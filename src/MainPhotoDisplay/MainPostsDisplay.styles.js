@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const DisplayContainer = styled.div`
-    margin-top: 125px;
+    margin-top: 115px;
     @media (max-width: 550px){
         margin-bottom: 60px;
         margin-top: 125px;
@@ -11,7 +11,7 @@ export const DisplayContainer = styled.div`
 export const PhotoDescriptionViewContainer = styled.div`
     margin: 0% 4%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, max-content));
+    grid-template-columns: repeat(auto-fit, minmax(320px, max-content));
     grid-column-gap: 4%;
     grid-row-gap: 0%;
     justify-content: center;

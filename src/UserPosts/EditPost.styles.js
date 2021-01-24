@@ -213,9 +213,9 @@ export const SelectInput = styled.select`
     font-family: ${props=>props.font};
 `
 
-export const PostDescriptionInput = styled.textarea`
+export const PostDescriptionInput = styled.input`
     width: 60vw;
-    height: 150px;
+    height: 40px;
     font-size: 20px;
     font-family: ${props=>props.font};
 `

@@ -38,7 +38,7 @@ import {
 
 const EditPost = (props) => {
 
-    const [font, setFont] = useState(props?.postData[0]?.font)
+    const [font, setFont] = useState(props?.postData?.font)
     const [isAdditionalElements, setIsAdditionalElements] = useState(false)
     const [isAddImage, setIsAddImage] = useState(false)
     const [showUpload, setShowUpload] = useState(false)
@@ -82,7 +82,6 @@ const EditPost = (props) => {
             const photoBodyMap = copy.photoBodyMap
             const keys = Object.keys(photoBodyMap)
             const index = Math.max(...keys)
-            console.log(index)
             const content = copy.dataObj
             const dataLength = Object.keys(content).length
             delete content[dataLength - 1]
@@ -95,7 +94,6 @@ const EditPost = (props) => {
             delete imagesLargeCopy[index]
             copy['imagesSmall'] = imagesSmallCopy
             copy['imagesLarge'] = imagesLargeCopy
-            console.log(copy)
             setPostData({...copy})
             setIsAddImage(false)
             setShowUpload(false)
@@ -121,20 +119,20 @@ const EditPost = (props) => {
     }
 
     useEffect(()=> {
-        setPostData(props?.postData[0])
-        setFont(props?.postData[0]?.font)
-        setAutocompleteFont(props?.postData[0]?.font)
+        setPostData(props?.postData)
+        setFont(props?.postData?.font)
+        setAutocompleteFont(props?.postData?.font)
 
-        if(props?.postData[0]?.previewDescription) {
-            const quanityCharacters = 100 - props?.postData[0]?.previewDescription.length 
+        if(props?.postData?.previewDescription) {
+            const quanityCharacters = 100 - props?.postData?.previewDescription.length 
             setRemainingCharacters(quanityCharacters)
         }
         if(props.postData) {
-            if(props.postData[0]){
-                if(Object.values(props?.postData[0]?.dataObj)?.length > 0) {
+            if(props.postData.dataObj){
+                if(Object.values(props?.postData?.dataObj)?.length > 0) {
                     setIsAdditionalElements(true)
                 }
-                const imageQuantity = Object.keys(props?.postData[0]?.imagesSmall).length + 1
+                const imageQuantity = Object.keys(props?.postData?.imagesSmall).length + 1
                 let fileUploadArray = new Array(imageQuantity).fill([])
                 setFilesArray(fileUploadArray)
             }
@@ -416,7 +414,7 @@ const EditPost = (props) => {
         let mainImageSmall
         const imageMapKeys = Object.keys(imagesToUploadSmall)
         const imageMapValues = Object.values(imagesToUploadSmall)
-        const imagesSmall = images.slice(0, images.length / 2)
+        const imagesSmall = images.slice(0, (images.length / 2) +1)
         const imagesLarge = images.slice(images.length / 2)
         let imagesSmallObj = {}
         let imagesLargeObj = {}
@@ -449,8 +447,6 @@ const EditPost = (props) => {
                 }
             }
         }
-
-
         const title = document.getElementById('edit-post-title').value
         let previewDescription 
         const location = document.getElementById('autocomplete').value
@@ -515,7 +511,6 @@ const EditPost = (props) => {
         if(mainImageLarge!==postData.image) {
             if(mainImageSmall){
                 fullPostUpdate['smallestImage'] = mainImageSmallest
-                previewPostUpdate['smallestImage'] = mainImageSmallest
                 fullPostUpdate['smallImage'] = mainImageSmall
                 previewPostUpdate['smallImage'] = mainImageSmall
                 fullPostUpdate['image'] = mainImageLarge
@@ -536,9 +531,17 @@ const EditPost = (props) => {
             fullPostUpdate['font'] = font
         }
 
+        db.collection('pending-task')
+        .doc('edit-post')
+        .collection('edit-post')
+        .add({
+            ...fullPostUpdate
+        })
+        .catch(err=>console.log(err))
+
         db.collection('posts')
         .where('username', '==', postData.username)
-        .where('url', '==', postData.url)
+        .where('postID', '==', postData.postID)
         .get()
         .then(data=> {
             setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
@@ -550,7 +553,7 @@ const EditPost = (props) => {
             }).then(()=> {
                 db.collection('preview-posts')
                 .where('username', '==', postData.username)
-                .where('url', '==', postData.url)
+                .where('postID', '==', postData.postID)
                 .get()
                 .then(data=> {
                     setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
@@ -599,7 +602,7 @@ const EditPost = (props) => {
                             <Container2>
                                 <div id='edit-area'>
                                     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                                        <Title autoComplete='off' placeholder='title' id='edit-post-title' font={font} onChange={null} defaultValue={props?.postData[0]?.title}></Title>
+                                        <Title autoComplete='off' placeholder='title' id='edit-post-title' font={font} onChange={null} defaultValue={props?.postData?.title}></Title>
                                         <MainImage onLoad={()=>setIsUploading(false)} src={postData?.smallImage}></MainImage>
                                         <label htmlFor='main-image-input' className='upload-button-label'>Change main image</label>
                                         <input onChange={changeMainPhoto} hidden id='main-image-input' type='file'></input>
@@ -684,7 +687,7 @@ const EditPost = (props) => {
 
                                 </BodyButtonContainer>
                                 <Label>Post description</Label>
-                                <PostDescriptionInput defaultValue={props?.postData[0]?.previewDescription} font={font} onChange={calculateRemainingCharacters} id='edit-post-description'></PostDescriptionInput>
+                                <PostDescriptionInput defaultValue={props?.postData?.previewDescription} font={font} onChange={calculateRemainingCharacters} id='edit-post-description'></PostDescriptionInput>
                                 <div style={{marginBottom: '15px'}}>Remaining characters: {remainingCharacters}</div>
                                 <Label>Font:</Label>
                                 <FontSelect font={font} onChange={getFont} value={font} id='font-select'>
@@ -696,7 +699,7 @@ const EditPost = (props) => {
                                     <FontOption value="'Poppins', sans-serif;" font="'Poppins', sans-serif;">Poppins</FontOption>
                                 </FontSelect>
                                 <Label htmlFor='category'>Category:</Label>
-                                <SelectInput font={font} onChange={null} defaultValue={props?.postData[0]?.category} name='category' id='category'>
+                                <SelectInput font={font} onChange={null} defaultValue={props?.postData?.category} name='category' id='category'>
                                     <option value='restaurant'>Restaurant</option>
                                     <option value='entertainment'>Entertainment</option>
                                     <option value='adventure'>Adventure</option>
@@ -705,7 +708,7 @@ const EditPost = (props) => {
                                     <option value='museum'>Museum</option>
                                 </SelectInput>
                                 <Label>Location:</Label>
-                                <Autocomplete font={font} defaultValue={props?.postData[0]?.location} id='autocomplete-component'/>
+                                <Autocomplete font={font} defaultValue={props?.postData?.location} id='autocomplete-component'/>
                                 <div style={{marginBottom: '20px'}}></div>
                                 <div style={{display: 'flex'}}>
                                     <Cancel onClick={props.closeEdit}>Cancel</Cancel>

@@ -35,6 +35,7 @@ const SelectFont = (props) => {
 const mapStateToProps = state => ({
     selectFontStyles: state.addContent.selectFontStyles,
     paragraph: state.addContent.paragraph,
+    font: state.addContent.font,
 })
 
 export default connect(mapStateToProps)(SelectFont)

@@ -30,7 +30,6 @@ const AddToCollectionItem = (props) => {
                         country: props.photoInformation.country,
                         location: props.photoInformation.location,
                         title: props.photoInformation.title,
-                        url: props.photoInformation.url,
                         username: props.photoInformation.username,
                         collection: props.collection,
                         timestamp: Date.now()
