@@ -7,7 +7,7 @@ import {
     RemoveAdd,
 } from '../Dropdown/Dropdown.styles'
 
-const AddToCollectionItem = (props) => {
+const AddToCollectionOptions = (props) => {
 
     const addToCollection = () => {
         const addRef = db.collection('users').doc(props.user).collection('collections')
@@ -116,4 +116,4 @@ const mapStateToProps = state => ({
     user: state.app.user,
 })
 
-export default connect(mapStateToProps)(AddToCollectionItem)
+export default connect(mapStateToProps)(AddToCollectionOptions)

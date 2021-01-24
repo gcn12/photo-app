@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { db } from '../Firebase'
-import Collection from './Collection'
-import Rename from './Rename'
-import Delete from './Delete'
+import CollectionPhotoGrid from './CollectionPhotoGrid'
+import RenameCollectionModal from './RenameCollectionModal'
+import DeleteCollectionModal from './DeleteCollectionModal'
 import { connect } from 'react-redux'
 import { PopupDarken } from '../Styles/PopupStyles.styles'
 import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
 import { 
     Container,
-} from './Collections.styles'
+} from './CollectionsProfilePage.styles'
 
 const Collections = (props) => {
 
@@ -71,7 +71,7 @@ const Collections = (props) => {
             { showRename ?
             <div>
                 <PopupDarken onClick={closeRename} />
-                <Rename closeRename={closeRename} showRename={showRename} getCollections={getCollections} collectionName={collectionName} setShowRename={setShowRename}></Rename>
+                <RenameCollectionModal closeRename={closeRename} showRename={showRename} getCollections={getCollections} collectionName={collectionName} setShowRename={setShowRename} />
             </div>
             : 
             null
@@ -79,7 +79,7 @@ const Collections = (props) => {
             {showDelete ? 
             <div>
                 <PopupDarken onClick={closeDelete} />
-                <Delete closeDelete={closeDelete} collectionIndex={collectionIndex} setCollectionInfo={setCollectionInfo} collectionInfo={collectionInfo} collectionName={collectionName} setShowDelete={setShowDelete} />
+                <DeleteCollectionModal closeDelete={closeDelete} collectionIndex={collectionIndex} setCollectionInfo={setCollectionInfo} collectionInfo={collectionInfo} collectionName={collectionName} setShowDelete={setShowDelete} />
             </div>
             :
             null
@@ -87,7 +87,7 @@ const Collections = (props) => {
             <Container>
                 {collectionInfo?.map((collection, index)=> {
                     return(
-                        <Collection 
+                        <CollectionPhotoGrid 
                             openRename={openRename}
                             openDelete={openDelete}
                             setCollectionIndex={setCollectionIndex}

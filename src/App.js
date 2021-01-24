@@ -17,7 +17,7 @@ import {
 } from './Redux/Actions/appActions'
 import Header from './Header/Header'
 import { clearAllBodyScrollLocks } from 'body-scroll-lock'
-import CollectionsComponent from './Collections/CollectionsComponent'
+import CollectionPostsDisplay from './Collections/CollectionPostsDisplay'
 import Discover from './Discover/Discover'
 import FeaturedPost from './FeaturedPost/FeaturedPost'
 import MainPhotoDisplay from './MainPhotoDisplay/MainPostsDisplay'
@@ -359,7 +359,7 @@ const App = (props) => {
       {/* <TestFile user={user}  />  */}
 
       <Route path='/photo-app/profile/collections/:collectionName' render={(props)=> (
-        <CollectionsComponent {...props} getFeaturedPhotoInfo={getFeaturedPhotoInfo}  />
+        <CollectionPostsDisplay {...props} getFeaturedPhotoInfo={getFeaturedPhotoInfo}  />
       )} />
 
       <Route path='/photo-app/' render={(props)=> (

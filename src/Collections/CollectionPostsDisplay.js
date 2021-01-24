@@ -8,7 +8,7 @@ import {
     PostsContainer,
 } from './CollectionsComponent.styles'
 
-const CollectionsComponent = (props) => {
+const CollectionPostsDisplay = (props) => {
 
     const [collectionImages, setCollectionImages] = useState([])
 
@@ -52,4 +52,4 @@ const mapStateToProps = state => ({
     user: state.app.user,
 })
 
-export default connect(mapStateToProps)(CollectionsComponent)
+export default connect(mapStateToProps)(CollectionPostsDisplay)

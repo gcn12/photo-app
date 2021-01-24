@@ -5,10 +5,10 @@ import {
     Container,
     DeleteButton,
     Cancel,
-} from './Delete.styles'
+} from './DeleteCollectionModal.styles'
 import { Text } from '../Styles/GlobalStyles.styles'
 
-const Delete = (props) => {
+const DeleteCollectionModal = (props) => {
     
     const deleteCollection = () => {
         props.setShowDelete(false)
@@ -65,4 +65,4 @@ const mapStateToProps = state => ({
     user: state.app.user,
 })
 
-export default connect(mapStateToProps)(Delete)
+export default connect(mapStateToProps)(DeleteCollectionModal)

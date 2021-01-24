@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import DropdownDelete from './DropdownDelete'
+import CollectionsDropdown from './CollectionsDropdown'
 import { homePhotoInformation } from '../Redux/Actions/appActions'
 import { db } from '../Firebase'
 import { Link } from 'react-router-dom'
@@ -15,9 +15,9 @@ import {
     Header,
     Ellipsis,
     ImageTitleContainer,
-} from './Collections.styles'
+} from './CollectionsProfilePage.styles'
 
-const Collection = (props) => {
+const CollectionPhotoGrid = (props) => {
 
     const [isVisible, setIsVisible] = useState(false)
 
@@ -78,7 +78,7 @@ const Collection = (props) => {
                 <Ellipsis onClick={()=>setIsDeleteMenu(!isDeleteMenu)}>
                     <div style={{fontWeight: 800, fontSize: '22px'}} className='delete-collection'>&#8942;</div>
                     {isDeleteMenu ? 
-                    <DropdownDelete openDelete={props.openDelete} openRename={props.openRename} setCollectionIndex={props.setCollectionIndex} setShowDelete={props.setShowDelete} setCollectionName={props.setCollectionName} setShowRename={props.setShowRename} collectionInfo={props.collectionInfo} index={props.index} setCollectionInfo={props.setCollectionInfo} collectionName={props.collection[0]}></DropdownDelete>
+                    <CollectionsDropdown openDelete={props.openDelete} openRename={props.openRename} setCollectionIndex={props.setCollectionIndex} setShowDelete={props.setShowDelete} setCollectionName={props.setCollectionName} setShowRename={props.setShowRename} collectionInfo={props.collectionInfo} index={props.index} setCollectionInfo={props.setCollectionInfo} collectionName={props.collection[0]} />
                     :
                     null
                     }
@@ -92,7 +92,7 @@ const mapStateToProps = state => ({
     user: state.app.user,
 })
 
-export default connect(mapStateToProps)(Collection)
+export default connect(mapStateToProps)(CollectionPhotoGrid)
 
 
 const large = 272

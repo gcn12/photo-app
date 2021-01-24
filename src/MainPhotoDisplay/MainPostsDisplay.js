@@ -10,7 +10,7 @@ import {
 } from './MainPostsDisplay.styles'
 import { SubmitButton } from '../AddContent/AddContent.styles'
 
-const GetPhotos = (props) => {
+const MainPostsDisplay = (props) => {
 
     return(
         <div style={{position: 'relative'}}>
@@ -65,4 +65,4 @@ const mapStateToProps = state => ({
     sortCriteria: state.app.sortCriteria,
 })
 
-export default connect(mapStateToProps)(GetPhotos)
+export default connect(mapStateToProps)(MainPostsDisplay)

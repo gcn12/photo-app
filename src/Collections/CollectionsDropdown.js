@@ -10,7 +10,7 @@ import {
     Triangle,
 } from '../Styles/DropdownStyles.styles'
 
-const DropdownDelete = (props) => {
+const CollectionsDropdown = (props) => {
 
     const renameCollection = () => {
         props.openRename()
@@ -44,4 +44,4 @@ const DropdownDelete = (props) => {
     )
 }
 
-export default DropdownDelete
+export default CollectionsDropdown

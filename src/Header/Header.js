@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { db } from '../Firebase'
 import SubheaderPosts from './SubheaderPosts'
 import SubheaderDropdown from './SubheaderDropdown'
-import CategoriesDropdown from './CategoriesDropdown'
+import SelectCategoryDropdown from './SelectCategoryDropdown'
 import SearchDropdown from './SearchDropdown'
 import SubheaderSearch from './SubheaderSearch'
 import Search from '../Search/Search'
@@ -108,7 +108,7 @@ const Header = (props) => {
             {!props.location.pathname.includes('/photo-app/upload') ? 
             <Border>
                 <SubheaderDropdown getAssortedPhotos={getAssortedPhotos} sort={props.sort} />
-                <CategoriesDropdown sort={props.sort} location={props.location} getCategoryPhotos={getCategoryPhotos} />
+                <SelectCategoryDropdown sort={props.sort} location={props.location} getCategoryPhotos={getCategoryPhotos} />
                 <SearchDropdown  />
                 <Container>
                     <UL>

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Collections from '../Collections/Collections'
+import CollectionsProfilePage from '../Collections/CollectionsProfilePage'
 import { connect } from 'react-redux'
 import UserPrivateProfile from '../UserPrivateProfile/UserPrivateProfile'
 import SavedPosts from '../SavedPosts/SavedPostsComponent'
@@ -36,7 +36,7 @@ const Profile = (props) => {
                         )
                     case 'collections':
                         return(
-                            <Collections history={props.history} />
+                            <CollectionsProfilePage history={props.history} />
                         )
                     default:
                         return <UserPrivateProfile getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} getUserProfile={props.getUserProfile} history={props.history} />

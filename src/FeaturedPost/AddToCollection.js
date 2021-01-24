@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import AddToCollectionItem from './AddToCollectionItem'
+import AddToCollectionOptions from './AddToCollectionOptions'
 import CollectionItemsShimmer from './CollectionItemsShimmer'
 import { disableBodyScroll } from 'body-scroll-lock'
 import { db } from '../Firebase'
@@ -110,7 +110,7 @@ const AddToCollection = (props) => {
                     <img src='' alt='' onError={lockScroll} />
                     {props?.collectionsList?.map((collection, index) => {
                         return(
-                            <AddToCollectionItem 
+                            <AddToCollectionOptions 
                                 photoInformation={props.photoInfo}
                                 setCollectionsList={props.setCollectionsList}
                                 collectionsList={props.collectionsList}

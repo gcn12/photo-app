@@ -6,10 +6,10 @@ import {
     CollectionName,
     RenameButton,
     Cancel,
-} from './Rename.styles'
+} from './RenameCollectionModal.styles'
 import { Text } from '../Styles/GlobalStyles.styles'
 
-const Rename = (props) => {
+const RenameCollectionModal = (props) => {
     const submitRename = (collectionName) => {
         const collectionRename = document.getElementById('new-collection-name').value
         if(collectionRename.length > 0) {
@@ -70,4 +70,4 @@ const mapStateToProps = state => ({
     user: state.app.user,
 })
 
-export default connect(mapStateToProps)(Rename)
+export default connect(mapStateToProps)(RenameCollectionModal)
