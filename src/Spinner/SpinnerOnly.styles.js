@@ -10,15 +10,6 @@ const ring = keyframes`
 `;
 
 export const Spinner = styled.div`
-    /* display: inline-block; */
-    /* width: 80px;
-    height: 80px; */
-    /* position: fixed;
-    top: 0%;
-    left: 0%;
-    right: 0;
-    bottom: 0;
-    transform: translate(50%, 50%); */
     &::after {
         content: " ";
         display: block;

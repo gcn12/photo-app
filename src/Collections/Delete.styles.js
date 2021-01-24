@@ -5,8 +5,6 @@ export const Container = styled.div`
     width: 30vw;
     background-color: #f5f5f5;
     margin: auto;
-    /* position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0; */
     position: fixed;
     z-index: 4;
     left: 50%;
@@ -16,7 +14,6 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     padding: 10px 20px 20px 20px;
-    /* box-shadow: 0px 0px 1px 100vmax rgba(0,0,0,0.8); */
     @media (max-width: 1100px) {
         width: 40vw;
     }

@@ -3,16 +3,13 @@ import styled from 'styled-components'
 export const Container = styled.div`
     opacity: ${props=> props.opacity};
     transition: opacity 400ms ease-in-out;
-    /* display: flex; */
     padding: 20px 0px 20px 0px;
     margin-top: 10px;
     display: flex;
     justify-content: center;
-    /* box-shadow: 0 0 1px 1px rgba(0, 0, 0, .1); */
 `
 
 export const ImageTextContainer = styled.div`
-    /* width: 600px; */
     display: flex;
     align-items: flex-end;
     @media (max-width: 600px) {
@@ -29,7 +26,6 @@ export const ContentContainer = styled.div`
         align-items: flex-start;
     }
     @media (max-width: 600px) {
-        /* flex-direction: column; */
         justify-content: center;
     }
 `
@@ -57,7 +53,6 @@ export const Description = styled.div`
     font-size: 16px;
     color: #4D4D4D;
     line-height: 27px;
-    /* width: 40vw; */
     width: 400px;
     @media(max-width: 600px) {
         width: 300px;
@@ -77,8 +72,6 @@ export const DropdownContainer = styled.div`
     background-color: white;
     font-size: 20px;
     transform: translate(-85%, 0%);
-    /* left: 0;
-    top: 0; */
     color: #242424;
     display: flex;
     justify-content: center;

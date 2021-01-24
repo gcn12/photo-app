@@ -7,9 +7,6 @@ import AdmiredPosts from '../AdmiredPosts/AdmiredPostsComponent'
 import{ profilePage } from '../Redux/Actions/profileActions'
 import ProfileHeaderMobile from './ProfileHeaderDesktop'
 import ProfileHeaderDesktop from './ProfileHeaderMobile'
-import { 
-    Container,
-} from './Profile.styles'
 
 const Profile = (props) => {
 
@@ -21,33 +18,31 @@ const Profile = (props) => {
     }, [])
     return(
         <div style={{marginTop: '85px'}}>
-            <Container>
-                <ProfileHeaderMobile />
-                <ProfileHeaderDesktop />
-                {(()=> {
-                    switch (props.profilePage) {
-                        case 'my profile':
-                            return( 
-                                <UserPrivateProfile getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} getUserProfile={props.getUserProfile} history={props.history} />
-                            )
-                        case 'saved':
-                            return( 
-                                <SavedPosts history={props.history} />
-                            )
-                        case 'admired': 
-                            return( 
-                                <AdmiredPosts history={props.history} />
-                            )
-                        case 'collections':
-                            return(
-                                <Collections history={props.history} />
-                            )
-                        default:
-                            return <UserPrivateProfile getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} getUserProfile={props.getUserProfile} history={props.history} />
-                    }
+            <ProfileHeaderMobile />
+            <ProfileHeaderDesktop />
+            {(()=> {
+                switch (props.profilePage) {
+                    case 'my profile':
+                        return( 
+                            <UserPrivateProfile getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} getUserProfile={props.getUserProfile} history={props.history} />
+                        )
+                    case 'saved':
+                        return( 
+                            <SavedPosts history={props.history} />
+                        )
+                    case 'admired': 
+                        return( 
+                            <AdmiredPosts history={props.history} />
+                        )
+                    case 'collections':
+                        return(
+                            <Collections history={props.history} />
+                        )
+                    default:
+                        return <UserPrivateProfile getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} getUserProfile={props.getUserProfile} history={props.history} />
+                }
 
-                })()}
-            </Container>
+            })()}
         </div>
     )
 }

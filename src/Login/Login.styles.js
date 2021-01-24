@@ -26,7 +26,6 @@ export const SubmitButton = styled.button`
     box-sizing: border-box;
     text-decoration:none;
     font-weight:300;
-    /* color:#FFFFFF; */
     text-align:center;
     transition: all 0.2s;
     background-color: transparent;

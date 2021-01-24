@@ -19,7 +19,6 @@ export const BackgroundImage = styled.img`
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 10px;
-    /* backdrop-filter: blur(5px); */
 `
 
 export const Login = styled.div`

@@ -19,7 +19,6 @@ export const Collection = styled.div`
     height: 30px;
     &:hover {
         background-color: #e8e8e8;
-        /* border-bottom: .5px solid black; */
     }
 `
 
@@ -68,17 +67,11 @@ export const CreateNewSubmit = styled.button`
 export const RemoveAdd = styled.div`
     font-size: 18px;
     font-weight: 500;
-    &:hover {
-        /* border-bottom: .5px solid black; */
-    }
-    /* color: white; */
 `
 
 export const CollectionName = styled.div`
     font-size: 20px;
     margin-right: 20px;
-    
-    /* color: white; */
 `
 
 export const CollectionShimmer = styled.div`

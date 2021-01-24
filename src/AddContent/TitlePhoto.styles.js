@@ -14,16 +14,10 @@ export const CenterContainer = styled.div`
     overflow-y: scroll;
     max-height: calc(100vh - 150px);
     max-height: calc(-webkit-fill-available - 150px);
-    /* margin-top: 18px; */
-    /* display: ${props=> props.styles.visibility}; */
-    /* @media(max-height: 800px) {
-        max-height: 60vh;
-    } */
 `
 
 export const Container = styled.div`
     display: flex;
-    /* flex-wrap: wrap; */
     flex-direction: column; 
     align-items: center;
     justify-content: center;
@@ -39,7 +33,6 @@ export const FileUpload = styled.label`
 `
 
 export const PreviewImage = styled.img`
-    /* height: 450px; */
     max-height: 45vh;
     max-width: 90vw;
     width: auto;

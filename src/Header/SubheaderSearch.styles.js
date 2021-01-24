@@ -17,11 +17,7 @@ export const UL = styled.ul`
     @media (max-width: 690px) {
         display: none;
         visibility: hidden;
-        /* list-style-type: none; */
-        /* flex-direction: column; */
-        /* display: block; */
     }
-    /* justify-content: space-evenly; */
 `
 
 export const ULMobile = styled.ul`
@@ -33,11 +29,7 @@ export const ULMobile = styled.ul`
     @media (min-width: 690px) {
         display: none;
         visibility: hidden;
-        /* list-style-type: none; */
-        /* flex-direction: column; */
-        /* display: block; */
     }
-    /* justify-content: space-evenly; */
 `
 
 export const LI = styled.ul`
@@ -45,7 +37,6 @@ export const LI = styled.ul`
     font-size: 18px;
     padding: 0;
     margin: 0 25px 0 0px;
-    /* text-decoration: ${props=> props.underline ? 'underline' : null}; */
     border-bottom: ${props=> props.underline ? '1px solid black' : null};
     cursor: pointer;
     -webkit-touch-callout: none; 

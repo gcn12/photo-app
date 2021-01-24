@@ -110,7 +110,6 @@ const Subheader = (props) => {
             </Container>
             <Container>
                 <ULMobile>
-                    {/* <div style={{display: 'flex'}}> */}
                         <LI onClick={openDropdown}>
                             <div style={{display: 'flex', alignItems: 'center'}}>
                                 <div style={{fontSize: '14px'}}>Sort by:</div>
@@ -134,7 +133,6 @@ const Subheader = (props) => {
                                 <ArrowIcon alt='' src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yMy4yNDUgNGwtMTEuMjQ1IDE0LjM3NC0xMS4yMTktMTQuMzc0LS43ODEuNjE5IDEyIDE1LjM4MSAxMi0xNS4zOTEtLjc1NS0uNjA5eiIvPjwvc3ZnPg==" />
                             </div>
                         </LI>
-                    {/* </div> */}
                 </ULMobile>
             </Container>
         </div>

@@ -1,5 +1,21 @@
 import { db } from "./Firebase"
 
+export const addEllipsisToText = (text, finalLength) => {
+    text = text.slice(0, finalLength)
+    text = text.trim()
+    if(text[text.length - 1] === '.') {
+        return text
+    }else{
+        text = text.slice(0, finalLength - 3) 
+        if(text[text.length - 1]=== '.') {
+            return text
+        }else{
+            text += '...'
+            return text
+        }
+    }
+}
+
 export const incrementViewCount = (docID) => {
     db.collection('pending-tasks')
     .doc('increment-view')

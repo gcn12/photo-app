@@ -13,15 +13,6 @@ export const ULSearch = styled.ul`
     margin: 0;
     display: flex;
     justify-content: space-between;
-    
-    @media (max-width: 690px) {
-        /* display: none;
-        visibility: hidden; */
-        /* list-style-type: none; */
-        /* flex-direction: column; */
-        /* display: block; */
-    }
-    /* justify-content: space-evenly; */
 `
 
 export const UL = styled.ul`
@@ -33,11 +24,7 @@ export const UL = styled.ul`
     @media (max-width: 720px) {
         display: none;
         visibility: hidden;
-        /* list-style-type: none; */
-        /* flex-direction: column; */
-        /* display: block; */
     }
-    /* justify-content: space-evenly; */
 `
 
 export const ULMobile = styled.ul`
@@ -56,8 +43,6 @@ export const LI = styled.ul`
     color: #242424;
     font-size: 18px;
     padding: 0;
-    /* margin: 0 25px 0 0px; */
-    /* text-decoration: ${props=> props.underline ? 'underline' : null}; */
     border-bottom: ${props=> props.underline ? '1px solid black' : null};
     cursor: pointer;
     -webkit-touch-callout: none; 

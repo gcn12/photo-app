@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 
 export const HeaderContainer = styled.div`
-    /* justify-content: center;
-    display: flex; */
     @media(max-width: 550px) {
         visibility: hidden;
         display: none;
@@ -15,10 +13,6 @@ export const UL = styled.ul`
     justify-content: space-evenly;
     padding: 0;
     margin: 0;
-`
-
-export const Container = styled.div`
-    /* margin-top: 85px; */
 `
 
 export const LI = styled.li`

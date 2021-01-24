@@ -29,11 +29,6 @@ export const PhotoTitle = styled.div`
 
 export const PhotoLocation = styled.div`
     transform: scale(0.7);
-    /* position: absolute;
-    top: 55%;
-    left: 50%; */
-    /* margin-left: -5px; */
-    /* transform: translate(-50%, -50%); */
     opacity: 0;
     transition: opacity 500ms;
     transition-delay: 250ms;

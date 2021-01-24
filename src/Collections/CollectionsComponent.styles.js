@@ -14,7 +14,6 @@ export const CollectionName = styled.div`
 export const PostsContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    /* grid-template-columns: repeat(3, auto); */
     grid-column-gap: 30px;
     
     justify-items: center;

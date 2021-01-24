@@ -26,10 +26,8 @@ export const Container = styled.div`
 export const PostsContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, max-content));
-    /* grid-template-columns: repeat(3, auto); */
     grid-column-gap: 20px;
     margin: 0 50px 20px 340px;
-    /* justify-items: end; */
     justify-content: center;
 
     @media(max-width: 720px) {
@@ -40,7 +38,6 @@ export const PostsContainer = styled.div`
 export const UserContainer = styled.div`
     opacity: ${props=>props.visibility};
     margin-top: 30px;
-    /* width: 250px; */
     display: flex;
     position: fixed;
     flex-direction: column;
@@ -52,7 +49,6 @@ export const UserContainer = styled.div`
 `
 
 export const Username = styled.div`
-    /* font-family: montserrat; */
     font-weight: 500;
     font-size: 24px;
     margin-bottom: 4px;
@@ -65,7 +61,6 @@ export const Username = styled.div`
 `
 
 export const Name = styled.div`
-    /* font-family: montserrat; */
     font-size: 16px;
     font-weight: 400;
     margin-bottom: 24px;
@@ -75,7 +70,6 @@ export const Name = styled.div`
 
 
 export const Bio = styled.div`
-    /* font-family: montserrat; */
     font-weight: 500;
     font-size: 18px;
     line-height: 25px;

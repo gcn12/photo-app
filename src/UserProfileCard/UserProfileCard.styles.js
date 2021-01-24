@@ -41,8 +41,6 @@ export const BioName = styled.div`
 
 export const Bio = styled.div`
     width: 380px;
-    /* max-width: 400px;
-    min-width: 300px; */
     color: #4D4D4D;
     font-weight: 500;
     @media (max-width: 550px) {

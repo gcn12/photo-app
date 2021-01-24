@@ -6,19 +6,14 @@ export const Container = styled.div`
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    /* width: 90vw;
-    height: 100vh; */
     width: ${props=>props.width};
     height: ${props=>props.height};
     transition: opacity 350ms ease-in-out, width 400ms ease-in-out, height 400ms ease-in-out;
     background-color: #fafafa;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     cursor: default;
-    /* align-items: center; */
     z-index: 4;
-    /* box-shadow: 0px 0px 1px 100vmax rgba(0,0,0,0.8); */
     border-radius: 5px;
 `
 
@@ -174,10 +169,6 @@ export const RemoveLastElement = styled.button`
     cursor: pointer;
     transition: background-color 400ms;
     margin: 20px 0;
-
-    &:hover {
-        /* background-color: #212121; */
-    }
 `
 
 export const NewItemButton = styled.button`
@@ -185,7 +176,6 @@ export const NewItemButton = styled.button`
     background-color: #141414;
     border: none;
     width: ${props=> props.long ? '60vw ': '40vw'};
-    /* width: 40vw; */
     height: 50px;
     cursor: pointer;
     transition: background-color 400ms;

@@ -5,7 +5,6 @@ export const Container = styled.div`
     z-index: 4;
     width: 35vw;
     background-color: #f5f5f5;
-    /* margin: auto; */
     position: fixed;
     left: 50%;
     top: 50%;
@@ -14,7 +13,6 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     padding: 35px;
-    /* box-shadow: 0px 0px 1px 100vmax rgba(0,0,0,0.8); */
 
     @media (max-width: 1100px) {
         width: 40vw;
@@ -72,10 +70,6 @@ export const Collection = styled.div`
     justify-content: space-between;
     font-size: 18px;
     height: 30px;
-    &:hover {
-        /* background-color: #dedede; */
-        /* border-bottom: .5px solid black; */
-    }
 `
 
 export const Warning = styled.div`
@@ -121,13 +115,11 @@ export const RemoveAdd = styled.div`
     &:hover {
         border-bottom: .5px solid black;
     }
-    /* color: white; */
 `
 
 export const CollectionName = styled.div`
     font-size: 20px;
     margin-right: 20px;
-    /* color: white; */
 `
 
 export const CreateNewContainer = styled.div`

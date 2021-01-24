@@ -11,12 +11,7 @@ export const Container = styled.div`
  export const Card = styled.div`
     max-width: 400px;
     width: 100%;
-    /* min-height: 420px; */
     margin-bottom: 32px;
-    /* display: flex; */
-    /* background-color: #f5f5f5; */
-    /* display: flex;
-    flex-direction: column; */
 `
 
 const fadeIn = keyframes`
@@ -33,8 +28,6 @@ export const Description = styled.div`
     line-height: 26px;
     font-weight: 400;
     color: #4D4D4D;
-    /* width: 100%; */
-    /* min-width: 300px; */
     max-width: 400px;
 `
 
@@ -61,14 +54,12 @@ export const Category = styled.div`
     border: 1px solid black;
     padding: 2px 7px;
     color: black;
-    /* background-color: #b6bdcf; */
 `
 
 export const Name = styled.div`
     cursor: pointer;
     font-size: 16px;
     margin-top: 4px;
-    /* padding: 0 5%; */
 `
 
 export const Title = styled.div`
@@ -78,8 +69,6 @@ export const Title = styled.div`
     text-decoration: none;
     line-height: 36px;
     color: #242424;
-    /* width: 120px; */
-    /* padding: 0 5%; */
     &:hover{
         color: #4a4a4a;
     }
@@ -111,7 +100,6 @@ export const Image = styled.img`
     cursor: pointer;
     margin-bottom: 12px;
     object-fit: cover;
-    /* width: 400px; */
     width: 100%;
     max-width: 450px;
     height: 10vw;
@@ -128,10 +116,7 @@ export const PlaceholderImage = styled.div`
     cursor: pointer;
     margin-bottom: 12px;
     width: 100%;
-    /* object-fit: cover; */
-    /* width: 400px; */
     max-width: 450px;
-    /* height: 250px; */
     max-height: 300px;
     height: 10vw;
     min-height: 250px;

@@ -8,6 +8,7 @@ import { db } from '../Firebase'
 import firebase from 'firebase'
 import UploadProgress from './UploadProgress'
 import { connect } from 'react-redux'
+import { addEllipsisToText } from '../Functions'
 import React, { 
     useState 
 } from 'react'
@@ -67,15 +68,7 @@ const AddContent = (props) => {
         if (document.getElementById('post-description-input').value.length > 0) {
             previewDescription = document.getElementById('post-description-input').value
         }else{
-            let descriptionNoEllipsis = descriptionArray[0].substring(0, 100)
-            descriptionNoEllipsis = descriptionNoEllipsis.trim()
-            if (descriptionNoEllipsis[descriptionNoEllipsis.length-1] !== '.') {
-                descriptionNoEllipsis = descriptionNoEllipsis.slice(0, -3)
-                descriptionNoEllipsis = descriptionNoEllipsis.trim()
-                if(descriptionNoEllipsis[descriptionNoEllipsis.length-1] !== '.'){
-                    descriptionNoEllipsis += '...'
-                }
-            }
+            let descriptionNoEllipsis = addEllipsisToText(descriptionArray[0], 100)
             previewDescription = descriptionNoEllipsis
         }
 
@@ -542,12 +535,18 @@ const mapStateToProps = state => ({
     switchValue: state.addContent.switchValue,
     font: state.addContent.font,
     titlePhotoProceed: state.addContent.titlePhotoProceed,
+    categoryLocationProceed: state.addContent.categoryLocationProceed,
     fontProceed: state.addContent.fontProceed,
     bodyProceed: state.addContent.bodyProceed,
     numberCharacters: state.addContent.numberCharacters,
     filesSmallest: state.addContent.filesSmallest,
+    filesSmall: state.addContent.filesSmall,
+    filesLarge: state.addContent.filesLarge,
+    fileNames: state.addContent.fileNames,
     itemsToUploadData: state.addContent.itemsToUploadData,
-    filesIndex: state.app.filesIndex,
+    // imageSizeArray: state.addContent.imageSizeArray,
+    filesIndex: state.addContent.filesIndex,
+    imageSizeRatio: state.addContent.imageSizeRatio,
 })
 
 export default connect(mapStateToProps)(AddContent)

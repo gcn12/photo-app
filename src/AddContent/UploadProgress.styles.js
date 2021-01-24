@@ -11,7 +11,6 @@ export const UploadingTitle = styled.div`
 
 export const ProgressContainer = styled.div`
     visibility: ${props=>props.display};
-    /* z-index: 10; */
 `
 
 export const CircleContainer = styled.div`

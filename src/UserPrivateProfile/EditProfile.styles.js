@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     height: auto;
-    /* height: 500px; */
     min-height: 400px;
     width: 40vw;
     background-color: #f5f5f5;
@@ -11,14 +10,12 @@ export const Container = styled.div`
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    /* top: 0; left: 0; bottom: 0; right: 0; */
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     padding: 10px 20px 20px 20px;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
-    /* box-shadow: 0px 0px 1px 100vmax rgba(0,0,0,0.8); */
     z-index: 4;
     @media (max-width: 1100px) {
         width: 40vw;
@@ -86,8 +83,6 @@ export const EditButton = styled.label`
     width: 180px;
     font-size: 18px;
     background-color: transparent;
-    /* border-radius: 5px; */
-    /* border: 1px solid black; */
     transition: transform 100ms ease-in-out;
     cursor: pointer;
     &:hover {

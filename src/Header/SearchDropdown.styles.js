@@ -7,9 +7,6 @@ export const Container = styled(motion.div)`
     background-color: white;
     height: 100vh;
     width: 100vw;
-    /* height: 500px;
-    width: 300px; */
-    /* justify-content: center; */
     flex-direction: column;
     align-items: center;
     position: absolute;
@@ -38,14 +35,8 @@ export const SearchInput = styled.input`
 export const ResultsContainer = styled.div`
     padding: 10px;
     width: 100vw;
-    /* background-color: #ededed; */
-    /* position: absolute; */
-    /* right: 0;
-    left: 0; */
-    /* transform: translate(-50%, -50%); */
     z-index: 3;
     opacity: .96;
-    /* box-shadow: 0px 5px 6px rgba(0, 0, 0, .4); */
     @media (max-width: 690px) {
         left: -70%;
     }

@@ -49,11 +49,7 @@ export const UL = styled.ul`
     @media (min-width: 670px) {
         display: none;
         visibility: hidden;
-        /* list-style-type: none; */
-        /* flex-direction: column; */
-        /* display: block; */
     }
-    /* justify-content: space-evenly; */
 `
 
 export const CancelContainer = styled.div`

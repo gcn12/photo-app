@@ -252,7 +252,7 @@ const Body = (props) => {
         {isAdditionalElements ? 
         null
         :
-        <EmptyBodyContainer styles={props.styles}>
+        <EmptyBodyContainer styles={props.bodyStyles}>
             <Container>
                 <Label>Body content</Label>
             </Container>

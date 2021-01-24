@@ -15,7 +15,6 @@ export const InfoContainer = styled.div`
 `
 
 export const Title = styled.div`
-    /* color: #242424; */
     font-size: 60px;
     font-family: ${props=> props.font};
     font-weight: 400;
@@ -42,7 +41,6 @@ export const Author = styled.div`
 `
 
 export const DateStyle = styled.div`
-    /* color: #242424; */
     font-family: ${props=> props.font};
     font-size: 20px;
 `
@@ -99,7 +97,6 @@ export const BodyImageContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    /* margin: 4px 0 4px 0; */
 `
 
 export const Header = styled.div`

@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import {
     Container,
     SearchBox,
-    IconContainer,
 } from './Search.styles'
 
 const Search = (props) => {
@@ -30,9 +29,7 @@ const Search = (props) => {
     return(
         <Container>
             <div style={{position: 'relative'}} className='search-results'>
-                <IconContainer>
-                    <SearchIcon style={{position: 'absolute', top: '6', left: '5', transform: 'scale(.6)'}}></SearchIcon>
-                </IconContainer>
+                <SearchIcon style={{position: 'absolute', top: '6', left: '5', transform: 'scale(.6)'}}></SearchIcon>
                 <div style={{position: 'absolute', left: '10%'}}></div>
                 <SearchBox autoComplete='off' onKeyDown={enterQuery} id='result-query-input' className='search-results' placeholder='search' onChange={(e)=>QueryInput(e)}></SearchBox>
             </div>

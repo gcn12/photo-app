@@ -11,17 +11,10 @@ export const DisplayContainer = styled.div`
 export const PhotoDescriptionViewContainer = styled.div`
     margin: 0% 4%;
     display: grid;
-    /* grid-template-columns: repeat(3, auto); */
     grid-template-columns: repeat(auto-fill, minmax(320px, max-content));
     grid-column-gap: 4%;
     grid-row-gap: 0%;
-    /* align-items: center; */
-    /* justify-items: center; */
     justify-content: center;
-
-    @media (max-width: 750px){
-        /* margin: 0% 4%; */
-    } 
 ` 
 
 export const LazyButtonContainer = styled.div`
@@ -39,7 +32,6 @@ export const Container = styled.div`
 
 export const ImageList = styled.div`
     display: grid;
-    /* grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); */
     grid-template-columns: repeat(4, auto);
     grid-gap: 0 5px;
     grid-auto-rows: 1px;
@@ -58,7 +50,6 @@ export const SortSelect = styled.select`
 `
 
 export const LoadMoreButtonContainer = styled.div`
-    /* position: fixed; */
     display: flex;
     justify-content: center;
 `

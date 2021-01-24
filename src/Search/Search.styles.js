@@ -21,27 +21,22 @@ export const SearchBox = styled.input`
     text-indent: 27px;
     border: 0;
     padding: 3px;
-    /* border: 1px solid black; */
     background-color: #ededed;
     border-radius: 15px;
     height: 28px;
     font-size: 20px;
     width: 300px;
-    /* width: 100%; */
-    /* float: right; 
-    clear: both;  */
-    /* box-shadow: 0px 5px 6px rgba(0, 0, 0, .1); */
     &::-webkit-input-placeholder {
         text-indent: 27px;
         color: #707070;
     }
 
-    &:-moz-placeholder { /* Firefox 18- */
+    &:-moz-placeholder { 
         text-indent: 27px;
         color: #707070;
     }
 
-    &::-moz-placeholder {  /* Firefox 19+ */
+    &::-moz-placeholder {
         text-indent: 27px;
         color: #707070;
     }
@@ -63,14 +58,6 @@ export const MoreResults = styled.div`
     padding: 5px 15px;
     cursor: pointer;
     &:hover{
-        /* background-color: gainsboro; */
         background-color: #d1d1d1;
-    }
-`
-
-export const IconContainer = styled.div`
-    @media (max-width: 550px) {
-        /* visibility: hidden;
-        display: none; */
     }
 `

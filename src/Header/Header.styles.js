@@ -9,13 +9,11 @@ export const Container = styled.div`
     position: relative;
 
     @media(max-width: 720px) {
-        /* margin: 0 0 10px; */
         margin: 0 10px 20px 10px;
     }
 `
 
 export const UL = styled.ul`
-    /* width: 90%; */
     padding: 0;
     margin: 0;
     list-style-type: none;
@@ -27,7 +25,6 @@ export const UL = styled.ul`
 `
 
 export const LI = styled.li`
-    /* margin-right: 15px; */
     font-weight: 500;
     color: #242424;
     cursor: pointer;
@@ -49,7 +46,6 @@ export const Navigation = styled.div`
     color: #242424;
     text-decoration: none;
     white-space: nowrap;
-    /* line-height: 48px; */
     cursor: ${props=>props.cursor};
     font-size: 24px;
     margin: 0 5px;
@@ -63,7 +59,6 @@ export const HeaderRight = styled.div`
     visibility: ${props=>props.visibility};
     width: 150px;
     height: 35px;
-    /* align-items: flex-start; */
     @media(max-width: 720px){
         visibility: hidden;
         display: none;

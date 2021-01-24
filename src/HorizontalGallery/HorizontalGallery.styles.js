@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const Title = styled.div`
-    /* color: white; */
     font-size: 24px
 `
 
@@ -12,7 +11,6 @@ export const TextContainer = styled.div`
 `
 
 export const SeeMore = styled.div`
-    /* color: white; */
     cursor: pointer;
 `
 

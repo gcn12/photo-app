@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    /* width: 130px;
-    height: 75px; */
     width: auto;
     height: auto;
     position: absolute;
@@ -28,7 +26,6 @@ export const Option = styled.div`
 
 export const OptionIconContainer = styled.div`
     padding: 5px 20px;
-/* margin: 2px 8px 2px 0; */
     display: flex;
     align-items: center;
     justify-content: space-between;

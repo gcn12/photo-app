@@ -2,22 +2,17 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     opacity: ${props=> props.visibility};
-    /* margin-top: 30px; */
     margin-top: ${props=>props.marginTop};
     position: relative;
 `
 
 export const Image = styled.img`
     cursor: pointer;
-    /* width: 300px; */
     width: 100%;
-    /* min-width: 200px; */
-    /* max-width: 400px; */
     height: 14vw;
     min-height: 200px;
     max-width: 400px;
     min-width: ${props=>props.minWidth};
-    /* height: ${props=>props.height}; */
     object-fit: cover;
     border-radius: 3px;
     box-shadow: 0 1px 2px 0px rgba(0, 0, 0, .2);
@@ -39,8 +34,6 @@ export const Title = styled.div`
     cursor: pointer;
     color: #242424;
     line-height: 25px;
-    /* height: 24px; */
-    /* margin-bottom: 4px; */
     @media(max-width: 600px) {
         font-size: 20px;
     }
@@ -57,5 +50,4 @@ export const TitleGearContainer = styled.div`
     align-items: flex-start;
     position: relative;
     cursor: pointer;
-    /* position: relative; */
 `

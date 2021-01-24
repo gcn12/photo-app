@@ -18,14 +18,6 @@ export const ImageContainer = styled.div`
         width: 100%;
         content: '';
     }
-    /* &::after {
-        background: linear-gradient(
-          to bottom,
-          rgba(0, 0, 0, 0),
-          rgba(0, 0, 0, .6)
-          100%
-        );
-    } */
 `
 
 export const Container = styled.div`
@@ -43,13 +35,10 @@ export const Container = styled.div`
 
 export const Image = styled.img`
     border-radius: 15px;
-    /* height: 160px;
-    width: 300px; */
     width: 100%;
     max-width: 400px;
     height: 190px;
     object-fit: cover;
-    /* position: relative; */
 `
 
 export const Location = styled.div`

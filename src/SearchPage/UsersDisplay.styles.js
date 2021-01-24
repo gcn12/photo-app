@@ -6,14 +6,8 @@ export const Image = styled.img`
     object-fit: cover;
     border-radius: 50%; 
     margin-top: 10px;
-    /* border-radius: 5px; */
     box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .2);
     border: 4px solid rgba(255, 255, 255, 1);
-    /* position: absolute;
-    transform: translate(-50%, -50%);
-    top: 20%;
-    left: 50%; */
-
 `
 
 export const Container = styled.div`
@@ -39,7 +33,6 @@ export const BackgroundHeader = styled.div`
 export const HeaderImage = styled.img`
     height: 140px;
     width: 300px;
-    /* margin: 10px 3px; */
     object-fit: cover;
     border-radius: 5px 5px 0 0;
 `

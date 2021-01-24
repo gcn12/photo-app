@@ -3,21 +3,15 @@ import styled from 'styled-components'
 export const Container = styled.div`
     visibility: ${props=> props.styles.visibility};
     opacity: ${props=> props.styles.opacity};
-    /* display: ${props=> props.visibility ? 'flex' : 'none'}; */
     transition: opacity 200ms ease-in-out, left 200ms ease-in-out;
     top: 45%;
     left: ${props=>props?.styles?.left};
     position: absolute;
     transform: translate(-50%, -50%);
     display: ${props=>props.styles.display ==='initial' ? 'flex' : 'none'};
-    /* display: flex; */
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    /* position: fixed;
-    top:50%;
-    left: 50%;
-    transform: translate(-50%, -50%); */
 `
 
 export const Title = styled.div`
@@ -26,12 +20,9 @@ export const Title = styled.div`
 
 export const Paragraph = styled.div`
     font-size: 20px;
-    /* padding: 20px 20%; */
     margin-bottom: 18px;
     font-family: ${props=> props.font};
     line-height: 40px;
-    /* text-align: justify; */
-    /* white-space: pre-line; */
     white-space: pre-wrap;
     text-justify: inter-word;
 `

@@ -2,12 +2,10 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     width: auto;
-    /* min-width: 220px; */
     min-height: 80px;
     position: absolute;
     background-color: white;
     font-size: 20px;
-    /* transform: translate(-95%, 31%); */
     transform: ${props=> props.translateContainer};
     color: black;
     display: flex;

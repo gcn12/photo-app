@@ -64,7 +64,7 @@ export const EmptyBodyContainer = styled.div`
     left: ${props=>props?.styles?.left};
     position: absolute;
     transform: translate(-50%, -50%);
-    display: ${props=>props.styles.display};
+    display: ${props=>props?.styles?.display};
 `
 
 export const BodyContainer = styled.div`
@@ -128,7 +128,6 @@ export const NewItemButton = styled.button`
     border: none;
     width: ${props=> props.long ? '30vw ': '24vw'};
     border-left: ${props=> props.border};
-    /* width: 40vw; */
     height: 50px;
     cursor: pointer;
     transition: background-color 400ms;
