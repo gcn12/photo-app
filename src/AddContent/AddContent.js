@@ -17,40 +17,31 @@ import {
     UploadProgressContainer,
     TopButtonContainer,
 } from './AddContent.styles'
+import { 
+    titlePhotoStyles,
+    categoryLocationStyles,
+    bodyStyles,
+    previewStyles,
+    uploadStatusStyles,
+    selectFontStyles,
+    createDescriptionStyles,
+    switchValue,
+    bodyContent,
+    bodyImages,
+    uploadProgressColor,
+    paragraph, 
+    titlePhotoProceed,
+    isDuplicate,
+    itemsToUploadData,
+    filesIndex,
+    previewImages,
+    previewImageSizeRatio,
+} from '../Redux/Actions/addContentActions'
 import { photoInformation } from '../Redux/Actions/appActions'
 
 const AddContent = (props) => {
-    const [titlePhotoStyles, setTitlePhotoStyles] = useState({opacity: 1, display: 'initial', left: '50%', visibility: 'visible'})
-    const [categoryLocationStyles, setCategoryLocationStyles] = useState({opacity: 0, display: 'none', left: '90%', visibility: 'hidden'})
-    const [bodyStyles, setBodyStyles] = useState({opacity: 0, display: 'none', left: '90%', visibility: 'hidden'})
-    const [previewStyles, setPreviewStyles] = useState({opacity: 0, display: 'none', left: '90%', visibility: 'hidden'})
-    const [uploadStatusStyles, setUploadStatusStyles] = useState({opacity: 0, display: 'none', left: '90%', visibility: 'hidden'})
-    const [selectFontStyles, setSelectFontStyles] = useState({opacity: 0, display: 'none', left: '90%', visibility: 'hidden'})
-    const [createDescriptionStyles, setCreateDescriptionStyles] = useState({opacity: 0, left: '50%', visibility: 'hidden'})
-    const [switchValue, setSwitchValue] = useState(1)
-    const [bodyContent, setBodyContent] = useState([])
-    const [bodyImages, setBodyImages] = useState([])
-    const [imageSizeRatio, setImageSizeRatio] = useState({})
     const [uploadCount, setUploadCount] = useState(3)
     const [uploadProgress, setUploadProgress] = useState(0)
-    const [uploadProgressColor, setUploadProgressColor] = useState(false)
-    const [paragraph, setParagraph] = useState('')
-    const [isImageHorizontal, setIsImageHorizontal] = useState(true)
-    const [font, setFont] = useState("'Montserrat', sans-serif;")
-    const [titlePhotoProceed, setTitlePhotoProceed] = useState(false)
-    const [categoryLocationProceed, setCategoryLocationProceed] = useState(false)
-    const [bodyProceed, setBodyProceed] = useState(true)
-    const [fontProceed, setFontProceed] = useState(true)
-    const [isDuplicate, setIsDuplicate] = useState(false)
-    const [numberCharacters, setNumberCharacters] = useState(100)
-    const [filesSmallest, setFilesSmallest] = useState([])
-    const [filesSmall, setFilesSmall] = useState([])
-    const [filesLarge, setFilesLarge] = useState([])
-    const [fileNames, setFileNames] = useState([])
-    const [itemsToUploadData, setItemsToUploadData] = useState({})
-    const [filesIndex, setFilesIndex] = useState([])
-    const [previewImages, setPreviewImages] = useState({})
-    const [previewImageSizeRatio, setPreviewImageSizeRatio] = useState({})
 
     const submit = (imagesEmptyArraysSmall, imagesEmptyArraysLarge, unsortedImages, imageMap, imageSizeArray, dataObj, filesIndex, postID) => {
 
@@ -127,9 +118,9 @@ const AddContent = (props) => {
         const urlObjectSmall = {}
         const imageSizeArrayWithIndex = {}
         for (let i=0; i<imagesEmptyArraysLarge.length; i++) {
-            urlObjectLarge[filesIndex[i]] = imagesEmptyArraysLarge[i]
-            urlObjectSmall[filesIndex[i]] = imagesEmptyArraysSmall[i]
-            imageSizeArrayWithIndex[filesIndex[i]] = imageSizeArrayValues[i]
+            urlObjectLarge[props.filesIndex[i]] = imagesEmptyArraysLarge[i]
+            urlObjectSmall[props.filesIndex[i]] = imagesEmptyArraysSmall[i]
+            imageSizeArrayWithIndex[props.filesIndex[i]] = imageSizeArrayValues[i]
         }
         db.collection('users').doc(props.user)
         .get()
@@ -143,7 +134,7 @@ const AddContent = (props) => {
                 setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                 db.collection('posts').add({
                     bio,
-                    font,
+                    [props.font]: props.font,
                     profileImage,
                     photoBodyMap: imageSizeArrayWithIndex,
                     imagesLarge: urlObjectLarge,
@@ -202,7 +193,7 @@ const AddContent = (props) => {
                             .set({
                                 'post-names': firebase.firestore.FieldValue.arrayUnion(url)
                             }, {merge: true})
-                            setTimeout(()=>setUploadProgressColor(true), 300)
+                            setTimeout(()=>props.dispatch(uploadProgressColor(true), 300))
                             setTimeout(()=>props.getFeaturedPhotoInfo(postID), 2000)
                             setTimeout(()=>props.history.push(`/photo-app/post/${postID}`), 2000)
                         })
@@ -250,20 +241,20 @@ const AddContent = (props) => {
                     let fileArray = []
                     const photoUrlArraySortedSmall = []
                     const photoUrlArraySortedLarge = []
-                    for (let i = 0; i < filesLarge.length; i++) {
-                        fileArray = [...fileArray, ...filesLarge[i]]
+                    for (let i = 0; i < props.filesLarge.length; i++) {
+                        fileArray = [...fileArray, ...props.filesLarge[i]]
                         if(i !== 0){
                             photoUrlArraySortedSmall.push([])
                             photoUrlArraySortedLarge.push([])
-                            for(let j = 0; j<filesLarge[i].length; j++) {
+                            for(let j = 0; j<props.filesLarge[i].length; j++) {
                                 photoIndexes.push(i-1)
                             }
                         }
                     }
-                    for (let i = 0; i < filesLarge.length; i++) {
-                        fileArray = [...fileArray, ...filesSmall[i]]
+                    for (let i = 0; i < props.filesLarge.length; i++) {
+                        fileArray = [...fileArray, ...props.filesSmall[i]]
                     }
-                    fileArray = [...fileArray, filesSmallest]
+                    fileArray = [...fileArray, props.filesSmallest]
                     setUploadCount(uploadCount => uploadCount + fileArray.length)
                     const urlArray = []
                     let index = []
@@ -274,7 +265,7 @@ const AddContent = (props) => {
                             const random = Math.round(Math.random()*1000000)
                             const file = fileArray[indexNum]
                             firebase.storage().ref()
-                            .child(`${props.userInformation.id}/${postID}/${fileNames[indexNum]}${random}`)
+                            .child(`${props.userInformation.id}/${postID}/${props.fileNames[indexNum]}${random}`)
                             .putString(file, 'data_url')
                             .then(snapshot => {
                                 setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
@@ -284,7 +275,7 @@ const AddContent = (props) => {
                                     indexNum++ 
                                     index.push(downloadURL) 
                                     if(urlArray.length===fileArray.length) {
-                                        submit(photoUrlArraySortedSmall, photoUrlArraySortedLarge, [...urlArray], photoIndexes, imageSizeArray, itemsToUploadData, filesIndex, postID)
+                                        submit(photoUrlArraySortedSmall, photoUrlArraySortedLarge, [...urlArray], photoIndexes, imageSizeArray, props.itemsToUploadData, props.filesIndex, postID)
                                     }else{
                                         upload()
                                     }
@@ -328,8 +319,8 @@ const AddContent = (props) => {
                 index++
             }
             if(data[i].className.includes('body-photos')){
-                previewImageSizeRatioObj[index] = imageSizeRatio[previewImageSizeRatioIndex]
-                previewImagesObj[index] = filesSmall[previewImageIndex]
+                previewImageSizeRatioObj[index] = props.imageSizeRatio[previewImageSizeRatioIndex]
+                previewImagesObj[index] = props.filesSmall[previewImageIndex]
                 previewImageIndex++
                 previewImageSizeRatioIndex++
                 dataObj[index] = ['images', i]
@@ -337,10 +328,10 @@ const AddContent = (props) => {
                 index++
             }
         }
-        setPreviewImageSizeRatio(previewImageSizeRatioObj)
-        setPreviewImages(previewImagesObj)
-        setItemsToUploadData(dataObj)
-        setFilesIndex(filesIndexArr)
+        props.dispatch(previewImageSizeRatio(previewImageSizeRatioObj))
+        props.dispatch(previewImages(previewImagesObj))
+        props.dispatch(itemsToUploadData(dataObj))
+        props.dispatch(filesIndex(filesIndexArr))
     }
 
     const getBodyContent = () => {
@@ -349,20 +340,20 @@ const AddContent = (props) => {
         for (let paragraph of paragraphs) {
             content.push(paragraph.value)
         }
-        setBodyContent(content)
+        props.dispatch(bodyContent(content))
     }
 
     const getParagraphSample = () => {
         let paragraphArr = []
-        const paragraph = document.getElementsByClassName('add-content-description-input')[0].value
-        const splitParagraph = paragraph.split('\n')
+        const paragraphSample = document.getElementsByClassName('add-content-description-input')[0].value
+        const splitParagraph = paragraphSample.split('\n')
         let finalParagraph = splitParagraph[0].slice(0, 400)
         finalParagraph = finalParagraph.trim()
         if(finalParagraph[finalParagraph.length-1]!=='.'){
             finalParagraph += '...'
         }
         paragraphArr.push(finalParagraph)
-        setParagraph(paragraphArr)
+        props.dispatch(paragraph(paragraphArr))
     }
 
     const checkTitleDuplicates = () => {
@@ -380,13 +371,13 @@ const AddContent = (props) => {
                 dataArray.push(item.data())
             })
             if(dataArray.length > 0){
-                setIsDuplicate(true)
-                setTitlePhotoProceed(false)
+                props.dispatch(isDuplicate(true))
+                props.dispatch(titlePhotoProceed(false))
             }else{
-                setIsDuplicate(false)
-                setTitlePhotoStyles({...titlePhotoStyles, left: '20%', opacity: 0, display: 'none', visibility: 'hidden'})
-                setCategoryLocationStyles({opacity: 1, left: '50%', visibility: 'visible', display: 'initial'})
-                setSwitchValue(2)
+                props.dispatch(isDuplicate(false))
+                props.dispatch(titlePhotoStyles({left: '20%', opacity: 0, display: 'none', visibility: 'hidden'}))
+                props.dispatch(categoryLocationStyles({opacity: 1, left: '50%', visibility: 'visible', display: 'initial'}))
+                props.dispatch(switchValue(2))
             }
         })
     }
@@ -401,52 +392,52 @@ const AddContent = (props) => {
             }
             imagesArray.push(subArray)
         }
-        setBodyImages(imagesArray)
+        props.dispatch(bodyImages(imagesArray))
     }
 
     const transitionSwitchNext = () => {
-        switch(switchValue) {
+        switch(props.switchValue) {
             case 1:
-                if(titlePhotoProceed) {
+                if(props.titlePhotoProceed) {
                     checkTitleDuplicates()
                 }
                 break
             case 2:
-                if(categoryLocationProceed) {
-                    setCategoryLocationStyles({opacity: 0, left: '20%', visibility: 'hidden', display: 'none',})
-                    setCreateDescriptionStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',})
-                    setSwitchValue(3)
+                if(props.categoryLocationProceed) {
+                    props.dispatch(categoryLocationStyles({opacity: 0, left: '20%', visibility: 'hidden', display: 'none',}))
+                    props.dispatch(createDescriptionStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',}))
+                    props.dispatch(switchValue(3))
                 }
                 break
             case 3: 
-            if (numberCharacters >= 0) {
-                setCreateDescriptionStyles({opacity: 0, visibility: 'hidden', left: '20%', display: 'none',})
-                setBodyStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',})
-                setSwitchValue(4)
+            if (props.numberCharacters >= 0) {
+                props.dispatch(createDescriptionStyles({opacity: 0, visibility: 'hidden', left: '20%', display: 'none',}))
+                props.dispatch(bodyStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',}))
+                props.dispatch(switchValue(4))
             }
                 break
             case 4:
-                if(bodyProceed) {
+                if(props.bodyProceed) {
                     getItemsToUploadData()
-                    setBodyStyles({opacity: 0, visibility: 'hidden', left: '20%', display: 'none',})
-                    setSelectFontStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',})
+                    props.dispatch(bodyStyles({opacity: 0, visibility: 'hidden', left: '20%', display: 'none',}))
+                    props.dispatch(selectFontStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',}))
                     getParagraphSample()
-                    setSwitchValue(5)
+                    props.dispatch(switchValue(5))
                 }
                 break
             case 5:
-                setSelectFontStyles({opacity: 0, visibility: 'hidden', left: '20%', display: 'none',})
-                setPreviewStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',})
+                props.dispatch(selectFontStyles({opacity: 0, visibility: 'hidden', left: '20%', display: 'none',}))
+                props.dispatch(previewStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',}))
                 getBodyContent()
                 getBodyImages()
-                setSwitchValue(6)
+                props.dispatch(switchValue(6))
                 props.dispatch(photoInformation([]))
             break
                 case 6: 
-                setPreviewStyles({opacity: 0, visibility: 'hidden', left: '20%', display: 'none',})
-                fileUpload1(imageSizeRatio)
-                setUploadStatusStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',})
-                setSwitchValue(7)
+                props.dispatch(previewStyles({opacity: 0, visibility: 'hidden', left: '20%', display: 'none',}))
+                fileUpload1(props.imageSizeRatio)
+                props.dispatch(uploadStatusStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',}))
+                props.dispatch(switchValue(7))
                 break
             default: 
                 return null
@@ -454,31 +445,31 @@ const AddContent = (props) => {
     }
 
     const transitionSwitchBack = () => {
-        switch(switchValue) {
+        switch(props.switchValue) {
             case 2:
-                setTitlePhotoStyles({display: 'initial', left: '50%', opacity: 1, visibility: 'visible'})
-                setCategoryLocationStyles({opacity: 0, visibility: 'hidden', left: '80%', display: 'none',})
-                setSwitchValue(1)
+                props.dispatch(titlePhotoStyles({display: 'initial', left: '50%', opacity: 1, visibility: 'visible'}))
+                props.dispatch(categoryLocationStyles({opacity: 0, visibility: 'hidden', left: '80%', display: 'none',}))
+                props.dispatch(switchValue(1))
                 break
             case 3:
-                setCategoryLocationStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',})
-                setCreateDescriptionStyles({opacity: 0, visibility: 'hidden', left: '80%', display: 'none',})
-                setSwitchValue(2)
+                props.dispatch(categoryLocationStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',}))
+                props.dispatch(createDescriptionStyles({opacity: 0, visibility: 'hidden', left: '80%', display: 'none',}))
+                props.dispatch(switchValue(2))
                 break
             case 4: 
-                setCreateDescriptionStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',})
-                setBodyStyles({opacity: 0, visibility: 'hidden', left: '50%', display: 'none',})
-                setSwitchValue(3)
+                props.dispatch(createDescriptionStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',}))
+                props.dispatch(bodyStyles({opacity: 0, visibility: 'hidden', left: '50%', display: 'none',}))
+                props.dispatch(switchValue(3))
                 break
             case 5:
-                setBodyStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',})
-                setSelectFontStyles({opacity: 0, visibility: 'hidden', left: '50%', display: 'none',})
-                setSwitchValue(4)
+                props.dispatch(bodyStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',}))
+                props.dispatch(selectFontStyles({opacity: 0, visibility: 'hidden', left: '50%', display: 'none',}))
+                props.dispatch(switchValue(4))
                 break
             case 6: 
-                setSelectFontStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',})
-                setPreviewStyles({opacity: 0, visibility: 'hidden', left: '50%', display: 'none',})
-                setSwitchValue(5)
+                props.dispatch(selectFontStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',}))
+                props.dispatch(previewStyles({opacity: 0, visibility: 'hidden', left: '50%', display: 'none',}))
+                props.dispatch(switchValue(5))
                 break
             default: 
                 return null
@@ -488,22 +479,21 @@ const AddContent = (props) => {
 
     return(
         <div>
-            <UploadProgressContainer styles={uploadStatusStyles}>
-                <UploadProgress display='initial' uploadProgressColor={uploadProgressColor} uploadCount={uploadCount} uploadProgress={uploadProgress}/>
+            <UploadProgressContainer styles={props.uploadStatusStyles}>
+                <UploadProgress display='initial'  uploadCount={uploadCount} uploadProgress={uploadProgress}/>
             </UploadProgressContainer>
-            {switchValue === 7 ? 
+            {props.switchValue === 7 ? 
             null
             :
-                <Preview previewImageSizeRatio={previewImageSizeRatio} previewImages={previewImages} filesSmall={filesSmall} itemsToUploadData={itemsToUploadData} font={font} isImageHorizontal={isImageHorizontal} imageSizeRatio={imageSizeRatio} bodyImages={bodyImages} bodyContent={bodyContent} filesLarge={filesLarge} styles={previewStyles}></Preview>
+                <Preview />
             }
-            <TitlePhoto setFilesSmallest={setFilesSmallest} fileNames={fileNames} setFileNames={setFileNames}  filesLarge={filesLarge} filesSmall={filesSmall} setFilesLarge={setFilesLarge} setFilesSmall={setFilesSmall} isDuplicate={isDuplicate} setTitlePhotoProceed={setTitlePhotoProceed} setIsImageHorizontal={setIsImageHorizontal} setTitlePhotoStyles={setTitlePhotoStyles} styles={titlePhotoStyles}/>
-            <CategoryLocation setCategoryLocationProceed={setCategoryLocationProceed} styles={categoryLocationStyles}/>
-            <Body fileNames={fileNames} setFileNames={setFileNames} filesSmall={filesSmall} filesLarge={filesLarge} setFilesSmall={setFilesSmall} setFilesLarge={setFilesLarge} setBodyProceed={setBodyProceed} imageSizeRatio={imageSizeRatio} setImageSizeRatio={setImageSizeRatio} setBodyStyles={setBodyStyles} styles={bodyStyles}></Body>
-            <SelectFont setFontProceed={setFontProceed} font={font} setFont={setFont} paragraph={paragraph} styles={selectFontStyles}/>
-            <PostDescription setNumberCharacters={setNumberCharacters} styles={createDescriptionStyles} />
+            <TitlePhoto />
+            <CategoryLocation styles={props.categoryLocationStyles}/>
+            <Body />
+            <SelectFont />
+            <PostDescription />
 
-
-            {switchValue === 7 ? 
+            {props.switchValue === 7 ? 
             null
             :
             <div>
@@ -511,29 +501,31 @@ const AddContent = (props) => {
                     <NextButton proceed={1} width='130px' onClick={()=>props.history.goBack()}>Cancel</NextButton>
                 </TopButtonContainer>
                 <ButtonContainer>
-                    {switchValue === 1 ? 
+                    {props.switchValue === 1 ? 
                     null
                     :
                     <NextButton proceed={1} width='150px' onClick={transitionSwitchBack}>Back</NextButton>
                     }
-                    {(()=> {
-                        switch (switchValue) {
-                            case 1: 
-                                return <NextButton proceed={titlePhotoProceed} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
-                            case 2: 
-                                return <NextButton proceed={categoryLocationProceed} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
-                            case 3:
-                                return <NextButton proceed={numberCharacters >= 0 ? true : false} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
-                            case 4: 
-                                return <NextButton proceed={bodyProceed} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Next</NextButton>
-                            case 5: 
-                                return <NextButton proceed={fontProceed} width={switchValue === 1 ? '40vw' :'150px'} onClick={transitionSwitchNext}>Preview</NextButton>
-                            case 6:
-                                return <NextButton proceed={true} width={switchValue === 1 ? '300px' :'150px'} onClick={transitionSwitchNext}>Submit</NextButton>
-                            default: 
-                                return null
-                        }
-                    })()}
+                    <div onClick={transitionSwitchNext}>
+                        {(()=> {
+                            switch (props.switchValue) {
+                                case 1: 
+                                    return <NextButton proceed={props.titlePhotoProceed} width={props.switchValue === 1 ? '40vw' :'150px'}>Next</NextButton>
+                                case 2: 
+                                    return <NextButton proceed={props.categoryLocationProceed} width={props.switchValue === 1 ? '40vw' :'150px'}>Next</NextButton>
+                                case 3:
+                                    return <NextButton proceed={props.numberCharacters >= 0 ? true : false} width={props.switchValue === 1 ? '40vw' :'150px'}>Next</NextButton>
+                                case 4: 
+                                    return <NextButton proceed={props.bodyProceed} width={props.switchValue === 1 ? '40vw' :'150px'}>Next</NextButton>
+                                case 5: 
+                                    return <NextButton proceed={props.fontProceed} width={props.switchValue === 1 ? '40vw' :'150px'}>Preview</NextButton>
+                                case 6:
+                                    return <NextButton proceed={true} width={props.switchValue === 1 ? '300px' :'150px'}>Submit</NextButton>
+                                default: 
+                                    return null
+                            }
+                        })()}
+                    </div>
                 </ButtonContainer>
             </div>
             }     
@@ -544,6 +536,18 @@ const AddContent = (props) => {
 const mapStateToProps = state => ({
     user: state.app.user,
     userInformation: state.app.userInformation,
+    titlePhotoStyles: state.addContent.titlePhotoStyles,
+    categoryLocationStyles: state.addContent.categoryLocationStyles,
+    uploadStatusStyles: state.addContent.uploadStatusStyles,
+    switchValue: state.addContent.switchValue,
+    font: state.addContent.font,
+    titlePhotoProceed: state.addContent.titlePhotoProceed,
+    fontProceed: state.addContent.fontProceed,
+    bodyProceed: state.addContent.bodyProceed,
+    numberCharacters: state.addContent.numberCharacters,
+    filesSmallest: state.addContent.filesSmallest,
+    itemsToUploadData: state.addContent.itemsToUploadData,
+    filesIndex: state.app.filesIndex,
 })
 
 export default connect(mapStateToProps)(AddContent)

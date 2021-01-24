@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import {
     ProgressContainer,
     UploadingTitle,
@@ -63,4 +64,6 @@ const UploadProgress = (props) => {
     )
 }
 
-export default UploadProgress
+const mapStateToProps = state => ({})
+
+export default connect(mapStateToProps)(UploadProgress)

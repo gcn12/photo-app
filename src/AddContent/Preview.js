@@ -1,5 +1,6 @@
 import React from 'react'
 import { ReactComponent as Compass } from '../Icons/Compass.svg'
+import { connect } from 'react-redux'
 import {
     PreviewContainer,
 } from './Preview.styles'
@@ -25,7 +26,7 @@ const Preview = (props) => {
             <Container>
             <div>
                 {props?.filesLarge[0] ? 
-                <MainImage id='test'  width={props.isImageHorizontal ? '80vw' : 'auto'} height={props.isImageHorizontal ? 'auto' : '80vh'} alt='display' src={props?.filesLarge[0][0]}></MainImage>
+                <MainImage alt='' src={props?.filesLarge[0][0]}></MainImage>
                 :
                 null
                 }
@@ -180,5 +181,16 @@ const PostSpacings = (props) => {
         </div>
     )
 }
+
+const mapStateToProps = state => ({
+    previewStyles: state.addContent.previewStyles,
+    bodyContent: state.addContent.bodyContent,
+    bodyImages: state.addContent.bodyImages,
+    font: state.addContent.font,
+    filesLarge: state.addContent.filesLarge,
+    itemsToUploadData: state.addContent.itemsToUploadData,
+    previewImages: state.addContent.previewImages,
+    previewImageSizeRatio: state.addContent.previewImageSizeRatio,
+})
  
-export default Preview
+export default connect(mapStateToProps)(Preview)

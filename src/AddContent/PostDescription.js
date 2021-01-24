@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { numberCharacters } from '../Redux/Actions/addContentActions'
 import {
     PostDescriptionInput,
     Label,
@@ -12,11 +14,11 @@ const PostDescription = (props) => {
         const characters = document.getElementById('post-description-input').value
         const characterQuantity = 100 - characters.length
         setRemainingCharacters(characterQuantity)
-        props.setNumberCharacters(characterQuantity)
+        props.dispatch(numberCharacters(characterQuantity))
     }
 
     return(
-        <PostDescriptionContainer styles={props.styles}>
+        <PostDescriptionContainer styles={props.createDescriptionStyles}>
             <Label>Create a short post description (optional):</Label>
             <PostDescriptionInput id='post-description-input' onChange={calculateRemainingCharacters}></PostDescriptionInput>
             <div>Remaining characters: {remainingCharacters}</div>
@@ -24,4 +26,8 @@ const PostDescription = (props) => {
     )
 }
 
-export default PostDescription
+const mapStateToProps = state => ({
+    createDescriptionStyles: state.addContent.createDescriptionStyles,
+})
+
+export default connect(mapStateToProps)(PostDescription)

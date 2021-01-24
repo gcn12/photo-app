@@ -8,7 +8,6 @@ export const Container = styled.div`
 `
 
 export const InfoContainer = styled.div`
-    /* width: 80%; */
     display: flex;
     justify-content: ${props=> props.justify};
     align-items: center;
@@ -37,11 +36,8 @@ export const Title = styled.div`
 export const Author = styled.div`
     color: #595959;
     font-size: 20px;
-    /* color: #242424; */
-    /* cursor: pointer; */
     font-weight: 300;
     font-family: ${props=> props.font};
-    /* margin: 15px 0 40px 0; */
     display: inline-block;
 `
 
@@ -81,16 +77,13 @@ export const AddCollectionHeartContainer = styled.div`
 `
 
 export const BodyImage = styled.img`
-    /* width: ${props=> `${props.width}`}; */
     width: ${props=> props.imageQuantity > 1 ? `calc(${props.width} * 65vw - ${props.imageGap} * ${props.width})` : 'auto'};
-    /* width: calc(5 * 65)vw; */
     margin: ${props=>  props.margin};
     max-height: 90vh;
     max-width: 65vw;
     display: block;
     cursor: zoom-in;
     @media (max-width: 1000px) {
-        /* width: ${props=> props.imageQuantity > 1 ? `calc(${props.width} * 90vw)` : 'auto'}; */
         width: ${props=> props.imageQuantity > 1 ? `calc(${props.width} * 90vw - ${props.imageGap} * ${props.width})` : 'auto'};
         max-width: 90vw;
     }
@@ -100,7 +93,6 @@ export const BodyContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* margin-bottom: ${props=> props.margin}; */
 `
 
 export const BodyImageContainer = styled.div`
@@ -203,7 +195,6 @@ export const BioName = styled.div`
 `
 
 export const Bio = styled.div`
-    /* max-width: 30vw; */
     max-width: 400px;
     color: #4D4D4D;
     font-weight: 500;
@@ -217,13 +208,9 @@ export const Bio = styled.div`
 
 export const FeaturedPostContainer = styled.div`
     opacity: ${props=>props.opacity};
-    /* transition: opacity 400ms ease-in-out; */
 `
 
 export const MainImage = styled.img`
-    /* height: 90vh; */
-    /* height: ${props=> props.height};
-    width: ${props=> props.width}; */
     height: auto;
     width: auto;
     max-height: 90vh;
@@ -233,19 +220,11 @@ export const MainImage = styled.img`
 
 export const PlaceholderImage = styled.img`
     filter: blur(5px);
-    /* height: ${props=>props.height};
-    width: ${props=>props.width}; */
-    /* height: auto;
-    width: auto;
-    max-height: 90vh;
-    max-width: 90vw; */
     object-fit: contain;
-    /* max-width: 90vw; */
     max-height: 90vh;
     max-width: 90vw;
     width: 100%;
     height: 100%;
-    /* display: block; */
     opacity: ${props=>props.opacity};
     display: ${props=>props.display};
 `

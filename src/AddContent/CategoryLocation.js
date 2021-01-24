@@ -1,6 +1,7 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Autocomplete from '../Autocomplete/Autocomplete'
-
+import { categoryLocationProceed } from '../Redux/Actions/addContentActions'
 import {
     SelectInput,
     CategoryLocationContainer,
@@ -11,9 +12,9 @@ const CategoryLocation = (props) => {
 
     const checkProceed = () => {
         if(document.getElementById('category').value.length > 0 && document.getElementById('autocomplete').value.length > 1) {
-            props.setCategoryLocationProceed(true)
+            props.dispatch(categoryLocationProceed(true))
         }else{
-            props.setCategoryLocationProceed(false)
+            props.dispatch(categoryLocationProceed(false))
         }
     }
 
@@ -35,4 +36,6 @@ const CategoryLocation = (props) => {
     )
 }
 
-export default CategoryLocation
+const mapStateToProps = state => ({})
+
+export default connect(mapStateToProps)(CategoryLocation)

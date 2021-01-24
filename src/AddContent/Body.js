@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import {ReactComponent as Text} from '../Icons/Text.svg'
 import {ReactComponent as Image} from '../Icons/Image.svg'
 import {ReactComponent as Remove} from '../Icons/Remove.svg'
+import { connect } from 'react-redux'
+import { imageSizeRatio, filesSmall, filesLarge, fileNames } from '../Redux/Actions/addContentActions'
 import {
     NewItemButton,
     RemoveLastElement,
@@ -59,7 +61,7 @@ const Body = (props) => {
                                     const index = inputID[inputID.length-1]
                                     const imageSizeRatioCopy = props.imageSizeRatio 
                                     imageSizeRatioCopy[index] = percentageArray
-                                    props.setImageSizeRatio(imageSizeRatioCopy)
+                                    props.dispacth(imageSizeRatio(imageSizeRatioCopy))
                                 }
     
                                 let ratio
@@ -106,16 +108,16 @@ const Body = (props) => {
                                 }else{
                                     const filesSmallCopy = props.filesSmall
                                     const filesLargeCopy = props.filesLarge
-                                    let fileNamesCopy = props.fileNames
+                                    let fileNamesCopy = {...props.fileNames}
 
 
                                     fileNamesCopy = [...props.fileNames, ...fileNamesArray]
 
                                     filesSmallCopy[index + 1] = filesArraySmall
                                     filesLargeCopy[index + 1] = filesArrayLarge
-                                    props.setFilesSmall(filesSmallCopy)
-                                    props.setFilesLarge(filesLargeCopy)
-                                    props.setFileNames(fileNamesCopy)
+                                    props.dispatch(filesSmall(filesSmallCopy))
+                                    props.dispatch(filesLarge(filesLargeCopy))
+                                    props.dispatch(fileNames(fileNamesCopy))
                                 }
                             };
                         }
@@ -186,7 +188,7 @@ const Body = (props) => {
             parent.removeChild(parent.lastChild)
             const imageSizeRatioCopy = props.imageSizeRatio
             delete imageSizeRatioCopy[numberInputs-1]
-            props.setImageSizeRatio(imageSizeRatioCopy)
+            props.dispatch(imageSizeRatio(imageSizeRatioCopy))
         }
         setIsAddImage(!isAddImage)
         checkAdditionalElement()
@@ -216,7 +218,7 @@ const Body = (props) => {
 
     return(
         <div style={{marginTop: '64px'}}>
-            <BodyContainer styles={props.styles}>
+            <BodyContainer styles={props.bodyStyles}>
                 <BodyContainer2 visibility={isAdditionalElements ? 'visible' : 'hidden'} display={isAdditionalElements ? 'initial' : 'none'} >
                     <Container id='content-form'>
                         <Label>Body content</Label>
@@ -272,4 +274,12 @@ const Body = (props) => {
     )
 }
 
-export default Body
+const mapStateToProps = state => ({
+    bodyStyles: state.addContent.bodyStyles,
+    imageSizeRatio: state.addContent.imageSizeRatio,
+    filesSmall: state.addContent.filesSmall,
+    filesLarge: state.addContent.filesLarge,
+    fileNames: state.addContent.fileNames,
+})
+
+export default connect(mapStateToProps)(Body)

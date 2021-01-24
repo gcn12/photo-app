@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import {
     PreviewImage,
     TextInput,
@@ -6,6 +7,7 @@ import {
     FileUpload,
     CenterContainer,
 } from './TitlePhoto.styles'
+import { titlePhotoProceed, filesSmallest, filesSmall, filesLarge, fileNames } from '../Redux/Actions/addContentActions'
 import { Label } from './AddContent.styles'
 
 const TitlePhoto = (props) => {
@@ -60,7 +62,7 @@ const TitlePhoto = (props) => {
                 image.src = imageSrcSmall
                 const filesSmallCopy = props.filesSmall
                 filesSmallCopy[0] = [imageSrcSmall]
-                props.setFilesSmall(filesSmallCopy)
+                props.dispatch(filesSmall(filesSmallCopy))
 
 
                 if(height > 2500 || width > 2500) {
@@ -82,11 +84,11 @@ const TitlePhoto = (props) => {
                 ctx.drawImage(uploadedImage, 0, 0, canvasLarge.width, canvasLarge.height);
                 const imageSrcLarge = canvasLarge.toDataURL('image/jpeg', 1)
 
-                props.setFileNames(fileName)
+                props.dispatch(fileNames(fileName))
 
                 const filesLargeCopy = props.filesLarge
                 filesLargeCopy[0] = [imageSrcLarge]
-                props.setFilesLarge(filesLargeCopy)
+                props.dispatch(filesLarge(filesLargeCopy))
 
 
                 if(height > 150 || width > 150) {
@@ -108,8 +110,8 @@ const TitlePhoto = (props) => {
                 ctx3.drawImage(uploadedImage, 0, 0, canvasSmallest.width, canvasSmallest.height);
                 const imageSrcSmallest = canvasSmallest.toDataURL('image/jpeg', 1)
 
-                props.setFileNames(fileName)
-                props.setFilesSmallest(imageSrcSmallest)
+                props.dispatch(fileNames(fileName))
+                props.dispatch(filesSmallest(imageSrcSmallest))
             }
         }
         viewFile.readAsDataURL(file)
@@ -117,14 +119,14 @@ const TitlePhoto = (props) => {
 
     const checkProceed = () => {
         if (document.getElementById('add-content-title').value.length > 1 && document.getElementById('photo-input').files.length===1) {
-            props.setTitlePhotoProceed(true)
+            props.dispatch(titlePhotoProceed(true))
         }else{
-            props.setTitlePhotoProceed(false)
+            props.dispatch(titlePhotoProceed(false))
         }
     }
 
     return(
-        <CenterContainer styles={props.styles}>
+        <CenterContainer styles={props.titlePhotoStyles}>
             <Container>
                 <Label>Create a title:</Label>
                 <div>
@@ -146,4 +148,11 @@ const TitlePhoto = (props) => {
     )
 }
 
-export default TitlePhoto
+const mapStateToProps = state => ({
+    titlePhotoStyles: state.addContent.titlePhotoStyles,
+    isDuplicate: state.addContent.isDuplicate,
+    filesSmall: state.addContent.filesSmall,
+    filesLarge: state.addContent.filesLarge,
+})
+
+export default connect(mapStateToProps)(TitlePhoto)

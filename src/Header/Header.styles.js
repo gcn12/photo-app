@@ -61,16 +61,10 @@ export const Navigation = styled.div`
 export const HeaderRight = styled.div`
     display: flex;
     visibility: ${props=>props.visibility};
+    width: 150px;
+    height: 35px;
     /* align-items: flex-start; */
     @media(max-width: 720px){
-        visibility: hidden;
-        display: none;
-    }
-`
-
-export const IconContainer = styled.div`
-    cursor: pointer;
-    @media (min-width: 720px) {
         visibility: hidden;
         display: none;
     }
@@ -83,11 +77,4 @@ export const ProfileImage = styled.img`
     width: 35px;
     cursor: pointer;
     object-fit: cover;
-`
-
-export const CenterSearch = styled.div`
-    position: absolute;
-    top: 65%;
-    left: 50%;
-    transform: translate(-50%, -50%)
 `

@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { font } from '../Redux/Actions/addContentActions'
 import {
     Container,
     Paragraph,
@@ -11,11 +13,11 @@ const SelectFont = (props) => {
 
     const getFont = () => {
         const selectedFont = document.getElementById('font-select').value
-        props.setFont(selectedFont)
+        props.dispatch(font(selectedFont))
     }
 
     return(
-        <Container styles={props.styles}>
+        <Container styles={props.selectFontStyles}>
             <Title>Select font:</Title>
             <Paragraph font={props.font}>{props.paragraph}</Paragraph>
             <FontSelect onChange={getFont} id='font-select'>
@@ -30,4 +32,9 @@ const SelectFont = (props) => {
     )
 }
 
-export default SelectFont
+const mapStateToProps = state => ({
+    selectFontStyles: state.addContent.selectFontStyles,
+    paragraph: state.addContent.paragraph,
+})
+
+export default connect(mapStateToProps)(SelectFont)
