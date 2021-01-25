@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import AddToCollectionOptions from './AddToCollectionOptions'
 import CollectionItemsShimmer from './CollectionItemsShimmer'
+import { convertToUrl } from '../Functions'
 import { disableBodyScroll } from 'body-scroll-lock'
 import { db } from '../Firebase'
 import {
@@ -21,16 +22,13 @@ const AddToCollection = (props) => {
     const [isCreateCollection, setIsCreateCollection] = useState(false)
     const [isCollectionExists, setIsCollectionExists] = useState(false)
 
-    const addToCollection = (name) => {
+    const addToCollection = (collectionName) => {
         const addRef = db.collection('users').doc(props.user).collection('collections')
-        addRef.where('image', '==', props.photoInfo.image)
-        .where('collection', '==', name)
+        addRef.where('postID', '==', props.photoInfo.postID)
+        .where('collection', '==', collectionName)
         .get()
         .then(data=> {
-            let collectionNameUrl = name.trim()
-            collectionNameUrl = collectionNameUrl.split(' ')
-            collectionNameUrl = collectionNameUrl.join('-')
-            collectionNameUrl = collectionNameUrl.toLowerCase()
+            const collectionNameUrl = convertToUrl(collectionName)
             if(data.docs.length === 0) {
                 addRef.add({
                     collectionUrl: collectionNameUrl,
@@ -38,12 +36,11 @@ const AddToCollection = (props) => {
                     image: props.photoInfo.image,
                     smallImage: props.photoInfo.smallImage,
                     country: props.photoInfo.country,
-                    // city: props.photoInfo.city,
                     location: props.photoInfo.location,
                     title: props.photoInfo.title,
                     url: props.photoInfo.url,
                     username: props.photoInfo.username,
-                    collection: name,
+                    collection: collectionName,
                     timestamp: Date.now()
                 })
             }
@@ -60,10 +57,7 @@ const AddToCollection = (props) => {
             }
         }
         if(!isCollectionExists && collectionName.length>0){
-            let collectionNameUrl = collectionName.trim()
-            collectionNameUrl = collectionNameUrl.split(' ')
-            collectionNameUrl = collectionNameUrl.join('-')
-            collectionNameUrl = collectionNameUrl.toLowerCase()
+            let collectionNameUrl = convertToUrl(collectionName)
             db.collection('users')
             .doc(props.user)
             .collection('collection-names')

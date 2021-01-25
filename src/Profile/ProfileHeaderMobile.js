@@ -16,21 +16,26 @@ const ProfileHeaderMobile = (props) => {
 
     const [toggleNavigation, setToggleNavigation] = useState(false)
 
+    const pageRoute = (page) => {
+        setToggleNavigation(false)
+        props.dispatch(profilePage(page))
+    }
+
     return(
         <MobileContainer>
             <MobileNavigation height={toggleNavigation ? '200px' : '0px'}>
                 <MobileUL>
-                    <Link onClick={()=>setToggleNavigation(false)} to='/photo-app/profile/my-profile' style={{textDecoration: 'none'}}>
-                        <MobileLI style={{borderBottom: props.profilePage==='my profile'  ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('my profile'))}>My profile</MobileLI>
+                    <Link onClick={()=>pageRoute('my profile')} to='/photo-app/profile/my-profile' style={{textDecoration: 'none'}}>
+                        <MobileLI style={{borderBottom: props.profilePage==='my profile'  ? '1px solid #242424' : null}}>My profile</MobileLI>
                     </Link>
-                    <Link onClick={()=>setToggleNavigation(false)} to='/photo-app/profile/saved' style={{textDecoration: 'none'}}>
-                        <MobileLI style={{borderBottom: props.profilePage==='saved'  ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('saved'))}>Saved</MobileLI>
+                    <Link onClick={()=>pageRoute('saved')} to='/photo-app/profile/saved' style={{textDecoration: 'none'}}>
+                        <MobileLI style={{borderBottom: props.profilePage==='saved'  ? '1px solid #242424' : null}}>Saved</MobileLI>
                     </Link>
-                    <Link onClick={()=>setToggleNavigation(false)} to='/photo-app/profile/admired' style={{textDecoration: 'none'}}>
-                        <MobileLI style={{borderBottom: props.profilePage==='admired'  ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('admired'))}>Admired</MobileLI>
+                    <Link onClick={()=>pageRoute('admired')} to='/photo-app/profile/admired' style={{textDecoration: 'none'}}>
+                        <MobileLI style={{borderBottom: props.profilePage==='admired'  ? '1px solid #242424' : null}}>Admired</MobileLI>
                     </Link>
-                    <Link onClick={()=>setToggleNavigation(false)} to='/photo-app/profile/collections' style={{textDecoration: 'none'}}>
-                        <MobileLI style={{borderBottom: props.profilePage==='collections'  ? '1px solid #242424' : null}} onClick={()=>props.dispatch(profilePage('collections'))}>Collections</MobileLI>
+                    <Link onClick={()=>pageRoute('collections')} to='/photo-app/profile/collections' style={{textDecoration: 'none'}}>
+                        <MobileLI style={{borderBottom: props.profilePage==='collections'  ? '1px solid #242424' : null}}>Collections</MobileLI>
                     </Link>
                 </MobileUL>
             </MobileNavigation>

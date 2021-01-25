@@ -1,6 +1,7 @@
 import React from 'react'
 import { db } from '../Firebase'
 import { connect } from 'react-redux'
+import { convertToUrl } from '../Functions'
 import {
     Container,
     CollectionName,
@@ -13,10 +14,7 @@ const RenameCollectionModal = (props) => {
     const submitRename = (collectionName) => {
         const collectionRename = document.getElementById('new-collection-name').value
         if(collectionRename.length > 0) {
-            let collectionNameUrl = collectionRename.trim()
-            collectionNameUrl = collectionNameUrl.split(' ')
-            collectionNameUrl = collectionNameUrl.join('-')
-            collectionNameUrl = collectionNameUrl.toLowerCase()
+            let collectionNameUrl = convertToUrl(collectionRename)
             const collectionRef = db.collection('users').doc(props.user)
             collectionRef.collection('collections').where('collection', '==', collectionName)
             .get()

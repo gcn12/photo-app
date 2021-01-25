@@ -38,9 +38,7 @@ const CollectionPostsDisplay = (props) => {
             <PostsContainer>
                 {collectionImages.map((post, index) => {
                     return(
-                        <div key={index} style={{textDecoration: 'none'}}> 
-                            <PublicProfilesPosts marginTop='30px' history={props.history} getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} post={post} />
-                        </div>
+                        <PublicProfilesPosts marginTop='30px' getFeaturedPhotoInfo={props.getFeaturedPhotoInfo} post={post} key={index} />
                     )
                 })}
             </PostsContainer>

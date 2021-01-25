@@ -29,14 +29,14 @@ const DeletePost = (props) => {
         .add({
             smallImage: props.post.smallImage,
             userID: props.userInformation.id,
-            postID: props.postID,
+            postID: props.post.postID,
             location: props.post.location,
             country: props.post.country,
             username: props.post.username,
-            image: props.image,
+            image: props.post.image,
             id: props.user,
         }).then(()=> {
-            props.removePostFromPosts(props.index)
+            props.removePostFromPostsOnDelete(props.index)
         })
         props.setShowDelete(false)
         props.closeDelete()
@@ -56,7 +56,7 @@ const DeletePost = (props) => {
                 <div style={{margin: '0px 0 30px 0', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <Text size='20px'>Delete post</Text>
                     &nbsp;
-                    <Text size='20px' weight='700'>{props.title}</Text> 
+                    <Text size='20px' weight='700'>{props.post.title}</Text> 
                     &nbsp;
                     <Text>?</Text> 
                 </div>

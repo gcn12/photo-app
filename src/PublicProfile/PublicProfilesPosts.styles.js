@@ -39,11 +39,6 @@ export const Title = styled.div`
     }
 `
 
-export const Location = styled.div`
-    font-size: 16px;
-    color: #242424;
-`
-
 export const TitleGearContainer = styled.div`
     display: flex;
     justify-content: space-between;

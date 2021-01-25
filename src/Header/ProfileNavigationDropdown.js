@@ -33,10 +33,13 @@ const ProfileNavigationDropdown = (props) => {
     } 
 
     const pageRoute = (pageName) => {
-        if(pageName==='my profile') {
-            clearDataOnProfileView()
+        if(pageName !== props.profileName) {
+            if(pageName==='my profile') {
+                clearDataOnProfileView()
+                // props.dispatch(profilePage('my profile'))
+            }
+            props.dispatch(profilePage(pageName))
         }
-        props.dispatch(profilePage(pageName))
         props.setShowProfileDropdown(false)
     }
 
@@ -101,6 +104,7 @@ const ProfileNavigationDropdown = (props) => {
 
 const mapStateToProps = state => ({
     userInformation: state.app.userInformation,
+    profilePage: state.profile.profilePage
 })
 
 export default connect(mapStateToProps)(ProfileNavigationDropdown)

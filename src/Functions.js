@@ -1,5 +1,13 @@
 import { db } from "./Firebase"
 
+export const convertToUrl = (string) => {
+    let url = string.trim()
+    url = url.split(' ')
+    url = url.join('-')
+    url = url.toLowerCase()
+    return url
+}
+
 export const addEllipsisToText = (text, finalLength) => {
     text = text.slice(0, finalLength)
     text = text.trim()

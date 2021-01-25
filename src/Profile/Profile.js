@@ -5,21 +5,25 @@ import UserPrivateProfile from '../UserPrivateProfile/UserPrivateProfile'
 import SavedPostsDisplay from '../SavedPosts/SavedPostsDisplay'
 import AdmiredPosts from '../AdmiredPosts/AdmiredPostsComponent'
 import{ profilePage } from '../Redux/Actions/profileActions'
-import ProfileHeaderMobile from './ProfileHeaderDesktop'
-import ProfileHeaderDesktop from './ProfileHeaderMobile'
+import ProfileHeaderDesktop from './ProfileHeaderDesktop'
+import ProfileHeaderMobile from './ProfileHeaderMobile'
 
 const Profile = (props) => {
 
     const route = props.match.params
     useEffect(()=> {
-        props.dispatch(profilePage(route.route))
+        let page = route.route
+        if(route.route === 'my-profile') {
+            page = 'my profile'
+        }
+        props.dispatch(profilePage(page))
         console.log('profile loaded')
         // eslint-disable-next-line
     }, [])
     return(
         <div style={{marginTop: '85px'}}>
-            <ProfileHeaderMobile />
             <ProfileHeaderDesktop />
+            <ProfileHeaderMobile />
             {(()=> {
                 switch (props.profilePage) {
                     case 'my profile':

@@ -9,17 +9,14 @@ import {
     Container,
     Image,
     Title,
-    Location,
 } from './PublicProfilesPosts.styles'
+import { Text } from '../Styles/GlobalStyles.styles'
 
 const PublicProfilesPosts = (props) => {
 
     const [isProfilePostVisible, setIsProfilePostVisible] = useState(false)
 
     const selectPhoto = () => {
-        if(props.setShowSpinner) {
-            props.setShowSpinner(true)
-        }
         props.dispatch(isPostVisible(false))
         props.dispatch(isVisible(false))
         props.getFeaturedPhotoInfo(props.post.postID)
@@ -28,12 +25,12 @@ const PublicProfilesPosts = (props) => {
     return(
         <Container marginTop={props.marginTop} visibility={isProfilePostVisible ? 1 : 0} >
             <Link onClick={selectPhoto} to={`/photo-app/post/${props.post.postID}`}>
-                <Image height={props.height} minWidth={props.minWidth}  onLoad={()=> setIsProfilePostVisible(true)} src={props.post.smallImage} alt=''></Image>
+                <Image minWidth={props.minWidth} onLoad={()=> setIsProfilePostVisible(true)} src={props.post.smallImage} alt=''></Image>
             </Link>
             <Link to={`/photo-app/post/${props.post.postID}`} onClick={selectPhoto} style={{textDecoration: 'none'}}>
                 <Title>{props.post.title}</Title>
             </Link>
-            <Location>{props.post.location}</Location>
+            <Text size='16px'>{props.post.location}</Text>
         </Container>
     )
 }
