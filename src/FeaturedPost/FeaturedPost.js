@@ -13,12 +13,12 @@ import { PopupDarken } from '../Styles/PopupStyles.styles'
 import { connect } from 'react-redux'
 import { photoInformation, userPosts, userData } from '../Redux/Actions/appActions'
 import { isPostVisible, isVisible } from '../Redux/Actions/featuredPostActions'
+import { unbookmarkPost, bookmarkPost, unadmirePost } from '../Functions'
 import AddToCollection from './AddToCollection'
 import EnlargeImage from './EnlargeImage'
 import KeepReading from './KeepReading'
 import { 
     incrementHeartCount, 
-    decrementHeartCount,
 } from '../Functions'
 import moment from 'moment'
 import {
@@ -62,25 +62,14 @@ const FeaturedPost = (props) => {
 
     const bookmark = () => {
         const {views, font, bio, category, country, image, location, profileImage, smallestImage, hearts, ratio, dataObj, imagesLarge, imagesSmall, photoBodyMap, ...data } = props.photoInformation
-        db.collection('users')
-        .doc(props.user)
-        .collection('bookmarked')
-        .add({
-            ...data,
-            timestamp: Date.now(),
-        })
+        bookmarkPost(data, props.user)
         .then(()=>setIsBookmark(true))
         .catch(err =>console.log(err))
     }
 
-    const unbookmark = () => {
-        db.collection('users')
-        .doc(props.user)
-        .collection('bookmarked')
-        .where('postID', '==', props.photoInformation.postID)
-        .get()
-        .then(data=> {
-            data.docs[0].ref.delete()
+    const unbookmark =  () => {
+        unbookmarkPost(props.photoInformation.postID, props.user)
+        .then(()=> {
             setIsBookmark(false)
         })
     }
@@ -100,11 +89,11 @@ const FeaturedPost = (props) => {
                 setShowDropdown(!showDropdown)
             })
         }
-        getFeaturedPhotoInfo2(props?.match?.params?.postID)
+        getFeaturedPhotoInfoOnLoad(props?.match?.params?.postID)
         // eslint-disable-next-line
     },[])
 
-    const getFeaturedPhotoInfo2 = (postID) => {
+    const getFeaturedPhotoInfoOnLoad = (postID) => {
         window.scrollTo({top: 0})
         db.collection('posts')
         .where('postID', '==', postID)
@@ -171,8 +160,6 @@ const FeaturedPost = (props) => {
         }) 
     }
 
-    
-
     const admireImage = () => {
         const {profileImage, country, location, views, hearts, ratio, dataObj, bio, category, smallestImage, font, image, imagesLarge, imagesSmall, photoBodyMap, ...data } = props.photoInformation
         db.collection('users')
@@ -200,24 +187,11 @@ const FeaturedPost = (props) => {
             })
         })
         .catch(err =>console.log(err))
-        
     }
 
     const unadmireImage = () => {
-        db.collection('users')
-        .doc(props.user)
-        .collection('hearts')
-        .doc('hearts')
-        .set({
-            hearts: firebase.firestore.FieldValue.arrayRemove(props.photoInformation.id)
-        }, {merge: true}).then(()=> {
-            setIsHeart(false)
-            db.collection('preview-posts').where('id', '==', props.photoInformation.id)
-            .get()
-            .then(ref=> {
-                decrementHeartCount(ref.docs[0].ref.id)
-            })
-        })
+        unadmirePost(props.photoInformation.id, props.photoInformation.postID, props.user)
+        setIsHeart(false)
     }
 
     window.onclick = (e) => {
@@ -274,22 +248,16 @@ const FeaturedPost = (props) => {
         <FeaturedPostContainer 
         opacity={props.isPostVisible ? 1 : 0} 
         style={{marginTop: '75px'}}>
-            {showImageEnlarged ? 
+            {showImageEnlarged && 
             <div>
                 <PopupDarken onClick={closeImage} />
                 <EnlargeImage closeImage={closeImage} setShowImageEnlarged={setShowImageEnlarged} image={imageToEnlarge} />
-            </div>
-            :
-            null
-            }
-            {isAddToCollection ? 
+            </div>}
+            {isAddToCollection && 
             <div>
                 <PopupDarken onClick={closeAddToCollection} />
                 <AddToCollection showSpinner={showSpinner} closeAddToCollection={closeAddToCollection} photoInfo={props.photoInformation} setCollectionsList={setCollectionsList} collectionsList={collectionsList} setIsAddToCollection={setIsAddToCollection} />
-            </div>
-            :
-            null
-            }
+            </div>}
             <Container>
                 <div>
                     <div style={{width: '90vw', maxHeight: '90vh', display: `${props.isVisible ? 'none' : 'block'}`}}>

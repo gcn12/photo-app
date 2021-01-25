@@ -1,4 +1,51 @@
-import { db } from "./Firebase"
+import { db } from './Firebase'
+import firebase from 'firebase'
+
+export const unadmirePost = (firestorePostID, postID, userID) => {
+    const ref = db.collection('users').doc(userID)
+    ref.collection('hearts')
+    .doc('hearts')
+    .set({
+        hearts: firebase.firestore.FieldValue.arrayRemove(firestorePostID)
+    }, {merge: true}).then(()=> {
+        db.collection('preview-posts').where('id', '==', firestorePostID)
+        .get()
+        .then(ref=> {
+            if(ref.docs) {
+                decrementHeartCount(ref.docs[0].ref.id)
+            }
+        })
+    })
+    ref.collection('admired')
+    .where('postID', '==', postID)
+    .get()
+    .then(data=> {
+        data.docs[0].ref.delete()
+        .catch(err=>console.log(err))
+    })
+}
+
+export const bookmarkPost = async (data, userID) => {
+    setTimeout(()=>console.log("hello"), 1000)
+    db.collection('users')
+    .doc(userID)
+    .collection('bookmarked')
+    .add({
+        ...data,
+        timestamp: Date.now(),
+    })
+}
+
+export const unbookmarkPost = async (postID, userID) => {
+    db.collection('users')
+    .doc(userID)
+    .collection('bookmarked')
+    .where('postID', '==', postID)
+    .get()
+    .then(data=> {
+        data.docs[0].ref.delete()
+    })
+}
 
 export const convertToUrl = (string) => {
     let url = string.trim()

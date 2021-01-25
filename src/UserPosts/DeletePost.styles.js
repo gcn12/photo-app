@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     height: 200px;
-    width: 30vw;
+    min-width: 30vw;
     background-color: #f5f5f5;
     margin: auto;
     position: fixed;
@@ -54,4 +54,23 @@ export const Cancel = styled.button`
     border: none;
     border-radius: 2px;
     cursor: pointer;
+`
+
+export const TextSpan = styled.span`
+    font-weight: 700;
+    font-size: 20px;
+`
+
+export const TextContainer = styled.div`
+    margin: 0px 0 30px 0;
+    display: flex;
+    justify-content: center;
+`
+
+export const Message = styled.div`
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 400px;
+    overflow: hidden;
+    font-size: 20px;
 `

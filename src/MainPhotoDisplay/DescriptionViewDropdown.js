@@ -2,6 +2,7 @@ import React from 'react'
 import { db } from '../Firebase'
 import { ReactComponent as Collections } from '../Icons/Collections.svg'
 import { connect } from 'react-redux'
+import { unbookmarkPost, bookmarkPost } from '../Functions'
 import {
     Container,
     OptionIcon,
@@ -54,13 +55,7 @@ const DescriptionViewDropdown = (props) => {
 
     const bookmark = () => {
         const { views, category, country, location, image, hearts, ratio, ...data } = props.photoInfo
-        db.collection('users')
-        .doc(props.user)
-        .collection('bookmarked')
-        .add({
-            ...data,
-            timestamp: Date.now(),
-        })
+        bookmarkPost(data, props.user)
         .then(()=>props.setIsBookmarked(true))
         .catch(err =>console.log(err))
     }
@@ -70,14 +65,8 @@ const DescriptionViewDropdown = (props) => {
             props.removeFromSavedPostArray(props.index)
             props.setShowDropdown(false)
         }
-        db.collection('users')
-        .doc(props.user)
-        .collection('bookmarked')
-        .where('username', '==', props.photoInfo.username)
-        .where('postID', '==', props.photoInfo.postID)
-        .get()
-        .then(data=> {
-            data.docs[0].ref.delete()
+        unbookmarkPost(props.photoInfo.postID, props.user)
+        .then(()=> {
             if(!props.isRemoveFromSavedPage){
                 props.setIsBookmarked(false)
             }

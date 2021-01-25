@@ -3,6 +3,7 @@ import { db } from '../Firebase'
 import { ReactComponent as Collections } from '../Icons/Collections.svg'
 import { connect } from 'react-redux'
 import { ReactComponent as FilledHeart } from '../Icons/FilledHeart.svg'
+import { unadmirePost } from '../Functions'
 import {
     Container,
     OptionIcon,
@@ -54,36 +55,15 @@ const AdmiredDropdown = (props) => {
         }) 
     }
 
-    const bookmark = () => {
-        const { views, hearts, ratio, image, font, bio, category, country, location, profileImage, smallestImage, ...data } = props.photoInfo
-        db.collection('users')
-        .doc(props.user)
-        .collection('admired')
-        .add({
-            ...data,
-            timestamp: Date.now(),
-        })
-        .then(()=>props.setIsBookmarked(true))
-        .catch(err =>console.log(err))
-    }
-
-    const unbookmark = () => {
+    const unadmire = () => {
+        unadmirePost(props.photoInfo.id, props.photoInfo.postID, props.user)
         if(props.removeFromSavedPostArray) {
             props.removeFromSavedPostArray(props.index)
             props.setShowDropdown(false)
         }
-        db.collection('users')
-        .doc(props.user)
-        .collection('admired')
-        .where('username', '==', props.photoInfo.username)
-        .where('postID', '==', props.photoInfo.postID)
-        .get()
-        .then(data=> {
-            data.docs[0].ref.delete()
-            if(!props.isRemoveFromSavedPage){
-                props.setIsBookmarked(false)
-            }
-        })
+        if(!props.isRemoveFromSavedPage){
+            props.setIsBookmarked(false)
+        }
     }
 
 
@@ -91,22 +71,12 @@ const AdmiredDropdown = (props) => {
         <Container fontSize='20px' translateContainer={props.translateContainer}>
             <Triangle shift='translate(-45%, -90%)' />
             <Options>
-                {props.isBookmarked ? 
-                <OptionIconContainer radius='5px 5px 0 0' className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}  onClick={unbookmark}>
-
+                <OptionIconContainer radius='5px 5px 0 0' className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}  onClick={unadmire}>
                     <OptionIcon className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}  style={{transform: 'scale(.9)'}}>
-                    <FilledHeart style={{backrgroundColor: 'red', transform: 'scale(.8)', position: 'relative', top: 4}} />
+                        <FilledHeart style={{backrgroundColor: 'red', transform: 'scale(.8)', position: 'relative', top: 4}} />
                     </OptionIcon>
                     <OptionText className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'} >Remove from admired</OptionText>
                 </OptionIconContainer>
-                :
-                <OptionIconContainer radius='5px 5px 0 0' className='add-dropdown' onClick={bookmark}> 
-                    <OptionIcon className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'} style={{transform: 'scale(.9)'}}>
-                    <img style={{transform: 'scale(.8)', position: 'relative', top: 4}} alt='' className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'} src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0xMiAyMS41OTNjLTUuNjMtNS41MzktMTEtMTAuMjk3LTExLTE0LjQwMiAwLTMuNzkxIDMuMDY4LTUuMTkxIDUuMjgxLTUuMTkxIDEuMzEyIDAgNC4xNTEuNTAxIDUuNzE5IDQuNDU3IDEuNTktMy45NjggNC40NjQtNC40NDcgNS43MjYtNC40NDcgMi41NCAwIDUuMjc0IDEuNjIxIDUuMjc0IDUuMTgxIDAgNC4wNjktNS4xMzYgOC42MjUtMTEgMTQuNDAybTUuNzI2LTIwLjU4M2MtMi4yMDMgMC00LjQ0NiAxLjA0Mi01LjcyNiAzLjIzOC0xLjI4NS0yLjIwNi0zLjUyMi0zLjI0OC01LjcxOS0zLjI0OC0zLjE4MyAwLTYuMjgxIDIuMTg3LTYuMjgxIDYuMTkxIDAgNC42NjEgNS41NzEgOS40MjkgMTIgMTUuODA5IDYuNDMtNi4zOCAxMi0xMS4xNDggMTItMTUuODA5IDAtNC4wMTEtMy4wOTUtNi4xODEtNi4yNzQtNi4xODEiLz48L3N2Zz4=" />
-                    </OptionIcon>
-                    <OptionText className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}>Save for later</OptionText>
-                </OptionIconContainer>
-                }     
                 <OptionIconContainer radius='0 0 5px 5px' onClick={getCollectionsList}>
                     <OptionIcon>
                         <Collections style={{transform: 'scale(.7)', position: 'relative', top: 4}} />

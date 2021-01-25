@@ -5,20 +5,23 @@ import {
     Container,
     DeleteButton,
     Cancel,
+    TextSpan,
+    TextContainer,
+    Message,
 } from './DeletePost.styles'
 import { Text } from '../Styles/GlobalStyles.styles'
 
 const DeletePost = (props) => {
     
-    const deleteCollection = () => {
+    const deletePost = () => {
         db.collection('preview-posts')
-        .where('postID', '==', props.postID)
+        .where('postID', '==', props.post.postID)
         .get()
         .then(item=> {
             item.docs[0].ref.delete()
         })
         db.collection('posts')
-        .where('postID', '==', props.postID)
+        .where('postID', '==', props.post.postID)
         .get()
         .then(item=> {
             item.docs[0].ref.delete()
@@ -34,7 +37,7 @@ const DeletePost = (props) => {
             country: props.post.country,
             username: props.post.username,
             image: props.post.image,
-            id: props.user,
+            id: props.post.id
         }).then(()=> {
             props.removePostFromPostsOnDelete(props.index)
         })
@@ -53,16 +56,12 @@ const DeletePost = (props) => {
                 <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                     <Text onClick={cancelDelete} style={{cursor: 'pointer'}} size='36px'>&times;</Text>
                 </div>
-                <div style={{margin: '0px 0 30px 0', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <Text size='20px'>Delete post</Text>
-                    &nbsp;
-                    <Text size='20px' weight='700'>{props.post.title}</Text> 
-                    &nbsp;
-                    <Text>?</Text> 
-                </div>
+                <TextContainer>
+                    <Message>Delete post <TextSpan>{props.post.title}</TextSpan> ?</Message>
+                </TextContainer>
                 <div style={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <Cancel onClick={cancelDelete}>Cancel</Cancel>
-                    <DeleteButton onClick={deleteCollection}>Delete</DeleteButton>
+                    <DeleteButton onClick={deletePost}>Delete</DeleteButton>
                 </div>
             </Container>
         </div>
