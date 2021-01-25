@@ -10,7 +10,7 @@ import {
     LI,
     Margin,
     ULSearch,
-} from './SubheaderPosts.styles'
+} from './SubheaderPostsPage.styles'
 
 
 const Subheader = (props) => {

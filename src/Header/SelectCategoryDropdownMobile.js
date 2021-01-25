@@ -9,7 +9,7 @@ import {
     Cancel,
     UL,
     LI,
-} from './SubheaderDropdown.styles'
+} from './SubheaderSortMobile.styles'
 
 const variants = {
     initial: {

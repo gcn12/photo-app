@@ -17,7 +17,7 @@ import {
     OptionIcon,
 } from '../Styles/DropdownStyles.styles'
 
-const ProfileDropdown = (props) => {
+const ProfileNavigationDropdown = (props) => {
 
     const signoutWithRoute = () => {
         props.history.push('/photo-app/posts')
@@ -103,4 +103,4 @@ const mapStateToProps = state => ({
     userInformation: state.app.userInformation,
 })
 
-export default connect(mapStateToProps)(ProfileDropdown)
+export default connect(mapStateToProps)(ProfileNavigationDropdown)

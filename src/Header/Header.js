@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import { db } from '../Firebase'
-import SubheaderPosts from './SubheaderPosts'
-import SubheaderDropdown from './SubheaderDropdown'
-import SelectCategoryDropdown from './SelectCategoryDropdown'
-import SearchDropdown from './SearchDropdown'
+import SubheaderPostsPage from './SubheaderPostsPage'
+import SubheaderDropdown from './SubheaderSortMobile'
+import SelectCategoryDropdownMobile from './SelectCategoryDropdownMobile'
 import SubheaderSearch from './SubheaderSearch'
 import Search from '../Search/Search'
-import ProfileDropdown from './ProfileDropdown'
+import ProfileNavigationDropdown from './ProfileNavigationDropdown'
 import { connect } from 'react-redux'
 import { homePhotoInformation, profileLoaded } from '../Redux/Actions/appActions'
 import { 
@@ -108,8 +107,7 @@ const Header = (props) => {
             {!props.location.pathname.includes('/photo-app/upload') ? 
             <Border>
                 <SubheaderDropdown getAssortedPhotos={getAssortedPhotos} sort={props.sort} />
-                <SelectCategoryDropdown sort={props.sort} location={props.location} getCategoryPhotos={getCategoryPhotos} />
-                <SearchDropdown  />
+                <SelectCategoryDropdownMobile sort={props.sort} location={props.location} getCategoryPhotos={getCategoryPhotos} />
                 <Container>
                     <UL>
                         <LI>
@@ -139,7 +137,7 @@ const Header = (props) => {
                         <div style={{position: 'relative'}}>
                             <ProfileImage onClick={()=> setShowProfileDropdown(!showProfileDropdown)} onLoad={()=>props.dispatch(profileLoaded(true))} id='header-profile-image' className='profile-dropdown' src={props.userInformation.profileImage} />
                             {showProfileDropdown ? 
-                            <ProfileDropdown setShowProfileDropdown={setShowProfileDropdown} history={props.history} />
+                            <ProfileNavigationDropdown setShowProfileDropdown={setShowProfileDropdown} history={props.history} />
                             :
                             null
                             }
@@ -152,7 +150,7 @@ const Header = (props) => {
                     </HeaderRight>
                 </Container>
                 {props.location.pathname.includes('/photo-app/posts') ? 
-                <SubheaderPosts 
+                <SubheaderPostsPage 
                     setShowCategories={setShowCategories}
                     showCategories={showCategories}
                     location={props.location}

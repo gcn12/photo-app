@@ -43,7 +43,7 @@ const SearchPage = (props) => {
                         null
                         }
                     </TitleContainer>
-                    <CitiesDisplayContainer quantity={props?.searchResults[2]?.length < 4 ? 'center' : 'center'}>
+                    <CitiesDisplayContainer>
                         {props?.searchResults[2]?.map((item, index)=> {
                             return (
                                 <CitiesDisplay sort={props.sort} item={item} key={index} />

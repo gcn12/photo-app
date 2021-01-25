@@ -12,8 +12,8 @@ import {
     Margin, 
     ArrowIcon,
     CategorySelected,
-} from './SubheaderPosts.styles'
-import SubheaderCategories from './SubheaderCategories'
+} from './SubheaderPostsPage.styles'
+import SelectCategoryDesktop from './SelectCategoryDesktop'
 
 
 const Subheader = (props) => {
@@ -94,7 +94,7 @@ const Subheader = (props) => {
                             </div>
                             {props.showCategories ? 
                             <div style={{position: 'relative'}}>
-                                <SubheaderCategories 
+                                <SelectCategoryDesktop 
                                     getCategoryPhotos={props.getCategoryPhotos} 
                                     className='categories-dropdown' 
                                     location={props.location}

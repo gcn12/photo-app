@@ -10,7 +10,7 @@ import {
     Cancel,
     UL,
     LI,
-} from './SubheaderDropdown.styles'
+} from './SubheaderSortMobile.styles'
 
 const variants = {
     initial: {
@@ -35,9 +35,9 @@ const variants = {
 }
 
 
-const SubheaderDropdown = (props) => {
+const SubheaderSortMobile = (props) => {
 
-    const closeDropdown = (isCancel) => {
+    const closeDropdown = () => {
         props.dispatch(dropdownTransition('transitionEnd'))
         setTimeout(()=> props.dispatch(visibility(false)), 300)
         document.body.style.overflowY = 'auto'
@@ -99,4 +99,4 @@ const mapStateToProps = state => ({
     sortCriteria: state.app.sortCriteria,
 })
 
-export default connect(mapStateToProps)(SubheaderDropdown)
+export default connect(mapStateToProps)(SubheaderSortMobile)

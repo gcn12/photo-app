@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import CollectionsProfilePage from '../Collections/CollectionsProfilePage'
 import { connect } from 'react-redux'
 import UserPrivateProfile from '../UserPrivateProfile/UserPrivateProfile'
-import SavedPosts from '../SavedPosts/SavedPostsComponent'
+import SavedPostsDisplay from '../SavedPosts/SavedPostsDisplay'
 import AdmiredPosts from '../AdmiredPosts/AdmiredPostsComponent'
 import{ profilePage } from '../Redux/Actions/profileActions'
 import ProfileHeaderMobile from './ProfileHeaderDesktop'
@@ -28,7 +28,7 @@ const Profile = (props) => {
                         )
                     case 'saved':
                         return( 
-                            <SavedPosts history={props.history} />
+                            <SavedPostsDisplay history={props.history} />
                         )
                     case 'admired': 
                         return( 
