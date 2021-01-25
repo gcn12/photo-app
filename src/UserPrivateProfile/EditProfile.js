@@ -25,7 +25,6 @@ const EditProfile = (props) => {
     const [username, setUsername] = useState('')
     const [name, setName] = useState('')
     const [bio, setBio] = useState('')
-    const [uploadStatusProps, setUploadStatusProps] = useState('initial')
     const [uploadCount, setUploadCount] = useState(2)
     const [uploadProgress, setUploadProgress] = useState(0)
 
@@ -82,7 +81,6 @@ const EditProfile = (props) => {
     const uploadProfileImage = () => {
         setIsUploading(true)
         setUploadCount(uploadCount => uploadCount + 1)
-        setTimeout(()=>setUploadStatusProps('transitionStart'), 0)
         setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
         const image = document.getElementById('edit-profile-image').src
         if(image !== props.userData.profileImage){
@@ -169,7 +167,7 @@ const EditProfile = (props) => {
         <Container id='edit-profile-container'>
             {isUploading ? 
                 <CenterProgress>
-                    <UploadProgress uploadProgressColor={uploadProgressColor} animate={uploadStatusProps} variants={animationMap.uploadStatus} uploadCount={uploadCount} uploadProgress={uploadProgress} />
+                    <UploadProgress uploadProgressColor={uploadProgressColor} uploadCount={uploadCount} uploadProgress={uploadProgress} />
                 </CenterProgress>
             :
             <div>
@@ -211,20 +209,5 @@ const mapStateToProps = state => ({
     user: state.app.user,
     userInformation: state.app.userInformation,
 })
-
-const animationMap = {
-    uploadStatus: {
-        initial: {
-            x: 0,
-            y: 50,
-            opacity: 0,
-        },
-        transitionStart: {
-            x: 0,
-            y: 50,
-            opacity: 1,
-        }
-    }
-}
 
 export default connect(mapStateToProps)(EditProfile)
