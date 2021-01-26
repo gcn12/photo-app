@@ -1,7 +1,12 @@
 import styled from 'styled-components'
 
+export const Container = styled.div`
+    position: relative;
+`
+
 export const BackgroundImage = styled.img`
     height: 100vh;
+    min-height: 800px;
     width: 100vw;
     display: block;
     object-fit: cover;
@@ -27,6 +32,19 @@ export const ParagraphContainer = styled.div`
     transform: translate(-50%, -50%);
     width: 500px;
     z-index: 2;
+
+    @media(max-width: 1300px) {
+        /* top: ${props=>props.topSmall}; */
+        left: ${props=>props.leftSmall};
+    }
+
+    @media(max-width: 900px) {
+        top: ${props=>props.topSmall};
+        left: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 `
 
 export const Title = styled.div`
@@ -34,6 +52,10 @@ export const Title = styled.div`
     font-weight: 600;
     margin-bottom: 18px;
     color: #fcfcfc;
+    @media(max-width: 900px) {
+        font-size: 36px;
+        margin-bottom: 14px;
+    }
 `
 
 export const Paragraph = styled.div`
@@ -41,6 +63,12 @@ export const Paragraph = styled.div`
     font-weight: 400;
     margin-bottom: 36px;
     color: #fcfcfc;
+    @media(max-width: 900px) {
+        text-align: center;
+        max-width: 350px;
+        font-size: 14px;
+        margin-bottom: 24px;
+    }
 `
 
 export const ReadMoreButton = styled.button`
@@ -52,6 +80,9 @@ export const ReadMoreButton = styled.button`
     font-size: 24px;
     padding: 8px 20px;
     cursor: pointer;
+    @media(max-width: 900px) {
+        font-size: 14px;
+    }
 `
 
 export const Card = styled.div`

@@ -64,7 +64,7 @@ export const Name = styled.div`
 
 export const Title = styled.div`
     cursor: pointer;
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 500;
     text-decoration: none;
     line-height: 36px;

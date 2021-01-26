@@ -7,13 +7,14 @@ import {
     Paragraph,
     ReadMoreButton,
     ImageContainer,
+    Container,
 } from './SingleLocation.styles'
 
 const SingleLocation = (props) => {
 
     return(
-        <div style={{position: 'relative'}}>
-            <ParagraphContainer top={props.top} left={props.left}>
+        <Container>
+            <ParagraphContainer leftSmall={props.leftSmall} topSmall={props.topSmall} top={props.top} left={props.left}>
                 <Title>{props.title}</Title>
                 <Paragraph>{props.paragraph}</Paragraph>
                 <Link to='/photo-app/posts/popular' onClick={()=>props.goToPlacesPage(props.title)}>
@@ -23,7 +24,7 @@ const SingleLocation = (props) => {
             <ImageContainer background={props.background}>
                 <BackgroundImage src={props.image} />
             </ImageContainer>
-        </div>
+        </Container>
     )
 }
 
