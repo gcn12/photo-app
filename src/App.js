@@ -124,13 +124,12 @@ const App = (props) => {
         if(urlSplit[4]) {
           const category = urlSplit[4]
           if(category === 'all') {
-          criteria['category'] = 'all categories'
+            criteria['category'] = 'all categories'
+          }else{
+            criteria['category'] = category
           }
           initialSort = initialSort.where('category', '==', category)
-          criteria['category'] = category
         }
-  
-        console.log(urlSplit)
   
         const limit = 12
         props.dispatch(sortCriteria(criteria))
@@ -142,7 +141,6 @@ const App = (props) => {
           data.forEach(item=> {
             dataArray.push(item.data())
           })
-          console.log(dataArray)
           if(dataArray.length === 0 || dataArray.length<limit) {
             props.dispatch(isLoadMore(false))
           }else{

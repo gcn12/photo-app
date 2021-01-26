@@ -66,21 +66,28 @@ const Subheader = (props) => {
         props.dispatch(sortCriteria(finalCriteria))
         props.sort(finalCriteria, true)
     }
+
+    let category
+    if(props.sortCriteria.category === 'all categories'){
+        category = 'all'
+    }else{
+        category = props.sortCriteria.category
+    }
     
     return(
         <div>
             <Container>
                 <UL>
                     <div style={{display: 'flex', alignItems: 'center'}}>
-                        <Link onClick={()=>changeSort('views')} to='/photo-app/posts/popular' style={{textDecoration: 'none'}}>
+                        <Link onClick={()=>changeSort('views')} to={`/photo-app/posts/popular/${category}`} style={{textDecoration: 'none'}}>
                             <LI underline={props.sortCriteria.views===true ? true : false}>Popular</LI>
                         </Link>
                         <Margin></Margin>
-                        <Link to='/photo-app/posts/new' onClick={()=>changeSort('timestamp')} style={{textDecoration: 'none'}}>
+                        <Link to={`/photo-app/posts/new/${category}`}  onClick={()=>changeSort('timestamp')} style={{textDecoration: 'none'}}>
                             <LI  underline={props.sortCriteria.new  ? true : false}>Newest</LI>
                         </Link>
                         <Margin></Margin>
-                        <Link to='/photo-app/posts/rating' onClick={()=>changeSort('ratio')} style={{textDecoration: 'none'}}>
+                        <Link to={`/photo-app/posts/rating/${category}`}  onClick={()=>changeSort('ratio')} style={{textDecoration: 'none'}}>
                             <LI  underline={props.sortCriteria.rating ? true : false}>Highest rated</LI>
                         </Link>
                     </div>

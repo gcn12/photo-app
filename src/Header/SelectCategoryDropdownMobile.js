@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { dropdownCategoriesTransition, categoriesVisibility } from '../Redux/Actions/headerActions'
 import { homePhotoInformation, sortCriteria } from '../Redux/Actions/appActions'
 import {
@@ -64,6 +65,17 @@ const CategoriesDropdown = (props) => {
         }
     }
 
+    let sortBy
+    if(props.sortCriteria.views){
+        sortBy = 'popular'
+    }
+    if(props.sortCriteria.rating){
+        sortBy = 'rating'
+    }
+    if(props.sortCriteria.new){
+        sortBy = 'new'
+    }
+
     return(
         <Container visibility={props.categoriesVisibility ? 1 : 0} transition='transition' variants={variants} initial='initial' animate={props.dropdownCategoriesTransition}>
             <CancelContainer>
@@ -71,13 +83,27 @@ const CategoriesDropdown = (props) => {
             </CancelContainer>
             <CenterList>
                 <UL>
-                    <LI onClick={()=>getPhotos('all categories')} underline={props.sortCriteria.category === 'all categories' ? true : false}>All categories</LI>
-                    <LI onClick={()=>getPhotos('entertainment')} underline={props.sortCriteria.category === 'entertainment' ? true : false}>Entertainment</LI>
-                    <LI onClick={()=>getPhotos('adventure')} underline={props.sortCriteria.category === 'adventure' ? true : false}>Adventure</LI>
-                    <LI onClick={()=>getPhotos('restaurant')} underline={props.sortCriteria.category === 'restaurant' ? true : false}>Restaurant</LI>
-                    <LI onClick={()=>getPhotos('sightseeing')} underline={props.sortCriteria.category === 'sightseeing' ? true : false}>Sightseeing</LI>
-                    <LI onClick={()=>getPhotos('shopping')} underline={props.sortCriteria.category === 'shopping' ? true : false}>Shopping</LI>
-                    <LI onClick={()=>getPhotos('museum')} underline={props.sortCriteria.category === 'museum' ? true : false}>Museum</LI>
+                <Link to={`/photo-app/posts/${sortBy}/all`} onClick={()=>getPhotos('all categories')} style={{textDecoration: 'none'}}>
+                    <LI underline={props.sortCriteria.category === 'all categories' ? true : false}>All categories</LI>
+                </Link>
+                <Link to={`/photo-app/posts/${sortBy}/entertainment`} onClick={()=>getPhotos('entertainment')} style={{textDecoration: 'none'}}>
+                    <LI underline={props.sortCriteria.category === 'entertainment' ? true : false}>Entertainment</LI>
+                </Link>
+                <Link to={`/photo-app/posts/${sortBy}/adventure`} onClick={()=>getPhotos('adventure')} style={{textDecoration: 'none'}}>
+                    <LI underline={props.sortCriteria.category === 'adventure' ? true : false}>Adventure</LI>
+                </Link>
+                <Link to={`/photo-app/posts/${sortBy}/restaurant`} onClick={()=>getPhotos('restaurant')} style={{textDecoration: 'none'}}>
+                    <LI underline={props.sortCriteria.category === 'restaurant' ? true : false}>Restaurant</LI>
+                </Link>
+                <Link to={`/photo-app/posts/${sortBy}/sightseeing`} onClick={()=>getPhotos('sightseeing')} style={{textDecoration: 'none'}}>
+                    <LI underline={props.sortCriteria.category === 'sightseeing' ? true : false}>Sightseeing</LI>
+                </Link>
+                <Link to={`/photo-app/posts/${sortBy}/shopping`} onClick={()=>getPhotos('shopping')} style={{textDecoration: 'none'}}>
+                    <LI underline={props.sortCriteria.category === 'shopping' ? true : false}>Shopping</LI>
+                </Link>
+                <Link to={`/photo-app/posts/${sortBy}/museum`} onClick={()=>getPhotos('museum')} style={{textDecoration: 'none'}}>
+                    <LI underline={props.sortCriteria.category === 'museum' ? true : false}>Museum</LI>
+                </Link>
                 </UL>
             </CenterList>
         </Container>

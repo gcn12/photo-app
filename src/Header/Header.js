@@ -53,7 +53,7 @@ const Header = (props) => {
                 <Container>
                     <UL>
                         <LI>
-                            <Link onClick={getAssortedAndDropOpacity} to='/photo-app/posts/popular' style={{ textDecoration: 'none', color: '#242424' }}>
+                            <Link onClick={getAssortedAndDropOpacity} to='/photo-app/posts/popular/all' style={{ textDecoration: 'none', color: '#242424' }}>
                                 <Navigation>Wall</Navigation>
                             </Link>
                         </LI>

@@ -32,7 +32,7 @@ const CitiesDisplay = (props) => {
             <Link to='/photo-app/posts'>
                 <div style={{overflow: 'hidden', borderRadius: '15px'}}>
                     <ImageContainer>
-                    <Image onLoad={()=> setIsVisible(true)} alt='' src={props.item.image}></Image>
+                        <Image onLoad={()=> setIsVisible(true)} alt='' src={props.item.image}></Image>
                     </ImageContainer>
                 </div>
                 {props.item.country ? 

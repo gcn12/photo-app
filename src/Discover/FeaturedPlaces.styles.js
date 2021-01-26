@@ -24,13 +24,14 @@ export const Image = styled.img`
 export const Arrow = styled.div`
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 46%;
     transform: translate(-50%, -50%);
-    transform: scale(1.5);
+    transform: scale(2);
     opacity: 0;
 `
 
 export const ImageArrowContainer = styled.div`
+    position: relative;
     &:hover ${Image} {
         filter: brightness(.5)
     }
@@ -38,6 +39,7 @@ export const ImageArrowContainer = styled.div`
         opacity: 1;
         transition: opacity 400ms ease-in-out;
     }
+    z-index: 3;
 `
 
 export const PostsContainer = styled.div`
