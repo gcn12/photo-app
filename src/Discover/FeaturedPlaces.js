@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { db } from '../Firebase'
+import { ReactComponent as ArrowIcon } from '../Icons/Arrow.svg'
 import {
     Container,
     Image,
@@ -7,7 +8,9 @@ import {
     PostContainer,
     TextContainer,
     Header,
-} from './FeaturedPosts.styles'
+    Arrow,
+    ImageArrowContainer,
+} from './FeaturedPlaces.styles'
 
 const FeaturedPosts = () => {
 
@@ -44,8 +47,15 @@ const FeaturedPosts = () => {
 const PostDisplay = (props) => {
     return(
         <PostContainer>
-            <Image src={props.post.smallImage} alt='' />
-            <TextContainer>{props.post.location}</TextContainer>
+            <TextContainer>
+                <ImageArrowContainer>
+                    <Image src={props.post.smallImage} alt='' />
+                    <Arrow>
+                        <ArrowIcon />
+                    </Arrow>
+                </ImageArrowContainer>
+                {props.post.location}
+            </TextContainer>
         </PostContainer>
     )
 }

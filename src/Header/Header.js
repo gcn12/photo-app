@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { db } from '../Firebase'
 import SubheaderPostsPage from './SubheaderPostsPage'
 import SubheaderDropdown from './SubheaderSortMobile'
 import SelectCategoryDropdownMobile from './SelectCategoryDropdownMobile'
@@ -8,10 +7,6 @@ import Search from '../Search/Search'
 import ProfileNavigationDropdown from './ProfileNavigationDropdown'
 import { connect } from 'react-redux'
 import { homePhotoInformation, profileLoaded } from '../Redux/Actions/appActions'
-import { 
-    selected, 
-    selectedCategory, 
-} from '../Redux/Actions/headerActions'
 import { Link } from 'react-router-dom' 
 import {
     Container,
@@ -26,59 +21,6 @@ import {
 const Header = (props) => {
     const [showProfileDropdown, setShowProfileDropdown] = useState(false)
     const [showCategories, setShowCategories] = useState(false)
-
-    const getAssortedPhotos = () => {
-        props.dispatch(selected('assorted'))
-        let randomString = ''
-        const values = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789'
-        for (let i = 0; i < 8; i++) {
-            randomString += values[Math.floor(Math.random() * 62)]
-        }
-        window.scrollTo({top: 0})
-        db.collection('preview-posts')
-        .orderBy('id', 'asc')
-        .where('id', '>=', randomString)
-        .limit(28)
-        .get()
-        .then(snapshot => {
-            const photosArray = []
-            snapshot.docs.forEach(doc => {
-                photosArray.push(doc.data())
-            })
-            if(photosArray.length===0) {
-                db.collection('preview-posts')
-                .orderBy('id', 'asc')
-                .where('id', '<=', randomString)
-                .limit(28)
-                .get()
-                .then(snapshot => {
-                    const photosArray = []
-                    snapshot.docs.forEach(doc => {
-                        photosArray.push(doc.data())
-                    })
-                    setTimeout(()=> props.dispatch(homePhotoInformation([...photosArray])), 700)
-                })
-            }else{
-                props.dispatch(homePhotoInformation(photosArray))
-            }
-        })
-    }
-
-    const getCategoryPhotos = (category) => {
-        props.dispatch(selectedCategory(category))
-        window.scrollTo({top: 0})
-        db.collection('preview-posts')
-        .where('category', '==', category)
-        .limit(28)
-        .get()
-        .then(snapshot => {
-            const photosArray = []
-            snapshot.docs.forEach(doc => {
-                photosArray.push(doc.data())
-            })
-            setTimeout(()=> props.dispatch(homePhotoInformation([...photosArray])), 700)
-        })
-    }
 
     const getAssortedAndDropOpacity = () => {
         props.dispatch(homePhotoInformation([]))
@@ -103,11 +45,11 @@ const Header = (props) => {
     } 
 
     return(
-        <div style={{position: 'fixed', top: 0, width: '100%', marginBottom: '20px', zIndex:2}}>
+        <div style={{position: 'fixed', top: 0, width: '100%', marginBottom: '20px', zIndex:4}}>
             {!props.location.pathname.includes('/photo-app/upload') ? 
             <Border>
-                <SubheaderDropdown getAssortedPhotos={getAssortedPhotos} sort={props.sort} />
-                <SelectCategoryDropdownMobile sort={props.sort} location={props.location} getCategoryPhotos={getCategoryPhotos} />
+                <SubheaderDropdown sort={props.sort} />
+                <SelectCategoryDropdownMobile sort={props.sort} location={props.location} />
                 <Container>
                     <UL>
                         <LI>
@@ -155,8 +97,6 @@ const Header = (props) => {
                     showCategories={showCategories}
                     location={props.location}
                     sort={props.sort} 
-                    getCategoryPhotos={getCategoryPhotos} 
-                    getAssortedPhotos={getAssortedPhotos} 
                 />
                 :
                 null
@@ -168,8 +108,6 @@ const Header = (props) => {
                     search={props.search}
                     location={props.location}
                     sort={props.sort}  
-                    getCategoryPhotos={getCategoryPhotos} 
-                    getAssortedPhotos={getAssortedPhotos} 
                 />
                 :
                 null

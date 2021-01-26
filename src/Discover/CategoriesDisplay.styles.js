@@ -24,6 +24,12 @@ export const CategoryText = styled.div`
         opacity: 1;
         transition: opacity 400ms ease-in-out;
     }
+    @media(max-width: 800px) {
+        font-size: 24px;
+    }
+    @media(max-width: 500px) {
+        font-size: 18px;
+    }
 `
 
 export const SmallImage = styled.img`

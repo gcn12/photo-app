@@ -16,7 +16,6 @@ export const initialState = {
     sortCriteria: {
         location: '',
         country: '',
-        continent: '',
         category: 'all categories',
         views: false,
         new: false,

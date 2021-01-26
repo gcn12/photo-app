@@ -97,44 +97,61 @@ const App = (props) => {
 
   useEffect(()=> {
     if(props?.location?.pathname) {
-      let initialSort = db.collection('preview-posts')
-      let criteria = {...props.sortCriteria}
-      if(props?.location?.pathname?.includes('/posts/popular')|| props?.location?.pathname === '/photo-app/posts') {
-        initialSort = initialSort.orderBy('views', 'desc')
-        criteria['views'] = true
-      }else{
-        criteria['views'] = false
-      }
-      if(props?.location?.pathname?.includes('/posts/new')) {
-        initialSort = initialSort.orderBy('timestamp', 'desc')
-        criteria['new'] = true
-      }else{
-        criteria['new'] = false
-      }
-      if(props?.location?.pathname?.includes('/posts/rating')) {
-        initialSort = initialSort.orderBy('ratio', 'desc')
-        criteria['rating'] = true
-      }else{
-        criteria['rating'] = false
-      }
-      const limit = 12
-      props.dispatch(sortCriteria(criteria))
-      initialSort
-      .limit(limit)
-      .get()
-      .then(data=> {
-        let dataArray = []
-        data.forEach(item=> {
-          dataArray.push(item.data())
-        })
-        if(dataArray.length === 0 || dataArray.length<limit) {
-          props.dispatch(isLoadMore(false))
+      const urlSplit = props.location.pathname.split('/')
+      if (urlSplit[2] === 'posts') {
+        // if(props.location.pathname)
+        let initialSort = db.collection('preview-posts')
+        let criteria = {...props.sortCriteria}
+        if(urlSplit[3] === 'popular' || urlSplit[2] === 'posts') {
+          initialSort = initialSort.orderBy('views', 'desc')
+          criteria['views'] = true
         }else{
-          props.dispatch(isLoadMore(true))
+          criteria['views'] = false
         }
-        props.dispatch(startAfter(data.docs[data.docs.length-1]))
-        props.dispatch(homePhotoInformation([...dataArray]))
-      })
+        if(urlSplit[3] === 'new') {
+          initialSort = initialSort.orderBy('timestamp', 'desc')
+          criteria['new'] = true
+        }else{
+          criteria['new'] = false
+        }
+        if(urlSplit[3] === 'rating') {
+          initialSort = initialSort.orderBy('ratio', 'desc')
+          criteria['rating'] = true
+        }else{
+          criteria['rating'] = false
+        }
+
+        if(urlSplit[4]) {
+          const category = urlSplit[4]
+          if(category === 'all') {
+          criteria['category'] = 'all categories'
+          }
+          initialSort = initialSort.where('category', '==', category)
+          criteria['category'] = category
+        }
+  
+        console.log(urlSplit)
+  
+        const limit = 12
+        props.dispatch(sortCriteria(criteria))
+        initialSort
+        .limit(limit)
+        .get()
+        .then(data=> {
+          let dataArray = []
+          data.forEach(item=> {
+            dataArray.push(item.data())
+          })
+          console.log(dataArray)
+          if(dataArray.length === 0 || dataArray.length<limit) {
+            props.dispatch(isLoadMore(false))
+          }else{
+            props.dispatch(isLoadMore(true))
+          }
+          props.dispatch(startAfter(data.docs[data.docs.length-1]))
+          props.dispatch(homePhotoInformation([...dataArray]))
+        })
+      }
     }
     // eslint-disable-next-line
   }, [])
@@ -412,10 +429,10 @@ const App = (props) => {
         )} />
 
         <Route exact path='/photo-app/discover' render={()=> (
-          <Discover />
+          <Discover sort={sort} />
         )} />
 
-        <Route exact path='/photo-app/posts/:sort?' render={(props)=> (
+        <Route exact path='/photo-app/posts/:sort?/:category?' render={(props)=> (
             <MainPhotoDisplay 
               sort={sort}
               getFeaturedPhotoInfo={getFeaturedPhotoInfo}

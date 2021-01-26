@@ -9,7 +9,7 @@ export const Container = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-evenly;
-    z-index: 1;
+    z-index: 10;
     align-items: center;
     @media (min-width: 720px) {
         display: none;
