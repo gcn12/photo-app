@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import {
-    BackgroundImage,
+    // BackgroundImage,
     ParagraphContainer,
     Title,
     Paragraph,
@@ -13,7 +13,7 @@ import {
 const SingleLocation = (props) => {
 
     return(
-        <Container>
+        <Container image={props.image} imageCentered={props.imageCentered}>
             <ParagraphContainer leftSmall={props.leftSmall} topSmall={props.topSmall} top={props.top} left={props.left}>
                 <Title>{props.title}</Title>
                 <Paragraph>{props.paragraph}</Paragraph>
@@ -22,7 +22,7 @@ const SingleLocation = (props) => {
                 </Link>
             </ParagraphContainer>
             <ImageContainer background={props.background} backgroundSmall={props.backgroundSmall} >
-                <BackgroundImage src={props.image} />
+                {/* <BackgroundImage src={props.image} /> */}
             </ImageContainer>
         </Container>
     )

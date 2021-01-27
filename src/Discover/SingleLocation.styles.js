@@ -2,14 +2,38 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     position: relative;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    min-height: 800px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: ${props=>props.image};
+    @media(max-width: 900px) {
+        background-image: ${props=>props.imageCentered ? props.imageCentered : props.image };
+    }
 `
 
 export const BackgroundImage = styled.img`
     height: 100vh;
     min-height: 800px;
-    width: 100vw;
+    width: 100%;
     display: block;
     object-fit: cover;
+    
+    @media(max-width: 900px) {
+        text-align: center;
+        transform: scale(1.2);
+        position: relative;
+        width: 90%;
+        /* left: 50%;
+        transform: translate(-50%,0); */
+        position: absolute;
+        top: 50%;
+        left: 55%;
+        transform: translate(-50%, -50%);
+    }
 `
 
 export const ImageContainer = styled.div`
@@ -22,9 +46,9 @@ export const ImageContainer = styled.div`
         bottom: 0;
         background: ${props=>props.background};
         z-index: 1;
-        @media(max-width: 900px) {
+        /* @media(max-width: 900px) {
             background: ${props=>props.backgroundSmall};
-        }
+        } */
     }
 `
 
