@@ -52,7 +52,7 @@ const Discover = (props) => {
 
     return(
         <div style={{marginTop: '60px'}}>
-            <SingleLocation goToPlacesPage={goToPlacesPage} sort={props.sort} topSmall='20%' leftSmall='30%' top='25%' left='23%' title='Tokyo, Japan' paragraph = 'Nam libero justo laoreet sit amet cursus sit amet. Potenti nullam ac tortor vitae purus faucibus. Leo in vitae turpis massa sed elementum tempus egestas.' background='linear-gradient(to top, rgba(0,0,0,0) 0%,rgba(0,0,0,.3) 100%)' image='https://firebasestorage.googleapis.com/v0/b/photos-634e7.appspot.com/o/site_photos%2Fjapan.jpg?alt=media&token=2d0444fd-5a38-4a24-a645-0b71b06a64aa' />
+            <SingleLocation goToPlacesPage={goToPlacesPage} sort={props.sort} topSmall='75%' leftSmall='30%' top='25%' left='23%' title='Tokyo, Japan' paragraph = 'Nam libero justo laoreet sit amet cursus sit amet. Potenti nullam ac tortor vitae purus faucibus. Leo in vitae turpis massa sed elementum tempus egestas.' backgroundSmall='linear-gradient(to bottom, rgba(0,0,0,0) 20%,rgba(0,0,0,.6) 100%)' background='linear-gradient(to top, rgba(0,0,0,0) 0%,rgba(0,0,0,.3) 100%)' image='https://firebasestorage.googleapis.com/v0/b/photos-634e7.appspot.com/o/site_photos%2Fjapan.jpg?alt=media&token=2d0444fd-5a38-4a24-a645-0b71b06a64aa' />
             <FeaturedPlaces goToPlacesPage={goToPlacesPage} sort={props.sort} posts={posts1} title='Popular Destinations' />
             <CategoriesDisplay sort={props.sort} />
             <FeaturedPlaces goToPlacesPage={goToPlacesPage} sort={props.sort} posts={posts2} title='Our Top Places' />

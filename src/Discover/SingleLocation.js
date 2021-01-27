@@ -21,7 +21,7 @@ const SingleLocation = (props) => {
                     <ReadMoreButton>Read More</ReadMoreButton>
                 </Link>
             </ParagraphContainer>
-            <ImageContainer background={props.background}>
+            <ImageContainer background={props.background} backgroundSmall={props.backgroundSmall} >
                 <BackgroundImage src={props.image} />
             </ImageContainer>
         </Container>

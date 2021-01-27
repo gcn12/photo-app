@@ -22,6 +22,9 @@ export const ImageContainer = styled.div`
         bottom: 0;
         background: ${props=>props.background};
         z-index: 1;
+        @media(max-width: 900px) {
+            background: ${props=>props.backgroundSmall};
+        }
     }
 `
 
