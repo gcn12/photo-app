@@ -104,7 +104,7 @@ export const ReadMoreButton = styled.button`
     /* border: 1px solid #242424; */
     border: none;
     border-radius: 2px; 
-    color: #7a7a7a;
+    color: #4D4D4D;
     font-size: 24px;
     padding: 8px 20px;
     cursor: pointer;

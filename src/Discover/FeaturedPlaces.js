@@ -40,7 +40,7 @@ const PostDisplay = (props) => {
                             <ArrowIcon />
                         </Arrow>
                     </ImageArrowContainer>
-                    <Text>{props.post.location}</Text>
+                    <Text weight='600' size='18px'>{props.post.location}</Text>
                 </Link>
             </TextContainer>
         </PostContainer>

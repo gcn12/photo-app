@@ -19,6 +19,7 @@ const Search = (props) => {
             }
             const results = []
             props.dispatch(searchResults([...results]))
+            document.activeElement.blur();
         }
     }
 
