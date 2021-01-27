@@ -5,19 +5,24 @@ export const Container = styled.div`
     width: 100vw;
     min-height: 800px;
     position: relative;
+    @media(max-width: 600px) {
+        grid-template-columns: repeat(1, 1fr);
+        min-height: 1400px;
+    }
 `
 
 export const Image = styled.img`
+    box-shadow: 0px 3px 4px 0 rgba(0,0,0,.3);
     height: 25vw;
     width: 20vw; 
     object-fit: cover;
     @media(max-width: 950px) {
         height: 250px;
-        width: 30vw; 
+        width: 40vw; 
     }
-    @media(max-width: 500px) {
+    @media(max-width: 600px) {
         height: 200px;
-        max-width: 50vw; 
+        min-width: 70vw; 
     }
     transition: filter 300ms ease-in-out;
 `
@@ -56,6 +61,9 @@ export const PostsContainer = styled.div`
     @media(max-width: 950px) {
         grid-template-columns: repeat(2, 1fr);
     }
+    @media(max-width: 600px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
 `
 
 export const PostContainer = styled.div`
@@ -79,7 +87,7 @@ export const Header = styled.div`
     @media(max-width: 950px) {
         top: 7%;
     }
-    @media(max-width: 500px) {
-        top: 10%;
+    @media(max-width: 600px) {
+        top: 6%;
     }
 `
