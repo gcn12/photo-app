@@ -88,7 +88,7 @@ const Subheader = (props) => {
                         </Link>
                         <Margin></Margin>
                         <Link to={`/photo-app/posts/rating/${category}`}  onClick={()=>changeSort('ratio')} style={{textDecoration: 'none'}}>
-                            <LI  underline={props.sortCriteria.rating ? true : false}>Highest rated</LI>
+                            <LI  underline={props.sortCriteria.rating ? true : false}>Highest-rated</LI>
                         </Link>
                     </div>
                     <div style={{display: 'flex', marginRight: '10px'}} >

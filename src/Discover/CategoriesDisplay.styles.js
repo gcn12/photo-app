@@ -1,11 +1,14 @@
 import styled from 'styled-components'
 
 export const LargeImage = styled.img`
-    height: 40vw;
+    height: 35vw;
     width: calc(100vw / 3 * 2);
     object-fit: cover;
     display: block;
     transition: filter 300ms ease-in-out;
+    @media(max-width: 800px) {
+        height: 45vw;
+    }
 `
 
 export const CategoryText = styled.div`
@@ -33,15 +36,19 @@ export const CategoryText = styled.div`
 `
 
 export const SmallImage = styled.img`
-    height: 40vw;
+    height: 35vw;
     width: calc(100vw / 3);
     object-fit: cover;
     display: block;
     transition: filter 300ms ease-in-out;
+    @media(max-width: 800px) {
+        height: 45vw;
+    }
 `
 
 export const ImagesContainer = styled.div`
     display: flex;
+    height: auto;
 `
 
 export const PhotoTextContainer = styled.div`
