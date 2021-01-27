@@ -18,6 +18,12 @@ const CategoryLocation = (props) => {
         }
     }
 
+    const closeKeyboard = (e) => {
+        if(e.code==='Enter') {
+            document.activeElement.blur();
+        }
+    }
+
     return(
         <CategoryLocationContainer styles={props.styles}>
             <Label htmlFor='category'>Select category:</Label>
@@ -31,7 +37,7 @@ const CategoryLocation = (props) => {
                 <option value='museum'>Museum</option>
             </SelectInput>
             <Label>Select location (city or country):</Label>
-            <Autocomplete isCheckProceed={true} checkProceed={checkProceed}/>
+            <Autocomplete closeKeyboard={closeKeyboard} isCheckProceed={true} checkProceed={checkProceed}/>
         </CategoryLocationContainer>
     )
 }

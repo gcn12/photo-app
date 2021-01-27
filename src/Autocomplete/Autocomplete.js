@@ -30,7 +30,7 @@ const Autocomplete = (props) => {
 
     return(
         <div>
-            <input autoComplete='off' defaultValue={props.defaultValue} onChange={initAutocomplete} id='autocomplete'></input>
+            <input autoComplete='off' onKeyDown={props.closeKeyboard ? ()=>props.closeKeyboard : null} defaultValue={props.defaultValue} onChange={initAutocomplete} id='autocomplete'></input>
         </div>
     )
     

@@ -17,10 +17,16 @@ const PostDescription = (props) => {
         props.dispatch(numberCharacters(characterQuantity))
     }
 
+    const closeKeyboard = (e) => {
+        if(e.code==='Enter') {
+            document.activeElement.blur();
+        }
+    }
+
     return(
         <PostDescriptionContainer styles={props.createDescriptionStyles}>
             <Label>Create a short post description (optional):</Label>
-            <PostDescriptionInput id='post-description-input' onChange={calculateRemainingCharacters}></PostDescriptionInput>
+            <PostDescriptionInput onKeyDown={closeKeyboard} id='post-description-input' onChange={calculateRemainingCharacters}></PostDescriptionInput>
             <div>Remaining characters: {remainingCharacters}</div>
         </PostDescriptionContainer>
     )

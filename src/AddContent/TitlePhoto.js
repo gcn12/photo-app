@@ -125,12 +125,19 @@ const TitlePhoto = (props) => {
         }
     }
 
+    const closeKeyboard = (e) => {
+        if(e.code==='Enter') {
+            document.activeElement.blur();
+        }
+    }
+
+
     return(
         <CenterContainer styles={props.titlePhotoStyles}>
             <Container>
                 <Label>Create a title:</Label>
                 <div>
-                    <TextInput onChange={checkProceed} autoComplete='off' id='add-content-title'></TextInput>
+                    <TextInput onChange={checkProceed} onKeyDown={closeKeyboard} autoComplete='off' id='add-content-title'></TextInput>
                     {props.isDuplicate ? 
                     <div style={{color: '#e04343'}}>Title already used</div>
                     :
