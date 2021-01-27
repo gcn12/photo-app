@@ -102,7 +102,7 @@ const App = (props) => {
         // if(props.location.pathname)
         let initialSort = db.collection('preview-posts')
         let criteria = {...props.sortCriteria}
-        if(urlSplit[3] === 'popular' || urlSplit[2] === 'posts') {
+        if(urlSplit[3] === 'popular' || (urlSplit[2] === 'posts' && !urlSplit[3])) {
           initialSort = initialSort.orderBy('views', 'desc')
           criteria['views'] = true
         }else{
@@ -127,8 +127,8 @@ const App = (props) => {
             criteria['category'] = 'all categories'
           }else{
             criteria['category'] = category
+            initialSort = initialSort.where('category', '==', category)
           }
-          initialSort = initialSort.where('category', '==', category)
         }
   
         const limit = 12

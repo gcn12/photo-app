@@ -102,6 +102,7 @@ const Subheader = (props) => {
                             {props.showCategories ? 
                             <div style={{position: 'relative'}}>
                                 <SelectCategoryDesktop 
+                                    setShowCategories={props.setShowCategories}
                                     getCategoryPhotos={props.getCategoryPhotos} 
                                     className='categories-dropdown' 
                                     location={props.location}

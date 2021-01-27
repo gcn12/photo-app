@@ -13,6 +13,7 @@ import {
 const SubheaderCategories = (props) => {
 
     const getPhotos = (category) => {
+        props.setShowCategories(false)
         if(props.location.pathname.includes('/photo-app/posts')){
             if(category !== props.sortCriteria.category) {
                 props.dispatch(homePhotoInformation([]))
