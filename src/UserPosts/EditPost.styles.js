@@ -15,12 +15,13 @@ export const Container = styled.div`
     cursor: default;
     z-index: 4;
     border-radius: 5px;
+    overflow-y: scroll;
 `
 
 export const HideContent = styled.div`
     display: ${props=>props.display};
     visibility: ${props=>props.visibility};
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     -webkit-overflow-scrolling: touch;
 `
 
@@ -120,7 +121,7 @@ export const Container2 = styled.div`
     align-items: center;
     height: 100%;
     width: 90vw;
-    margin: 40px 0;
+    margin: 0 0 40px 0;
 `
 
 export const FontOption = styled.option`
@@ -135,7 +136,7 @@ export const FontSelect = styled.select`
 `
 
 export const X = styled.div`
-    position: absolute;
+    /* position: absolute; */
     font-size: 72px;
     cursor: pointer;
     margin-right: 30px;

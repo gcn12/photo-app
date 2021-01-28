@@ -13,7 +13,7 @@ import { PopupDarken } from '../Styles/PopupStyles.styles'
 import { connect } from 'react-redux'
 import { photoInformation, userPosts, userData } from '../Redux/Actions/appActions'
 import { isPostVisible, isVisible } from '../Redux/Actions/featuredPostActions'
-import { unbookmarkPost, bookmarkPost, unadmirePost } from '../Functions'
+import { unbookmarkPost, bookmarkPost, unadmirePost, addEllipsisToText } from '../Functions'
 import AddToCollection from './AddToCollection'
 import EnlargeImage from './EnlargeImage'
 import KeepReading from './KeepReading'
@@ -59,6 +59,7 @@ const FeaturedPost = (props) => {
     const [imageToEnlarge, setImageToEnlarge] = useState('')
     const [collectionsList, setCollectionsList] = useState([])
     const [showSpinner, setShowSpinner] = useState(true)
+    const [shortenedBio, setShortenedBio] = useState('')
 
     const bookmark = () => {
         const {views, font, bio, category, country, image, location, profileImage, smallestImage, hearts, ratio, dataObj, imagesLarge, imagesSmall, photoBodyMap, ...data } = props.photoInformation
@@ -90,8 +91,19 @@ const FeaturedPost = (props) => {
             })
         }
         getFeaturedPhotoInfoOnLoad(props?.match?.params?.postID)
+        if(props.photoInformation?.bio) {
+            const authorBio = addEllipsisToText(props?.photoInformation?.bio, 100)
+            setShortenedBio(authorBio)
+        }
         // eslint-disable-next-line
     },[])
+
+    useEffect(()=> {
+        if(props.photoInformation?.bio) {
+            const authorBio = addEllipsisToText(props?.photoInformation?.bio, 100)
+            setShortenedBio(authorBio)
+        }
+    }, [props.photoInformation])
 
     const getFeaturedPhotoInfoOnLoad = (postID) => {
         window.scrollTo({top: 0})
@@ -443,7 +455,7 @@ const FeaturedPost = (props) => {
                     </Link>
                     <BioName>{props?.photoInformation?.name}</BioName>
                     {props?.photoInformation?.bio ? 
-                    <Bio>{props?.photoInformation?.bio}</Bio>
+                    <Bio>{shortenedBio}</Bio>
                     :
                     null
                     }

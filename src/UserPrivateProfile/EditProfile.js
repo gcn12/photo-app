@@ -108,7 +108,7 @@ const EditProfile = (props) => {
         setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
         // const image = profileImageLarge
         const imagesToUpload = [profileImageLarge, profileImageSmall]
-        if(profileImageLarge !== props.userData.profileImage){
+        if(profileImageLarge.length>0){
             let index = 0
             let imageUrls = []
             const upload = () => {
@@ -153,14 +153,15 @@ const EditProfile = (props) => {
             updateObject['name'] = name
             cloudUpdateObject['name'] = name
         }
-        if(bio !== props.userData.bio){
+        const bio2 = document.getElementById('edit-profile-bio').value
+        if(bio2 !== props.userData.bio){
             isEmpty = false
-            updateObject['bio'] = bio
-            if(bio.length > 100) {
-                cloudUpdateObject['bio'] = addEllipsisToText(bio, 100)
+            updateObject['bio'] = bio2
+            if(bio2.length > 100) {
+                cloudUpdateObject['bio'] = addEllipsisToText(bio2, 100)
             }
         }
-        if(profileImageUrls[0]){
+        if(profileImageUrls){
             isEmpty = false
             updateObject['profileImage'] = profileImageUrls[0]
             updateObject['profileImageSmall'] = profileImageUrls[1]
@@ -176,7 +177,7 @@ const EditProfile = (props) => {
                 ...cloudUpdateObject
             })
             .then(()=> null)
-
+            console.log(updateObject)
             db.collection('users')
             .doc(props.user)
             .update({
@@ -210,9 +211,11 @@ const EditProfile = (props) => {
             :
             <div>
                 <img src='' alt='' onError={lockScroll} />
-                <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '20px'}}>
+                <div style={{display: 'flex', justifyContent: 'flex-end', marginBottom: '0px'}}>
+                    <Text onClick={props.closeDialog} style={{cursor: 'pointer'}} size='48px'>&times;</Text>
+                </div>
+                <div style={{display: 'flex', justifyContent: 'center', marginBottom: '20px'}}>
                     <Text size='36px'>Edit profile</Text>
-                    <Text onClick={props.closeDialog} style={{cursor: 'pointer'}} size='36px'>&times;</Text>
                 </div>
                 <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
                     <ProfileImage src={props?.userData?.profileImage} id='edit-profile-image' />

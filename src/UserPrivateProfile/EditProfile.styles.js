@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    height: auto;
+    height: 90vh;
     min-height: 400px;
     width: 40vw;
+    min-width: 500px;
     background-color: #f5f5f5;
     margin: auto;
     position: fixed;
@@ -22,11 +23,13 @@ export const Container = styled.div`
     }
     @media (max-width: 800px) {
         width: 60vw;
-        height: 180px;
+        min-width: 0px;
+        /* height: 180px; */
     }
-    @media (max-width: 550px) {
+    @media (max-width: 750px) {
         width: 80vw;
-        height: 180px;
+        min-width: 0px;
+        /* height: 180px; */
     }
 `
 
@@ -35,6 +38,11 @@ export const CollectionName = styled.input`
     font-size: 20px;
     margin: 10px 0 20px 0;
     width: 30vw;
+    min-width: 400px;
+    @media (max-width: 750px) {
+        width: 60vw;
+        min-width: 0px;
+    }
 `
 
 export const BioTextarea = styled.textarea`
@@ -42,6 +50,11 @@ export const BioTextarea = styled.textarea`
     font-size: 20px;
     margin: 10px 0 60px 0;
     width: 30vw;
+    min-width: 400px;
+    @media (max-width: 750px) {
+        width: 60vw;
+        min-width: 0px;
+    }
 `
 
 export const ConfirmButton = styled.button`

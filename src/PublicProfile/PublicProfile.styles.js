@@ -76,6 +76,7 @@ export const Bio = styled.div`
     vertical-align: middle; 
     text-align: center;
     margin-bottom: 20px;
+    white-space: pre-wrap;
 `
 
 export const EditButton = styled.button`
