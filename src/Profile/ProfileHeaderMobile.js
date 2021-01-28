@@ -23,7 +23,7 @@ const ProfileHeaderMobile = (props) => {
 
     return(
         <MobileContainer>
-            <MobileNavigation height={toggleNavigation ? '200px' : '0px'}>
+            <MobileNavigation height={toggleNavigation ? '180px' : '0px'}>
                 <MobileUL>
                     <Link onClick={()=>pageRoute('my profile')} to='/photo-app/profile/my-profile' style={{textDecoration: 'none'}}>
                         <MobileLI style={{borderBottom: props.profilePage==='my profile'  ? '1px solid #242424' : null}}>My profile</MobileLI>
@@ -37,6 +37,7 @@ const ProfileHeaderMobile = (props) => {
                     <Link onClick={()=>pageRoute('collections')} to='/photo-app/profile/collections' style={{textDecoration: 'none'}}>
                         <MobileLI style={{borderBottom: props.profilePage==='collections'  ? '1px solid #242424' : null}}>Collections</MobileLI>
                     </Link>
+                    <div onClick={()=>console.log(props.profilePage)}>click</div>
                 </MobileUL>
             </MobileNavigation>
             <Navigation onClick={()=>setToggleNavigation(!toggleNavigation)}>

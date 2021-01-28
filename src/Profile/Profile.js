@@ -16,7 +16,11 @@ const Profile = (props) => {
         if(route.route === 'my-profile') {
             page = 'my profile'
         }
-        props.dispatch(profilePage(page))
+        if(page) {
+            props.dispatch(profilePage(page))
+        }else{
+            props.dispatch(profilePage('my profile'))
+        }
         console.log('profile loaded')
         // eslint-disable-next-line
     }, [])

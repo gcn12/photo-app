@@ -6,7 +6,7 @@ export const Container = styled.div`
     background-color: #f5f5f5;
     margin: auto;
     position: fixed;
-    z-index: 4;
+    z-index: 21;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);

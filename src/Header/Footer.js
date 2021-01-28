@@ -43,7 +43,16 @@ const Footer = (props) => {
         getProfileImage()
     }, [])
 
+    let pathname 
 
+    if(props.location) {
+        pathname = props.location.pathname.split('/')
+        if(pathname.length > 2) {
+            if (pathname[2] === 'profile') {
+                pathname = 'profile'
+            }
+        }
+    }
 
     return(
         <FooterContainer visibility={props.profileLoaded ? 'visible' : 'hidden'}>
@@ -55,9 +64,13 @@ const Footer = (props) => {
                 <Link to='/photo-app/upload'>
                     <Add style={{cursor: 'pointer'}} />
                 </Link>
+                {pathname === 'profile' ? 
+                <ProfileImage src={imageURL} alt='profile'></ProfileImage>
+                :
                 <Link to='/photo-app/profile' onClick={clearProfileData}>
                     <ProfileImage src={imageURL} alt='profile'></ProfileImage>
                 </Link>
+                }
             </Container>
             :
             <Container>

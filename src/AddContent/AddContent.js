@@ -303,16 +303,13 @@ const AddContent = (props) => {
             if(data[i].className.includes('add-content-description-input') || data[i].className.includes('content-paragraph')){
                 dataObj[index] = ['paragraph', data[i].value]
                 index++
-            }
-            if(data[i].className.includes('new-header-input')){
+            }else if(data[i].className.includes('new-header-input')){
                 dataObj[index] = ['header', data[i].value]
                 index++
-            }
-            if(data[i].className.includes('image-caption-input')){
+            }else if(data[i].className.includes('image-caption-input')){
                 dataObj[index] = ['caption', data[i].value]
                 index++
-            }
-            if(data[i].className.includes('body-photos')){
+            } else if(data[i].className.includes('body-photos')){
                 previewImageSizeRatioObj[index] = props.imageSizeRatio[previewImageSizeRatioIndex]
                 previewImagesObj[index] = props.filesSmall[previewImageIndex]
                 previewImageIndex++
@@ -384,11 +381,6 @@ const AddContent = (props) => {
             imagesArray.push(subArray)
         }
         props.dispatch(bodyImages(imagesArray))
-    }
-
-    const cancelUpload = () => {
-        // props.history.goBack()
-        props.dispatch(resetState())
     }
 
     const transitionSwitchNext = () => {
@@ -494,7 +486,7 @@ const AddContent = (props) => {
             :
             <div>
                 <TopButtonContainer>
-                    <Link to='/photo-app/posts/popular/all' onClick={cancelUpload}>
+                    <Link to='/photo-app/posts/popular/all' onClick={()=>props.dispatch(resetState())}>
                         <CancelButton backgroundColor='#fa4670' proceed={true} width='130px'>Cancel</CancelButton>
                     </Link>
                 </TopButtonContainer>
