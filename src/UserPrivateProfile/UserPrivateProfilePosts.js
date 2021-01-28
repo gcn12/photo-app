@@ -68,7 +68,7 @@ const UserPrivateProfilesPosts = (props) => {
 
     const closeEdit = () => {
         setShowEdit(false)
-        const toNotLock = document.getElementById('edit-post-scroll-container')
+        const toNotLock = document.getElementById('edit-post-scroll')
         enableBodyScroll(toNotLock)
     }
 
