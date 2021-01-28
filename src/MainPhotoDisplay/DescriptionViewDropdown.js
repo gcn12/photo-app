@@ -1,6 +1,7 @@
 import React from 'react'
 import { db } from '../Firebase'
 import { ReactComponent as Collections } from '../Icons/Collections.svg'
+import { ReactComponent as Remove } from '../Icons/Remove.svg'
 import { connect } from 'react-redux'
 import { unbookmarkPost, bookmarkPost } from '../Functions'
 import {
@@ -83,7 +84,11 @@ const DescriptionViewDropdown = (props) => {
                 <OptionIconContainer radius='5px 5px 0 0' className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}  onClick={unbookmark}>
 
                     <OptionIcon className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}  style={{transform: 'scale(.9)'}}>
+                        {props.isSavedPost ? 
+                        <Remove style={{backrgroundColor: 'red', transform: 'scale(.8)', position: 'relative', top: 4}} />
+                        :
                         <img style={{transform: 'scale(.8)', position: 'relative', top: 4}} alt='' className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'} src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTggMjRsLTYtNS4yNjktNiA1LjI2OXYtMjRoMTJ2MjR6Ii8+PC9zdmc+"></img>
+                        }
                     </OptionIcon>
                     <OptionText className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'} >Remove from saved</OptionText>
                 </OptionIconContainer>

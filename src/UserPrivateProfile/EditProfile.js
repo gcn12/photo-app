@@ -27,6 +27,8 @@ const EditProfile = (props) => {
     const [bio, setBio] = useState('')
     const [uploadCount, setUploadCount] = useState(2)
     const [uploadProgress, setUploadProgress] = useState(0)
+    const [profileImageSmall, setProfileImageSmall] = useState('')
+    const [profileImageLarge, setProfileImageLarge] = useState('')
 
     const { userData } = props
     useEffect(()=> {
@@ -53,6 +55,8 @@ const EditProfile = (props) => {
                 }
                 let finalHeightLarge
                 let finalWidthLarge
+                let finalHeightSmall
+                let finalWidthSmall
                 if(height > 500 || width > 500) {
                     if (height >= width) {
                         finalHeightLarge = 500
@@ -65,12 +69,32 @@ const EditProfile = (props) => {
                     finalHeightLarge = height
                     finalWidthLarge = width
                 }
+                if(height > 130 || width > 130) {
+                    if (height >= width) {
+                        finalHeightSmall = 130
+                        finalWidthSmall = Math.round(ratio * 130)
+                    }else {
+                        finalWidthSmall = 130
+                        finalHeightSmall = Math.round(ratio * 130)
+                    }
+                }else{
+                    finalHeightSmall = height
+                    finalWidthSmall = width
+                }
                 let canvasLarge = document.createElement('canvas'), ctx;
+                let canvasSmall = document.createElement('canvas'), ctx2;
                 canvasLarge.width = finalWidthLarge;
                 canvasLarge.height = finalHeightLarge;
+                canvasSmall.width = finalWidthSmall;
+                canvasSmall.height = finalHeightSmall;
                 ctx = canvasLarge.getContext('2d');
+                ctx2 = canvasSmall.getContext('2d');
                 ctx.drawImage(uploadedImage, 0, 0, canvasLarge.width, canvasLarge.height);
+                ctx2.drawImage(uploadedImage, 0, 0, canvasSmall.width, canvasSmall.height);
                 const imageSrcLarge = canvasLarge.toDataURL('image/jpeg', 1)
+                const imageSrcSmall = canvasSmall.toDataURL('image/jpeg', 1)
+                setProfileImageLarge(imageSrcLarge)
+                setProfileImageSmall(imageSrcSmall)
                 const profileImageTag = document.getElementById('edit-profile-image')
                 profileImageTag.src = imageSrcLarge
             }
@@ -82,26 +106,39 @@ const EditProfile = (props) => {
         setIsUploading(true)
         setUploadCount(uploadCount => uploadCount + 1)
         setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
-        const image = document.getElementById('edit-profile-image').src
-        if(image !== props.userData.profileImage){
-            const storageRef = firebase.storage().ref()
-            const imageRef = storageRef.child(`${props.userInformation.id}/profileImage`)
-            imageRef.putString(image, 'data_url')
-            .then(snapshot=> {
-                snapshot.ref.getDownloadURL()
-                .then(url=> {
-                    updateProfile(url)
-                    let userInformationCopy = {...userInformation}
-                    userInformationCopy['profileImage'] = url
-                    props.dispatch(userInformation({...userInformationCopy}))
+        // const image = profileImageLarge
+        const imagesToUpload = [profileImageLarge, profileImageSmall]
+        if(profileImageLarge !== props.userData.profileImage){
+            let index = 0
+            let imageUrls = []
+            const upload = () => {
+                const storageRef = firebase.storage().ref()
+                const imageRef = storageRef.child(`${props.userInformation.id}/${index===0 ? 'profileImage' : 'profileImageSmall'}`)
+                imageRef.putString(imagesToUpload[index], 'data_url')
+                .then(snapshot=> {
+                    snapshot.ref.getDownloadURL()
+                    .then(url=> {
+                        imageUrls.push(url)
+                        if(index=== 1) {
+                            updateProfile(imageUrls)
+                            let userInformationCopy = {...props.userInformation}
+                            userInformationCopy['profileImage'] = imageUrls[0]
+                            userInformationCopy['profileImageSmall'] = imageUrls[1]
+                            props.dispatch(userInformation({...userInformationCopy}))
+                        }else{
+                            index++
+                            upload()
+                        }
+                    })
                 })
-            })
+            }
+            upload()
         }else{
             updateProfile()
         }
     }
 
-    const updateProfile = (profileImageUrl) => {
+    const updateProfile = (profileImageUrls) => {
         let isEmpty = true
         const updateObject = {}
         const cloudUpdateObject = {}
@@ -123,10 +160,11 @@ const EditProfile = (props) => {
                 cloudUpdateObject['bio'] = addEllipsisToText(bio, 100)
             }
         }
-        if(profileImageUrl){
+        if(profileImageUrls[0]){
             isEmpty = false
-            updateObject['profileImage'] = profileImageUrl
-            cloudUpdateObject['profileImage'] = profileImageUrl
+            updateObject['profileImage'] = profileImageUrls[0]
+            updateObject['profileImageSmall'] = profileImageUrls[1]
+            cloudUpdateObject['profileImage'] = profileImageUrls[0]
         }
         if(!isEmpty) {
             setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)

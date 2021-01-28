@@ -77,7 +77,7 @@ const Header = (props) => {
                         <Navigation>|</Navigation>
                         {props.user ? 
                         <div style={{position: 'relative'}}>
-                            <ProfileImage onClick={()=> setShowProfileDropdown(!showProfileDropdown)} onLoad={()=>props.dispatch(profileLoaded(true))} id='header-profile-image' className='profile-dropdown' src={props.userInformation.profileImage} />
+                            <ProfileImage onClick={()=> setShowProfileDropdown(!showProfileDropdown)} onLoad={()=>props.dispatch(profileLoaded(true))} id='header-profile-image' className='profile-dropdown' src={props.userInformation.profileImageSmall} />
                             {showProfileDropdown ? 
                             <ProfileNavigationDropdown setShowProfileDropdown={setShowProfileDropdown} history={props.history} />
                             :

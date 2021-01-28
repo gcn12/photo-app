@@ -2,7 +2,7 @@ import React from 'react'
 import { db } from '../Firebase'
 import { ReactComponent as Collections } from '../Icons/Collections.svg'
 import { connect } from 'react-redux'
-import { ReactComponent as FilledHeart } from '../Icons/FilledHeart.svg'
+import { ReactComponent as Remove } from '../Icons/Remove.svg'
 import { unadmirePost } from '../Functions'
 import {
     Container,
@@ -73,7 +73,7 @@ const AdmiredDropdown = (props) => {
             <Options>
                 <OptionIconContainer radius='5px 5px 0 0' className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}  onClick={unadmire}>
                     <OptionIcon className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}  style={{transform: 'scale(.9)'}}>
-                        <FilledHeart style={{backrgroundColor: 'red', transform: 'scale(.8)', position: 'relative', top: 4}} />
+                        <Remove style={{backrgroundColor: 'red', transform: 'scale(.8)', position: 'relative', top: 4}} />
                     </OptionIcon>
                     <OptionText className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'} >Remove from admired</OptionText>
                 </OptionIconContainer>

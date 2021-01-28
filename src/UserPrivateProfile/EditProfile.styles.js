@@ -80,7 +80,7 @@ export const ProfileImage = styled.img`
 export const EditButton = styled.label`
     color: #242424;
     height: 40px;
-    width: 180px;
+    /* width: 180px; */
     font-size: 18px;
     background-color: transparent;
     transition: transform 100ms ease-in-out;
