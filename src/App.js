@@ -34,6 +34,30 @@ import { db } from './Firebase'
 import { Route, Switch } from 'react-router-dom'
 
 const App = (props) => {
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((userData)=> {
+      if(userData) {
+        props.dispatch(user(userData.uid))
+        db.collection('users')
+        .doc(userData.uid)
+        .get()
+        .then(item=> {
+          props.dispatch(userInformation(item.data()))
+          if(document.getElementById('header-profile-image')) {
+            if(item.data().profileImage) {
+              document.getElementById('header-profile-image').src = item.data().profileImage
+            }else{
+              document.getElementById('header-profile-image').src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMGMtNi42MjcgMC0xMiA1LjM3My0xMiAxMnM1LjM3MyAxMiAxMiAxMiAxMi01LjM3MyAxMi0xMi01LjM3My0xMi0xMi0xMnptNy43NTMgMTguMzA1Yy0uMjYxLS41ODYtLjc4OS0uOTkxLTEuODcxLTEuMjQxLTIuMjkzLS41MjktNC40MjgtLjk5My0zLjM5My0yLjk0NSAzLjE0NS01Ljk0Mi44MzMtOS4xMTktMi40ODktOS4xMTktMy4zODggMC01LjY0NCAzLjI5OS0yLjQ4OSA5LjExOSAxLjA2NiAxLjk2NC0xLjE0OCAyLjQyNy0zLjM5MyAyLjk0NS0xLjA4NC4yNS0xLjYwOC42NTgtMS44NjcgMS4yNDYtMS40MDUtMS43MjMtMi4yNTEtMy45MTktMi4yNTEtNi4zMSAwLTUuNTE0IDQuNDg2LTEwIDEwLTEwczEwIDQuNDg2IDEwIDEwYzAgMi4zODktLjg0NSA0LjU4My0yLjI0NyA2LjMwNXoiLz48L3N2Zz4="
+            }
+          }
+        })
+      }else{
+        props.dispatch(profileLoaded(true))
+      }
+    })
+    // eslint-disable-next-line
+  }, [])
   
   const { pathname } = props.location
   useEffect(() => {
@@ -154,31 +178,6 @@ const App = (props) => {
     // eslint-disable-next-line
   }, [])
 
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((userData)=> {
-      if(userData) {
-        props.dispatch(user(userData.uid))
-        db.collection('users')
-        .doc(userData.uid)
-        .get()
-        .then(item=> {
-          props.dispatch(userInformation(item.data()))
-          if(document.getElementById('header-profile-image')) {
-            if(item.data().profileImage) {
-              document.getElementById('header-profile-image').src = item.data().profileImage
-            }else{
-              document.getElementById('header-profile-image').src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMGMtNi42MjcgMC0xMiA1LjM3My0xMiAxMnM1LjM3MyAxMiAxMiAxMiAxMi01LjM3MyAxMi0xMi01LjM3My0xMi0xMi0xMnptNy43NTMgMTguMzA1Yy0uMjYxLS41ODYtLjc4OS0uOTkxLTEuODcxLTEuMjQxLTIuMjkzLS41MjktNC40MjgtLjk5My0zLjM5My0yLjk0NSAzLjE0NS01Ljk0Mi44MzMtOS4xMTktMi40ODktOS4xMTktMy4zODggMC01LjY0NCAzLjI5OS0yLjQ4OSA5LjExOSAxLjA2NiAxLjk2NC0xLjE0OCAyLjQyNy0zLjM5MyAyLjk0NS0xLjA4NC4yNS0xLjYwOC42NTgtMS44NjcgMS4yNDYtMS40MDUtMS43MjMtMi4yNTEtMy45MTktMi4yNTEtNi4zMSAwLTUuNTE0IDQuNDg2LTEwIDEwLTEwczEwIDQuNDg2IDEwIDEwYzAgMi4zODktLjg0NSA0LjU4My0yLjI0NyA2LjMwNXoiLz48L3N2Zz4="
-            }
-          }
-        })
-      }else{
-        props.dispatch(profileLoaded(true))
-      }
-    })
-    // eslint-disable-next-line
-  }, [])
-
-  
   const search = (resultCriteria, filter, query) => { 
     const searchClient = algoliasearch(
       'VNSU9OYWB2',
