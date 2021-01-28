@@ -17,7 +17,7 @@ export const Container = styled.div`
     padding: 10px 20px 20px 20px;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
-    z-index: 4;
+    z-index: 21;
     @media (max-width: 1100px) {
         width: 40vw;
     }
@@ -108,5 +108,5 @@ export const CenterProgress = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -85%);
-    z-index: 5
+    z-index: 22;
 `

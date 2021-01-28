@@ -11,7 +11,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     cursor: default;
-    z-index: 4;
+    z-index: 21;
     border-radius: 5px;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;

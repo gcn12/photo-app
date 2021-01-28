@@ -13,7 +13,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     padding: 10px 20px 20px 20px;
-    z-index: 4;
+    z-index: 21;
     @media (max-width: 1100px) {
         width: 40vw;
     }
