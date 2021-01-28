@@ -592,9 +592,9 @@ const EditPost = (props) => {
             <CenterUploadProgress>
                 <UploadProgress uploadProgressColor={uploadProgressColor} display={showUploadProgress ? 'visible' : 'hidden'} uploadCount={uploadCount} uploadProgress={uploadProgress} />
             </CenterUploadProgress>
-            <Container id='edit-post-scroll' height={isUploading ? '50vh' : '97vh'} width={isUploading ? '50vw' : '90vw'} opacity={1}>
+            <Container id='edit-post-scroll' height={isUploading ? '50vh' : '97vh'} width={isUploading ? '50vw' : '90vw'} visibility={isUploading ? 'hidden' : 'visible'} display={isUploading ? 'none' : 'initial'}>
                 <img src='' alt='' onError={lockScroll} />
-                <HideContent id='edit-post-scroll-container'  visibility={isUploading ? 'hidden' : 'visible'} display={isUploading ? 'none' : 'initial'}>
+                <HideContent>
                     <div style={{display: 'flex', justifyContent: 'flex-end', marginBottom: '0px'}}>
                         <X visibility={showCancel ? 'visible' : 'hidden'} display={showCancel ? 'initial' : 'none'} onClick={props.closeEdit}>&times;</X>
                     </div>

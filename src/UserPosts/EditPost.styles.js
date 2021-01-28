@@ -1,14 +1,12 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    opacity: ${props=>props.opacity};
     position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     width: ${props=>props.width};
     height: ${props=>props.height};
-    transition: opacity 350ms ease-in-out, width 400ms ease-in-out, height 400ms ease-in-out;
     background-color: #fafafa;
     display: flex;
     flex-direction: column;
@@ -16,13 +14,14 @@ export const Container = styled.div`
     z-index: 4;
     border-radius: 5px;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    display: ${props=>props.display};
+    visibility: ${props=>props.visibility};
 `
 
 export const HideContent = styled.div`
-    display: ${props=>props.display};
-    visibility: ${props=>props.visibility};
     /* overflow-y: scroll; */
-    -webkit-overflow-scrolling: touch;
+    /* -webkit-overflow-scrolling: touch; */
 `
 
 export const CenterUploadProgress = styled.div`
