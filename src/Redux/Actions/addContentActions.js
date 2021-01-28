@@ -29,8 +29,8 @@ export const PREVIEW_IMAGE_SIZE_RATIO = 'PREVIEW_IMAGE_SIZE_RATIO'
 export const RESET_STATE = 'RESET_STATE'
 
 export function resetState() {
-    return {
-        type: RESET_STATE
+    return(dispatch) => {
+        dispatch({type: RESET_STATE})
     }
 }
 

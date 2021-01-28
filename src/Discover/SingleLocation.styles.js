@@ -10,9 +10,9 @@ export const Container = styled.div`
     background-position: center;
     background-repeat: no-repeat;
     background-image: ${props=>props.image};
-    @media(max-width: 900px) {
-        background-image: ${props=>props.imageCentered ? props.imageCentered : props.image };
-    }
+    /* @media(max-width: 720px) {
+        height: calc(100vh - 450px);
+    } */
 `
 
 export const BackgroundImage = styled.img`

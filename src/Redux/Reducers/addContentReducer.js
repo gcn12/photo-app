@@ -36,7 +36,7 @@ export const initialState = {
 export default function addContentReducer(state=initialState, action) {
     switch(action.type) {
         case actions.RESET_STATE:
-            return {...state, previewImageSizeRatio: action.payload}
+            return initialState
         case actions.PREVIEW_IMAGE_SIZE_RATIO:
             return {...state, previewImageSizeRatio: action.payload}
         case actions.PREVIEW_IMAGES:

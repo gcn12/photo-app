@@ -121,7 +121,7 @@ export const Container2 = styled.div`
     align-items: center;
     height: 100%;
     width: 90vw;
-    margin: 0 0 40px 0;
+    margin: 0 0 60px 0;
 `
 
 export const FontOption = styled.option`

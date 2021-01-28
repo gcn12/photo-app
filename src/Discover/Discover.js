@@ -14,6 +14,15 @@ const Discover = (props) => {
 
     const [posts1, setPosts1] = useState([])
     const [posts2, setPosts2] = useState([])
+    const [isVisible, setIsVisible] = useState(false)
+
+    useEffect(()=> {
+        const imageLoader = new Image();
+        imageLoader.src = 'https://firebasestorage.googleapis.com/v0/b/photos-634e7.appspot.com/o/site_photos%2Fjapan_large_centered.jpg?alt=media&token=6401e076-5489-4049-8309-51cee5118731';
+        imageLoader.onload = () => {
+            setIsVisible(true)
+        };
+    }, [])
 
     useEffect(()=> {
         window.scrollTo({top: 0})
@@ -51,8 +60,8 @@ const Discover = (props) => {
     }
 
     return(
-        <DiscoverContainer style={{marginTop: '60px'}}>
-            <SingleLocation goToPlacesPage={goToPlacesPage} sort={props.sort} topSmall='17%' leftSmall='30%' top='25%' left='23%' title='Tokyo, Japan' paragraph = 'Nam libero justo laoreet sit amet cursus sit amet. Potenti nullam ac tortor vitae purus faucibus. Leo in vitae turpis massa sed elementum tempus egestas.' backgroundSmall='linear-gradient(to bottom, rgba(0,0,0,0) 20%,rgba(0,0,0,.6) 100%)' background='linear-gradient(to top, rgba(0,0,0,0) 0%,rgba(0,0,0,.3) 100%)' image='url(https://firebasestorage.googleapis.com/v0/b/photos-634e7.appspot.com/o/site_photos%2Fjapan_large.jpg?alt=media&token=9f47165c-da12-4cf2-a7a2-5b353f157d01)' imageCentered='url(https://firebasestorage.googleapis.com/v0/b/photos-634e7.appspot.com/o/site_photos%2Fjapan_large_centered.jpg?alt=media&token=6401e076-5489-4049-8309-51cee5118731)' />
+        <DiscoverContainer opacity={isVisible ? 1 : 0} style={{marginTop: '60px'}}>
+            <SingleLocation goToPlacesPage={goToPlacesPage} sort={props.sort} topSmall='17%' leftSmall='30%' top='25%' left='23%' title='Tokyo, Japan' paragraph = 'Nam libero justo laoreet sit amet cursus sit amet. Potenti nullam ac tortor vitae purus faucibus. Leo in vitae turpis massa sed elementum tempus egestas.' backgroundSmall='linear-gradient(to bottom, rgba(0,0,0,0) 20%,rgba(0,0,0,.6) 100%)' background='linear-gradient(to top, rgba(0,0,0,0) 0%,rgba(0,0,0,.3) 100%)' image='url(https://firebasestorage.googleapis.com/v0/b/photos-634e7.appspot.com/o/site_photos%2Fjapan_large_centered.jpg?alt=media&token=6401e076-5489-4049-8309-51cee5118731)' />
             <FeaturedPlaces goToPlacesPage={goToPlacesPage} sort={props.sort} posts={posts1} title='Popular Destinations' />
             <CategoriesDisplay sort={props.sort} />
             <FeaturedPlaces goToPlacesPage={goToPlacesPage} sort={props.sort} posts={posts2} title='Our Top Places' />

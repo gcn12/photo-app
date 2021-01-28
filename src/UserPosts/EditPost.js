@@ -595,127 +595,125 @@ const EditPost = (props) => {
             <Container id='edit-post-scroll' height={isUploading ? '50vh' : '97vh'} width={isUploading ? '50vw' : '90vw'} opacity={1}>
                 <img src='' alt='' onError={lockScroll} />
                 <HideContent id='edit-post-scroll-container'  visibility={isUploading ? 'hidden' : 'visible'} display={isUploading ? 'none' : 'initial'}>
-                    <div style={{display: 'flex', justifyContent: 'flex-end', marginBottom: '20px'}}>
+                    <div style={{display: 'flex', justifyContent: 'flex-end', marginBottom: '0px'}}>
                         <X visibility={showCancel ? 'visible' : 'hidden'} display={showCancel ? 'initial' : 'none'} onClick={props.closeEdit}>&times;</X>
                     </div>
-                        <div>
-                            <Container2>
-                                <div id='edit-area'>
-                                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                                        <Title autoComplete='off' placeholder='title' id='edit-post-title' font={font} onChange={null} defaultValue={props?.postData?.title}></Title>
-                                        <MainImage onLoad={()=>setIsUploading(false)} src={postData?.smallImage}></MainImage>
-                                        <label htmlFor='main-image-input' className='upload-button-label'>Change main image</label>
-                                        <input onChange={changeMainPhoto} hidden id='main-image-input' type='file'></input>
-                                    </div>
-                                </div>
+                    <Container2>
+                        <div id='edit-area'>
+                            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                <Title autoComplete='off' placeholder='title' id='edit-post-title' font={font} onChange={null} defaultValue={props?.postData?.title}></Title>
+                                <MainImage onLoad={()=>setIsUploading(false)} src={postData?.smallImage}></MainImage>
+                                <label htmlFor='main-image-input' className='upload-button-label'>Change main image</label>
+                                <input onChange={changeMainPhoto} hidden id='main-image-input' type='file'></input>
+                            </div>
+                        </div>
 
 
-                                {postData?.dataObj ? 
-                                Object.keys(postData?.dataObj).map((item, index)=> {
-                                    return(
-                                        <div key={index}>
-                                            {postData.dataObj[item][0] === 'paragraph' ? 
-                                            <Paragraphs onChange={(e)=>setPostData({...postData, dataObj: {...postData.dataObj, [index]: ['paragraph', e.target.value]}})} className='content-paragraph' font={font} defaultValue={postData.dataObj[item][1]}></Paragraphs>
-                                            :
-                                            null
-                                            }
-                                            {postData.dataObj[item][0] === 'caption' ? 
-                                            <EditCaption onChange={(e)=> setPostData({...postData, dataObj: {...postData.dataObj, [index]: ['caption', e.target.value]}})} placeholder='caption (optional)' className='content-paragraph' font={font} defaultValue={postData.dataObj[item][1]}></EditCaption>
-                                            :
-                                            null
-                                            }
-                                            {postData.dataObj[item][0] === 'header' ? 
-                                            <EditHeader onChange={(e)=> setPostData({...postData, dataObj: {...postData.dataObj, [index]: ['header', e.target.value]}})} placeholder='paragraph header (optional)' className='content-paragraph' font={font} defaultValue={postData.dataObj[item][1]}></EditHeader>
-                                            :
-                                            null
-                                            }
-                                            {postData.dataObj[item][0] === 'images' ? 
-                                            <div>
-                                                <Masonry>
-                                                {postData?.imagesSmall[item]?.map((image, i)=> {
-                                                    return(
-                                                        <ImageNew key={i} src={image}></ImageNew>
-                                                        )
-                                                    })}
-                                                </Masonry>
-                                                {postData?.imagesSmall[item] || showUpload || postData.content.length > index + 1 ? 
-                                                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                                                    <UploadLabel htmlFor={`edit-body-photos${item}`}>Select photos (max. 3)</UploadLabel>
-                                                    <input multiple id={`edit-body-photos${item}`} onChange={()=> changeBodyPhotos(item)} hidden  type='file'></input>
-                                                    {isTooManyImages ? 
-                                                    <TooManyImages>Exceeded image limit of three</TooManyImages>
-                                                    :
-                                                    null
-                                                    }
-                                                </div>    
-                                                :
-                                                null
-                                                }
-                                            </div>
-                                            :
-                                            null
-                                            }
-                                        </div>
-                                    )
-                                })
-                                :
-                                null
-                                }
-
-                                <BodyButtonContainer id='add-content-body-buttons'>
-                                    {isAdditionalElements ? 
-                                    <RemoveLastElement type="button" onClick={removeLastElement}>
-                                        <ButtonIconContainer>
-                                            <Remove />
-                                        </ButtonIconContainer>
-                                    </RemoveLastElement>
+                        {postData?.dataObj ? 
+                        Object.keys(postData?.dataObj).map((item, index)=> {
+                            return(
+                                <div key={index}>
+                                    {postData.dataObj[item][0] === 'paragraph' ? 
+                                    <Paragraphs onChange={(e)=>setPostData({...postData, dataObj: {...postData.dataObj, [index]: ['paragraph', e.target.value]}})} className='content-paragraph' font={font} defaultValue={postData.dataObj[item][1]}></Paragraphs>
                                     :
                                     null
                                     }
-
-                                    <NewItemButton long={!isAdditionalElements} type="button" onClick={newParagraph}>
-                                        <ButtonIconContainer>
-                                            <Text />
-                                        </ButtonIconContainer>
-                                    </NewItemButton>
-
-                                    <NewItemButton border='1px solid white' long={!isAdditionalElements} type="button" onClick={newImage}>
-                                        <ButtonIconContainer>
-                                            <Image />
-                                        </ButtonIconContainer>
-                                    </NewItemButton>
-
-                                </BodyButtonContainer>
-                                <Label>Post description</Label>
-                                <PostDescriptionInput defaultValue={props?.postData?.previewDescription} font={font} onChange={calculateRemainingCharacters} id='edit-post-description'></PostDescriptionInput>
-                                <div style={{marginBottom: '15px'}}>Remaining characters: {remainingCharacters}</div>
-                                <Label>Font:</Label>
-                                <FontSelect font={font} onChange={getFont} value={font} id='font-select'>
-                                    <FontOption value="'Montserrat', sans-serif;" font="'Montserrat', sans-serif;">Montserrat</FontOption>
-                                    <FontOption value="'Work Sans', sans-serif;" font="'Work Sans', sans-serif;">Work Sans</FontOption>
-                                    <FontOption value="'Heebo', sans-serif;" font="'Heebo', sans-serif;">Heebo</FontOption>
-                                    <FontOption value="'Roboto', sans-serif;" font="'Roboto', sans-serif;">Roboto</FontOption>
-                                    <FontOption value="'Raleway', sans-serif;" font="'Raleway', sans-serif;">Raleway</FontOption>
-                                    <FontOption value="'Poppins', sans-serif;" font="'Poppins', sans-serif;">Poppins</FontOption>
-                                </FontSelect>
-                                <Label htmlFor='category'>Category:</Label>
-                                <SelectInput font={font} onChange={null} defaultValue={props?.postData?.category} name='category' id='category'>
-                                    <option value='restaurant'>Restaurant</option>
-                                    <option value='entertainment'>Entertainment</option>
-                                    <option value='adventure'>Adventure</option>
-                                    <option value='sightseeing'>Sightseeing</option>
-                                    <option value='shopping'>Shopping</option>
-                                    <option value='museum'>Museum</option>
-                                </SelectInput>
-                                <Label>Location:</Label>
-                                <Autocomplete font={font} defaultValue={props?.postData?.location} id='autocomplete-component'/>
-                                <div style={{marginBottom: '20px'}}></div>
-                                <div style={{display: 'flex'}}>
-                                    <Cancel onClick={props.closeEdit}>Cancel</Cancel>
-                                    <Submit onClick={fileUpload}>Submit</Submit>
+                                    {postData.dataObj[item][0] === 'caption' ? 
+                                    <EditCaption onChange={(e)=> setPostData({...postData, dataObj: {...postData.dataObj, [index]: ['caption', e.target.value]}})} placeholder='caption (optional)' className='content-paragraph' font={font} defaultValue={postData.dataObj[item][1]}></EditCaption>
+                                    :
+                                    null
+                                    }
+                                    {postData.dataObj[item][0] === 'header' ? 
+                                    <EditHeader onChange={(e)=> setPostData({...postData, dataObj: {...postData.dataObj, [index]: ['header', e.target.value]}})} placeholder='paragraph header (optional)' className='content-paragraph' font={font} defaultValue={postData.dataObj[item][1]}></EditHeader>
+                                    :
+                                    null
+                                    }
+                                    {postData.dataObj[item][0] === 'images' ? 
+                                    <div>
+                                        <Masonry>
+                                        {postData?.imagesSmall[item]?.map((image, i)=> {
+                                            return(
+                                                <ImageNew key={i} src={image}></ImageNew>
+                                                )
+                                            })}
+                                        </Masonry>
+                                        {postData?.imagesSmall[item] || showUpload || postData.content.length > index + 1 ? 
+                                        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                            <UploadLabel htmlFor={`edit-body-photos${item}`}>Select photos (max. 3)</UploadLabel>
+                                            <input multiple id={`edit-body-photos${item}`} onChange={()=> changeBodyPhotos(item)} hidden  type='file'></input>
+                                            {isTooManyImages ? 
+                                            <TooManyImages>Exceeded image limit of three</TooManyImages>
+                                            :
+                                            null
+                                            }
+                                        </div>    
+                                        :
+                                        null
+                                        }
+                                    </div>
+                                    :
+                                    null
+                                    }
                                 </div>
-                            </Container2>
+                            )
+                        })
+                        :
+                        null
+                        }
+
+                        <BodyButtonContainer id='add-content-body-buttons'>
+                            {isAdditionalElements ? 
+                            <RemoveLastElement type="button" onClick={removeLastElement}>
+                                <ButtonIconContainer>
+                                    <Remove />
+                                </ButtonIconContainer>
+                            </RemoveLastElement>
+                            :
+                            null
+                            }
+
+                            <NewItemButton long={!isAdditionalElements} type="button" onClick={newParagraph}>
+                                <ButtonIconContainer>
+                                    <Text />
+                                </ButtonIconContainer>
+                            </NewItemButton>
+
+                            <NewItemButton border='1px solid white' long={!isAdditionalElements} type="button" onClick={newImage}>
+                                <ButtonIconContainer>
+                                    <Image />
+                                </ButtonIconContainer>
+                            </NewItemButton>
+
+                        </BodyButtonContainer>
+                        <Label>Post description</Label>
+                        <PostDescriptionInput defaultValue={props?.postData?.previewDescription} font={font} onChange={calculateRemainingCharacters} id='edit-post-description'></PostDescriptionInput>
+                        <div style={{marginBottom: '15px'}}>Remaining characters: {remainingCharacters}</div>
+                        <Label>Font:</Label>
+                        <FontSelect font={font} onChange={getFont} value={font} id='font-select'>
+                            <FontOption value="'Montserrat', sans-serif;" font="'Montserrat', sans-serif;">Montserrat</FontOption>
+                            <FontOption value="'Work Sans', sans-serif;" font="'Work Sans', sans-serif;">Work Sans</FontOption>
+                            <FontOption value="'Heebo', sans-serif;" font="'Heebo', sans-serif;">Heebo</FontOption>
+                            <FontOption value="'Roboto', sans-serif;" font="'Roboto', sans-serif;">Roboto</FontOption>
+                            <FontOption value="'Raleway', sans-serif;" font="'Raleway', sans-serif;">Raleway</FontOption>
+                            <FontOption value="'Poppins', sans-serif;" font="'Poppins', sans-serif;">Poppins</FontOption>
+                        </FontSelect>
+                        <Label htmlFor='category'>Category:</Label>
+                        <SelectInput font={font} onChange={null} defaultValue={props?.postData?.category} name='category' id='category'>
+                            <option value='restaurant'>Restaurant</option>
+                            <option value='entertainment'>Entertainment</option>
+                            <option value='adventure'>Adventure</option>
+                            <option value='sightseeing'>Sightseeing</option>
+                            <option value='shopping'>Shopping</option>
+                            <option value='museum'>Museum</option>
+                        </SelectInput>
+                        <Label>Location:</Label>
+                        <Autocomplete font={font} defaultValue={props?.postData?.location} id='autocomplete-component'/>
+                        <div style={{marginBottom: '20px'}}></div>
+                        <div style={{display: 'flex'}}>
+                            <Cancel onClick={props.closeEdit}>Cancel</Cancel>
+                            <Submit onClick={fileUpload}>Submit</Submit>
                         </div>
+                    </Container2>
                 </HideContent>
             </Container>
         </div>

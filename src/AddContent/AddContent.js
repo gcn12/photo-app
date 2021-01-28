@@ -2,10 +2,15 @@ import TitlePhoto from './TitlePhoto'
 import CategoryLocation from './CategoryLocation'
 import Preview from './Preview'
 import Body from './Body'
+import { Link } from 'react-router-dom'
 import PostDescription from './PostDescription'
 import SelectFont from './SelectFont'
 import { db } from '../Firebase'
 import firebase from 'firebase'
+import {
+    isVisible,
+    isPostVisible,
+} from '../Redux/Actions/featuredPostActions'
 import UploadProgress from './UploadProgress'
 import { connect } from 'react-redux'
 import { addEllipsisToText } from '../Functions'
@@ -179,10 +184,12 @@ const AddContent = (props) => {
                             .set({
                                 'post-names': firebase.firestore.FieldValue.arrayUnion(title)
                             }, {merge: true})
-                            props.dispatch(resetState())
+                            props.dispatch(isPostVisible(false))
+                            props.dispatch(isVisible(false))
                             setTimeout(()=>props.dispatch(uploadProgressColor(true), 300))
                             setTimeout(()=>props.getFeaturedPhotoInfo(postID), 2000)
                             setTimeout(()=>props.history.push(`/photo-app/post/${postID}`), 2000)
+                            setTimeout(()=>props.dispatch(resetState()), 2500)
                         })
                     })              
                 })
@@ -380,7 +387,7 @@ const AddContent = (props) => {
     }
 
     const cancelUpload = () => {
-        props.history.goBack()
+        // props.history.goBack()
         props.dispatch(resetState())
     }
 
@@ -487,7 +494,9 @@ const AddContent = (props) => {
             :
             <div>
                 <TopButtonContainer>
-                    <CancelButton backgroundColor='#fa4670' proceed={true} width='130px' onClick={cancelUpload}>Cancel</CancelButton>
+                    <Link to='/photo-app/posts/popular/all' onClick={cancelUpload}>
+                        <CancelButton backgroundColor='#fa4670' proceed={true} width='130px'>Cancel</CancelButton>
+                    </Link>
                 </TopButtonContainer>
                 <ButtonContainer>
                     {props.switchValue === 1 ? 
