@@ -3,6 +3,7 @@ import PublicProfilePosts from './PublicProfilePosts'
 import { connect } from 'react-redux'
 import { db } from '../Firebase'
 import fitty from 'fitty'
+import { Text } from '../Styles/GlobalStyles.styles'
 import {
     ProfileImage,
     Container,
@@ -41,13 +42,13 @@ const PublicProfile = (props) => {
     
     const { userData, userPosts } = props
     return(
-        <PublicProfileContainer>
-            <UserContainer visibility={isVisible ? 1 : 0}>
+        <PublicProfileContainer opacity={isVisible ? 1 : 0}>
+            <UserContainer>
 
                 <ProfileImage onLoad={()=>setIsVisible(true)} alt='profile' src='' id='public-profile-image' />
                 
                 <Container>
-                <Username id='public-profile-username'>{userData[0]?.username}</Username>
+                    <Username id='public-profile-username'>{userData[0]?.username}</Username>
                     <Name id='public-profile-name'>{userData[0]?.name}</Name>
                     <Bio>{userData[0]?.bio}</Bio>
                 </Container>
@@ -60,6 +61,13 @@ const PublicProfile = (props) => {
                 )
             })}
             </PostsContainer>
+            {userPosts.length === 0 ? 
+            <div style={{display: 'flex', justifyContent: 'center', marginTop: '36px'}}>
+                <Text size='24px' weight='500'>It looks like {userData[0]?.name} hasn't written any posts</Text>
+            </div>
+            :
+            null
+            }
         </PublicProfileContainer>
     )
 }

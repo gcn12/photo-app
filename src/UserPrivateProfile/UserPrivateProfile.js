@@ -13,6 +13,7 @@ import {
     Bio,
     UserContainer,
     EditButton,
+    PrivateContainer,
 } from '../PublicProfile/PublicProfile.styles'
 import { PopupDarken } from '../Styles/PopupStyles.styles'
 
@@ -50,7 +51,7 @@ const UserPrivateProfile = (props) => {
     
     const { userData, userPosts } = props
     return(
-        <div id='dialog' style={{marginTop: '10px', position: 'relative'}}>
+        <PrivateContainer opacity={isVisible ? 1 : 0} id='dialog'>
             {showEditProfile ? 
             <div>
                 <PopupDarken />
@@ -59,7 +60,7 @@ const UserPrivateProfile = (props) => {
             :
             null
             }
-            <UserContainer visibility={isVisible ? 1 : 0}>
+            <UserContainer>
                 <ProfileImage onLoad={()=>setIsVisible(true)} alt='profile' id='user-private-profile-image' src={userData[0]?.profileImage}></ProfileImage>
                 <Container>
                     <Username id='public-profile-username'>{userData[0]?.username}</Username>
@@ -77,7 +78,7 @@ const UserPrivateProfile = (props) => {
             })}
             </PostsContainer>
             <div style={{marginBottom: '80px'}}></div>
-        </div>
+        </PrivateContainer>
     )
 }
 

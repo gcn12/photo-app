@@ -17,7 +17,7 @@ const UploadProgress = (props) => {
     return(
         <ProgressContainer display={props.display}>
             <CircleContainer>
-                {props.uploadProgressColor ? 
+                {props.uploadFinished ? 
                 <svg
                 className="progress-ring"
                 height={radius * 2}
@@ -55,7 +55,7 @@ const UploadProgress = (props) => {
                 </svg>
                 }
             </CircleContainer>
-                {props.uploadProgressColor ? 
+                {props.uploadFinished ? 
                 <UploadingTitle style={{color: 'green'}}>Upload succeeded</UploadingTitle>
                 :
                 <UploadingTitle>Uploading...</UploadingTitle>
@@ -64,6 +64,7 @@ const UploadProgress = (props) => {
     )
 }
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+})
 
 export default connect(mapStateToProps)(UploadProgress)

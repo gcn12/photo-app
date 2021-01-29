@@ -3,7 +3,7 @@ import {ReactComponent as Text} from '../Icons/Text.svg'
 import {ReactComponent as Image} from '../Icons/Image.svg'
 import {ReactComponent as Remove} from '../Icons/Remove.svg'
 import { connect } from 'react-redux'
-import { imageSizeRatio, filesSmall, filesLarge, fileNames, bodyProceed } from '../Redux/Actions/addContentActions'
+import { imageSizeRatio, filesSmall, filesLarge, fileNames, bodyProceed, isAdditionalElements } from '../Redux/Actions/addContentActions'
 import {
     NewItemButton,
     RemoveLastElement,
@@ -19,7 +19,6 @@ import {
 const Body = (props) => {
 
     const [isAddImage, setIsAddImage] = useState(false)
-    const [isAdditionalElements, setIsAdditionalElements] = useState(false)
     const [isTooManyImages, setIsTooManyImages] = useState(false)
 
     const getImageMap = (inputID, inputDiv, index) => {
@@ -106,15 +105,15 @@ const Body = (props) => {
                                 if(loopIndex < imagesLength) {
                                     processImages()
                                 }else{
-                                    const filesSmallCopy = props.filesSmall
-                                    const filesLargeCopy = props.filesLarge
+                                    const filesSmallCopy = {...props.filesSmall}
+                                    const filesLargeCopy = {...props.filesLarge}
                                     let fileNamesCopy = {...props.fileNames}
 
 
                                     fileNamesCopy = [...props.fileNames, ...fileNamesArray]
 
-                                    filesSmallCopy[index + 1] = filesArraySmall
-                                    filesLargeCopy[index + 1] = filesArrayLarge
+                                    filesSmallCopy[index] = filesArraySmall
+                                    filesLargeCopy[index] = filesArrayLarge
                                     props.dispatch(filesSmall(filesSmallCopy))
                                     props.dispatch(filesLarge(filesLargeCopy))
                                     props.dispatch(fileNames(fileNamesCopy))
@@ -210,24 +209,25 @@ const Body = (props) => {
     const checkAdditionalElement = () => {
         const additionalElements = document.getElementsByClassName('additional-item')
         if(additionalElements.length > 0) {
-            setIsAdditionalElements(true)
+            props.dispatch(isAdditionalElements(true))
             props.dispatch(bodyProceed(true))
         }else{
-            setIsAdditionalElements(false)
+            props.dispatch(isAdditionalElements(false))
             props.dispatch(bodyProceed(false))
         }
     }
 
+
     return(
         <div style={{marginTop: '64px'}}>
             <BodyContainer styles={props.bodyStyles}>
-                <BodyContainer2 visibility={isAdditionalElements ? 'visible' : 'hidden'} display={isAdditionalElements ? 'initial' : 'none'} >
+                <BodyContainer2 visibility={props.isAdditionalElements ? 'visible' : 'hidden'} display={props.isAdditionalElements ? 'initial' : 'none'} >
                     <Container id='content-form'>
                         <Label>Body content</Label>
                     </Container>
                     {isTooManyImages ? <div>Exceeded image limit of three</div> : null}
                     <BodyButtonContainer id='add-content-body-buttons'>
-                        {isAdditionalElements ? 
+                        {props.isAdditionalElements ? 
                         <RemoveLastElement type="button" onClick={removeLastElement}>
                             <ButtonIconContainer>
                             <Remove />
@@ -236,22 +236,29 @@ const Body = (props) => {
                         :
                         null
                         }
-                        <NewItemButton long={!isAdditionalElements} type="button" onClick={newParagraph}>
+                        <NewItemButton long={!props.isAdditionalElements} type="button" onClick={newParagraph}>
                             <ButtonIconContainer>
                                 <Text />
                             </ButtonIconContainer>
                         </NewItemButton>
-                        <NewItemButton border='1px solid white' long={!isAdditionalElements} type="button" onClick={newImage}>
+                        <NewItemButton border='1px solid white' long={!props.isAdditionalElements} type="button" onClick={newImage}>
                             <ButtonIconContainer>
                                 <Image />
                             </ButtonIconContainer>
                         </NewItemButton>
                     </BodyButtonContainer>
                     <div id='body-scroll-here'></div>
+                {props.isContentEmpty ? 
+                <div style={{justifyContent: 'center', display: 'flex'}}>
+                    <div style={{color: '#fa4670'}}>Looks like some required fields have been left blank</div>
+                </div>
+                :
+                null
+                }
                 </BodyContainer2>
-                <div style={{marginTop: '72px'}}></div>
+                <div style={{marginTop: '96px'}}></div>
             </BodyContainer>
-        {isAdditionalElements ? 
+        {props.isAdditionalElements ? 
         null
         :
         <EmptyBodyContainer styles={props.bodyStyles}>
@@ -259,12 +266,12 @@ const Body = (props) => {
                 <Label>Body content</Label>
             </Container>
             <BodyButtonContainer id='add-content-body-buttons'>
-                <NewItemButton long={!isAdditionalElements} type="button" onClick={newParagraph}>
+                <NewItemButton long={!props.isAdditionalElements} type="button" onClick={newParagraph}>
                     <ButtonIconContainer>
                         <Text />
                     </ButtonIconContainer>
                 </NewItemButton>
-                <NewItemButton border='1px solid white' long={!isAdditionalElements} type="button" onClick={newImage}>
+                <NewItemButton border='1px solid white' long={!props.isAdditionalElements} type="button" onClick={newImage}>
                     <ButtonIconContainer>
                         <Image />
                     </ButtonIconContainer>
@@ -282,6 +289,8 @@ const mapStateToProps = state => ({
     filesSmall: state.addContent.filesSmall,
     filesLarge: state.addContent.filesLarge,
     fileNames: state.addContent.fileNames,
+    isContentEmpty: state.addContent.isContentEmpty,
+    isAdditionalElements: state.addContent.isAdditionalElements
 })
 
 export default connect(mapStateToProps)(Body)

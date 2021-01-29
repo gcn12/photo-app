@@ -25,8 +25,8 @@ const Preview = (props) => {
         <div style={{margin: '80px 0 0 0'}}></div>
             <Container>
             <div>
-                {props?.filesLarge[0] ? 
-                <MainImage alt='' src={props?.filesLarge[0][0]}></MainImage>
+                {props?.mainImageLarge ? 
+                <MainImage alt='' src={props?.mainImageLarge}></MainImage>
                 :
                 null
                 }
@@ -90,7 +90,7 @@ const Preview = (props) => {
                             <div>
 
                                 <BodyImageContainer> 
-                                {props.previewImages[item].map((image, i)=> {
+                                {props?.previewImages[item]?.map((image, i)=> {
                                     return(
                                         <div key={i}>
                                             {props.previewImageSizeRatio[item].length === 1 ? 
@@ -145,7 +145,6 @@ const Preview = (props) => {
                                 :
                                 Object.values(props?.itemsToUploadData)[index+2] &&
                                 <div>
-                                    {console.log('hello')}
                                     <PostSpacings element={Object.values(props?.itemsToUploadData)[index+2][0]} imagesSpacing='8px' captionSpacing='4px' headerSpacing='32px' paragraphSpacing='32px'  />
                                 </div>
                                 :
@@ -184,13 +183,12 @@ const PostSpacings = (props) => {
 
 const mapStateToProps = state => ({
     previewStyles: state.addContent.previewStyles,
-    bodyContent: state.addContent.bodyContent,
-    bodyImages: state.addContent.bodyImages,
     font: state.addContent.font,
     filesLarge: state.addContent.filesLarge,
     itemsToUploadData: state.addContent.itemsToUploadData,
     previewImages: state.addContent.previewImages,
     previewImageSizeRatio: state.addContent.previewImageSizeRatio,
+    mainImageLarge: state.addContent.mainImageLarge,
 })
  
 export default connect(mapStateToProps)(Preview)

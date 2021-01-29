@@ -6,10 +6,7 @@ export const UPLOAD_STATUS_STYLES = 'UPLOAD_STATUS_STYLES'
 export const  SELECT_FONT_STYLES = 'SELECT_FONT_STYLES'
 export const CREATE_DESCRIPTION_STYLES = 'CREATE_DESCRIPTION_STYLES'
 export const SWITCH_VALUE = 'SWITCH_VALUE'
-export const BODY_CONTENT = 'BODY_CONTENT'
-export const BODY_IMAGES = 'BODY_IMAGES'
 export const IMAGE_SIZE_RATIO = 'IMAGE_SIZE_RATIO'
-export const UPLOAD_PROGRESS_COLOR = 'UPLOAD_PROGRESS_COLOR'
 export const PARAGRAPH = 'PARAGRAPH'
 export const FONT = 'FONT'
 export const TITLE_PHOTO_PROCEED = 'TITLE_PHOTO_PROCEED'
@@ -18,7 +15,9 @@ export const BODY_PROCEED = 'BODY_PROCEED'
 export const FONT_PROCEED = 'FONT_PROCEED'
 export const IS_DUPLICATE = 'IS_DUPLICATE'
 export const NUMBER_CHARACTERS = 'NUMBER_CHARACTERS'
-export const FILES_SMALLEST = 'FILES_SMALLEST'
+export const MAIN_IMAGE_SMALLEST = 'MAIN_IMAGE_SMALLEST'
+export const MAIN_IMAGE_SMALL = 'MAIN_IMAGE_SMALL'
+export const MAIN_IMAGE_LARGE = 'MAIN_IMAGE_LARGE'
 export const FILES_SMALL = 'FILES_SMALL'
 export const FILES_LARGE = 'FILES_LARGE'
 export const FILE_NAMES = 'FILES_NAMES'
@@ -27,6 +26,27 @@ export const FILES_INDEX = 'FILES_INDEX'
 export const PREVIEW_IMAGES = 'PREVIEW_IMAGES'
 export const PREVIEW_IMAGE_SIZE_RATIO = 'PREVIEW_IMAGE_SIZE_RATIO'
 export const RESET_STATE = 'RESET_STATE'
+export const IS_CONTENT_EMPTY = 'IS_CONTENT_EMPTY'
+export const IS_ADDITIONAL_ELEMENTS = 'IS_ADDITIONAL_ELEMENTS'
+export const IS_TITLE_TOO_LONG = 'IS_TITLE_TOO_LONG'
+
+export function isTitleTooLong(data) {
+    return(dispatch) => {
+        dispatch({type: IS_TITLE_TOO_LONG, payload: data})
+    }
+}
+
+export function isAdditionalElements(data) {
+    return(dispatch) => {
+        dispatch({type: IS_ADDITIONAL_ELEMENTS, payload: data})
+    }
+}
+
+export function isContentEmpty(data) {
+    return(dispatch) => {
+        dispatch({type: IS_CONTENT_EMPTY, payload: data})
+    }
+}
 
 export function resetState() {
     return(dispatch) => {
@@ -76,9 +96,21 @@ export function filesSmall(data) {
     }
 }
 
-export function filesSmallest(data) {
+export function mainImageSmall(data) {
     return(dispatch) => {
-        dispatch({type: FILES_SMALLEST, payload: data})
+        dispatch({type: MAIN_IMAGE_SMALL, payload: data})
+    }
+}
+
+export function mainImageSmallest(data) {
+    return(dispatch) => {
+        dispatch({type: MAIN_IMAGE_SMALLEST, payload: data})
+    }
+}
+
+export function mainImageLarge(data) {
+    return(dispatch) => {
+        dispatch({type: MAIN_IMAGE_LARGE, payload: data})
     }
 }
 
@@ -130,27 +162,9 @@ export function paragraph(data) {
     }
 }
 
-export function uploadProgressColor(data) {
-    return(dispatch) => {
-        dispatch({type: UPLOAD_PROGRESS_COLOR, payload: data})
-    }
-}
-
 export function imageSizeRatio(data) {
     return(dispatch) => {
         dispatch({type: IMAGE_SIZE_RATIO, payload: data})
-    }
-}
-
-export function bodyImages(data) {
-    return(dispatch) => {
-        dispatch({type: BODY_IMAGES, payload: data})
-    }
-}
-
-export function bodyContent(data) {
-    return(dispatch) => {
-        dispatch({type: BODY_CONTENT, payload: data})
     }
 }
 

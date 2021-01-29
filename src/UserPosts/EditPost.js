@@ -686,7 +686,7 @@ const EditPost = (props) => {
 
                         </BodyButtonContainer>
                         <Label>Post description</Label>
-                        <PostDescriptionInput defaultValue={props?.postData?.previewDescription} font={font} onChange={calculateRemainingCharacters} id='edit-post-description'></PostDescriptionInput>
+                        <PostDescriptionInput autoComplete='off' defaultValue={props?.postData?.previewDescription} font={font} onChange={calculateRemainingCharacters} id='edit-post-description'></PostDescriptionInput>
                         <div style={{marginBottom: '15px'}}>Remaining characters: {remainingCharacters}</div>
                         <Label>Font:</Label>
                         <FontSelect font={font} onChange={getFont} value={font} id='font-select'>

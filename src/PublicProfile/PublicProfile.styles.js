@@ -36,7 +36,8 @@ export const PostsContainer = styled.div`
 `
 
 export const UserContainer = styled.div`
-    opacity: ${props=>props.visibility};
+    opacity: ${props=>props.opacity};
+    transition: opacity 200ms ease-in-out;
     margin-top: 30px;
     display: flex;
     position: fixed;
@@ -94,4 +95,11 @@ export const PublicProfileContainer = styled.div`
     @media(max-width: 720px) {
         margin-top: 65px;
     }
+`
+
+export const PrivateContainer = styled.div`
+    margin-top: 10px;
+    position: relative;
+    opacity: ${props=>props.opacity};
+    transition: opacity 200ms ease-in-out;
 `

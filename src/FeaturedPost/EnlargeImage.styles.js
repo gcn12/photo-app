@@ -21,7 +21,7 @@ export const Image = styled.img`
 
 export const ImageContainer = styled.div`
     display: ${props=>props.display};
-    z-index: 4;
+    z-index: 21;
     position: fixed;
     left: 50%;
     top: 50%;
@@ -40,7 +40,7 @@ export const Placeholder = styled.div`
 `
 
 export const Close = styled.div`
-    z-index: 4;
+    z-index: 21;
     right: 1%;
     top: -1.5%;
     font-size: 60px;

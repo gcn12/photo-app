@@ -11,10 +11,7 @@ export const initialState = {
     selectFontStyles: startValues,
     createDescriptionStyles: startValues,
     switchValue: 1,
-    bodyContent: [],
-    bodyImages: [],
     imageSizeRatio: {},
-    uploadProgressColor: false,
     paragraph: '',
     font: "'Montserrat', sans-serif;",
     titlePhotoProceed: false,
@@ -23,7 +20,9 @@ export const initialState = {
     bodyProceed: false,
     isDuplicate: false,
     numberCharacters: 100,
-    filesSmallest: [],
+    mainImageSmallest: [],
+    mainImageSmall: [],
+    mainImageLarge: [],
     filesSmall: [],
     filesLarge: [],
     fileNames: [],
@@ -31,12 +30,21 @@ export const initialState = {
     filesIndex: [],
     previewImages: {},
     previewImageSizeRatio: {},
+    isContentEmpty: false,
+    isAdditionalElements: false,
+    isTitleTooLong: false,
 }
 
 export default function addContentReducer(state=initialState, action) {
     switch(action.type) {
+        case actions.IS_TITLE_TOO_LONG:
+            return {...state, isTitleTooLong: action.payload}
+        case actions.IS_ADDITIONAL_ELEMENTS:
+            return {...state, isAdditionalElements: action.payload}
         case actions.RESET_STATE:
             return initialState
+        case actions.IS_CONTENT_EMPTY:
+            return {...state, isContentEmpty: action.payload}
         case actions.PREVIEW_IMAGE_SIZE_RATIO:
             return {...state, previewImageSizeRatio: action.payload}
         case actions.PREVIEW_IMAGES:
@@ -51,8 +59,12 @@ export default function addContentReducer(state=initialState, action) {
             return {...state, filesLarge: action.payload}
         case actions.FILES_SMALL:
             return {...state, filesSmall: action.payload}
-        case actions.FILES_SMALLEST:
-            return {...state, filesSmallest: action.payload}
+        case actions.MAIN_IMAGE_SMALLEST:
+            return {...state, mainImageSmallest: action.payload}
+        case actions.MAIN_IMAGE_SMALL:
+            return {...state, mainImageSmall: action.payload}
+        case actions.MAIN_IMAGE_LARGE:
+            return {...state, mainImageLarge: action.payload}
         case actions.NUMBER_CHARACTERS:
             return {...state, numberCharacters: action.payload}
         case actions.IS_DUPLICATE:
@@ -69,14 +81,8 @@ export default function addContentReducer(state=initialState, action) {
             return {...state, font: action.payload}
         case actions.PARAGRAPH:
             return {...state, paragraph: action.payload}
-        case actions.UPLOAD_PROGRESS_COLOR:
-            return {...state, imageSizeRatio: action.payload}
         case actions.IMAGE_SIZE_RATIO:
             return {...state, imageSizeRatio: action.payload}
-        case actions.BODY_IMAGES:
-            return {...state, bodyImages: action.payload}
-        case actions.BODY_CONTENT:
-            return {...state, bodyContent: action.payload}
         case actions.SWITCH_VALUE:
             return {...state, switchValue: action.payload}
         case actions.CREATE_DESCRIPTION_STYLES:

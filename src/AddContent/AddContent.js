@@ -33,9 +33,6 @@ import {
     selectFontStyles,
     createDescriptionStyles,
     switchValue,
-    bodyContent,
-    bodyImages,
-    uploadProgressColor,
     paragraph, 
     titlePhotoProceed,
     isDuplicate,
@@ -44,14 +41,17 @@ import {
     previewImages,
     previewImageSizeRatio,
     resetState,
+    isContentEmpty,
+    isTitleTooLong,
 } from '../Redux/Actions/addContentActions'
 import { photoInformation } from '../Redux/Actions/appActions'
 
 const AddContent = (props) => {
     const [uploadCount, setUploadCount] = useState(3)
     const [uploadProgress, setUploadProgress] = useState(0)
+    const [uploadFinished, setUploadFinished] = useState(false)
 
-    const submit = (imagesEmptyArraysSmall, imagesEmptyArraysLarge, unsortedImages, imageMap, imageSizeArray, dataObj, filesIndex, postID) => {
+    const submit = (imagesSmall, imagesLarge, dataObj, postID, mainImageSmallest, mainImageSmall, mainImageLarge) => {
 
         let title = document.getElementById('add-content-title').value.trim()
         const location = document.getElementById('autocomplete').value
@@ -88,36 +88,13 @@ const AddContent = (props) => {
         } else{
             profileImage = null
         }
-    
-        let mainImage
-        let mainImageSmall
-        let mainImageSmallest = unsortedImages[unsortedImages.length-1]
-    
-        let unsortedImagesLarge = unsortedImages.slice(0, (unsortedImages.length-1)/2)
-        let unsortedImagesSmall = unsortedImages.slice((unsortedImages.length-1) / 2)
 
-        for(let i=0; i<unsortedImagesLarge.length; i++) {
-            if(i === 0) {
-                mainImage = unsortedImagesLarge[i]
-                mainImageSmall = unsortedImagesSmall[i]
-            }else{
-                if(i<imageMap.length+1) {
-                    imagesEmptyArraysLarge[imageMap[i-1]].push(unsortedImagesLarge[i])
-                    imagesEmptyArraysSmall[imageMap[i-1]].push(unsortedImagesSmall[i])
-                }
-            }
-        }
-
-        
-        const imageSizeArrayValues = Object.values(imageSizeArray)
-        const urlObjectLarge = {}
-        const urlObjectSmall = {}
+        const imageSizeArrayValues = Object.values(props.imageSizeRatio)
         const imageSizeArrayWithIndex = {}
-        for (let i=0; i<imagesEmptyArraysLarge.length; i++) {
-            urlObjectLarge[props.filesIndex[i]] = imagesEmptyArraysLarge[i]
-            urlObjectSmall[props.filesIndex[i]] = imagesEmptyArraysSmall[i]
+        for (let i=0; i<Object.values(imagesLarge).length; i++) {
             imageSizeArrayWithIndex[props.filesIndex[i]] = imageSizeArrayValues[i]
         }
+
         db.collection('users').doc(props.user)
         .get()
         .then(data=> {
@@ -133,13 +110,13 @@ const AddContent = (props) => {
                     font: props.font,
                     profileImage,
                     photoBodyMap: imageSizeArrayWithIndex,
-                    imagesLarge: urlObjectLarge,
-                    imagesSmall: urlObjectSmall,
+                    imagesLarge,
+                    imagesSmall,
                     title,
                     timestamp,
                     previewDescription,
                     smallImage: mainImageSmall,
-                    image: mainImage,
+                    image: mainImageLarge,
                     smallestImage: mainImageSmallest,
                     category,
                     country,
@@ -167,7 +144,7 @@ const AddContent = (props) => {
                             previewDescription,
                             smallImage: mainImageSmall,
                             title,
-                            image: mainImage,
+                            image: mainImageLarge,
                             category,
                             postID,
                             location,
@@ -186,7 +163,7 @@ const AddContent = (props) => {
                             }, {merge: true})
                             props.dispatch(isPostVisible(false))
                             props.dispatch(isVisible(false))
-                            setTimeout(()=>props.dispatch(uploadProgressColor(true), 300))
+                            setTimeout(()=>setUploadFinished(true), 0)
                             setTimeout(()=>props.getFeaturedPhotoInfo(postID), 2000)
                             setTimeout(()=>props.history.push(`/photo-app/post/${postID}`), 2000)
                             setTimeout(()=>props.dispatch(resetState()), 2500)
@@ -196,8 +173,9 @@ const AddContent = (props) => {
             })
         })
     }
-    
-    const fileUpload1 = (imageSizeArray) => {
+
+
+    const fileUpload1 = () => {
 
         const createID = () => {
             let postID = ''
@@ -220,7 +198,6 @@ const AddContent = (props) => {
                 postID+=character
                 idLength--
             }
-
             db.collection('preview-posts')
             .where('postID', '==', postID)
             .get()
@@ -230,57 +207,91 @@ const AddContent = (props) => {
                     dataArray.push(item.data())
                 })
                 if(dataArray.length===0) {
+                    let imagesSmall = {}
+                    let imagesLarge = {}
+                    let mainImageSmallest
+                    let mainImageSmall
+                    let mainImageLarge
+                    let smallFiles = Object.values(props.filesSmall)
+                    let largeFiles = Object.values(props.filesLarge)
+                    const allFiles = [smallFiles, largeFiles, [props.mainImageSmallest], [props.mainImageSmall], [props.mainImageLarge]]
+                    let imageSizeArrayIndex = 0 
+                    let imageArrayIndex = 0
+                    let imageIndex = 0
 
-                    let photoIndexes = []
-                    let fileArray = []
-                    const photoUrlArraySortedSmall = []
-                    const photoUrlArraySortedLarge = []
-                    for (let i = 0; i < props.filesLarge.length; i++) {
-                        fileArray = [...fileArray, ...props.filesLarge[i]]
-                        if(i !== 0){
-                            photoUrlArraySortedSmall.push([])
-                            photoUrlArraySortedLarge.push([])
-                            for(let j = 0; j<props.filesLarge[i].length; j++) {
-                                photoIndexes.push(i-1)
-                            }
-                        }
+                    //get allFiles length
+                    let numberOfFiles = 0
+                    for (let files of smallFiles) {
+                        numberOfFiles += files.length
                     }
-                    for (let i = 0; i < props.filesLarge.length; i++) {
-                        fileArray = [...fileArray, ...props.filesSmall[i]]
-                    }
-                    fileArray = [...fileArray, props.filesSmallest]
-                    setUploadCount(uploadCount => uploadCount + fileArray.length)
-                    const urlArray = []
-                    let index = []
-                    let indexNum = 0
+                    numberOfFiles *= 2
+                    numberOfFiles += 3
+                    
+                    
+                    setUploadCount(uploadCount => uploadCount + numberOfFiles)
                     setUploadProgress(previousUploadProgress=> previousUploadProgress + 1)
                     const upload = () => {
-                        if(indexNum<fileArray.length) {
-                            const random = Math.round(Math.random()*1000000)
-                            const file = fileArray[indexNum]
-                            firebase.storage().ref()
-                            .child(`${props.userInformation.id}/${postID}/${props.fileNames[indexNum]}${random}`)
-                            .putString(file, 'data_url')
-                            .then(snapshot => {
-                                setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
-                                snapshot.ref.getDownloadURL()
-                                .then(downloadURL => {
-                                    urlArray.push(downloadURL)  
-                                    indexNum++ 
-                                    index.push(downloadURL) 
-                                    if(urlArray.length===fileArray.length) {
-                                        submit(photoUrlArraySortedSmall, photoUrlArraySortedLarge, [...urlArray], photoIndexes, imageSizeArray, props.itemsToUploadData, props.filesIndex, postID)
-                                    }else{
+                            if(imageSizeArrayIndex<allFiles.length) {
+                                const random = Math.round(Math.random()*1000000)
+                                const file = allFiles[imageSizeArrayIndex][imageArrayIndex][imageIndex]
+                                firebase.storage().ref()
+                                .child(`${props.userInformation.id}/${postID}/${random}`)
+                                .putString(file, 'data_url')
+                                .then(snapshot => {
+                                    setUploadProgress(previousUploadProgress => previousUploadProgress + 1)
+                                    snapshot.ref.getDownloadURL()
+                                    .then(downloadURL => {
+                                        if(imageSizeArrayIndex===0) {
+                                            if(imagesSmall[props.filesIndex[imageArrayIndex]]) {
+                                                imagesSmall[props.filesIndex[imageArrayIndex]].push(downloadURL)
+                                            }else{
+                                                imagesSmall[props.filesIndex[imageArrayIndex]] = [downloadURL]
+                                            }
+                                        }
+                                        if(imageSizeArrayIndex===1) {
+                                            if(imagesLarge[props.filesIndex[imageArrayIndex]]) {
+                                                imagesLarge[props.filesIndex[imageArrayIndex]].push(downloadURL)
+                                            }else{
+                                                imagesLarge[props.filesIndex[imageArrayIndex]] = [downloadURL]
+                                            }
+                                        }
+                                        if(imageSizeArrayIndex===2) {
+                                            mainImageSmallest = downloadURL
+                                        }
+                                        if(imageSizeArrayIndex===3) {
+                                            mainImageSmall = downloadURL
+                                        }
+                                        if(imageSizeArrayIndex===4) {
+                                            mainImageLarge = downloadURL
+                                        } 
+                                        if(imageIndex + 1 === allFiles[imageSizeArrayIndex][imageArrayIndex].length) {
+                                            imageIndex = 0
+                                            if(imageArrayIndex + 1 === allFiles[imageSizeArrayIndex].length){
+                                                imageArrayIndex = 0
+                                                imageSizeArrayIndex++
+                                            }else{
+                                                imageArrayIndex++
+                                            }
+                                        }else{
+                                            imageIndex++
+                                        }
+                                        if(imageSizeArrayIndex === 5) {
+                                            submit(imagesSmall, imagesLarge, props.itemsToUploadData, postID, mainImageSmallest, mainImageSmall, mainImageLarge)
+                                        }
                                         upload()
-                                    }
-                                })
-                                .catch(error => console.log(error))
-                            });
-                        }else{
-                            return
+                                    })
+                                    .catch(error => console.log(error))
+                                });
+                            }else{
+                                return
+                            }
                         }
-                    }
-                    upload()
+                        if(allFiles[0].length>0) {
+                            upload()
+                        }else{
+                            imageSizeArrayIndex = 2
+                            upload() 
+                        }
                 }else{
                     createID()
                 }
@@ -289,14 +300,14 @@ const AddContent = (props) => {
         createID()
     }
 
-
     const getItemsToUploadData = () => {
         const data = document.getElementsByClassName('item-to-upload')
         let dataObj = {}
         let filesIndexArr = []
         let index = 0
-        let previewImageIndex = 1
+        let previewImageIndex = 0
         let previewImageSizeRatioIndex = 0
+        //for preview page
         let previewImagesObj = {}
         let previewImageSizeRatioObj = {}
         for (let i = 0; i<data.length; i++){
@@ -325,23 +336,26 @@ const AddContent = (props) => {
         props.dispatch(filesIndex(filesIndexArr))
     }
 
-    const getBodyContent = () => {
-        const paragraphs = document.getElementsByClassName('content-paragraph')
-        const content = []
-        for (let paragraph of paragraphs) {
-            content.push(paragraph.value)
-        }
-        props.dispatch(bodyContent(content))
-    }
-
     const getParagraphSample = () => {
         let paragraphArr = []
-        const paragraphSample = document.getElementsByClassName('add-content-description-input')[0].value
-        const splitParagraph = paragraphSample.split('\n')
-        let finalParagraph = splitParagraph[0].slice(0, 400)
-        finalParagraph = finalParagraph.trim()
-        if(finalParagraph[finalParagraph.length-1]!=='.'){
-            finalParagraph += '...'
+        let finalParagraph
+        if(document.getElementsByClassName('add-content-description-input')) {
+            if(document.getElementsByClassName('add-content-description-input')[0]) {
+                const paragraphSample = document.getElementsByClassName('add-content-description-input')[0].value
+                if(paragraphSample.length > 0) {
+                    const splitParagraph = paragraphSample.split('\n')
+                    finalParagraph = splitParagraph[0].slice(0, 400)
+                    finalParagraph = finalParagraph.trim()
+                    if(finalParagraph[finalParagraph.length-1]!=='.'){
+                        finalParagraph += '...'
+                    }
+                }
+            }
+            else{
+                finalParagraph = document.getElementById('add-content-title').value
+            }
+        }else{
+            finalParagraph = document.getElementById('add-content-title').value
         }
         paragraphArr.push(finalParagraph)
         props.dispatch(paragraph(paragraphArr))
@@ -361,7 +375,10 @@ const AddContent = (props) => {
             if(dataArray.length > 0){
                 props.dispatch(isDuplicate(true))
                 props.dispatch(titlePhotoProceed(false))
+            }else if (title.length > 75) {
+                props.dispatch(isTitleTooLong(true))
             }else{
+                props.dispatch(isTitleTooLong(false))
                 props.dispatch(isDuplicate(false))
                 props.dispatch(titlePhotoStyles({left: '20%', opacity: 0, display: 'none', visibility: 'hidden'}))
                 props.dispatch(categoryLocationStyles({opacity: 1, left: '50%', visibility: 'visible', display: 'initial'}))
@@ -370,17 +387,28 @@ const AddContent = (props) => {
         })
     }
 
-    const getBodyImages = () => {
-        const images = document.getElementsByClassName('body-photos')
-        let imagesArray = []
-        for (let i = 0; i < images.length; i++) {
-            let subArray = []
-            for(let j = 0; j<images[i].files.length; j++) {
-                subArray.push(images[i].files[j])
+    const checkForEmptyContent = () => {
+        let isEmpty = false
+        const photos = document.getElementsByClassName('body-photos')
+        const paragraphs = document.getElementsByClassName('content-paragraph')
+        for (let i = 0; i<photos.length; i++) {
+            if(photos[i].files.length===0) {
+                isEmpty = true
             }
-            imagesArray.push(subArray)
         }
-        props.dispatch(bodyImages(imagesArray))
+        for (let i = 0; i<paragraphs.length; i++) {
+            if(paragraphs[i].value.length===0) {
+                isEmpty = true
+            }
+        }
+        props.dispatch(isContentEmpty(isEmpty))
+        if(!isEmpty) {
+            getItemsToUploadData()
+            props.dispatch(bodyStyles({opacity: 0, visibility: 'hidden', left: '20%', display: 'none',}))
+            props.dispatch(selectFontStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',}))
+            getParagraphSample()
+            props.dispatch(switchValue(5))
+        }
     }
 
     const transitionSwitchNext = () => {
@@ -406,18 +434,12 @@ const AddContent = (props) => {
                 break
             case 4:
                 if(props.bodyProceed) {
-                    getItemsToUploadData()
-                    props.dispatch(bodyStyles({opacity: 0, visibility: 'hidden', left: '20%', display: 'none',}))
-                    props.dispatch(selectFontStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',}))
-                    getParagraphSample()
-                    props.dispatch(switchValue(5))
+                    checkForEmptyContent()
                 }
                 break
             case 5:
                 props.dispatch(selectFontStyles({opacity: 0, visibility: 'hidden', left: '20%', display: 'none',}))
                 props.dispatch(previewStyles({opacity: 1, visibility: 'visible', left: '50%', display: 'initial',}))
-                getBodyContent()
-                getBodyImages()
                 props.dispatch(switchValue(6))
                 props.dispatch(photoInformation([]))
             break
@@ -468,7 +490,7 @@ const AddContent = (props) => {
     return(
         <div>
             <UploadProgressContainer styles={props.uploadStatusStyles}>
-                <UploadProgress display='initial'  uploadCount={uploadCount} uploadProgress={uploadProgress}/>
+                <UploadProgress display='initial' uploadFinished={uploadFinished} uploadCount={uploadCount} uploadProgress={uploadProgress}/>
             </UploadProgressContainer>
             {props.switchValue === 7 ? 
             null
@@ -506,7 +528,7 @@ const AddContent = (props) => {
                                 case 3:
                                     return <NextButton proceed={props.numberCharacters >= 0 ? true : false} width={props.switchValue === 1 ? '40vw' :'150px'}>Next</NextButton>
                                 case 4: 
-                                    return <NextButton proceed={props.bodyProceed} width={props.switchValue === 1 ? '40vw' :'150px'}>Next</NextButton>
+                                    return <NextButton proceed={props.isAdditionalElements} width={props.switchValue === 1 ? '40vw' :'150px'}>Next</NextButton>
                                 case 5: 
                                     return <NextButton proceed={props.fontProceed} width={props.switchValue === 1 ? '40vw' :'150px'}>Preview</NextButton>
                                 case 6:
@@ -536,13 +558,16 @@ const mapStateToProps = state => ({
     fontProceed: state.addContent.fontProceed,
     bodyProceed: state.addContent.bodyProceed,
     numberCharacters: state.addContent.numberCharacters,
-    filesSmallest: state.addContent.filesSmallest,
+    mainImageSmallest: state.addContent.mainImageSmallest,
+    mainImageSmall: state.addContent.mainImageSmall,
+    mainImageLarge: state.addContent.mainImageLarge,
     filesSmall: state.addContent.filesSmall,
     filesLarge: state.addContent.filesLarge,
     fileNames: state.addContent.fileNames,
     itemsToUploadData: state.addContent.itemsToUploadData,
     filesIndex: state.addContent.filesIndex,
     imageSizeRatio: state.addContent.imageSizeRatio,
+    isAdditionalElements: state.addContent.isAdditionalElements,
 })
 
 export default connect(mapStateToProps)(AddContent)

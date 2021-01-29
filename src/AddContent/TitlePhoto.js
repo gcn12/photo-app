@@ -7,7 +7,13 @@ import {
     FileUpload,
     CenterContainer,
 } from './TitlePhoto.styles'
-import { titlePhotoProceed, filesSmallest, filesSmall, filesLarge, fileNames } from '../Redux/Actions/addContentActions'
+import { 
+    titlePhotoProceed, 
+    mainImageSmallest, 
+    mainImageSmall,
+    mainImageLarge,
+    fileNames,
+} from '../Redux/Actions/addContentActions'
 import { Label } from './AddContent.styles'
 
 const TitlePhoto = (props) => {
@@ -60,9 +66,7 @@ const TitlePhoto = (props) => {
                 ctx2.drawImage(uploadedImage, 0, 0, canvasSmall.width, canvasSmall.height);
                 const imageSrcSmall = canvasSmall.toDataURL('image/jpeg', 1)
                 image.src = imageSrcSmall
-                const filesSmallCopy = props.filesSmall
-                filesSmallCopy[0] = [imageSrcSmall]
-                props.dispatch(filesSmall(filesSmallCopy))
+                props.dispatch(mainImageSmall([imageSrcSmall]))
 
 
                 if(height > 2500 || width > 2500) {
@@ -83,12 +87,8 @@ const TitlePhoto = (props) => {
                 ctx = canvasLarge.getContext('2d');
                 ctx.drawImage(uploadedImage, 0, 0, canvasLarge.width, canvasLarge.height);
                 const imageSrcLarge = canvasLarge.toDataURL('image/jpeg', 1)
-
                 props.dispatch(fileNames(fileName))
-
-                const filesLargeCopy = props.filesLarge
-                filesLargeCopy[0] = [imageSrcLarge]
-                props.dispatch(filesLarge(filesLargeCopy))
+                props.dispatch(mainImageLarge([imageSrcLarge]))
 
 
                 if(height > 150 || width > 150) {
@@ -111,7 +111,7 @@ const TitlePhoto = (props) => {
                 const imageSrcSmallest = canvasSmallest.toDataURL('image/jpeg', 1)
 
                 props.dispatch(fileNames(fileName))
-                props.dispatch(filesSmallest(imageSrcSmallest))
+                props.dispatch(mainImageSmallest([imageSrcSmallest]))
             }
         }
         viewFile.readAsDataURL(file)
@@ -143,6 +143,11 @@ const TitlePhoto = (props) => {
                     :
                     null
                     }
+                    {props.isTitleTooLong ? 
+                    <div style={{color: '#e04343'}}>Title appears to be too long</div>
+                    :
+                    null
+                    }
                 </div>
                 <Label>Upload header photo:</Label>
                 <input hidden onChange={displayImage} id='photo-input' type='file' className='photo-input'></input>
@@ -160,6 +165,7 @@ const mapStateToProps = state => ({
     isDuplicate: state.addContent.isDuplicate,
     filesSmall: state.addContent.filesSmall,
     filesLarge: state.addContent.filesLarge,
+    isTitleTooLong: state.addContent.isTitleTooLong,
 })
 
 export default connect(mapStateToProps)(TitlePhoto)
