@@ -22,7 +22,7 @@ const CollectionsDropdown = (props) => {
     }
 
     return(
-        <Container fontSize='20px' translateContainer='translate(126%, 115%)'>
+        <Container fontSize='20px' translateContainer='translate(-77%, 15%)'>
             <Triangle shift='translate(-70%, -90%)' />
             <Options>
                 <OptionIconContainer onClick={renameCollection} radius='5px 5px 0 0'>

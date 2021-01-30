@@ -37,7 +37,6 @@ const ProfileHeaderMobile = (props) => {
                     <Link onClick={()=>pageRoute('collections')} to='/photo-app/profile/collections' style={{textDecoration: 'none'}}>
                         <MobileLI style={{borderBottom: props.profilePage==='collections'  ? '1px solid #242424' : null}}>Collections</MobileLI>
                     </Link>
-                    <div onClick={()=>console.log(props.profilePage)}>click</div>
                 </MobileUL>
             </MobileNavigation>
             <Navigation onClick={()=>setToggleNavigation(!toggleNavigation)}>

@@ -101,14 +101,16 @@ const CollectionPhotoGrid = (props) => {
             }
             <Header>
                 <Title>{props.collection[0]}</Title>
-                <Ellipsis className='delete-collection' onClick={()=>setIsDeleteMenu(!isDeleteMenu)}>
-                    <div style={{fontWeight: 800, fontSize: '22px'}} className='delete-collection'>&#8942;</div>
-                </Ellipsis>
-                {isDeleteMenu ? 
-                <CollectionsDropdown openDelete={openDelete} openRename={openRename} setShowDelete={props.setShowDelete} setShowRename={props.setShowRename} collectionInfo={props.collectionInfo} index={props.index} setCollectionInfo={props.setCollectionInfo} collectionName={props.collection[0]} />
-                :
-                null
-                }
+                <div style={{position: 'relative'}}>
+                    <Ellipsis className='delete-collection' onClick={()=>setIsDeleteMenu(!isDeleteMenu)}>
+                        <div style={{fontWeight: 800, fontSize: '22px'}} className='delete-collection'>&#8942;</div>
+                    </Ellipsis>
+                    {isDeleteMenu ? 
+                    <CollectionsDropdown openDelete={openDelete} openRename={openRename} setShowDelete={props.setShowDelete} setShowRename={props.setShowRename} collectionInfo={props.collectionInfo} index={props.index} setCollectionInfo={props.setCollectionInfo} collectionName={props.collection[0]} />
+                    :
+                    null
+                    }
+                </div>
             </Header>
             { showRename ?
             <div>
