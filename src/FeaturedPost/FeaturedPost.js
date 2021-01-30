@@ -242,7 +242,7 @@ const FeaturedPost = (props) => {
 
     const openImage = (imageURL) => {
         enlarge(imageURL)
-        setShowImageEnlarged(true)
+        // setShowImageEnlarged(true)
         disableBodyScroll(document.body)
     }
 

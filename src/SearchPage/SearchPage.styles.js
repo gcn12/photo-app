@@ -4,6 +4,7 @@ export const CitiesDisplayContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, max-content));
     grid-column-gap: 2%;
+    grid-row-gap: 2%;
     align-items: start;
     justify-content: center;
     margin-bottom: 30px;

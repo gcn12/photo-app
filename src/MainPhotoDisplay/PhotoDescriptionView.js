@@ -119,7 +119,7 @@ const PhotoDescriptionView = (props) => {
                                 <Ellipsis onClick={checkIsBookmarked} className='add-dropdown'>&#8942;</Ellipsis>
                             {/* </button> */}
                             {showDropdown && 
-                            <DescriptionViewDropdown setShowSpinner={setShowSpinner} fontSize='20px' translateContainerUnsaved='translate(-86%, 13%)' translateContainerSaved='translate(-87%, 13%)' openAddToCollection={openAddToCollection} setCollectionsList={setCollectionsList}  id={props.photoInfo.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.photoInfo} />
+                            <DescriptionViewDropdown setShowSpinner={setShowSpinner} fontSize='20px' translateContainerUnsaved='translate(-89%, 13%)' translateContainerSaved='translate(-90%, 13%)' openAddToCollection={openAddToCollection} setCollectionsList={setCollectionsList}  id={props.photoInfo.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.photoInfo} />
                             }
                         </div>
                         {showAddToCollection && 
