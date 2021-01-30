@@ -356,8 +356,9 @@ const FeaturedPost = (props) => {
         
                                             {props.photoInformation.photoBodyMap[item].length === 2 ? 
                                             <div>
-                                                <button onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])} style={{border: 'none', backgroundColor: 'transparent'}}>
+                                                {/* <button onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])} style={{border: 'none', backgroundColor: 'transparent', display: 'inline-block'}}> */}
                                                     <BodyImage 
+                                                    onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])}
                                                     imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
                                                     margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 4px' : '0%'} 
                                                     imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
@@ -365,7 +366,7 @@ const FeaturedPost = (props) => {
                                                     imageGap='8px'
                                                     src={image} key={i} 
                                                     />
-                                                </button>
+                                                {/* </button> */}
                                             </div>
                                             :
                                             null}
