@@ -97,6 +97,46 @@
     cursor: pointer;
     font-size: 18px;
 }
+
+.input-file:focus + label {
+    outline: 5px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+[type="file"] {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+  
+  [type="file"] + label {
+    /* File upload button styles */
+    margin: 10px 0 0 0;
+    border: 1px solid black;
+    padding: 5px;
+    color: black;
+    cursor: pointer;
+    font-size: 20px;
+    /* height: 50px;
+    width: 100px;
+    border: 1px solid #242424; */
+  }
+  
+  [type="file"]:focus + label,
+  [type="file"] + label:hover {
+    /* File upload hover state button styles */
+    cursor: pointer;
+  }
+  
+  [type="file"]:focus + label {
+    /* File upload focus state button styles */
+    border: 1px solid greenyellow;
+  }
  
 .shine {
    background: #f6f7f8;

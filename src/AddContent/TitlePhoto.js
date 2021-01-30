@@ -4,10 +4,9 @@ import {
     PreviewImage,
     TextInput,
     Container,
-    FileUpload,
     CenterContainer,
-    FileInput,
 } from './TitlePhoto.styles'
+import '../App.css'
 import { 
     titlePhotoProceed, 
     mainImageSmallest, 
@@ -148,10 +147,10 @@ const TitlePhoto = (props) => {
                     }
                 </div>
                 <Label>Upload header photo:</Label>
-                <FileUpload  htmlFor='photo-input'>
-                    <FileInput role='button' tabIndex='0' onChange={displayImage} id='photo-input' type='file' className='photo-input'></FileInput>
-                    Select image
-                </FileUpload>
+                {/* <FileInput className='input-file' role='button' tabIndex='0' onChange={displayImage} id='photo-input' type='file' className='photo-input'></FileInput>
+                <FileUpload className='input-label-test' htmlFor='photo-input'>Select image</FileUpload> */}
+                <input onChange={displayImage} id='photo-input' type='file' className='photo-input' />
+                <label htmlFor='photo-input'>Select image</label>
                 <br></br>
                 <PreviewImage onLoad={()=>setIsVisible(true)} display={isVisible ? 'initial' : 'none'} opacity={isVisible ? 1 : 0} alt='preview' id='previewImage'></PreviewImage>
                 <br></br>

@@ -17,7 +17,7 @@ export const TopButtonContainer = styled.div`
     top: 0px;
     width: 100%;
     display: flex;
-    justify-content: flex-start;
+    /* justify-content: flex-start; */
 `
 
 export const ButtonContainer = styled.div`
@@ -44,18 +44,25 @@ export const NextButton = styled.button`
     transition: background-color 400ms;
 `
 
-export const CancelButton = styled.button`
-    justify-content: flex-end;
+export const CancelButton = styled.div`
+    align-items: center;
     cursor: ${props=> props.proceed ? 'pointer' : 'default'};
     color: white;
     background-color: #fa4670;
     border: none;
     width: ${props => props.width};
     height: 50px;
-    text-align: center;
     font-size: 16px;
     font-weight: 500;
     transition: background-color 400ms;
+    position: relative;
+`
+
+export const CancelText = styled.div`
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
 `
 
 export const Container = styled.div`

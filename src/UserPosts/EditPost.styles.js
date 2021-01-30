@@ -7,6 +7,7 @@ export const Container = styled.div`
     transform: translate(-50%, -50%);
     width: ${props=>props.width};
     height: ${props=>props.height};
+    transition: width 500ms ease-in-out, height 500ms ease-in-out;
     background-color: #fafafa;
     display: flex;
     flex-direction: column;
@@ -15,11 +16,11 @@ export const Container = styled.div`
     border-radius: 5px;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
-    display: ${props=>props.display};
-    visibility: ${props=>props.visibility};
 `
 
 export const HideContent = styled.div`
+    display: ${props=>props.display};
+    visibility: ${props=>props.visibility};
     /* overflow-y: scroll; */
     /* -webkit-overflow-scrolling: touch; */
 `
@@ -29,7 +30,7 @@ export const CenterUploadProgress = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 5;
+    z-index: 22;
 `
 
 export const ContentContainer = styled.div`

@@ -51,7 +51,7 @@ const EditPost = (props) => {
     const [isUploading, setIsUploading] = useState(true)
     const [showUploadProgress, setShowUploadProgress] = useState(false)
     const [showCancel, setShowCancel] = useState(true)
-    const [uploadProgressColor, setUploadProgressColor] = useState(false)
+    const [uploadFinished, setUploadFinished] = useState(false)
     const [imagesIndexMap, setImagesIndexMap] = useState({})
     const [mainImageChangedAllSizes, setMainImageChangedAllSizes] = useState(['', '', ''])
     const [imagesToUploadSmall, setImagesToUploadSmall] = useState({})
@@ -567,7 +567,7 @@ const EditPost = (props) => {
                         props.setPostData([])
                         props.getPosts(props.userInformation.id)
                         console.log('uploaded')
-                        setUploadProgressColor(true)
+                        setUploadFinished(true)
                         clearAllBodyScrollLocks()
                         setTimeout(()=>props.closeEdit(), 1200)
                     })
@@ -590,11 +590,11 @@ const EditPost = (props) => {
     return(
         <div style={{position: 'relative'}}>
             <CenterUploadProgress>
-                <UploadProgress uploadProgressColor={uploadProgressColor} display={showUploadProgress ? 'visible' : 'hidden'} uploadCount={uploadCount} uploadProgress={uploadProgress} />
+                <UploadProgress uploadFinished={uploadFinished} display={showUploadProgress ? 'visible' : 'hidden'} uploadCount={uploadCount} uploadProgress={uploadProgress} />
             </CenterUploadProgress>
-            <Container id='edit-post-scroll' height={isUploading ? '50vh' : '95vh'} width={isUploading ? '50vw' : '90vw'} visibility={isUploading ? 'hidden' : 'visible'} display={isUploading ? 'none' : 'initial'}>
+            <Container id='edit-post-scroll' height={isUploading ? '50vh' : '95vh'} width={isUploading ? '50vw' : '90vw'}>
                 <img src='' alt='' onError={lockScroll} />
-                <HideContent>
+                <HideContent visibility={isUploading ? 'hidden' : 'visible'} display={isUploading ? 'none' : 'initial'}>
                     <div style={{display: 'flex', justifyContent: 'flex-end', marginBottom: '0px'}}>
                         <X visibility={showCancel ? 'visible' : 'hidden'} display={showCancel ? 'initial' : 'none'} onClick={props.closeEdit}>&times;</X>
                     </div>

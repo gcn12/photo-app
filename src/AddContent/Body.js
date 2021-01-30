@@ -3,6 +3,7 @@ import {ReactComponent as Text} from '../Icons/Text.svg'
 import {ReactComponent as Image} from '../Icons/Image.svg'
 import {ReactComponent as Remove} from '../Icons/Remove.svg'
 import { connect } from 'react-redux'
+import '../App.css'
 import { imageSizeRatio, filesSmall, filesLarge, fileNames, bodyProceed, isAdditionalElements } from '../Redux/Actions/addContentActions'
 import {
     NewItemButton,

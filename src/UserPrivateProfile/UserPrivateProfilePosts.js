@@ -74,11 +74,6 @@ const UserPrivateProfilesPosts = (props) => {
 
     return(
         <Container marginTop='30px' visibility={isPrivatePostVisible ? 1 : 0} >
-            {showDelete && 
-            <div>
-                <PopupDarken onClick={closeDelete} />
-                <DeletePost post={props.post} closeDelete={closeDelete} removePostFromPostsOnDelete={removePostFromPostsOnDelete} index={props.index} setShowDelete={setShowDelete} />
-            </div>}
             <Link to={`/photo-app/post/${props.post.postID}`} onClick={selectPhoto}>
                 <Image minWidth='200px' onLoad={()=> setIsPrivatePostVisible(true)} src={props.post.smallImage} alt='' />
             </Link>
@@ -93,6 +88,11 @@ const UserPrivateProfilesPosts = (props) => {
                         }
                     </button>
             </TitleGearContainer>
+            {showDelete && 
+            <div>
+                <PopupDarken onClick={closeDelete} />
+                <DeletePost post={props.post} closeDelete={closeDelete} removePostFromPostsOnDelete={removePostFromPostsOnDelete} index={props.index} setShowDelete={setShowDelete} />
+            </div>}
             {showEdit && 
             <div>
                 <PopupDarken />

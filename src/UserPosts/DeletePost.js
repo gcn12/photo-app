@@ -54,7 +54,9 @@ const DeletePost = (props) => {
         <div className='rename-component-container'>
             <Container> 
                 <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                    <Text onClick={cancelDelete} style={{cursor: 'pointer'}} size='36px'>&times;</Text>
+                    <button onClick={cancelDelete} style={{backgroundColor: 'transparent', border: 'none'}}>
+                        <Text style={{cursor: 'pointer'}} size='36px'>&times;</Text>
+                    </button>
                 </div>
                 <TextContainer>
                     <Message>Delete post <TextSpan>{props.post.title}</TextSpan> ?</Message>

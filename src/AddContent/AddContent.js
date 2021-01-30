@@ -23,6 +23,7 @@ import {
     UploadProgressContainer,
     TopButtonContainer,
     CancelButton,
+    CancelText,
 } from './AddContent.styles'
 import { 
     titlePhotoStyles,
@@ -492,7 +493,9 @@ const AddContent = (props) => {
             {props.switchValue!==7 && 
             <TopButtonContainer>
                 <Link to='/photo-app/posts/popular/all' onClick={()=>props.dispatch(resetState())}>
-                    <CancelButton backgroundColor='#fa4670' proceed={true} width='130px'>Cancel</CancelButton>
+                        <CancelButton backgroundColor='#fa4670' proceed={true} width='130px'>
+                            <CancelText>Cancel</CancelText>
+                        </CancelButton>
                 </Link>
             </TopButtonContainer>
             }
