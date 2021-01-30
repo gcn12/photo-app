@@ -66,6 +66,10 @@ export const SmallImage = styled.img`
     object-fit: cover;
     display: block;
     transition: filter 300ms ease-in-out;
+    &:focus {
+        outline: 4px solid white;
+        outline-offset: -4px;
+    }
     @media(max-width: 800px) {
         height: 45vw;
     }

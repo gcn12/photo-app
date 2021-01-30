@@ -42,7 +42,7 @@ export const Title = styled.div`
 export const TitleGearContainer = styled.div`
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     position: relative;
     cursor: pointer;
 `

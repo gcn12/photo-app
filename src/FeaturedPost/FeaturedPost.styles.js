@@ -14,8 +14,8 @@ export const InfoContainer = styled.div`
     margin: 12px 0 48px 0; 
 `
 
-export const Title = styled.div`
-    font-size: 60px;
+export const Title = styled.h1`
+    font-size: 54px;
     font-family: ${props=> props.font};
     font-weight: 400;
     margin-top: 16px;
@@ -135,7 +135,9 @@ export const PostFooterContainer = styled.div`
     }
 `
 
-export const ButtonLabelContainer = styled.div`
+export const ButtonLabelContainer = styled.button`
+    border: none;
+    background-color: transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -180,10 +182,11 @@ export const ProfileImage = styled.img`
 
 export const BioUsername = styled.div`
     font-weight: 500;
-    line-height: 30px;
-    margin-bottom: 4px;
+    /* line-height: 30px; */
+    /* margin-bottom: 4px; */
     font-size: 30px;
     color: #242424;
+    display: inline-block;
 `
 
 export const BioName = styled.div`

@@ -489,6 +489,13 @@ const AddContent = (props) => {
 
     return(
         <div>
+            {props.switchValue!==7 && 
+            <TopButtonContainer>
+                <Link to='/photo-app/posts/popular/all' onClick={()=>props.dispatch(resetState())}>
+                    <CancelButton backgroundColor='#fa4670' proceed={true} width='130px'>Cancel</CancelButton>
+                </Link>
+            </TopButtonContainer>
+            }
             <UploadProgressContainer styles={props.uploadStatusStyles}>
                 <UploadProgress display='initial' uploadFinished={uploadFinished} uploadCount={uploadCount} uploadProgress={uploadProgress}/>
             </UploadProgressContainer>
@@ -507,11 +514,6 @@ const AddContent = (props) => {
             null
             :
             <div>
-                <TopButtonContainer>
-                    <Link to='/photo-app/posts/popular/all' onClick={()=>props.dispatch(resetState())}>
-                        <CancelButton backgroundColor='#fa4670' proceed={true} width='130px'>Cancel</CancelButton>
-                    </Link>
-                </TopButtonContainer>
                 <ButtonContainer>
                     {props.switchValue === 1 ? 
                     null

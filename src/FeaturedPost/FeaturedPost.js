@@ -260,16 +260,6 @@ const FeaturedPost = (props) => {
         <FeaturedPostContainer 
         opacity={props.isPostVisible ? 1 : 0} 
         style={{marginTop: '75px'}}>
-            {showImageEnlarged && 
-            <div>
-                <PopupDarken onClick={closeImage} />
-                <EnlargeImage closeImage={closeImage} setShowImageEnlarged={setShowImageEnlarged} image={imageToEnlarge} />
-            </div>}
-            {isAddToCollection && 
-            <div>
-                <PopupDarken onClick={closeAddToCollection} />
-                <AddToCollection showSpinner={showSpinner} closeAddToCollection={closeAddToCollection} photoInfo={props.photoInformation} setCollectionsList={setCollectionsList} collectionsList={collectionsList} setIsAddToCollection={setIsAddToCollection} />
-            </div>}
             <Container>
                 <div>
                     <div style={{width: '90vw', maxHeight: '90vh', display: `${props.isVisible ? 'none' : 'block'}`}}>
@@ -356,15 +346,16 @@ const FeaturedPost = (props) => {
         
                                             {props.photoInformation.photoBodyMap[item].length === 2 ? 
                                             <div>
-                                                <BodyImage 
-                                                onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])}
-                                                imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
-                                                margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 4px' : '0%'} 
-                                                imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
-                                                width={props?.photoInformation?.photoBodyMap[item][i]} 
-                                                imageGap='8px'
-                                                src={image} key={i} 
-                                                />
+                                                <button onClick={()=>openImage(props?.photoInformation?.imagesLarge[item][i])} style={{border: 'none', backgroundColor: 'transparent'}}>
+                                                    <BodyImage 
+                                                    imageQuantity={props?.photoInformation?.photoBodyMap[item].length} 
+                                                    margin={props?.photoInformation?.photoBodyMap[item].length > 1 ? '0 4px' : '0%'} 
+                                                    imageSize={`${65 * props?.photoInformation?.photoBodyMap[item][i]}vw`} 
+                                                    width={props?.photoInformation?.photoBodyMap[item][i]} 
+                                                    imageGap='8px'
+                                                    src={image} key={i} 
+                                                    />
+                                                </button>
                                             </div>
                                             :
                                             null}
@@ -401,6 +392,11 @@ const FeaturedPost = (props) => {
                         :
                         null
                         }
+                        {showImageEnlarged && 
+                        <div>
+                            <PopupDarken onClick={closeImage} />
+                            <EnlargeImage closeImage={closeImage} setShowImageEnlarged={setShowImageEnlarged} image={imageToEnlarge} />
+                        </div>}
                     </BodyContainer>
                 )
             })
@@ -421,6 +417,11 @@ const FeaturedPost = (props) => {
                     <Collections style={{cursor: 'pointer'}} />
                     <ButtonLabel>Add to collection</ButtonLabel>
                 </ButtonLabelContainer>
+                {isAddToCollection && 
+                <div>
+                    <PopupDarken onClick={closeAddToCollection} />
+                    <AddToCollection showSpinner={showSpinner} closeAddToCollection={closeAddToCollection} photoInfo={props.photoInformation} setCollectionsList={setCollectionsList} collectionsList={collectionsList} setIsAddToCollection={setIsAddToCollection} />
+                </div>}
                 <ButtonLabelContainer onClick={isBookmark ? unbookmark : bookmark}>
                     {isBookmark ? 
                     <FilledBookmark style={{cursor: 'pointer'}} />
@@ -450,9 +451,11 @@ const FeaturedPost = (props) => {
                     }
                 </Link>
                 <BioContainer>
-                    <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} onClick={clearDataOnProfileView} style={{textDecoration: 'none'}}>
-                        <BioUsername>{props?.photoInformation?.username}</BioUsername>
-                    </Link>
+                    <BioUsername>
+                        <Link to={`/photo-app/profiles/${props?.photoInformation?.username}`} onClick={clearDataOnProfileView} style={{textDecoration: 'none', display: 'inline-block', color: '#242424'}}>
+                            {props?.photoInformation?.username}
+                        </Link>
+                    </BioUsername>
                     <BioName>{props?.photoInformation?.name}</BioName>
                     {props?.photoInformation?.bio ? 
                     <Bio>{shortenedBio}</Bio>

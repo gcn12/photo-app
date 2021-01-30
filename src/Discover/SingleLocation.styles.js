@@ -99,14 +99,18 @@ export const Paragraph = styled.div`
     }
 `
 
-export const ReadMoreButton = styled.button`
+export const ReadMoreButton = styled.div`
     background-color: white;
     /* border: 1px solid #242424; */
+    display: inline-block;
     border: none;
     border-radius: 2px; 
     color: #4D4D4D;
     font-size: 24px;
-    padding: 8px 20px;
+    width: 150px;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .1);
+    text-align: center;
+    padding: 8px 0px;
     cursor: pointer;
     @media(max-width: 900px) {
         font-size: 14px;

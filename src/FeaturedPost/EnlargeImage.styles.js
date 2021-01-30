@@ -39,7 +39,9 @@ export const Placeholder = styled.div`
     background-color: white;
 `
 
-export const Close = styled.div`
+export const Close = styled.button`
+    border: none;
+    background-color: transparent;
     z-index: 21;
     right: 1%;
     top: -1.5%;

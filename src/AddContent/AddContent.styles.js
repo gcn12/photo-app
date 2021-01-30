@@ -52,6 +52,7 @@ export const CancelButton = styled.button`
     border: none;
     width: ${props => props.width};
     height: 50px;
+    text-align: center;
     font-size: 16px;
     font-weight: 500;
     transition: background-color 400ms;

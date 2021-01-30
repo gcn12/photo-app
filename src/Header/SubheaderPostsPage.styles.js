@@ -60,19 +60,27 @@ export const LI = styled.ul`
     }
 `
 
-export const CategoriesButton = styled.div`
-    margin-right: 3px;
+export const CurrentCategory = styled.div`
+    &::first-letter {
+        text-transform: capitalize;
+    }
+    font-size: 18px;
+`
+
+export const CategoriesButton = styled.button`
+    display: flex;
+    align-items: center;
+    /* margin-right: 3px; */
     cursor: pointer;
     position: relative;
+    background-color: transparent;
+    border: none;
     -webkit-touch-callout: none; 
     -webkit-user-select: none; 
     -khtml-user-select: none; 
     -moz-user-select: none; 
     -ms-user-select: none; 
     user-select: none; 
-    &::first-letter {
-        text-transform: capitalize;
-    }
 `
 
 export const TriangleIcon = styled.div`

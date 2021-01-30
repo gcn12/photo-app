@@ -38,7 +38,7 @@ const AddToCollection = (props) => {
                     country: props.photoInfo.country,
                     location: props.photoInfo.location,
                     title: props.photoInfo.title,
-                    url: props.photoInfo.url,
+                    postID: props.photoInfo.postID,
                     username: props.photoInfo.username,
                     collection: collectionName,
                     timestamp: Date.now()

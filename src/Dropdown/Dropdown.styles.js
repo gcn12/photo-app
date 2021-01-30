@@ -64,9 +64,11 @@ export const CreateNewSubmit = styled.button`
     border-radius: 2%;
 `
 
-export const RemoveAdd = styled.div`
+export const RemoveAdd = styled.button`
     font-size: 18px;
     font-weight: 500;
+    background-color: transparent;
+    border: none;
 `
 
 export const CollectionName = styled.div`

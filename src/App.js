@@ -13,9 +13,10 @@ import {
   startAfter,
   sortCriteria,
   userInformation,
-  profileLoaded
+  profileLoaded,
 } from './Redux/Actions/appActions'
 import Header from './Header/Header'
+import { PopupDarken } from './Styles/PopupStyles.styles'
 import { clearAllBodyScrollLocks } from 'body-scroll-lock'
 import CollectionPostsDisplay from './Collections/CollectionPostsDisplay'
 import Discover from './Discover/Discover'
@@ -386,14 +387,14 @@ const App = (props) => {
           <SearchPage {...props} search={search} getFeaturedPhotoInfo={getFeaturedPhotoInfo} sort={sort} />
         )} />
 
-        <Route exact path='/photo-app/signup/' render={(props)=> (
+        {/* <Route exact path='/photo-app/signup/' render={(props)=> (
           <Signup {...props}/>
-        )} />
+        )} /> */}
 
-        <Route exact path='/photo-app/login' render={(props)=> (
+        {/* <Route exact path='/photo-app/login' render={(props)=> (
           <Login 
           {...props}/>
-        )} />
+        )} /> */}
  
         <Route exact path='/photo-app/profile/:route?' render={(props)=>( 
           <Profile 
@@ -437,6 +438,19 @@ const App = (props) => {
             />
         )} />
       </Switch>
+
+      {props.showLogin &&
+        <div>
+          <Login {...props}/>
+          <PopupDarken />
+        </div>
+      }
+      {props.showSignup &&
+        <div>
+          <Signup {...props}/>
+          <PopupDarken />
+        </div>
+      }
     </div>
   );
 }
@@ -449,6 +463,8 @@ const mapStateToProps = state => ({
   homePhotoInformation: state.app.homePhotoInformation,
   startAfter: state.app.startAfter,
   sortCriteria: state.app.sortCriteria,
+  showLogin: state.app.showLogin,
+  showSignup: state.app.showSignup,
 })
 
 export default connect(mapStateToProps)(App);

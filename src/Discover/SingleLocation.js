@@ -17,8 +17,8 @@ const SingleLocation = (props) => {
             <ParagraphContainer leftSmall={props.leftSmall} topSmall={props.topSmall} top={props.top} left={props.left}>
                 <Title>{props.title}</Title>
                 <Paragraph>{props.paragraph}</Paragraph>
-                <Link to='/photo-app/posts/popular' onClick={()=>props.goToPlacesPage(props.title)}>
-                    <ReadMoreButton>Read More</ReadMoreButton>
+                <Link to='/photo-app/posts/popular' onClick={()=>props.goToPlacesPage(props.title)} style={{textDecoration: 'none'}}>
+                    <ReadMoreButton role='button'>Read More</ReadMoreButton>
                 </Link>
             </ParagraphContainer>
             <ImageContainer background={props.background} backgroundSmall={props.backgroundSmall} >

@@ -6,6 +6,7 @@ import {
     Container,
     FileUpload,
     CenterContainer,
+    FileInput,
 } from './TitlePhoto.styles'
 import { 
     titlePhotoProceed, 
@@ -31,9 +32,6 @@ const TitlePhoto = (props) => {
             uploadedImage.onload = function () {
                 const height = this.height;
                 const width = this.width;
-                // if(height / width > 1)  {
-                //     props.setIsImageHorizontal(false)
-                // }
                 const image = document.getElementById('previewImage')
                 let ratio
                 if(height < width) {
@@ -150,8 +148,10 @@ const TitlePhoto = (props) => {
                     }
                 </div>
                 <Label>Upload header photo:</Label>
-                <input hidden onChange={displayImage} id='photo-input' type='file' className='photo-input'></input>
-                <FileUpload htmlFor='photo-input'>Select image</FileUpload>
+                <FileUpload  htmlFor='photo-input'>
+                    <FileInput role='button' tabIndex='0' onChange={displayImage} id='photo-input' type='file' className='photo-input'></FileInput>
+                    Select image
+                </FileUpload>
                 <br></br>
                 <PreviewImage onLoad={()=>setIsVisible(true)} display={isVisible ? 'initial' : 'none'} opacity={isVisible ? 1 : 0} alt='preview' id='previewImage'></PreviewImage>
                 <br></br>

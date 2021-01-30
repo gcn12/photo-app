@@ -6,7 +6,7 @@ import SubheaderSearch from './SubheaderSearch'
 import Search from '../Search/Search'
 import ProfileNavigationDropdown from './ProfileNavigationDropdown'
 import { connect } from 'react-redux'
-import { homePhotoInformation, profileLoaded } from '../Redux/Actions/appActions'
+import { homePhotoInformation, profileLoaded, showLogin, showSignup } from '../Redux/Actions/appActions'
 import { Link } from 'react-router-dom' 
 import {
     Container,
@@ -16,6 +16,7 @@ import {
     Navigation,
     HeaderRight,
     ProfileImage,
+    ProfileButton,
 } from './Header.styles'
 
 const Header = (props) => {
@@ -70,14 +71,14 @@ const Header = (props) => {
                             <Navigation cursor='pointer'>Upload</Navigation>
                         </Link>
                         :
-                        <Link to='/photo-app/signup' style={{ textDecoration: 'none' }}>
-                            <Navigation cursor='pointer'>Signup</Navigation>
-                        </Link>
+                        <Navigation onClick={()=>props.dispatch(showSignup(true))} cursor='pointer'>Signup</Navigation>
                         }
                         <Navigation>|</Navigation>
                         {props.user ? 
                         <div style={{position: 'relative'}}>
-                            <ProfileImage onClick={()=> setShowProfileDropdown(!showProfileDropdown)} onLoad={()=>props.dispatch(profileLoaded(true))} id='header-profile-image' className='profile-dropdown' src={props.userInformation.profileImageSmall} />
+                            <ProfileButton className='profile-dropdown' onClick={()=>setShowProfileDropdown(!showProfileDropdown)} >
+                                <ProfileImage onLoad={()=>props.dispatch(profileLoaded(true))} id='header-profile-image' className='profile-dropdown' src={props.userInformation.profileImageSmall} />
+                            </ProfileButton>
                             {showProfileDropdown ? 
                             <ProfileNavigationDropdown setShowProfileDropdown={setShowProfileDropdown} history={props.history} />
                             :
@@ -85,9 +86,7 @@ const Header = (props) => {
                             }
                         </div>
                         :
-                        <Link to='/photo-app/login' style={{ textDecoration: 'none' }}>
-                            <Navigation cursor='pointer'>Log in</Navigation>
-                        </Link>
+                        <Navigation onClick={()=>props.dispatch(showLogin(true))} cursor='pointer'>Log in</Navigation>
                         } 
                     </HeaderRight>
                 </Container>
@@ -103,7 +102,6 @@ const Header = (props) => {
                 }
                 {props.location.pathname.includes('/photo-app/search') ? 
                 <SubheaderSearch 
-                    setShowCategories={setShowCategories}
                     showCategories={showCategories}
                     search={props.search}
                     location={props.location}

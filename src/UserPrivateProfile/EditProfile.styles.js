@@ -110,3 +110,9 @@ export const CenterProgress = styled.div`
     transform: translate(-50%, -85%);
     z-index: 22;
 `
+
+export const X = styled.button      `
+    font-size: 48px;
+    background-color: transparent;
+    border: none;
+`

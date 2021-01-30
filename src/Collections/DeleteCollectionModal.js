@@ -11,7 +11,7 @@ import { Text } from '../Styles/GlobalStyles.styles'
 const DeleteCollectionModal = (props) => {
     
     const deleteCollection = () => {
-        props.setShowDelete(false)
+        props.closeDelete()
         db.collection('users')
         .doc(props.user)
         .collection('collection-names')
@@ -43,7 +43,9 @@ const DeleteCollectionModal = (props) => {
         <div className='rename-component-container'>
             <Container> 
                 <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                    <Text onClick={props.closeDelete} style={{cursor: 'pointer'}} size='36px'>&times;</Text>
+                    <button onClick={props.closeDelete} style={{backgroundColor: 'transparent', border: 'none'}}>
+                        <Text style={{cursor: 'pointer'}} size='36px'>&times;</Text>
+                    </button>
                 </div>
                 <div style={{margin: '0px 0 30px 0', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <Text size='20px'>Delete collection</Text>

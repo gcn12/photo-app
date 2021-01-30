@@ -59,7 +59,9 @@ export const Description = styled.div`
     }
 `
 
-export const More = styled.div`
+export const More = styled.button`
+    background-color: transparent;
+    border: none;
     font-size: 30px;
     cursor: pointer;
     font-weight: 800;

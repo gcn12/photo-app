@@ -52,14 +52,6 @@ const UserPrivateProfile = (props) => {
     const { userData, userPosts } = props
     return(
         <PrivateContainer opacity={isVisible ? 1 : 0} id='dialog'>
-            {showEditProfile ? 
-            <div>
-                <PopupDarken />
-                <EditProfile showEditProfile={showEditProfile} closeDialog={closeDialog} getUserProfile={props.getUserProfile} userData={userData[0]} setShowEditProfile={setShowEditProfile} />
-            </div>
-            :
-            null
-            }
             <UserContainer>
                 <ProfileImage onLoad={()=>setIsVisible(true)} alt='profile' id='user-private-profile-image' src={userData[0]?.profileImage}></ProfileImage>
                 <Container>
@@ -69,6 +61,14 @@ const UserPrivateProfile = (props) => {
                     <EditButton onClick={showDialog}>Edit profile</EditButton>
                 </Container>
             </UserContainer>
+            {showEditProfile ? 
+            <div>
+                <PopupDarken />
+                <EditProfile showEditProfile={showEditProfile} closeDialog={closeDialog} getUserProfile={props.getUserProfile} userData={userData[0]} setShowEditProfile={setShowEditProfile} />
+            </div>
+            :
+            null
+            }
 
             <PostsContainer>
             {userPosts?.map((post, index)=> {

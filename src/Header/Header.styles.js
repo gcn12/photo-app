@@ -73,3 +73,8 @@ export const ProfileImage = styled.img`
     cursor: pointer;
     object-fit: cover;
 `
+
+export const ProfileButton = styled.button`
+    border: none;
+    background-color: transparent;
+`

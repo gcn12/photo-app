@@ -46,7 +46,24 @@ export const Triangle = styled.div`
     display: initial;
 `
 
-export const OptionIconContainer = styled.div`
+export const OptionIconContainerNoButton = styled.div`
+    border: none;
+    font-size: 18px;
+    background-color: transparent;
+    padding: 5px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: ${props=>props.radius};
+    &:hover {
+        background-color: #dedede;
+    }
+`
+
+export const OptionIconContainer = styled.button`
+    border: none;
+    font-size: 18px;
+    background-color: transparent;
     padding: 5px 15px;
     cursor: pointer;
     display: flex;

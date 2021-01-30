@@ -14,6 +14,7 @@ import {
     ProfileImage,
     EditButton,
     CenterProgress,
+    X,
 } from './EditProfile.styles'
 import { userInformation } from '../Redux/Actions/appActions'
 import { Text } from '../Styles/GlobalStyles.styles'
@@ -212,7 +213,7 @@ const EditProfile = (props) => {
             <div>
                 <img src='' alt='' onError={lockScroll} />
                 <div style={{display: 'flex', justifyContent: 'flex-end', marginBottom: '0px'}}>
-                    <Text onClick={props.closeDialog} style={{cursor: 'pointer'}} size='48px'>&times;</Text>
+                    <X onClick={props.closeDialog} style={{cursor: 'pointer'}}>&times;</X>
                 </div>
                 <div style={{display: 'flex', justifyContent: 'center', marginBottom: '20px'}}>
                     <Text size='36px'>Edit profile</Text>

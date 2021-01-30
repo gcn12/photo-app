@@ -14,30 +14,28 @@ const CollectionsDropdown = (props) => {
 
     const renameCollection = () => {
         props.openRename()
-        props.setCollectionName(props.collectionName)
+        // props.setCollectionName(props.collectionName)
     }
 
     const deleteCollection = () => {
-        props.setCollectionIndex(props.index)
         props.openDelete()
-        props.setCollectionName(props.collectionName)
     }
 
     return(
-        <Container fontSize='20px' translateContainer='translate(-80%, 10%)'>
+        <Container fontSize='20px' translateContainer='translate(121%, 115%)'>
             <Triangle shift='translate(-70%, -90%)' />
             <Options>
-                <OptionIconContainer radius='5px 5px 0 0'>
+                <OptionIconContainer onClick={renameCollection} radius='5px 5px 0 0'>
                     <OptionIcon>
                         <Edit style={{transform: 'scale(.7)', position: 'relative', top: 3}} />
                     </OptionIcon>
-                    <OptionText onClick={renameCollection}>Rename</OptionText>
+                    <OptionText>Rename</OptionText>
                 </OptionIconContainer>
-                <OptionIconContainer radius='0 0 5px 5px'>
+                <OptionIconContainer onClick={deleteCollection} radius='0 0 5px 5px'>
                     <OptionIcon>
                         <TrashCan style={{transform: 'scale(.7)', position: 'relative', top: 4}} />
                     </OptionIcon>
-                    <OptionText onClick={deleteCollection}>Delete</OptionText>
+                    <OptionText>Delete</OptionText>
                 </OptionIconContainer>
             </Options>
         </Container>

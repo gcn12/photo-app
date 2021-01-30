@@ -22,10 +22,16 @@ export const initialState = {
         rating: false,
     },
     userInformation: {},
+    showLogin: false,
+    showSignup: false,
 }
 
 export default function pageReducer(state=initialState, action) {
     switch(action.type) {
+        case actions.SHOW_SIGNUP:
+            return {...state, showSignup: action.payload}
+        case actions.SHOW_LOGIN:
+            return {...state, showLogin: action.payload}
         case actions.PROFILE_LOADED:
             return {...state, profileLoaded: action.payload}
         case actions.USER_INFORMATION:

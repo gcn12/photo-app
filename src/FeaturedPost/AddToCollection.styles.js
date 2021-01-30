@@ -40,7 +40,9 @@ export const CollectionsContainer = styled.div`
     }
 `
 
-export const X = styled.div`
+export const X = styled.button`
+    background-color: transparent;
+    border: none;
     position: absolute;
     font-size: ${props=> props.size};
     right: 5%;

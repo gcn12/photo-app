@@ -1,5 +1,17 @@
 import styled from 'styled-components'
 
+export const FileInput = styled.input`
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap; /* 1 */
+    clip-path: inset(50%);
+    border: 0;
+`
+
 export const CenterContainer = styled.div`
     margin-top: 24px;
     position: absolute;

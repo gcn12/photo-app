@@ -95,12 +95,6 @@ const PhotoDescriptionView = (props) => {
 
     return(
         <div>
-            {showAddToCollection && 
-            <div>
-                <PopupDarken onClick={closeAddToCollection} />
-                <AddToCollection showSpinner={showSpinner} closeAddToCollection={closeAddToCollection} showAddToCollection={showAddToCollection} photoInfo={props.photoInfo} collectionsList={collectionsList} setIsAddToCollection={setShowAddToCollection} setCollectionsList={setCollectionsList} />
-            </div>
-            }
             <Container>
                 <Card>
                     <ImageLinkContainer display={showPost ? 'none' : 'initial'} opacity={showPost ? 0 : 1}>
@@ -115,15 +109,23 @@ const PhotoDescriptionView = (props) => {
                     </ImageLinkContainer>
                     <BookmarkLocationContainer>
                         <div style={{display: 'flex', alignItems: 'center'}}>
-                            <Location onClick={()=>goToPlace(props.photoInfo)}>{`${props.photoInfo.location}`}</Location>
+                            <Location role='button' tabIndex='0' onClick={()=>goToPlace(props.photoInfo)}>{`${props.photoInfo.location}`}</Location>
                             <Category>{props.photoInfo.category}</Category>
                         </div>
                         <div className='add-dropdown' style={{cursor: 'pointer'}}>
+                            <button style={{border: 'none', backgroundColor: 'transparent', cursor: 'pointer'}} className='add-dropdown' onClick={checkIsBookmarked}>
+                                <Ellipsis className='add-dropdown'>&#8942;</Ellipsis>
+                            </button>
                             {showDropdown && 
-                            <DescriptionViewDropdown setShowSpinner={setShowSpinner} fontSize='20px' translateContainer='translate(-90%, 50%)' openAddToCollection={openAddToCollection} setCollectionsList={setCollectionsList}  id={props.photoInfo.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.photoInfo} />
+                            <DescriptionViewDropdown setShowSpinner={setShowSpinner} fontSize='20px' translateContainerUnsaved='translate(-86%, 13%)' translateContainerSaved='translate(-87%, 13%)' openAddToCollection={openAddToCollection} setCollectionsList={setCollectionsList}  id={props.photoInfo.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.photoInfo} />
                             }
-                            <Ellipsis className='add-dropdown' onClick={checkIsBookmarked}>&#8942;</Ellipsis>
                         </div>
+                        {showAddToCollection && 
+                        <div>
+                            <PopupDarken onClick={closeAddToCollection} />
+                            <AddToCollection showSpinner={showSpinner} closeAddToCollection={closeAddToCollection} showAddToCollection={showAddToCollection} photoInfo={props.photoInfo} collectionsList={collectionsList} setIsAddToCollection={setShowAddToCollection} setCollectionsList={setCollectionsList} />
+                        </div>
+                        }
                     </BookmarkLocationContainer>
                     <Link onClick={goToPost} to={`/photo-app/post/${props.photoInfo.postID}`} style={{textDecoration: 'none'}}>
                         <Title id={`description-view-title-${props.index}`}>{props.photoInfo.title}</Title>

@@ -4,6 +4,10 @@ import { homePhotoInformation } from '../Redux/Actions/appActions'
 import { db } from '../Firebase'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { PopupDarken } from '../Styles/PopupStyles.styles'
+import RenameCollectionModal from './RenameCollectionModal'
+import DeleteCollectionModal from './DeleteCollectionModal'
+import { enableBodyScroll, disableBodyScroll } from 'body-scroll-lock'
 import { collectionsData } from '../Redux/Actions/collectionsActions'
 import { 
     Title
@@ -20,6 +24,8 @@ import {
 const CollectionPhotoGrid = (props) => {
 
     const [isVisible, setIsVisible] = useState(false)
+    const [showRename, setShowRename] = useState(false)
+    const [showDelete, setShowDelete] = useState(false)
 
     const getPhotos = () => {
         db.collection('users')
@@ -51,6 +57,26 @@ const CollectionPhotoGrid = (props) => {
     }else{
         items = 0
     }
+
+    const openDelete = () => {
+        setShowDelete(true)
+        disableBodyScroll(document.body)
+    }
+
+    const closeDelete = () => {
+        setShowDelete(false)
+        enableBodyScroll(document.body)
+    }
+
+    const openRename = () => {
+        setShowRename(true)
+        disableBodyScroll(document.body)
+    }
+
+    const closeRename = () => {
+        setShowRename(false)
+        enableBodyScroll(document.body)
+    }
     
     const { collection } = props
     
@@ -75,15 +101,31 @@ const CollectionPhotoGrid = (props) => {
             }
             <Header>
                 <Title>{props.collection[0]}</Title>
-                <Ellipsis onClick={()=>setIsDeleteMenu(!isDeleteMenu)}>
+                <Ellipsis className='delete-collection' onClick={()=>setIsDeleteMenu(!isDeleteMenu)}>
                     <div style={{fontWeight: 800, fontSize: '22px'}} className='delete-collection'>&#8942;</div>
-                    {isDeleteMenu ? 
-                    <CollectionsDropdown openDelete={props.openDelete} openRename={props.openRename} setCollectionIndex={props.setCollectionIndex} setShowDelete={props.setShowDelete} setCollectionName={props.setCollectionName} setShowRename={props.setShowRename} collectionInfo={props.collectionInfo} index={props.index} setCollectionInfo={props.setCollectionInfo} collectionName={props.collection[0]} />
-                    :
-                    null
-                    }
                 </Ellipsis>
+                {isDeleteMenu ? 
+                <CollectionsDropdown openDelete={openDelete} openRename={openRename} setShowDelete={props.setShowDelete} setShowRename={props.setShowRename} collectionInfo={props.collectionInfo} index={props.index} setCollectionInfo={props.setCollectionInfo} collectionName={props.collection[0]} />
+                :
+                null
+                }
             </Header>
+            { showRename ?
+            <div>
+                <PopupDarken onClick={closeRename} />
+                <RenameCollectionModal closeRename={closeRename} showRename={showRename} getCollections={props.getCollections} collectionName={props.collection[0]} setShowRename={setShowRename} />
+            </div>
+            : 
+            null
+            }
+            {showDelete ? 
+            <div>
+                <PopupDarken onClick={closeDelete} />
+                <DeleteCollectionModal closeDelete={closeDelete} collectionIndex={props.index} setCollectionInfo={props.setCollectionInfo} collectionInfo={props.collectionInfo} collectionName={props.collection[0]} setShowDelete={setShowDelete} />
+            </div>
+            :
+            null
+            }
         </ImageTitleContainer>
     )
 }

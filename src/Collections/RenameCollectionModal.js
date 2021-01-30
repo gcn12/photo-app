@@ -20,7 +20,13 @@ const RenameCollectionModal = (props) => {
             .get()
             .then(data=> {
                 data.forEach(item=> {
-                    collectionRef.collection('collections').doc(item.id).update({collection: collectionRename})
+                    collectionRef
+                    .collection('collections')
+                    .doc(item.id)
+                    .update({
+                        collection: collectionRename,
+                        collectionUrl: collectionNameUrl,
+                    })
                 })
                 collectionRef.collection('collection-names').doc(collectionName)
                 .get()
@@ -33,7 +39,8 @@ const RenameCollectionModal = (props) => {
                     .set(oldCollectionData)
                     .then(()=>{
                         console.log('Collection name updated')
-                        props.setShowRename(false)
+                        // props.setShowRename(false)
+                        props.closeRename()
                         props.getCollections(props.user)
                     })
                 })
@@ -52,7 +59,9 @@ const RenameCollectionModal = (props) => {
                         &nbsp;
                         <Text>?</Text> 
                     </div>
-                    <Text onClick={props.closeRename} style={{cursor: 'pointer'}} size='36px'>&times;</Text>
+                    <button onClick={props.closeRename} style={{backgroundColor: 'transparent', border: 'none'}}>
+                        <Text style={{cursor: 'pointer'}} size='36px'>&times;</Text>
+                    </button>
                 </div>
                 <CollectionName autoComplete='off' id='new-collection-name'></CollectionName>
                 <div style={{display:'flex', justifyContent: 'flex-start', alignItems: 'center'}}>

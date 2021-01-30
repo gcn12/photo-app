@@ -77,11 +77,11 @@ const DescriptionViewDropdown = (props) => {
 
 
     return(
-        <Container fontSize='20px' translateContainer={props.translateContainer}>
+        <Container fontSize='20px' translateContainer={props.isBookmarked ? props.translateContainerSaved : props.translateContainerUnsaved}>
             <Triangle shift='translate(-38%, -90%)' />
             <Options>
                 {props.isBookmarked ? 
-                <OptionIconContainer radius='5px 5px 0 0' className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}  onClick={unbookmark}>
+                <OptionIconContainer tabIndex='0' role='button' radius='5px 5px 0 0' className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}  onClick={unbookmark}>
 
                     <OptionIcon className={props.isRemoveFromSavedPage ? '' : 'add-dropdown'}  style={{transform: 'scale(.9)'}}>
                         {props.isSavedPost ? 

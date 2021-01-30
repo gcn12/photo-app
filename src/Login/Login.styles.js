@@ -18,39 +18,45 @@ export const TextField = styled.input`
 `
 
 export const SubmitButton = styled.button`
-    display:inline-block;
-    padding: 0.35em 1.2em;
-    border: 0.1em solid #242424;
-    margin: 0 0.3em 0.3em 0;
-    border-radius:0.12em;
-    box-sizing: border-box;
     text-decoration:none;
     font-weight:300;
     text-align:center;
-    transition: all 0.2s;
-    background-color: transparent;
-    width: 120px;
+    color: #fcfcfc;
+    background-color: #242424;
+    width: 40vw;
+    max-width: 300px;
+    border: none;
+    height: 40px;
     font-size: 20px;
-    transition: color 300ms;
-    transition: background-color 350ms;
-
-    &:hover{
-        background-color: #242424;
-        color: #FFFFFF;
-        cursor: pointer;
-    }
+    cursor: pointer;
 `
 
-export const Text = styled.div`
+export const Text = styled.label`
     margin-bottom: 5px;
+    color: #242424;
 `
 
 export const Container = styled.div`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background-color: #fcfcfc;
     padding: 40px;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 21;
 `
+
+// export const Container = styled.div`
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     background-color: #fcfcfc;
+//     padding: 40px;
+//     border-radius: 10px;
+//     display: flex;
+//     flex-direction: column;
+// `

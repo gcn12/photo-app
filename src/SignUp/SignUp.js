@@ -29,7 +29,7 @@ const Signup = (props) => {
                 }, {merge: true})
                 .then(()=> {
                     console.log('sign up complete')
-                    props.history.push('/photo-app/posts')
+                    // props.history.push('/photo-app/posts/popular/all')
                     props.setUser(user.user.id)
                 })
                 .catch(err=>console.log(err))
@@ -40,14 +40,17 @@ const Signup = (props) => {
 
     return(
         <Container>
-            <Text>Name</Text>
-            <TextField onChange={e=> setName(e.target.value)}></TextField>
-            <Text>Email</Text>
-            <TextField onChange={e => setEmail(e.target.value)}></TextField>
-            <Text>Username</Text>
-            <TextField onChange={e=> setUsername(e.target.value)}></TextField>
-            <Text>Password</Text>
-            <TextField onChange={e=> setPassword(e.target.value)} type='password'></TextField>
+            <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                <button style={{fontSize: '48px', backgroundColor: 'transparent', border: 'none'}}>&times;</button>
+            </div>
+            <Text for='signup-name'>Name</Text>
+            <TextField autoComplete='off' name='name' id='signup-name' onChange={e=> setName(e.target.value)}></TextField>
+            <Text for='signup-email'>Email</Text>
+            <TextField autoComplete='off' name='email' id='signup-email' onChange={e => setEmail(e.target.value)}></TextField>
+            <Text for='signup-username'>Username</Text>
+            <TextField autoComplete='off' name='username' id='signup-username' onChange={e=> setUsername(e.target.value)}></TextField>
+            <Text for='signup-password'>Password</Text>
+            <TextField autoComplete='off' name='password' id='signup-password' onChange={e=> setPassword(e.target.value)} type='password'></TextField>
             <br></br>
             <SubmitButton onClick={submit}>Signup</SubmitButton>
         </Container>

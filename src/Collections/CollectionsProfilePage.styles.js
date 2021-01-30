@@ -7,7 +7,9 @@ export const Header = styled.div`
     margin-top: 5px;
 `
 
-export const Ellipsis = styled.div`
+export const Ellipsis = styled.button`
+    background-color: transparent;
+    border: none;
     cursor: pointer;
 `
 

@@ -91,6 +91,8 @@ export const EditButton = styled.button`
 `
 
 export const PublicProfileContainer = styled.div`
+    opacity: ${props=>props.opacity};
+    transition: opacity 200ms ease-in-out;
     margin-top: 55px;
     @media(max-width: 720px) {
         margin-top: 65px;

@@ -31,7 +31,8 @@ export const Description = styled.div`
     max-width: 400px;
 `
 
-export const Location = styled.div`
+export const Location = styled.button`
+    border: none;
     cursor: pointer;
     font-size: 14px;
     margin-bottom: 4px;
@@ -42,6 +43,7 @@ export const Location = styled.div`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    height: 27px;
     max-width: 200px;
 `
 

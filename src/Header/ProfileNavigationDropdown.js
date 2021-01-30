@@ -10,7 +10,7 @@ import { profilePage } from '../Redux/Actions/profileActions'
 import { user, userPosts, userData } from '../Redux/Actions/appActions'
 import {
     Container,
-    OptionIconContainer,
+    OptionIconContainerNoButton,
     OptionText,
     Options,
     Triangle,
@@ -33,12 +33,14 @@ const ProfileNavigationDropdown = (props) => {
     } 
 
     const pageRoute = (pageName) => {
-        if(pageName !== props.profileName) {
-            if(pageName==='my profile') {
-                clearDataOnProfileView()
-                // props.dispatch(profilePage('my profile'))
+        if(pageName !== props.profilePage) {
+            if(pageName !== props.profileName) {
+                if(pageName==='my profile') {
+                    clearDataOnProfileView()
+                    // props.dispatch(profilePage('my profile'))
+                }
+                props.dispatch(profilePage(pageName))
             }
-            props.dispatch(profilePage(pageName))
         }
         props.setShowProfileDropdown(false)
     }
@@ -55,48 +57,50 @@ const ProfileNavigationDropdown = (props) => {
             <Options>
 
                 <Link onClick={()=> pageRoute('my profile')} to='/photo-app/profile/my-profile' style={{ textDecoration: 'none' }}>
-                    <OptionIconContainer>
+                    <OptionIconContainerNoButton>
                         <OptionIcon>
                             <Profile style={{transform: 'scale(.8)', position: 'relative', top: 4}} />
                         </OptionIcon>
                         <OptionText>My profile</OptionText>
-                    </OptionIconContainer>
+                    </OptionIconContainerNoButton>
                 </Link>
                 
                 <Link onClick={()=> pageRoute('saved')} to='/photo-app/profile/saved' style={{ textDecoration: 'none' }}>
-                    <OptionIconContainer radius='5px 5px 0 0'>
+                    <OptionIconContainerNoButton radius='5px 5px 0 0'>
                         <OptionIcon>
                             <FilledBookmark style={{transform: 'scale(.9)', position: 'relative', top: 4}} />
                         </OptionIcon>
                         <OptionText>Saved</OptionText>
-                    </OptionIconContainer>
+                    </OptionIconContainerNoButton>
                 </Link>
 
                
 
                 <Link onClick={()=> pageRoute('admired')} to='/photo-app/profile/admired' style={{ textDecoration: 'none' }}>
-                    <OptionIconContainer radius='5px 5px 0 0'>
+                    <OptionIconContainerNoButton radius='5px 5px 0 0'>
                         <OptionIcon>
                         <img alt='' style={{transform: 'scale(.8)', position: 'relative', top: 4}} src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgNC4yNDhjLTMuMTQ4LTUuNDAyLTEyLTMuODI1LTEyIDIuOTQ0IDAgNC42NjEgNS41NzEgOS40MjcgMTIgMTUuODA4IDYuNDMtNi4zODEgMTItMTEuMTQ3IDEyLTE1LjgwOCAwLTYuNzkyLTguODc1LTguMzA2LTEyLTIuOTQ0eiIvPjwvc3ZnPg==" />
                         </OptionIcon>
                         <OptionText>Admired posts</OptionText>
-                    </OptionIconContainer>
+                    </OptionIconContainerNoButton>
                 </Link>
                 <Link onClick={()=> pageRoute('collections')} to='/photo-app/profile/collections' style={{ textDecoration: 'none' }}>
-                    <OptionIconContainer>
+                    <OptionIconContainerNoButton>
                         <OptionIcon>
                             <Collections style={{transform: 'scale(.8)', position: 'relative', top: 4}} />
                         </OptionIcon>
                         <OptionText>Collections</OptionText>
-                    </OptionIconContainer>
+                    </OptionIconContainerNoButton>
                 </Link>
                 <div style={{marginBottom: '10px'}}></div>
-                <OptionIconContainer radius='0 0 5px 5px'>
-                    <OptionIcon>
-                        <Plane style={{transform: 'scale(.8)', position: 'relative', top: 4}} />
-                    </OptionIcon>
-                    <OptionText onClick={signoutWithRoute}>Sign out</OptionText>
-                </OptionIconContainer>
+                <Link onClick={signoutWithRoute} to='/photo-app/profile/collections' style={{ textDecoration: 'none' }}>
+                    <OptionIconContainerNoButton radius='0 0 5px 5px'>
+                        <OptionIcon>
+                            <Plane style={{transform: 'scale(.8)', position: 'relative', top: 4}} />
+                        </OptionIcon>
+                        <OptionText>Sign out</OptionText>
+                    </OptionIconContainerNoButton>
+                </Link>
             </Options>
         </Container>
     )

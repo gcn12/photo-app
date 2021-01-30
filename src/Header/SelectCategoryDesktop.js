@@ -6,7 +6,7 @@ import {
     Container, 
     Options, 
     OptionText,
-    OptionIconContainer,
+    OptionIconContainerNoButton,
     Triangle,
 } from '../Styles/DropdownStyles.styles'
 
@@ -45,43 +45,43 @@ const SubheaderCategories = (props) => {
     }
 
     return(
-        <Container fontSize='18px' translateContainer='translate(-15%, 5%)' className='categories-dropdown'>
+        <Container fontSize='18px' translateContainer='translate(-5%, 5%)' className='categories-dropdown'>
             <Triangle shift='translate(-280%, -90%)' />
             <Options>
                 <Link to={`/photo-app/posts/${sortBy}/all`} onClick={()=>getPhotos('all categories')} style={{textDecoration: 'none'}}>
-                    <OptionIconContainer className='categories-dropdown'>
+                    <OptionIconContainerNoButton className='categories-dropdown'>
                         <OptionText>All categories</OptionText>
-                    </OptionIconContainer>
+                    </OptionIconContainerNoButton>
                 </Link>
                 <Link to={`/photo-app/posts/${sortBy}/entertainment`} onClick={()=>getPhotos('entertainment')} style={{textDecoration: 'none'}}>
-                    <OptionIconContainer className='categories-dropdown'>
+                    <OptionIconContainerNoButton className='categories-dropdown'>
                         <OptionText>Entertainment</OptionText>
-                    </OptionIconContainer>
+                    </OptionIconContainerNoButton>
                 </Link>
                 <Link to={`/photo-app/posts/${sortBy}/adventure`} onClick={()=>getPhotos('adventure')} style={{textDecoration: 'none'}}>
-                    <OptionIconContainer className='categories-dropdown'>
+                    <OptionIconContainerNoButton className='categories-dropdown'>
                         <OptionText>Adventure</OptionText>
-                    </OptionIconContainer>
+                    </OptionIconContainerNoButton>
                 </Link>
                 <Link to={`/photo-app/posts/${sortBy}/restaurant`} onClick={()=>getPhotos('restaurant')} style={{textDecoration: 'none'}}>
-                    <OptionIconContainer className='categories-dropdown'>
+                    <OptionIconContainerNoButton className='categories-dropdown'>
                         <OptionText>Restaurant</OptionText>
-                    </OptionIconContainer>
+                    </OptionIconContainerNoButton>
                 </Link>
                 <Link to={`/photo-app/posts/${sortBy}/sightseeing`} onClick={()=>getPhotos('sightseeing')} style={{textDecoration: 'none'}}>
-                    <OptionIconContainer className='categories-dropdown'>
+                    <OptionIconContainerNoButton className='categories-dropdown'>
                         <OptionText>Sightseeing</OptionText>
-                    </OptionIconContainer>
+                    </OptionIconContainerNoButton>
                 </Link>
                 <Link to={`/photo-app/posts/${sortBy}/shopping`} onClick={()=>getPhotos('shopping')} style={{textDecoration: 'none'}}>
-                    <OptionIconContainer className='categories-dropdown'>
+                    <OptionIconContainerNoButton className='categories-dropdown'>
                         <OptionText>Shopping</OptionText>
-                    </OptionIconContainer>
+                    </OptionIconContainerNoButton>
                 </Link>
                 <Link to={`/photo-app/posts/${sortBy}/museum`} onClick={()=>getPhotos('museum')} style={{textDecoration: 'none'}}>
-                    <OptionIconContainer className='categories-dropdown'>
+                    <OptionIconContainerNoButton className='categories-dropdown'>
                         <OptionText>Museum</OptionText>
-                    </OptionIconContainer>
+                    </OptionIconContainerNoButton>
                 </Link>
             </Options>
         </Container>

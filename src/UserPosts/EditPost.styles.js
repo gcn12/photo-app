@@ -134,7 +134,9 @@ export const FontSelect = styled.select`
     margin-bottom: 20px;
 `
 
-export const X = styled.div`
+export const X = styled.button`
+    background-color: transparent;
+    border: none;
     /* position: absolute; */
     font-size: 72px;
     cursor: pointer;
