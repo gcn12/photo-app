@@ -93,7 +93,7 @@ const ProfileNavigationDropdown = (props) => {
                     </OptionIconContainerNoButton>
                 </Link>
                 <div style={{marginBottom: '10px'}}></div>
-                <Link onClick={signoutWithRoute} to='/photo-app/profile/collections' style={{ textDecoration: 'none' }}>
+                <Link onClick={signoutWithRoute} to='/photo-app/posts/popular/all' style={{ textDecoration: 'none' }}>
                     <OptionIconContainerNoButton radius='0 0 5px 5px'>
                         <OptionIcon>
                             <Plane style={{transform: 'scale(.8)', position: 'relative', top: 4}} />

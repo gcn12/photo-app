@@ -4,6 +4,7 @@ import SubheaderDropdown from './SubheaderSortMobile'
 import SelectCategoryDropdownMobile from './SelectCategoryDropdownMobile'
 import SubheaderSearch from './SubheaderSearch'
 import Search from '../Search/Search'
+import { disableBodyScroll } from 'body-scroll-lock'
 import ProfileNavigationDropdown from './ProfileNavigationDropdown'
 import { connect } from 'react-redux'
 import { homePhotoInformation, profileLoaded, showLogin, showSignup } from '../Redux/Actions/appActions'
@@ -45,6 +46,16 @@ const Header = (props) => {
         }
     } 
 
+    const openLogin = () => {
+        disableBodyScroll(document.body)
+        props.dispatch(showLogin(true))
+    }
+
+    const openSignup = () => {
+        disableBodyScroll(document.body)
+        props.dispatch(showSignup(true))
+    }
+
     return(
         <div style={{position: 'fixed', top: 0, width: '100%', marginBottom: '20px', zIndex:4}}>
             {!props.location.pathname.includes('/photo-app/upload') ? 
@@ -64,14 +75,14 @@ const Header = (props) => {
                             </Link>
                         </LI>
                     </UL>
-                        <Search search={props.search} history={props.history} location={props.location} />
+                    <Search search={props.search} history={props.history} location={props.location} />
                     <HeaderRight visibility={props.profileLoaded ? 'visible' : 'hidden'}>
                         {props.user ? 
                         <Link to='/photo-app/upload' style={{ textDecoration: 'none' }}>
                             <Navigation cursor='pointer'>Upload</Navigation>
                         </Link>
                         :
-                        <Navigation onClick={()=>props.dispatch(showSignup(true))} cursor='pointer'>Signup</Navigation>
+                        <Navigation onClick={openSignup} cursor='pointer'>Signup</Navigation>
                         }
                         <Navigation>|</Navigation>
                         {props.user ? 
@@ -86,7 +97,7 @@ const Header = (props) => {
                             }
                         </div>
                         :
-                        <Navigation onClick={()=>props.dispatch(showLogin(true))} cursor='pointer'>Log in</Navigation>
+                        <Navigation onClick={openLogin} cursor='pointer'>Log in</Navigation>
                         } 
                     </HeaderRight>
                 </Container>

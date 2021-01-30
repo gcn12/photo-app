@@ -62,17 +62,21 @@ const FeaturedPost = (props) => {
     const [shortenedBio, setShortenedBio] = useState('')
 
     const bookmark = () => {
-        const {views, font, bio, category, country, image, location, profileImage, smallestImage, hearts, ratio, dataObj, imagesLarge, imagesSmall, photoBodyMap, ...data } = props.photoInformation
-        bookmarkPost(data, props.user)
-        .then(()=>setIsBookmark(true))
-        .catch(err =>console.log(err))
+        if(props.user) {
+            const {views, font, bio, category, country, image, location, profileImage, smallestImage, hearts, ratio, dataObj, imagesLarge, imagesSmall, photoBodyMap, ...data } = props.photoInformation
+            bookmarkPost(data, props.user)
+            .then(()=>setIsBookmark(true))
+            .catch(err =>console.log(err))
+        }
     }
 
     const unbookmark =  () => {
-        unbookmarkPost(props.photoInformation.postID, props.user)
-        .then(()=> {
-            setIsBookmark(false)
-        })
+        if(props.user) {
+            unbookmarkPost(props.photoInformation.postID, props.user)
+            .then(()=> {
+                setIsBookmark(false)
+            })
+        }
     }
 
     useEffect(()=>{
@@ -173,37 +177,41 @@ const FeaturedPost = (props) => {
     }
 
     const admireImage = () => {
-        const {profileImage, country, location, views, hearts, ratio, dataObj, bio, category, smallestImage, font, image, imagesLarge, imagesSmall, photoBodyMap, ...data } = props.photoInformation
-        db.collection('users')
-        .doc(props.user)
-        .collection('admired')
-        .add({
-            ...data,
-            timestamp: Date.now(),
-        })
-        .then(()=>{
+        if(props.user) {
+            const {profileImage, country, location, views, hearts, ratio, dataObj, bio, category, smallestImage, font, image, imagesLarge, imagesSmall, photoBodyMap, ...data } = props.photoInformation
             db.collection('users')
             .doc(props.user)
-            .collection('hearts')
-            .doc('hearts')
-            .set({
-                hearts: firebase.firestore.FieldValue.arrayUnion(props.photoInformation.id)
-            }, {merge: true})
-            .then(()=> {
-                setIsHeart(true)
-                db.collection('preview-posts').where('id', '==', props.photoInformation.id)
-                .get()
-                .then(ref=> {
-                    incrementHeartCount(ref.docs[0].ref.id)
+            .collection('admired')
+            .add({
+                ...data,
+                timestamp: Date.now(),
+            })
+            .then(()=>{
+                db.collection('users')
+                .doc(props.user)
+                .collection('hearts')
+                .doc('hearts')
+                .set({
+                    hearts: firebase.firestore.FieldValue.arrayUnion(props.photoInformation.id)
+                }, {merge: true})
+                .then(()=> {
+                    setIsHeart(true)
+                    db.collection('preview-posts').where('id', '==', props.photoInformation.id)
+                    .get()
+                    .then(ref=> {
+                        incrementHeartCount(ref.docs[0].ref.id)
+                    })
                 })
             })
-        })
-        .catch(err =>console.log(err))
+            .catch(err =>console.log(err))
+        }
     }
 
     const unadmireImage = () => {
-        unadmirePost(props.photoInformation.id, props.photoInformation.postID, props.user)
-        setIsHeart(false)
+        if(props.user) {
+            unadmirePost(props.photoInformation.id, props.photoInformation.postID, props.user)
+            setIsHeart(false)
+        }
     }
 
     window.onclick = (e) => {
@@ -218,10 +226,12 @@ const FeaturedPost = (props) => {
     }
 
     const openCollections = () => {
-        if(props.collectionsList?.length === 0) {
-            getCollectionsList()
-        }else{
-            openAddToCollection()
+        if(props.user) {
+            if(props.collectionsList?.length === 0) {
+                getCollectionsList()
+            }else{
+                openAddToCollection()
+            }
         }
     }
 

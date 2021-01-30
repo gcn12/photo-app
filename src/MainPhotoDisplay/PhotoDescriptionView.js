@@ -34,21 +34,23 @@ const PhotoDescriptionView = (props) => {
     const [showSpinner, setShowSpinner] = useState(true)
 
     const checkIsBookmarked = () => {
-        if(!isBookmarked) {
-            db.collection('users')
-            .doc(props.user)
-            .collection('bookmarked')
-            .where('username', '==', props.photoInfo.username)
-            .where('postID', '==', props.photoInfo.postID)
-            .get()
-            .then(data=> {
-                if(data.docs[0]) {
-                    setIsBookmarked(true)
-                }
+        if(props.user) {
+            if(!isBookmarked) {
+                db.collection('users')
+                .doc(props.user)
+                .collection('bookmarked')
+                .where('username', '==', props.photoInfo.username)
+                .where('postID', '==', props.photoInfo.postID)
+                .get()
+                .then(data=> {
+                    if(data.docs[0]) {
+                        setIsBookmarked(true)
+                    }
+                    setShowDropdown(!showDropdown)
+                })
+            }else{
                 setShowDropdown(!showDropdown)
-            })
-        }else{
-            setShowDropdown(!showDropdown)
+            }
         }
     }
 

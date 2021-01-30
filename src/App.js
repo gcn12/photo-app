@@ -377,6 +377,19 @@ const App = (props) => {
         <CollectionPostsDisplay {...props} getFeaturedPhotoInfo={getFeaturedPhotoInfo}  />
       )} />
 
+      {props.showLogin &&
+        <div>
+          <Login {...props}/>
+          <PopupDarken />
+        </div>
+      }
+      {props.showSignup &&
+        <div>
+          <Signup {...props}/>
+          <PopupDarken />
+        </div>
+      } 
+
       <Route path='/photo-app/' render={(props)=> (
         <Footer {...props} />
       )} />
@@ -438,19 +451,6 @@ const App = (props) => {
             />
         )} />
       </Switch>
-
-      {props.showLogin &&
-        <div>
-          <Login {...props}/>
-          <PopupDarken />
-        </div>
-      }
-      {props.showSignup &&
-        <div>
-          <Signup {...props}/>
-          <PopupDarken />
-        </div>
-      }
     </div>
   );
 }

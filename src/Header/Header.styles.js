@@ -57,7 +57,7 @@ export const Navigation = styled.div`
 export const HeaderRight = styled.div`
     display: flex;
     visibility: ${props=>props.visibility};
-    width: 150px;
+    /* max-width: 200px; */
     height: 35px;
     @media(max-width: 720px){
         visibility: hidden;
@@ -66,7 +66,7 @@ export const HeaderRight = styled.div`
 `
 
 export const ProfileImage = styled.img`
-    margin: 0 5px;
+    /* margin: 0 5px; */
     border-radius: 50%;
     height: 35px;
     width: 35px;
@@ -75,6 +75,9 @@ export const ProfileImage = styled.img`
 `
 
 export const ProfileButton = styled.button`
+    text-align: center;
     border: none;
     background-color: transparent;
+    width: 35px;
+    height: 35px;
 `

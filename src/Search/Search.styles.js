@@ -15,6 +15,19 @@ export const ResultsContainer = styled.div`
 
 export const Container = styled.div`
     position: relative;
+    @media (min-width: 720px) {
+        display: none;
+    }
+`
+
+export const ContainerAbsolute = styled.div`
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    @media (max-width: 720px) {
+        display: none;
+    }
 `
 
 export const SearchBox = styled.input`

@@ -45,7 +45,7 @@ const SubheaderCategories = (props) => {
     }
 
     return(
-        <Container fontSize='18px' translateContainer='translate(-5%, 5%)' className='categories-dropdown'>
+        <Container fontSize='18px' translateContainer='translate(-15%, 5%)' className='categories-dropdown'>
             <Triangle shift='translate(-280%, -90%)' />
             <Options>
                 <Link to={`/photo-app/posts/${sortBy}/all`} onClick={()=>getPhotos('all categories')} style={{textDecoration: 'none'}}>

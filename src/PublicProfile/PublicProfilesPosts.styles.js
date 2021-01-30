@@ -45,4 +45,5 @@ export const TitleGearContainer = styled.div`
     align-items: center;
     position: relative;
     cursor: pointer;
+    max-width: 400px;
 `

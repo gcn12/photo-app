@@ -92,14 +92,13 @@ const Subheader = (props) => {
                             <LI  underline={props.sortCriteria.rating ? true : false}>Highest-rated</LI>
                         </Link>
                     </div>
-                    <div style={{display: 'flex', marginRight: '10px'}} >
+                    <div style={{display: 'flex', marginRight: '0px'}} >
                         <div className='categories-dropdown'>
-                            {/* <div className='categories-dropdown' style={{display: 'flex', cursor: 'pointer'}} > */}
-                                <CategoriesButton onClick={()=>props.setShowCategories(!props.showCategories)} className='categories-dropdown'>
-                                    <CurrentCategory className='categories-dropdown'>{props.sortCriteria.category}</CurrentCategory>
-                                    <ArrowIcon className='categories-dropdown' alt='' src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yMy4yNDUgNGwtMTEuMjQ1IDE0LjM3NC0xMS4yMTktMTQuMzc0LS43ODEuNjE5IDEyIDE1LjM4MSAxMi0xNS4zOTEtLjc1NS0uNjA5eiIvPjwvc3ZnPg==" />
-                                </CategoriesButton>
-                            {/* </div> */}
+                            <CategoriesButton onClick={()=>props.setShowCategories(!props.showCategories)} className='categories-dropdown'>
+                                {/* <CurrentCategory className='categories-dropdown'>{props.sortCriteria.category}</CurrentCategory> */}
+                                <CurrentCategory className='categories-dropdown'>Category</CurrentCategory>
+                                <ArrowIcon className='categories-dropdown' alt='' src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yMy4yNDUgNGwtMTEuMjQ1IDE0LjM3NC0xMS4yMTktMTQuMzc0LS43ODEuNjE5IDEyIDE1LjM4MSAxMi0xNS4zOTEtLjc1NS0uNjA5eiIvPjwvc3ZnPg==" />
+                            </CategoriesButton>
                             {props.showCategories ? 
                             <div style={{position: 'relative'}}>
                                 <SelectCategoryDesktop 

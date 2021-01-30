@@ -26,7 +26,7 @@ export const SubmitButton = styled.button`
     width: 40vw;
     max-width: 300px;
     border: none;
-    height: 40px;
+    height: 48px;
     font-size: 20px;
     cursor: pointer;
 `
@@ -38,25 +38,19 @@ export const Text = styled.label`
 
 export const Container = styled.div`
     background-color: #fcfcfc;
-    padding: 40px;
     border-radius: 10px;
+    /* padding: 40px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; */
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 21;
+    padding: 20px 40px 40px 40px;
 `
 
-// export const Container = styled.div`
-//     position: absolute;
-//     top: 50%;
-//     left: 50%;
-//     transform: translate(-50%, -50%);
-//     background-color: #fcfcfc;
-//     padding: 40px;
-//     border-radius: 10px;
-//     display: flex;
-//     flex-direction: column;
-// `
+export const FormContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+`

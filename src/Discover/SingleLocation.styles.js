@@ -106,8 +106,8 @@ export const ReadMoreButton = styled.div`
     border: none;
     border-radius: 2px; 
     color: #4D4D4D;
-    font-size: 24px;
-    width: 150px;
+    font-size: 18px;
+    width: 120px;
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .1);
     text-align: center;
     padding: 8px 0px;

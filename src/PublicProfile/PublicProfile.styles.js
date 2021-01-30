@@ -25,7 +25,7 @@ export const Container = styled.div`
 
 export const PostsContainer = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, max-content));
+    grid-template-columns: repeat(auto-fit, minmax(250px, max-content));
     grid-column-gap: 20px;
     margin: 0 50px 20px 340px;
     justify-content: center;
@@ -104,4 +104,40 @@ export const PrivateContainer = styled.div`
     position: relative;
     opacity: ${props=>props.opacity};
     transition: opacity 200ms ease-in-out;
+`
+
+export const NoPostsWrittenContainerAbsolute = styled.div`
+    position: absolute;
+    top: 20%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    @media(max-width: 1000px) {
+        width: 300px;
+        left: 68%;
+    }
+    @media(max-width: 720px) {
+        display: none;
+    }
+`
+
+export const NoPostsWrittenTextAbsolute = styled.div`
+    font-size: 24px;
+    font-weight: 500;
+`
+
+export const NoPostsWrittenContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    @media(min-width: 720px) {
+        display: none;
+    }
+`
+
+export const NoPostsWrittenText = styled.div`
+    @media(min-width: 720px) {
+        display: none;
+    }
+    font-size: 16px;
+    font-weight: 500;
 `
