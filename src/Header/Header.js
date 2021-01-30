@@ -17,7 +17,7 @@ import {
     Navigation,
     HeaderRight,
     ProfileImage,
-    ProfileButton,
+    // ProfileButton,
 } from './Header.styles'
 
 const Header = (props) => {
@@ -87,9 +87,9 @@ const Header = (props) => {
                         <Navigation>|</Navigation>
                         {props.user ? 
                         <div style={{position: 'relative'}}>
-                            <ProfileButton className='profile-dropdown' onClick={()=>setShowProfileDropdown(!showProfileDropdown)} >
-                                <ProfileImage onLoad={()=>props.dispatch(profileLoaded(true))} id='header-profile-image' className='profile-dropdown' src={props.userInformation.profileImageSmall} />
-                            </ProfileButton>
+                            {/* <ProfileButton className='profile-dropdown' onClick={()=>setShowProfileDropdown(!showProfileDropdown)} > */}
+                                <ProfileImage onClick={()=>setShowProfileDropdown(!showProfileDropdown)} onLoad={()=>props.dispatch(profileLoaded(true))} id='header-profile-image' className='profile-dropdown' src={props.userInformation.profileImageSmall} />
+                            {/* </ProfileButton> */}
                             {showProfileDropdown ? 
                             <ProfileNavigationDropdown setShowProfileDropdown={setShowProfileDropdown} history={props.history} />
                             :
