@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    min-height: 300px;
+    min-height: 360px;
     z-index: 21;
     width: 35vw;
     background-color: #f5f5f5;
@@ -43,10 +43,10 @@ export const CollectionsContainer = styled.div`
 export const X = styled.button`
     background-color: transparent;
     border: none;
-    position: absolute;
-    font-size: ${props=> props.size};
+    /* position: absolute;
     right: 5%;
-    top: 0;
+    top: 0; */
+    font-size: ${props=> props.size};
 `
 
 export const RenameButton = styled.button`

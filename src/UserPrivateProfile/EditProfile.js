@@ -207,7 +207,7 @@ const EditProfile = (props) => {
         <Container id='edit-profile-container'>
             {isUploading ? 
                 <CenterProgress>
-                    <UploadProgress uploadProgressColor={uploadProgressColor} uploadCount={uploadCount} uploadProgress={uploadProgress} />
+                    <UploadProgress uploadFinished={uploadProgressColor} uploadCount={uploadCount} uploadProgress={uploadProgress} />
                 </CenterProgress>
             :
             <div>
