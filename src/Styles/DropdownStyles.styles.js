@@ -60,7 +60,7 @@ export const OptionIconContainerNoButton = styled.div`
     }
 `
 
-export const OptionIconContainer = styled.button`
+export const OptionIconContainer = styled.div`
     border: none;
     font-size: 18px;
     background-color: transparent;
