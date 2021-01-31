@@ -114,9 +114,9 @@ const PhotoDescriptionView = (props) => {
                             <Location role='button' tabIndex='0' onClick={()=>goToPlace(props.photoInfo)}>{`${props.photoInfo.location}`}</Location>
                             <Category>{props.photoInfo.category}</Category>
                         </div>
-                        <div className='add-dropdown' style={{cursor: 'pointer'}}>
+                        <div className='add-dropdown' style={{cursor: 'pointer', position: 'relative'}}>
                             {/* <button style={{border: 'none', backgroundColor: 'transparent', cursor: 'pointer', width: 'auto'}} className='add-dropdown' onClick={checkIsBookmarked}> */}
-                                <Ellipsis onClick={checkIsBookmarked} className='add-dropdown'>&#8942;</Ellipsis>
+                            <Ellipsis onClick={checkIsBookmarked} className='add-dropdown'>&#8942;</Ellipsis>
                             {/* </button> */}
                             {showDropdown && 
                             <DescriptionViewDropdown setShowSpinner={setShowSpinner} fontSize='20px' translateContainerUnsaved='translate(-89%, 13%)' translateContainerSaved='translate(-90%, 13%)' openAddToCollection={openAddToCollection} setCollectionsList={setCollectionsList}  id={props.photoInfo.id} setShowAddToCollection={setShowAddToCollection} isBookmarked={isBookmarked} setIsBookmarked={setIsBookmarked} photoInfo={props.photoInfo} />
