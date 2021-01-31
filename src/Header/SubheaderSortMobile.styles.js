@@ -22,7 +22,7 @@ export const CenterList = styled.div`
 export const LI = styled.li`
     padding: 0;
     font-size: 30px;
-    margin: 0 0 15px 0px;
+    margin: 0 0 14px 0px;
     color: #242424;
     border-bottom: ${props=> props.underline ? '1px solid black' : null};
     cursor: pointer;
