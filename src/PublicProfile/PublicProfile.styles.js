@@ -121,6 +121,12 @@ export const NoPostsWrittenContainerAbsolute = styled.div`
     }
 `
 
+export const MarginBottomMobile = styled.div`
+   @media(min-width: 720px) {
+        margin-bottom: 40px;
+    } 
+`
+
 export const NoPostsWrittenTextAbsolute = styled.div`
     font-size: 24px;
     font-weight: 500;
