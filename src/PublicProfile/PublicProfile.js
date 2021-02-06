@@ -16,7 +16,6 @@ import {
     NoPostsWrittenTextAbsolute,
     NoPostsWrittenText,
     NoPostsWrittenContainer,
-    MarginBottomMobile,
 } from './PublicProfile.styles'
 
 const PublicProfile = (props) => {
@@ -77,7 +76,6 @@ const PublicProfile = (props) => {
                 <NoPostsWrittenContainer>
                     <NoPostsWrittenText>It looks like {userData[0]?.name.split(' ')[0]} hasn't written any posts</NoPostsWrittenText>
                 </NoPostsWrittenContainer>
-                <MarginBottomMobile /> 
             </div>
             :
             null

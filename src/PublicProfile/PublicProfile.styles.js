@@ -94,6 +94,7 @@ export const PublicProfileContainer = styled.div`
     opacity: ${props=>props.opacity};
     transition: opacity 200ms ease-in-out;
     margin-top: 55px;
+    min-height: 550px;
     @media(max-width: 720px) {
         margin-top: 65px;
     }
@@ -119,12 +120,6 @@ export const NoPostsWrittenContainerAbsolute = styled.div`
     @media(max-width: 720px) {
         display: none;
     }
-`
-
-export const MarginBottomMobile = styled.div`
-   @media(min-width: 720px) {
-        margin-bottom: 40px;
-    } 
 `
 
 export const NoPostsWrittenTextAbsolute = styled.div`
