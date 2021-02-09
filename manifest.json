@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "plane_favicon192.png",
+      "src": "plane_new192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "plane_favicon512.png",
+      "src": "plane_new512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
