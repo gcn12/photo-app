@@ -33,6 +33,7 @@ import Signup from './SignUp/SignUp'
 import firebase from 'firebase'
 import { db } from './Firebase'
 import { Route, Switch } from 'react-router-dom'
+// import TestFile from './TestFile'
 
 const App = (props) => {
 

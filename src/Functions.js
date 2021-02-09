@@ -1,6 +1,18 @@
 import { db } from './Firebase'
 import firebase from 'firebase'
 
+export const testFunction = async () => {
+    // const data = await db.collection('testCollection')
+    // .where('field', '==', 'hello')
+    // .get()
+    // if(data) {
+    //     return data
+    // }
+    return db.collection('testCollection')
+    .where('field', '==', 'hello')
+    .get()
+}
+
 export const unadmirePost = (firestorePostID, postID, userID) => {
     const ref = db.collection('users').doc(userID)
     ref.collection('hearts')
