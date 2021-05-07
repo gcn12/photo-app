@@ -32,6 +32,6 @@ To run in localhost:3000 use:
   
 ## Preview
 
-![App Screenshot](https://firebasestorage.googleapis.com/v0/b/portfolio-assets.appspot.com/o/travel%2Ftravel_explore2.png?alt=media&token=835da03f-e63c-4929-a1e6-657b3a8d2ea1)
+![App Screenshot](https://firebasestorage.googleapis.com/v0/b/portfolio-assets.appspot.com/o/travel%2Ftravel_user_page.png?alt=media&token=77363529-36b3-40b2-97e5-8fd5ba1fa694)
 
   
