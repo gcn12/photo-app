@@ -33,7 +33,6 @@ import Signup from './SignUp/SignUp'
 import firebase from 'firebase'
 import { db } from './Firebase'
 import { Route, Switch } from 'react-router-dom'
-// import TestFile from './TestFile'
 
 const App = (props) => {
 
@@ -371,8 +370,6 @@ const App = (props) => {
         <Header search={search} 
         {...props} sort={sort} />
       )} />
-
-      {/* <TestFile user={user}  />  */}
 
       <Route path='/photo-app/profile/collections/:collectionName' render={(props)=> (
         <CollectionPostsDisplay {...props} getFeaturedPhotoInfo={getFeaturedPhotoInfo}  />
